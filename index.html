@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingegniamo | Società di Ingegneria & Academy Tecnica Impiantisti</title>
+    <meta name="description" content="Ingegneria termotecnica, elettrica e scuola pratica di alta formazione per installatori termoidraulici ed elettrici.">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+    <!-- TOP BAR AVVISI -->
+    <div class="bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <p><span class="inline-block w-2 h-2 rounded-full bg-emerald-400 mr-2 animate-pulse"></span>Iscrizioni aperte per la nuova sessione corsi tecnici di laboratorio</p>
+            <div class="flex items-center gap-6">
+                <span>Email: <strong class="text-white">info@ingegniamo.com</strong></span>
+                <span>Tel: <strong class="text-white">-</strong></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER / NAVBAR -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl font-black tracking-tight text-slate-900 uppercase">
+                    Ingegniamo<span class="text-blue-600">.</span>
+                </span>
+                <span class="hidden sm:inline-block text-[11px] font-bold bg-slate-100 text-slate-600 px-2.5 py-1 rounded border border-slate-200 uppercase tracking-wide">
+                    Engineering & Academy
+                </span>
+            </div>
+            
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-700">
+                <a href="#academy" class="hover:text-blue-600 transition">Corsi Academy</a>
+                <a href="#metodo" class="hover:text-blue-600 transition">Il Nostro Metodo</a>
+                <a href="#ingegneria" class="hover:text-blue-600 transition">Divisione Ingegneria</a>
+                <a href="#docenti" class="hover:text-blue-600 transition">Team Tecnico</a>
+                <a href="#iscrizione" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-lg font-bold transition shadow-sm">
+                    Richiedi Info Corsi
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-slate-900 text-white py-20 lg:py-28 overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7 space-y-6 text-left">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-900/60 border border-blue-500/30 text-blue-400 font-semibold text-xs uppercase tracking-wider">
+                    <span>⚡</span> Ingegneri e Professionisti Senior • oltre 20 Anni di Esperienza sul Campo
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
+                    La scuola pratica per i <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400">professionisti termoidraulici ed elettrici.</span>
+                </h1>
+                <p class="text-lg text-slate-300 max-w-2xl leading-relaxed">
+                    Basta corsi puramente teorici. Formiamo installatori e tecnici su banchi prova reali, schemi idraulici complessi, pompe di calore e integrazione elettrica BT/MT con standard ingegneristici.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <a href="#academy" class="px-8 py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition text-center shadow-lg shadow-amber-500/20">
+                        Esplora i Corsi Pratici
+                    </a>
+                    <a href="#ingegneria" class="px-8 py-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold transition text-center border border-slate-700">
+                        Servizi di Progettazione MEP
+                    </a>
+                </div>
+            </div>
+
+            <!-- CARD FORM RAPIDO HERO -->
+            <div class="lg:col-span-5">
+                <div id="iscrizione" class="bg-white text-slate-900 p-8 rounded-2xl shadow-2xl border border-slate-100">
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Ricevi il Calendario e i Programmi</h3>
+                    <p class="text-xs text-slate-500 mb-6">Compila per scaricare le schede tecniche dei corsi e i dettagli sui laboratori.</p>
+                    
+                    <form class="space-y-4" action="#" method="POST">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nome e Cognome</label>
+                            <input type="text" required placeholder="Mario Rossi" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Telefono / WhatsApp</label>
+                            <input type="tel" required placeholder="+39 340 0000000" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Percorso d'Interesse</label>
+                            <select class="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600">
+                                <option>Pompe di Calore: Idronica & Schemi di Centrale</option>
+                                <option>Diagnosi Guasti & Elettrotecnica per Termoidraulici</option>
+                                <option>Regolazione Climatica, Centraline & Bilanciamento</option>
+                                <option>Servizi di Ingegneria / Diagnosi Energetiche</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition text-sm shadow-md">
+                            Richiedi Informazioni Gratuite
+                        </button>
+                    </form>
+                    <p class="text-[10px] text-slate-400 text-center mt-3">Rispettiamo la tua privacy. Nessuno spam.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- METRICHE DI CREDIBILITÀ -->
+    <section class="bg-slate-100 py-10 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+                <p class="text-3xl sm:text-4xl font-black text-slate-900">20+</p>
+                <p class="text-xs sm:text-sm font-medium text-slate-600 mt-1 uppercase tracking-wide">Anni di Esperienza Reale</p>
+            </div>
+            <div>
+                <p class="text-3xl sm:text-4xl font-black text-blue-600">70%</p>
+                <p class="text-xs sm:text-sm font-medium text-slate-600 mt-1 uppercase tracking-wide">Pratica su Banchi Prova</p>
+            </div>
+            <div>
+                <p class="text-3xl sm:text-4xl font-black text-slate-900">4</p>
+                <p class="text-xs sm:text-sm font-medium text-slate-600 mt-1 uppercase tracking-wide">Ingegneri Docenti Senior</p>
+            </div>
+            <div>
+                <p class="text-3xl sm:text-4xl font-black text-amber-600">BT/MT/AT</p>
+                <p class="text-xs sm:text-sm font-medium text-slate-600 mt-1 uppercase tracking-wide">Competenza Termo-Elettrica</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- IL NOSTRO METODO (STILE ACCADEMIA) -->
+    <section id="metodo" class="py-20 px-6 max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-xs font-bold tracking-widest text-blue-600 uppercase mb-2">Il Nostro Metodo Didattico</h2>
+            <h3 class="text-3xl sm:text-4xl font-extrabold text-slate-900">Cosa rende unica la nostra Academy?</h3>
+            <p class="text-slate-600 mt-4">Un percorso strutturato per trasformare la teoria impiantistica in padronanza operativa su impianti reali funzionanti.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-bold text-xl mb-6">01</div>
+                <h4 class="text-xl font-bold text-slate-900 mb-3">Laboratorio & Banchi Prova</h4>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    Non si impara solo sulle slide. Lavori direttamente su centrali termiche funzionanti, collettori, pompe di calore aperte e quadri di manovra.
+                </p>
+            </div>
+            <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center font-bold text-xl mb-6">02</div>
+                <h4 class="text-xl font-bold text-slate-900 mb-3">Integrazione Idronica + Elettrica</h4>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    Il termoidraulico moderno deve dominare cavi, relè, sonde e inverter. Ti insegniamo a cablare e interfacciare la parte elettrica senza dipendere da terzi.
+                </p>
+            </div>
+            <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center font-bold text-xl mb-6">03</div>
+                <h4 class="text-xl font-bold text-slate-900 mb-3">Troubleshooting & Schemi</h4>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    Simulazione guasti reali: diagnosi delle anomalie di circolazione, squilibri di portata idraulica, errori di blocco schede elettroniche e tarature.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATALOGO CORSI ACADEMY -->
+    <section id="academy" class="py-20 bg-slate-900 text-white px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <h2 class="text-xs font-bold tracking-widest text-amber-400 uppercase mb-2">Percorsi Formativi</h2>
+                    <h3 class="text-3xl sm:text-4xl font-extrabold">Corsi di Alta Specializzazione</h3>
+                </div>
+                <p class="text-slate-400 text-sm max-w-md mt-4 md:mt-0">
+                    Classi a numero chiuso con postazioni di lavoro dedicate per garantire il massimo apprendimento pratico.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- CORSO 1 -->
+                <div class="bg-slate-800 rounded-2xl border border-slate-700 p-8 flex flex-col justify-between hover:border-amber-400/50 transition">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-semibold px-3 py-1 bg-amber-500/20 text-amber-300 rounded-full border border-amber-500/30">Pratico / Laboratorio</span>
+                            <span class="text-xs text-slate-400">16 Ore (2 Giorni)</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-white mb-3">Pompe di Calore: Idraulica & Centrale</h4>
+                        <p class="text-slate-300 text-sm mb-6 leading-relaxed">
+                            Progettazione funzionale, disgiuntori, separatori, valvole deviatrici, accumuli inerziali e dimensionamento corretto dei vasi d'espansione.
+                        </p>
+                        <ul class="text-xs text-slate-300 space-y-2.5 mb-8 border-t border-slate-700 pt-6">
+                            <li class="flex items-center gap-2">✓ Schemi idraulici ad alta efficienza</li>
+                            <li class="flex items-center gap-2">✓ Prove di portata e bilanciamento</li>
+                            <li class="flex items-center gap-2">✓ Prevenzione errori di installazione</li>
+                        </ul>
+                    </div>
+                    <a href="#iscrizione" class="w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-center transition text-sm">
+                        Iscriviti al Corso
+                    </a>
+                </div>
+
+                <!-- CORSO 2 -->
+                <div class="bg-slate-800 rounded-2xl border border-slate-700 p-8 flex flex-col justify-between hover:border-blue-400/50 transition">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-semibold px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full border border-blue-500/30">Elettrico + Idronico</span>
+                            <span class="text-xs text-slate-400">20 Ore (3 Giorni)</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-white mb-3">Elettrotecnica & Quadri per Idraulici</h4>
+                        <p class="text-slate-300 text-sm mb-6 leading-relaxed">
+                            Cablaggi sul banco di comando, linee di alimentazione, protezioni magnetotermiche/differenziali, relè passo-passo e interfacce con inverter e fotovoltaico.
+                        </p>
+                        <ul class="text-xs text-slate-300 space-y-2.5 mb-8 border-t border-slate-700 pt-6">
+                            <li class="flex items-center gap-2">✓ Lettura schemi elettrici unifilari</li>
+                            <li class="flex items-center gap-2">✓ Uso corretto del multimetro e pinza amperometrica</li>
+                            <li class="flex items-center gap-2">✓ Collegamento sonde e consensi caldaia/PdC</li>
+                        </ul>
+                    </div>
+                    <a href="#iscrizione" class="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg text-center transition text-sm">
+                        Iscriviti al Corso
+                    </a>
+                </div>
+
+                <!-- CORSO 3 -->
+                <div class="bg-slate-800 rounded-2xl border border-slate-700 p-8 flex flex-col justify-between hover:border-emerald-400/50 transition">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-semibold px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-full border border-emerald-500/30">Avanzato</span>
+                            <span class="text-xs text-slate-400">16 Ore (2 Giorni)</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-white mb-3">Regolazione & Centraline Climatiche</h4>
+                        <p class="text-slate-300 text-sm mb-6 leading-relaxed">
+                            Curve climatiche, programmazione centraline modulanti, sistemi 0-10V, protocolli Modbus e gestione integrata con riscaldamento a pavimento e fan coil.
+                        </p>
+                        <ul class="text-xs text-slate-300 space-y-2.5 mb-8 border-t border-slate-700 pt-6">
+                            <li class="flex items-center gap-2">✓ Settaggio pendenze curve di riscaldamento</li>
+                            <li class="flex items-center gap-2">✓ Regolazione valvole miscelatrici motorizzate</li>
+                            <li class="flex items-center gap-2">✓ Diagnostica da remoto e telemetria</li>
+                        </ul>
+                    </div>
+                    <a href="#iscrizione" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg text-center transition text-sm">
+                        Iscriviti al Corso
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEZIONE INGEGNERIA MEP -->
+    <section id="ingegneria" class="py-20 px-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-xs font-bold tracking-widest text-blue-600 uppercase mb-2">Società di Ingegneria</h2>
+                <h3 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-6">
+                    Progettazione Impiantistica Integrata ad Alta Efficienza
+                </h3>
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                    Affianchiamo general contractor, aziende industriali, installatori e committenti privati nella progettazione termotecnica ed elettrica complessa. Conosciamo le normative e le problematiche pratiche di cantiere.
+                </p>
+                
+                <div class="space-y-4">
+                    <div class="flex items-start gap-3">
+                        <div class="p-2 bg-blue-50 text-blue-600 rounded-lg font-bold">⚙️</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900">Termotecnica & HVAC Avanzato</h4>
+                            <p class="text-sm text-slate-500">Centrali termiche, trigenerazione, reti idroniche, VMC industriale e residenziale.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="p-2 bg-blue-50 text-blue-600 rounded-lg font-bold">⚡</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900">Ingegneria Elettrica BT / MT / AT</h4>
+                            <p class="text-sm text-slate-500">Cabine di trasformazione MT/BT, quadri di distribuzione, impianti fotovoltaici e accumuli.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="p-2 bg-blue-50 text-blue-600 rounded-lg font-bold">📋</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900">Diagnosi Energetiche & Collaudi</h4>
+                            <p class="text-sm text-slate-500">Audit energetici ISO 50001, pratiche Conto Termico, asseverazioni e collaudi strumentali sul campo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-900 p-8 sm:p-12 rounded-3xl text-white shadow-xl">
+                <h4 class="text-2xl font-bold mb-4">Hai un progetto o un cantiere complesso?</h4>
+                <p class="text-slate-300 text-sm mb-6 leading-relaxed">
+                    Richiedi una consulenza tecnica preliminare con i nostri ingegneri per dimensionamento, computi o direzione lavori impiantistica.
+                </p>
+                <div class="p-4 bg-slate-800 rounded-xl border border-slate-700 mb-6">
+                    <p class="text-xs text-slate-400">Servizi dedicati anche agli installatori per pratiche autorizzative, schemi di legge 10 e progetti antincendio.</p>
+                </div>
+                <a href="mailto:info@ingegniamo.it" class="block text-center py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition">
+                    Contatta la Divisione Ingegneria
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-slate-400 py-16 border-t border-slate-800 text-sm">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
+            <div class="md:col-span-2">
+                <span class="text-2xl font-black tracking-tight text-white uppercase">Ingegniamo<span class="text-blue-500">.</span></span>
+                <p class="mt-4 text-slate-400 max-w-md text-xs leading-relaxed">
+                    Società di Ingegneria & Academy di Formazione Specialistica per Professionisti e Installatori Impiantisti. 20 anni di esperienza sul campo in termotecnica ed elettrotecnica BT/MT/AT.
+                </p>
+            </div>
+            <div>
+                <h5 class="font-bold text-white uppercase text-xs tracking-wider mb-4">Academy</h5>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#academy" class="hover:text-white">Pompe di Calore Idroniche</a></li>
+                    <li><a href="#academy" class="hover:text-white">Elettrotecnica per Idraulici</a></li>
+                    <li><a href="#academy" class="hover:text-white">Centraline & Regolazione</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-bold text-white uppercase text-xs tracking-wider mb-4">Contatti & Sede</h5>
+                <p class="text-xs leading-relaxed">
+                    Sede Operativa e Laboratorio Tecnico<br>
+                    Email: <a href="mailto:info@ingegniamo.it" class="text-white hover:underline">info@ingegniamo.it</a><br>
+                    P.IVA / C.F. in fase di registrazione
+                </p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 pt-10 mt-10 border-t border-slate-900 text-center text-xs text-slate-600">
+            © 2026 Ingegniamo S.r.l. - Tutti i diritti riservati.
+        </div>
+    </footer>
+
+</body>
+</html>
