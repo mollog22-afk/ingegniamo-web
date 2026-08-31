@@ -13,7 +13,35 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
     </style>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" /> 
 </head>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  const corsiSwiper = new Swiper('.corsiSwiper', {
+    slidesPerView: 1,
+    spaceBetween: 24,
+    loop: true,
+    autoplay: {
+      delay: 4500,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    breakpoints: {
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 24,
+      },
+    },
+  });
+</script>
+  
 <body class="bg-slate-50 text-slate-800 antialiased">
 
     <!-- TOP BAR AVVISI -->
@@ -166,6 +194,107 @@
             </div>
         </div>
     </section>
+
+           <!-- SEZIONE SLIDER CORSI INGEGNIAMO -->
+<section class="py-16 bg-slate-900 text-white" id="corsi-slider">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center mb-10">
+      <span class="text-xs font-bold tracking-widest text-sky-400 uppercase bg-sky-950/70 border border-sky-800/60 px-3 py-1 rounded-full">Percorsi Specialistici</span>
+      <h2 class="text-3xl md:text-4xl font-extrabold mt-3 text-white">Formazione Tecnica & Pratica di Cantiere</h2>
+      <p class="text-slate-400 mt-2 max-w-2xl mx-auto text-sm md:text-base">Dalla progettazione idronica al collaudo su banco prova: colma il divario tra teoria e cantiere.</p>
+    </div>
+
+    <!-- Swiper Container -->
+    <div class="swiper corsiSwiper pb-12">
+      <div class="swiper-wrapper">
+        
+        <!-- SLIDE 1: Prontuario & Cantiere -->
+        <div class="swiper-slide h-auto">
+          <div class="bg-slate-800 border border-slate-700/80 rounded-2xl p-6 h-full flex flex-col justify-between hover:border-sky-500 transition-colors shadow-lg">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/20">Livello Base / Cantiere</span>
+                <span class="text-xs text-slate-400">Modulo 01</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">Idraulica Pratica & Dimensionamento Rapido</h3>
+              <p class="text-slate-300 text-sm mb-4">Dimensionamento rapido di tubazioni, calcolo perdite di carico, dimensionamento vasi d'espansione e circuiti di scarico.</p>
+              <ul class="text-xs text-slate-400 space-y-2 border-t border-slate-700/60 pt-4">
+                <li class="flex items-center gap-2"><span class="text-sky-400">✓</span> Portate, prevalenze e curve di lavoro pompe</li>
+                <li class="flex items-center gap-2"><span class="text-sky-400">✓</span> Reti di adduzione idrica e scarichi sanitari</li>
+                <li class="flex items-center gap-2"><span class="text-sky-400">✓</span> Tavole e prontuari tecnici di cantiere</li>
+              </ul>
+            </div>
+            <a href="#contatti" class="mt-6 block text-center w-full py-2.5 px-4 rounded-xl bg-slate-700 hover:bg-sky-600 text-white font-medium text-xs tracking-wide transition-all">Richiedi Programma</a>
+          </div>
+        </div>
+
+        <!-- SLIDE 2: Idronica & Schemi di Centrale -->
+        <div class="swiper-slide h-auto">
+          <div class="bg-slate-800 border border-slate-700/80 rounded-2xl p-6 h-full flex flex-col justify-between hover:border-sky-500 transition-colors shadow-lg">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-sky-500/10 text-sky-400 border border-sky-500/20">Livello Avanzato</span>
+                <span class="text-xs text-slate-400">Modulo 02</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">Idronica Applicata & Schemi di Centrale</h3>
+              <p class="text-slate-300 text-sm mb-4">Disaccoppiamento idraulico, bilanciamento statico e dinamico con valvole PICV, e gestione portate minime.</p>
+              <ul class="text-xs text-slate-400 space-y-2 border-t border-slate-700/60 pt-4">
+                <li class="flex items-center gap-2"><span class="text-sky-400">✓</span> Separatori idraulici e volani termici</li>
+                <li class="flex items-center gap-2"><span class="text-sky-400">✓</span> Gruppi di rilancio diretti e miscelati</li>
+                <li class="flex items-center gap-2"><span class="text-sky-400">✓</span> Eliminazione dei cortocircuiti termici</li>
+              </ul>
+            </div>
+            <a href="#contatti" class="mt-6 block text-center w-full py-2.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-medium text-xs tracking-wide transition-all">Richiedi Programma</a>
+          </div>
+        </div>
+
+        <!-- SLIDE 3: Pompe di Calore & Ibridi -->
+        <div class="swiper-slide h-auto">
+          <div class="bg-slate-800 border border-slate-700/80 rounded-2xl p-6 h-full flex flex-col justify-between hover:border-sky-500 transition-colors shadow-lg">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Specialistico</span>
+                <span class="text-xs text-slate-400">Modulo 03</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">Pompe di Calore, Ibridi & Regolazione</h3>
+              <p class="text-slate-300 text-sm mb-4">Integrazione termico-elettrica, curve climatiche, sbrinamenti e settaggio parametri su banchi prova reali.</p>
+              <ul class="text-xs text-slate-400 space-y-2 border-t border-slate-700/60 pt-4">
+                <li class="flex items-center gap-2"><span class="text-sky-400">✓</span> Schemi specifici per PdC monoblocco e split</li>
+                <li class="flex items-center gap-2"><span class="text-sky-400">✓</span> Integrazione con fotovoltaico e accumuli ACS</li>
+                <li class="flex items-center gap-2"><span class="text-sky-400">✓</span> Regolazione climatica e diagnosi anomalie</li>
+              </ul>
+            </div>
+            <a href="#contatti" class="mt-6 block text-center w-full py-2.5 px-4 rounded-xl bg-slate-700 hover:bg-sky-600 text-white font-medium text-xs tracking-wide transition-all">Richiedi Programma</a>
+          </div>
+        </div>
+
+        <!-- SLIDE 4: Normativa & Di.Co. -->
+        <div class="swiper-slide h-auto">
+          <div class="bg-slate-800 border border-slate-700/80 rounded-2xl p-6 h-full flex flex-col justify-between hover:border-sky-500 transition-colors shadow-lg">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/20">Normativo & Tecnico</span>
+                <span class="text-xs text-slate-400">Modulo 04</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">Collaudi, Di.Co. (DM 37/08) & Libretti</h3>
+              <p class="text-slate-300 text-sm mb-4">Redazione della Dichiarazione di Conformità, allegati obbligatori, prove di tenuta e gestione del Catasto Impianti Termici.</p>
+              <ul class="text-xs text-slate-400 space-y-2 border-t border-slate-700/60 pt-4">
+                <li class="flex items-center gap-2"><span class="text-sky-400">✓</span> Compilazione guidata Di.Co. senza errori</li>
+                <li class="flex items-center gap-2"><span class="text-sky-400">✓</span> Verbali di collaudo e prove strumentali</li>
+                <li class="flex items-center gap-2"><span class="text-sky-400">✓</span> Norme UNI di settore e sicurezza D.Lgs 81/08</li>
+              </ul>
+            </div>
+            <a href="#contatti" class="mt-6 block text-center w-full py-2.5 px-4 rounded-xl bg-slate-700 hover:bg-sky-600 text-white font-medium text-xs tracking-wide transition-all">Richiedi Programma</a>
+          </div>
+        </div>
+
+      </div>
+      <!-- Paginazione -->
+      <div class="swiper-pagination mt-6"></div>
+    </div>
+  </div>
+</section>
+ 
 
     <!-- CATALOGO CORSI ACADEMY -->
     <section id="academy" class="py-20 bg-slate-900 text-white px-6">
