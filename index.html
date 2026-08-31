@@ -78,37 +78,39 @@
 
             <!-- CARD FORM RAPIDO HERO -->
             <div class="lg:col-span-5">
-                <div id="iscrizione" class="bg-white text-slate-900 p-8 rounded-2xl shadow-2xl border border-slate-100">
-                    <h3 class="text-xl font-bold text-slate-900 mb-2">Ricevi il Calendario e i Programmi</h3>
-                    <p class="text-xs text-slate-500 mb-6">Compila per scaricare le schede tecniche dei corsi e i dettagli sui laboratori.</p>
-                    
-                    <form class="space-y-4" action="#" method="POST">
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nome e Cognome</label>
-                            <input type="text" required placeholder="Francesco Rossi" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Telefono / WhatsApp</label>
-                            <input type="tel" required placeholder="+39 340 0000000" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Percorso d'Interesse</label>
-                            <select class="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600">
-                                <option>Pompe di Calore: Idronica & Schemi di Centrale</option>
-                                <option>Diagnosi Guasti & Elettrotecnica per Termoidraulici</option>
-                                <option>Regolazione Climatica, Centraline & Bilanciamento</option>
-                                <option>Servizi di Ingegneria / Diagnosi Energetiche</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition text-sm shadow-md">
-                            Richiedi Informazioni Gratuite
-                        </button>
-                    </form>
-                    <p class="text-[10px] text-slate-400 text-center mt-3">Rispettiamo la tua privacy. Nessuno spam.</p>
-                </div>
+    <div id="iscrizione" class="bg-white text-slate-900 p-8 rounded-2xl shadow-2xl border border-slate-100">
+        <h3 class="text-xl font-bold text-slate-900 mb-2">Ricevi il Calendario e i Programmi</h3>
+        <p class="text-xs text-slate-500 mb-6">Compila per scaricare le schede tecniche dei corsi e i dettagli sui laboratori.</p>
+        
+        <form class="space-y-4" action="https://formspree.io/f/maeyqorn" method="POST">
+            <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nome e Cognome</label>
+                <input type="text" name="nome_cognome" required placeholder="Francesco Rossi" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600">
             </div>
-        </div>
-    </section>
+            <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Email</label>
+                <input type="email" name="email" required placeholder="francesco@esempio.it" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Telefono / WhatsApp</label>
+                <input type="tel" name="telefono" required placeholder="+39 340 0000000" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Percorso d'Interesse</label>
+                <select name="percorso_interesse" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    <option value="Pompe di Calore: Idronica & Schemi di Centrale">Pompe di Calore: Idronica & Schemi di Centrale</option>
+                    <option value="Diagnosi Guasti & Elettrotecnica per Termoidraulici">Diagnosi Guasti & Elettrotecnica per Termoidraulici</option>
+                    <option value="Regolazione Climatica, Centraline & Bilanciamento">Regolazione Climatica, Centraline & Bilanciamento</option>
+                    <option value="Servizi di Ingegneria / Diagnosi Energetiche">Servizi di Ingegneria / Diagnosi Energetiche</option>
+                </select>
+            </div>
+            <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition text-sm shadow-md">
+                Richiedi Informazioni Gratuite
+            </button>
+        </form>
+        <p class="text-[10px] text-slate-400 text-center mt-3">Rispettiamo la tua privacy. Nessuno spam.</p>
+    </div>
+</div>
 
     <!-- METRICHE DI CREDIBILITÀ -->
     <section class="bg-slate-100 py-10 border-b border-slate-200">
