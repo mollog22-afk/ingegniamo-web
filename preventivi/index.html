@@ -497,22 +497,16 @@
     <div class="sheet" id="documentSheet">
       
       <!-- ==================== PAGINA 1: PROSPETTO ECONOMICO ==================== -->
-      <div class="brand-header">
+     <div class="brand-header">
         <div class="brand-logo-wrap">
-          <div class="logo-svg-text">
-            <span class="logo-door"></span>INGEGNIAMO
-          </div>
-          <div class="brand-claim">INGEGNERIA • FORMAZIONE</div>
+          <img src="logo-ingegniamo.png" alt="INGEGNIAMO" style="max-width: 250px; height: auto; display: block;">
         </div>
         <div class="brand-contacts">
           <strong>INGEGNIAMO S.r.l.</strong><br>
           Società di Ingegneria e Servizi Tecnici<br>
-          Sede Operativa: Cosenza (CS) • Italia<br>
-          P.IVA / C.F.: 03867620786<br>
           PEC: ingegniamosrl@pec.it • info@ingegniamo.it
         </div>
       </div>
-
       <div class="doc-banner">
         <h2>Offerta Economica e Disciplinare di Incarico Professionale</h2>
         <p>Corrispettivi ai sensi del D.M. 17 giugno 2016 e dell'art. 9 L. 27/2012</p>
@@ -650,11 +644,11 @@
 
       <!-- ==================== PAGINA 2: CAPITOLATO TECNICO E QUADRO NORMATIVO ==================== -->
       <div class="page-break-forced">
-        <div class="brand-header" style="border-bottom: 1.5px solid var(--secondary); margin-bottom: 12px; padding-bottom: 8px;">
-          <div class="brand-logo-wrap">
-            <strong style="color: var(--primary); font-size: 1.1rem; letter-spacing: 0.5px;">INGEGNIAMO S.r.l.</strong>
-            <span style="font-size: 0.68rem; color: #64748b; font-weight: 600;">ALLEGATO TECNICO PRESTAZIONALE ALL'OFFERTA ING-<span id="outCodeAnnex">2026/01</span></span>
-          </div>
+  <div class="brand-header" style="border-bottom: 1.5px solid var(--secondary); margin-bottom: 12px; padding-bottom: 8px;">
+    <div class="brand-logo-wrap">
+      <img src="logo-ingegniamo.png" alt="INGEGNIAMO" style="max-width: 170px; height: auto; display: block; margin-bottom: 4px;">
+      <span style="font-size: 0.68rem; color: #64748b; font-weight: 600;">ALLEGATO TECNICO PRESTAZIONALE ALL'OFFERTA-<span id="outCodeAnnex">2026/01</span></span>
+    </div>
           <div class="brand-contacts" style="font-size: 0.68rem;">
             Sezione Normativa e Specifica delle Prestazioni d'Ingegneria
           </div>
@@ -1004,6 +998,27 @@
 
   window.onload = recalcAll;
 </script>
+<script>
+      function formatEuro(val) {
+        return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(val);
+      }
 
-</body>
+      function calcP(V) {
+        if (V <= 0) return 0;
+        return 0.03 + (10 / Math.pow(V, 0.4));
+      }
+
+      function recalcAll() {
+        // ... tutta la logica di calcolo ...
+      }
+
+      function generatePdfDirect() {
+        // ... funzione per esportare in PDF ...
+      }
+
+      window.onload = recalcAll;
+    </script>
+
+  </body>
 </html>
+
