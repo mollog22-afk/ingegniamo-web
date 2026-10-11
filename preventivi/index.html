@@ -5,265 +5,431 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
   
-  <!-- Titolo scheda browser e condivisione social/messaggistica -->
   <title>Modulo di Offerta Economica - INGEGNIAMO S.r.l.</title>
   <meta property="og:title" content="Modulo di Offerta Economica - INGEGNIAMO S.r.l.">
   <meta property="og:description" content="Disciplinare di incarico professionale e proposta economica per prestazioni di ingegneria.">
   
+  <!-- Font professionale Google Fonts per resa tipografica editoriale -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
   <style>
     :root {
-      --primary: #0b1f36;
-      --secondary: #1e3a8a;
-      --accent: #0284c7;
-      --border: #cbd5e1;
+      --navy: #0f172a;
+      --navy-light: #1e293b;
+      --accent: #2563eb;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --border-dark: #cbd5e1;
       --bg: #f8fafc;
       --paper: #ffffff;
-      --text: #0f172a;
+      --highlight: #f1f5f9;
     }
 
-    * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
-    body { background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; font-size: 13px; }
+    * { box-sizing: border-box; }
+    body {
+      background-color: #e2e8f0;
+      color: var(--text);
+      margin: 0;
+      padding: 24px;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 13px;
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+    }
 
     .main-grid {
-      max-width: 1440px;
+      max-width: 1480px;
       margin: 0 auto;
       display: grid;
       grid-template-columns: 460px 1fr;
-      gap: 25px;
+      gap: 30px;
+      align-items: start;
     }
 
-    /* PANNELLO DI CONTROLLO */
+    /* =========================================================
+       PANNELLO DI CONTROLLO INTERNO
+       ========================================================= */
     .control-panel {
       background: var(--paper);
-      padding: 20px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      height: fit-content;
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.06);
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid var(--border-dark);
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 20px;
+      max-height: 94vh;
+      overflow-y: auto;
     }
     .panel-header {
       font-size: 1.05rem;
       font-weight: 800;
-      color: var(--primary);
+      color: var(--navy);
       border-bottom: 2px solid var(--accent);
-      padding-bottom: 8px;
+      padding-bottom: 10px;
       margin-top: 0;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-
-    .form-group { margin-bottom: 9px; }
-    .form-group label { display: block; font-size: 0.73rem; font-weight: 700; color: #475569; margin-bottom: 2px; text-transform: uppercase; }
+    .form-group { margin-bottom: 11px; }
+    .form-group label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
     .form-group input, .form-group select {
       width: 100%;
-      padding: 6px 8px;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      font-size: 0.82rem;
-      background: #fafafa;
+      padding: 7px 10px;
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-family: inherit;
+      background: #fdfdfd;
+      color: var(--navy);
+      transition: border-color 0.15s, box-shadow 0.15s;
     }
-    .form-group input:focus { border-color: var(--accent); outline: none; background: #fff; }
+    .form-group input:focus, .form-group select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+      outline: none;
+      background: #fff;
+    }
 
     .box-block {
-      background: #f8fafc;
+      background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 10px;
-      margin-bottom: 10px;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 12px;
     }
     .box-block-title {
       font-size: 0.78rem;
       font-weight: 800;
-      color: var(--primary);
-      margin-bottom: 6px;
+      color: var(--navy);
+      margin-bottom: 8px;
       display: flex;
       justify-content: space-between;
-      border-bottom: 1px dashed var(--border);
-      padding-bottom: 3px;
+      border-bottom: 1px dashed var(--border-dark);
+      padding-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
     }
-    .check-label { display: flex; align-items: flex-start; gap: 6px; font-size: 0.76rem; margin-bottom: 4px; cursor: pointer; }
+    .check-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      font-size: 0.77rem;
+      margin-bottom: 5px;
+      cursor: pointer;
+      color: #334155;
+    }
     .check-label input { margin-top: 2px; }
 
-    .action-buttons { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+    .action-buttons { display: flex; flex-direction: column; gap: 9px; margin-top: 14px; }
     .btn-action {
       width: 100%;
       color: white;
       border: none;
-      padding: 11px;
-      border-radius: 5px;
+      padding: 12px;
+      border-radius: 6px;
       font-size: 0.9rem;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      transition: opacity 0.2s;
+      gap: 8px;
+      font-family: inherit;
+      transition: background 0.2s, transform 0.1s;
     }
-    .btn-action:hover { opacity: 0.9; }
-    .btn-print-browser { background: #047857; }
-    .btn-pdf-direct { background: var(--primary); }
+    .btn-action:active { transform: translateY(1px); }
+    .btn-print-browser { background: #059669; }
+    .btn-print-browser:hover { background: #047857; }
+    .btn-pdf-direct { background: var(--navy); }
+    .btn-pdf-direct:hover { background: #000; }
 
-    /* FOGLIO A4 DOCUMENTO */
+    /* =========================================================
+       DOCUMENTO EDITORIALE ELEGANTE (FOGLIO A4)
+       ========================================================= */
     .sheet-wrapper { background: transparent; }
     .sheet {
       background: var(--paper);
-      padding: 35px 40px;
-      border: 1px solid #cbd5e1;
-      border-radius: 4px;
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.06);
-      color: #0f172a;
+      padding: 44px 50px;
+      border-radius: 6px;
+      box-shadow: 0 15px 35px -5px rgba(15,23,42,0.12);
+      color: var(--text);
       width: 100%;
-      max-width: 890px;
+      max-width: 900px;
       margin: 0 auto;
     }
 
+    /* Header e Marchio */
     .brand-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid var(--primary);
-      padding-bottom: 12px;
-      margin-bottom: 14px;
+      align-items: flex-start;
+      border-bottom: 1.5px solid var(--navy);
+      padding-bottom: 18px;
+      margin-bottom: 22px;
     }
     .brand-logo-wrap { display: flex; flex-direction: column; }
-    .brand-contacts { text-align: right; font-size: 0.72rem; color: #64748b; line-height: 1.3; }
-
-    .doc-banner {
-      background: #f1f5f9;
-      border-left: 3px solid var(--primary);
-      padding: 6px 10px;
-      margin-bottom: 12px;
+    .brand-contacts {
+      text-align: right;
+      font-size: 0.74rem;
+      color: var(--muted);
+      line-height: 1.45;
     }
-    .doc-banner h2 { margin: 0; font-size: 0.95rem; color: var(--primary); text-transform: uppercase; }
-    .doc-banner p { margin: 1px 0 0 0; font-size: 0.72rem; color: #475569; }
+    .brand-contacts strong { color: var(--navy); font-weight: 700; }
 
+    /* Titolo Disciplinare */
+    .doc-banner {
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+    .doc-banner h2 {
+      margin: 0 0 4px 0;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+    .doc-banner p {
+      margin: 0;
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* Griglia Metadati Commessa */
     .details-grid {
       display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 10px;
-      margin-bottom: 12px;
-      font-size: 0.76rem;
-    }
-    .card-meta { background: #f8fafc; padding: 8px 10px; border-radius: 4px; border: 1px solid #e2e8f0; }
-
-    .sec-heading {
+      grid-template-columns: 1.35fr 1fr;
+      gap: 16px;
+      margin-bottom: 18px;
       font-size: 0.78rem;
-      font-weight: 800;
-      color: var(--primary);
-      text-transform: uppercase;
-      margin: 12px 0 4px 0;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 2px;
+    }
+    .card-meta {
+      background: #fafafa;
+      padding: 11px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      line-height: 1.5;
+    }
+    .card-meta strong { color: var(--navy); }
+    .obj-banner {
+      font-size: 0.8rem;
+      margin-bottom: 18px;
+      padding: 10px 14px;
+      background: var(--bg);
+      border-left: 3px solid var(--navy);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
     }
 
+    /* Sezioni con numerazione e accento sottile */
+    .sec-heading {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 22px 0 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sec-heading::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border-dark);
+    }
+
+    /* Tabelle Editoriali (Bordi orizzontali leggeri, no gabbia da foglio di calcolo) */
     table.calc-grid {
       width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 10px;
-      font-size: 0.72rem;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-bottom: 16px;
+      font-size: 0.76rem;
     }
-    table.calc-grid th { background: #f1f5f9; padding: 5px 6px; border: 1px solid var(--border); text-align: left; color: #334155; }
-    table.calc-grid td { padding: 4px 6px; border: 1px solid var(--border); vertical-align: top; }
-    table.calc-grid td.num, table.calc-grid th.num { text-align: right; }
+    table.calc-grid th {
+      background: #f8fafc;
+      color: #334155;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      letter-spacing: 0.4px;
+      padding: 8px 10px;
+      border-top: 1px solid var(--navy);
+      border-bottom: 1.5px solid var(--navy);
+      text-align: left;
+    }
+    table.calc-grid td {
+      padding: 9px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      color: #1e293b;
+    }
+    table.calc-grid tbody tr:last-child td { border-bottom: 1.5px solid var(--navy); }
+    table.calc-grid td.num, table.calc-grid th.num {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    table.calc-grid td strong { color: var(--navy); font-weight: 700; }
+    table.calc-grid td small { color: var(--muted); font-size: 0.70rem; line-height: 1.25; display: inline-block; margin-top: 2px; }
+
+    /* Quadro Economico - Schema Tipo Contabile Elegante */
+    .ledger-wrap {
+      width: 440px;
+      margin-left: auto;
+      margin-top: 14px;
+      margin-bottom: 20px;
+      background: #ffffff;
+      border: 1px solid var(--border-dark);
+      border-radius: 8px;
+      padding: 16px 20px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);
+    }
+    .ledger-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      margin-bottom: 5px;
+      color: #334155;
+    }
+    .ledger-row span:last-child {
+      font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums;
+    }
+    .ledger-row.bold {
+      font-weight: 700;
+      color: var(--navy);
+      border-top: 1px dashed var(--border-dark);
+      padding-top: 6px;
+      margin-top: 6px;
+    }
+    .ledger-row.final-due {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--navy);
+      background: #f8fafc;
+      border-top: 2px solid var(--navy);
+      margin: 10px -20px -16px -20px;
+      padding: 14px 20px;
+      border-radius: 0 0 8px 8px;
+    }
+    .ledger-row.final-due span:last-child {
+      color: #047857;
+      font-size: 1.15rem;
+    }
+
+    /* Clausole Legali & GDPR */
+    .legal-text {
+      margin-top: 18px;
+      padding: 14px 16px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.67rem;
+      color: #475569;
+      line-height: 1.45;
+      text-align: justify;
+    }
+    .legal-text strong { color: var(--navy); }
+
+    /* Firme */
+    .signatures {
+      margin-top: 32px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.76rem;
+    }
+    .sig-field {
+      width: 250px;
+      text-align: center;
+      border-top: 1px solid var(--border-dark);
+      padding-top: 8px;
+      color: var(--muted);
+    }
+    .sig-field strong { color: var(--navy); }
+
+    /* Box Capitolato Tecnico (Pagina 2) */
+    .service-spec-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-left: 3.5px solid var(--navy);
+      border-radius: 0 6px 6px 0;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+    }
+    .service-spec-box h4 {
+      margin: 0 0 6px 0;
+      font-size: 0.82rem;
+      color: var(--navy);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .service-spec-box h4 span.norm-tag {
+      font-size: 0.70rem;
+      color: var(--accent);
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: none;
+    }
+    .service-spec-box p {
+      margin: 0 0 6px 0;
+      font-size: 0.72rem;
+      color: #334155;
+      line-height: 1.4;
+    }
+    .service-spec-box ul {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 0.70rem;
+      color: #475569;
+      line-height: 1.42;
+    }
+
+    /* =========================================================
+       REGOLE DI PAGINAZIONE E CONTROLLO STAMPA
+       ========================================================= */
+    .page-break-forced {
+      page-break-before: always !important;
+      break-before: page !important;
+      margin-top: 36px;
+      padding-top: 10px;
+    }
 
     tr { page-break-inside: avoid !important; break-inside: avoid !important; }
     .avoid-break { page-break-inside: avoid !important; break-inside: avoid !important; }
 
-    .page-break-forced {
-      page-break-before: always !important;
-      break-before: page !important;
-      margin-top: 30px;
-      padding-top: 20px;
-      border-top: 2px dashed #94a3b8;
-    }
-
-    .ledger-wrap {
-      width: 410px;
-      margin-left: auto;
-      margin-top: 10px;
-      border: 1px solid var(--border);
-      background: #fcfcfc;
-      padding: 10px 12px;
-      border-radius: 4px;
-      page-break-inside: avoid;
-    }
-    .ledger-row { display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 3px; }
-    .ledger-row.bold { font-weight: 700; color: var(--primary); border-top: 1px solid var(--border); padding-top: 3px; }
-    .ledger-row.final-due {
-      font-size: 0.95rem;
-      font-weight: 900;
-      color: #047857;
-      border-top: 2px solid var(--primary);
-      padding-top: 5px;
-      margin-top: 5px;
-    }
-
-    .legal-text {
-      margin-top: 14px;
-      padding-top: 8px;
-      border-top: 1px solid var(--border);
-      font-size: 0.65rem;
-      color: #64748b;
-      line-height: 1.3;
-      text-align: justify;
-      page-break-inside: avoid;
-    }
-    .legal-text strong { color: #334155; }
-
-    .service-spec-box {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-left: 3.5px solid var(--secondary);
-      padding: 9px 12px;
-      margin-bottom: 10px;
-      page-break-inside: avoid;
-    }
-    .service-spec-box h4 {
-      margin: 0 0 4px 0;
-      font-size: 0.78rem;
-      color: var(--primary);
-      text-transform: uppercase;
-      display: flex;
-      justify-content: space-between;
-    }
-    .service-spec-box h4 span.norm-tag {
-      font-size: 0.70rem;
-      color: #0284c7;
-      font-weight: 700;
-      text-transform: none;
-    }
-    .service-spec-box p {
-      margin: 0 0 5px 0;
-      font-size: 0.70rem;
-      color: #334155;
-      line-height: 1.35;
-    }
-    .service-spec-box ul {
-      margin: 0;
-      padding-left: 16px;
-      font-size: 0.69rem;
-      color: #475569;
-      line-height: 1.35;
-    }
-
-    .signatures {
-      margin-top: 20px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.75rem;
-      page-break-inside: avoid;
-    }
-    .sig-field { width: 220px; text-align: center; border-top: 1px solid #94a3b8; padding-top: 5px; }
-
     @media print {
       @page {
         size: A4;
-        margin: 8mm 8mm 8mm 8mm;
+        margin: 10mm 12mm 10mm 12mm;
       }
-      body { background: white !important; padding: 0 !important; }
+      body {
+        background: white !important;
+        padding: 0 !important;
+        font-size: 12px !important;
+      }
       .control-panel { display: none !important; }
       .main-grid { display: block !important; }
       .sheet {
@@ -273,6 +439,7 @@
         width: 100% !important;
         max-width: 100% !important;
       }
+      .ledger-wrap { box-shadow: none !important; }
       tr, .avoid-break, .ledger-wrap, .legal-text, .signatures, .service-spec-box {
         page-break-inside: avoid !important;
         break-inside: avoid !important;
@@ -281,8 +448,7 @@
         page-break-before: always !important;
         break-before: page !important;
         margin-top: 0 !important;
-        padding-top: 10px !important;
-        border-top: none !important;
+        padding-top: 15px !important;
       }
     }
   </style>
@@ -291,7 +457,7 @@
 
 <div class="main-grid">
 
-  <!-- PANNELLO DI CONTROLLO -->
+  <!-- ==================== PANNELLO DI CONFIGURAZIONE ==================== -->
   <div class="control-panel">
     <div class="panel-header">Modulo di Offerta Economica</div>
 
@@ -421,14 +587,14 @@
       </div>
     </div>
 
-    <!-- 6. BANDI & AGEVOLAZIONI FISCALI -->
+    <!-- 6. BANDI & FINANZA AGEVOLATA -->
     <div class="box-block">
       <div class="box-block-title">
         <span>6. Bandi & Finanza Agevolata</span>
       </div>
       <label class="check-label"><input type="checkbox" id="chk_bando" checked onchange="recalcAll()"> Gestione Tecnico-Economica Bandi</label>
       <div class="form-group">
-        <label>Tipologia Bando</label>
+        <label>Tipologia Misura</label>
         <select id="inTipoBando" onchange="recalcAll()">
           <option value="Transizione 5.0 / Iperammortamento">Transizione 5.0 / Iperammortamento</option>
           <option value="Nuova Sabatini (Beni Strumentali)">Nuova Sabatini (Beni Strumentali)</option>
@@ -460,7 +626,7 @@
       <input type="number" id="fee_legge10" value="1500" oninput="recalcAll()">
     </div>
 
-    <!-- 8. MODALITÀ DI PAGAMENTO VARIABILI -->
+    <!-- 8. MODALITÀ DI PAGAMENTO -->
     <div class="box-block">
       <div class="box-block-title">
         <span>8. Condizioni di Pagamento Concordate</span>
@@ -484,7 +650,7 @@
     <!-- 9. SELEZIONE SEZIONI CAPITOLATO TECNICO -->
     <div class="box-block">
       <div class="box-block-title">
-        <span>9. Capitolato Tecnico (Pagina 2)</span>
+        <span>9. Capitolato Tecnico (Allegato)</span>
       </div>
       <label class="check-label"><input type="checkbox" id="chk_cap_a" checked onchange="recalcAll()"> Mostra Sez. A (Elettrico & Speciali)</label>
       <label class="check-label"><input type="checkbox" id="chk_cap_b" checked onchange="recalcAll()"> Mostra Sez. B (Meccanico & D.M. 28/10/25)</label>
@@ -519,11 +685,11 @@
     </div>
   </div>
 
-  <!-- DOCUMENTO UFFICIALE -->
+  <!-- ==================== DOCUMENTO UFFICIALE RENDERIZZATO ==================== -->
   <div class="sheet-wrapper">
     <div class="sheet" id="documentSheet">
       
-      <!-- ==================== PAGINA 1: PROSPETTO ECONOMICO ==================== -->
+      <!-- ==================== PAGINA 1: PROSPETTO COMMESSA & INGEGNERIA ==================== -->
       <div class="brand-header">
         <div class="brand-logo-wrap">
           <img src="logo-ingegniamo.png" alt="INGEGNIAMO" style="max-width: 250px; height: auto; display: block;" onerror="this.style.display='none'">
@@ -534,6 +700,7 @@
           PEC: ingegniamosrl@pec.it • info@ingegniamo.it
         </div>
       </div>
+
       <div class="doc-banner">
         <h2>Modulo di Offerta Economica e Disciplinare di Incarico</h2>
         <p>Determinazione dei corrispettivi ai sensi del D.M. 17 giugno 2016 e dell'art. 9 L. 27/2012</p>
@@ -546,13 +713,13 @@
           <strong>Ubicazione Opera:</strong> <span id="outLocation">---</span>
         </div>
         <div class="card-meta">
-          <strong>Numero Offerta:</strong> <span id="outOfferNumber" style="font-weight: 700; color: var(--primary);">OFF-26-001</span><br>
+          <strong>Numero Offerta:</strong> <span id="outOfferNumber" style="font-weight: 700; color: var(--navy); font-family: 'JetBrains Mono', monospace;">OFF-26-001</span><br>
           <strong>Data Emissione:</strong> <span id="outDate">--/--/----</span><br>
           <strong>Validità Proposta:</strong> 30 giorni data emissione
         </div>
       </div>
 
-      <div style="font-size:0.76rem; margin-bottom: 10px;" class="avoid-break">
+      <div class="obj-banner avoid-break">
         <strong>Oggetto dell'intervento:</strong> <span id="outSubject">---</span>
       </div>
 
@@ -588,126 +755,131 @@
         <tbody id="outTableDlRows"></tbody>
       </table>
 
-      <!-- 3. ASSISTENZA A VACAZIONE -->
-      <div class="sec-heading">3. Assistenza Specialistica in Cantiere a Vacazione (Art. 22 D.M. 17/06/2016)</div>
-      <table class="calc-grid">
-        <thead>
-          <tr>
-            <th>Descrizione Attività di Sorveglianza Tecnica</th>
-            <th style="width: 16%; text-align: center;">Unità</th>
-            <th class="num" style="width: 16%;">Quantità</th>
-            <th class="num" style="width: 18%;">Tariffa Unitaria (€)</th>
-            <th class="num" style="width: 18%;">Totale Parziale (€)</th>
-          </tr>
-        </thead>
-        <tbody id="outTableVacazioni"></tbody>
-      </table>
-
-      <!-- 4. SERVIZI ENERGETICI, DIAGNOSI, CONTO TERMICO 3.0 E BANDI -->
-      <div class="sec-heading">4. Servizi Energetici, Pratiche Specialistiche e Finanza Agevolata (Bandi)</div>
-      <table class="calc-grid">
-        <thead>
-          <tr>
-            <th>Descrizione Servizio Specialistico</th>
-            <th style="width: 18%; text-align: center;">Parametro Base</th>
-            <th class="num" style="width: 16%;">Valore Base</th>
-            <th style="width: 14%; text-align: center;">Aliquota / Quota</th>
-            <th class="num" style="width: 18%;">Compenso (€)</th>
-          </tr>
-        </thead>
-        <tbody id="outTableSpecial"></tbody>
-      </table>
-
-      <!-- 5. QUADRO ECONOMICO -->
-      <div class="sec-heading avoid-break">5. Quadro Economico di Liquidazione</div>
-      <div class="ledger-wrap">
-        <div class="ledger-row">
-          <span>Progettazione Impianti (D.M. 17/06/2016):</span>
-          <span id="totProj">€ 0,00</span>
-        </div>
-        <div class="ledger-row">
-          <span>Direzione Lavori e Contabilità:</span>
-          <span id="totDl">€ 0,00</span>
-        </div>
-        <div class="ledger-row">
-          <span>Assistenza Tecnica a Vacazione:</span>
-          <span id="totVac">€ 0,00</span>
-        </div>
-        <div class="ledger-row">
-          <span>Diagnosi, Conto Termico 3.0, Bandi & VVF:</span>
-          <span id="totSpecial">€ 0,00</span>
-        </div>
-        <div class="ledger-row">
-          <span>Spese ed Oneri Accessori (<span id="lblExp">15</span>%):</span>
-          <span id="totExp">€ 0,00</span>
-        </div>
-        <div class="ledger-row bold">
-          <span>Totale Corrispettivo di Tariffa:</span>
-          <span id="totTariff">€ 0,00</span>
-        </div>
-        <div class="ledger-row" style="color: #b91c1c;">
-          <span>Sconto commerciale concordato (<span id="lblDiscount">0</span>%):</span>
-          <span id="totDiscount">- € 0,00</span>
-        </div>
-        <div class="ledger-row bold">
-          <span>Imponibile Netto Professionale:</span>
-          <span id="totNet">€ 0,00</span>
-        </div>
-        <div class="ledger-row">
-          <span>Cassa Previdenza (4% Inarcassa):</span>
-          <span id="totInarcassa">€ 0,00</span>
-        </div>
-        <div class="ledger-row">
-          <span>I.V.A. di Legge (22%):</span>
-          <span id="totVat">€ 0,00</span>
-        </div>
-        <div class="ledger-row final-due">
-          <span>TOTALE COMPLESSIVO:</span>
-          <span id="totFinal">€ 0,00</span>
-        </div>
-      </div>
-
-      <!-- CLAUSOLE CONTRATTUALI E GDPR -->
-      <div class="legal-text">
-        <strong>CONDIZIONI GENERALI DI CONTRATTO, SUCCESS FEE ED ESCLUSIONI:</strong><br>
-        • <strong>Modalità e Termini di Pagamento Concordati:</strong> Il corrispettivo imponibile netto sarà corrisposto come segue: <span id="lblPaymentTerms">20% all'accettazione, 50% alla consegna elaborati, 30% a saldo</span>.<br>
-        • <strong>Regime Success Fee (Conto Termico 3.0 e Bandi Agevolati):</strong> I compensi percentuali su Conto Termico 3.0 / GSE e su misure agevolative (Transizione 5.0, Sabatini, Bandi Regionali/FESR, Ecobonus) sono subordinati al buon esito della pratica (*success fee*). <span id="lblCtTerms">Una quota forfettaria pari al 30% della stima è corrisposta all'invio dell'istanza a titolo di copertura spese vive e istruttoria; il saldo residuo del 70% (rideterminato sull'incentivo effettivo concesso) diverrà esigibile entro 15 giorni dalla prima erogazione da parte del GSE.</span><br>
-        • <strong>Esclusioni:</strong> Oneri di istruttoria e tariffa di copertura GSE (D.M. 16/02/2016 e s.m.i.), diritti di segreteria/bolli VVF e Comuni, perizie giurate bancarie esterne non espressamente concordate, Coordinamento della Sicurezza ex D.Lgs. 81/2008 (CSP/CSE).<br>
-        • <strong>Privacy GDPR (Reg. UE 2016/679):</strong> Titolare del trattamento è INGEGNIAMO S.r.l. I dati personali sono trattati unicamente per l'esecuzione del mandato professionale e gli adempimenti di legge connessi.
-      </div>
-
-      <div class="signatures">
-        <div class="sig-field">
-          Per Accettazione il Committente<br>
-          (Firma e Timbro)<br><br><br>
-          ____________________________________
-        </div>
-        <div class="sig-field">
-          Per la Società di Ingegneria<br>
-          <strong>INGEGNIAMO S.r.l.</strong><br><br><br>
-          ____________________________________
-        </div>
-      </div>
-
-      <!-- ==================== PAGINA 2: CAPITOLATO TECNICO E QUADRO NORMATIVO ==================== -->
+      <!-- ==================== PAGINA 2: SPECIALISTICHE, QUADRO ECONOMICO E FIRME ==================== -->
       <div class="page-break-forced">
-        <div class="brand-header" style="border-bottom: 1.5px solid var(--secondary); margin-bottom: 12px; padding-bottom: 8px;">
+
+        <!-- 3. ASSISTENZA A VACAZIONE -->
+        <div class="sec-heading" style="margin-top:0;">3. Assistenza Specialistica in Cantiere a Vacazione (Art. 22 D.M. 17/06/2016)</div>
+        <table class="calc-grid">
+          <thead>
+            <tr>
+              <th>Descrizione Attività di Sorveglianza Tecnica</th>
+              <th style="width: 16%; text-align: center;">Unità</th>
+              <th class="num" style="width: 16%;">Quantità</th>
+              <th class="num" style="width: 18%;">Tariffa Unitaria (€)</th>
+              <th class="num" style="width: 18%;">Totale Parziale (€)</th>
+            </tr>
+          </thead>
+          <tbody id="outTableVacazioni"></tbody>
+        </table>
+
+        <!-- 4. SERVIZI ENERGETICI, DIAGNOSI, CONTO TERMICO 3.0 E BANDI -->
+        <div class="sec-heading">4. Servizi Energetici, Pratiche Specialistiche e Finanza Agevolata (Bandi)</div>
+        <table class="calc-grid">
+          <thead>
+            <tr>
+              <th>Descrizione Servizio Specialistico</th>
+              <th style="width: 18%; text-align: center;">Parametro Base</th>
+              <th class="num" style="width: 16%;">Valore Base</th>
+              <th style="width: 14%; text-align: center;">Aliquota / Quota</th>
+              <th class="num" style="width: 18%;">Compenso (€)</th>
+            </tr>
+          </thead>
+          <tbody id="outTableSpecial"></tbody>
+        </table>
+
+        <!-- 5. QUADRO ECONOMICO DI LIQUIDAZIONE -->
+        <div class="sec-heading avoid-break">5. Quadro Economico di Liquidazione</div>
+        <div class="ledger-wrap avoid-break">
+          <div class="ledger-row">
+            <span>Progettazione Impianti (D.M. 17/06/2016):</span>
+            <span id="totProj">€ 0,00</span>
+          </div>
+          <div class="ledger-row">
+            <span>Direzione Lavori e Contabilità:</span>
+            <span id="totDl">€ 0,00</span>
+          </div>
+          <div class="ledger-row">
+            <span>Assistenza Tecnica a Vacazione:</span>
+            <span id="totVac">€ 0,00</span>
+          </div>
+          <div class="ledger-row">
+            <span>Diagnosi, Conto Termico 3.0, Bandi & VVF:</span>
+            <span id="totSpecial">€ 0,00</span>
+          </div>
+          <div class="ledger-row">
+            <span>Spese ed Oneri Accessori (<span id="lblExp">15</span>%):</span>
+            <span id="totExp">€ 0,00</span>
+          </div>
+          <div class="ledger-row bold">
+            <span>Totale Corrispettivo di Tariffa:</span>
+            <span id="totTariff">€ 0,00</span>
+          </div>
+          <div class="ledger-row" style="color: #b91c1c;">
+            <span>Sconto commerciale concordato (<span id="lblDiscount">0</span>%):</span>
+            <span id="totDiscount">- € 0,00</span>
+          </div>
+          <div class="ledger-row bold">
+            <span>Imponibile Netto Professionale:</span>
+            <span id="totNet">€ 0,00</span>
+          </div>
+          <div class="ledger-row">
+            <span>Cassa Previdenza (4% Inarcassa):</span>
+            <span id="totInarcassa">€ 0,00</span>
+          </div>
+          <div class="ledger-row">
+            <span>I.V.A. di Legge (22%):</span>
+            <span id="totVat">€ 0,00</span>
+          </div>
+          <div class="ledger-row final-due">
+            <span>TOTALE COMPLESSIVO:</span>
+            <span id="totFinal">€ 0,00</span>
+          </div>
+        </div>
+
+        <!-- CLAUSOLE CONTRATTUALI E GDPR -->
+        <div class="legal-text avoid-break">
+          <strong>CONDIZIONI GENERALI DI CONTRATTO, SUCCESS FEE ED ESCLUSIONI:</strong><br>
+          • <strong>Modalità e Termini di Pagamento Concordati:</strong> Il corrispettivo imponibile netto sarà corrisposto come segue: <span id="lblPaymentTerms">20% all'accettazione, 50% alla consegna elaborati, 30% a saldo</span>.<br>
+          • <strong>Regime Success Fee (Conto Termico 3.0 e Bandi Agevolati):</strong> I compensi percentuali su Conto Termico 3.0 / GSE e su misure agevolative (Transizione 5.0, Sabatini, Bandi Regionali/FESR, Ecobonus) sono subordinati al buon esito della pratica (*success fee*). <span id="lblCtTerms">Una quota forfettaria pari al 30% della stima è corrisposta all'invio dell'istanza a titolo di copertura spese di istruttoria; il saldo residuo del 70% (rideterminato sull'incentivo effettivo deliberato da GSE) diverrà esigibile entro e non oltre 15 giorni dalla notifica di accoglimento o dalla liquidazione del bonifico.</span><br>
+          • <strong>Esclusioni:</strong> Oneri di istruttoria e tariffa di copertura GSE (D.M. 16/02/2016 e s.m.i.), diritti di segreteria/bolli VVF e Comuni, perizie giurate bancarie esterne non espressamente concordate, Coordinamento della Sicurezza ex D.Lgs. 81/2008 (CSP/CSE).<br>
+          • <strong>Privacy GDPR (Reg. UE 2016/679):</strong> Titolare del trattamento è INGEGNIAMO S.r.l. I dati personali sono trattati unicamente per l'esecuzione del mandato professionale e gli adempimenti di legge connessi.
+        </div>
+
+        <div class="signatures avoid-break">
+          <div class="sig-field">
+            Per Accettazione il Committente<br>
+            <strong>Il Legale Rappresentante</strong><br><br><br>
+            ____________________________________
+          </div>
+          <div class="sig-field">
+            Per la Società di Ingegneria<br>
+            <strong>INGEGNIAMO S.r.l.</strong><br><br><br>
+            ____________________________________
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ==================== PAGINA 3: ALLEGATO CAPITOLATO TECNICO ==================== -->
+      <div class="page-break-forced">
+        <div class="brand-header" style="border-bottom: 1.5px solid var(--navy); margin-bottom: 16px; padding-bottom: 12px;">
           <div class="brand-logo-wrap">
             <img src="logo-ingegniamo.png" alt="INGEGNIAMO" style="max-width: 170px; height: auto; display: block; margin-bottom: 4px;" onerror="this.style.display='none'">
-            <span style="font-size: 0.68rem; color: #64748b; font-weight: 600;">ALLEGATO TECNICO PRESTAZIONALE ALL'OFFERTA <span id="outCodeAnnex">OFF-26-001</span></span>
+            <span style="font-size: 0.68rem; color: var(--muted); font-weight: 600;">ALLEGATO TECNICO PRESTAZIONALE ALL'OFFERTA <span id="outCodeAnnex" style="font-family:'JetBrains Mono',monospace; color:var(--navy);">OFF-26-001</span></span>
           </div>
-          <div class="brand-contacts" style="font-size: 0.68rem;">
+          <div class="brand-contacts">
             Sezione Normativa e Specifica delle Prestazioni d'Ingegneria
           </div>
         </div>
 
-        <div class="doc-banner" style="margin-bottom: 14px;">
-          <h2 style="font-size: 0.88rem;">Descrizione Analitica dei Servizi e Quadro Normativo di Riferimento</h2>
-          <p style="font-size: 0.70rem;">Le prestazioni di progettazione e direzione lavori sono sviluppate in rigorosa conformità alle norme di legge e alle regole tecniche vigenti.</p>
+        <div class="doc-banner" style="margin-bottom: 16px;">
+          <h2>Descrizione Analitica dei Servizi e Quadro Normativo di Riferimento</h2>
+          <p>Le prestazioni di progettazione e direzione lavori sono sviluppate in rigorosa conformità alle norme di legge e alle regole tecniche vigenti.</p>
         </div>
 
         <!-- 1. IMPIANTI ELETTRICI E SPECIALI (A) -->
-        <div class="service-spec-box" id="box_cap_a">
+        <div class="service-spec-box avoid-break" id="box_cap_a">
           <h4>
             <span>A. Impianti Elettrici, Speciali e Sicurezza Integrata</span>
             <span class="norm-tag">CEI 64-8 • CEI 0-21 • CEI 0-16 • CEI EN 62305</span>
@@ -724,7 +896,7 @@
         </div>
 
         <!-- 2. IMPIANTI MECCANICI E D.M. REQUISITI MINIMI 28 OTTOBRE 2025 (B) -->
-        <div class="service-spec-box" id="box_cap_b">
+        <div class="service-spec-box avoid-break" id="box_cap_b">
           <h4>
             <span>B. Impianti Meccanici, Climatizzazione e D.M. Requisiti Minimi 28/10/2025</span>
             <span class="norm-tag">D.M. 28/10/2025 • UNI EN 12831 • UNI 9182</span>
@@ -740,7 +912,7 @@
         </div>
 
         <!-- 3. PREVENZIONE INCENDI (C) -->
-        <div class="service-spec-box" id="box_cap_c">
+        <div class="service-spec-box avoid-break" id="box_cap_c">
           <h4>
             <span>C. Prevenzione Incendi e Iter Vigili del Fuoco</span>
             <span class="norm-tag">D.M. 03/08/2015 (Codice VVF) • UNI 10779 • D.P.R. 151/11</span>
@@ -755,7 +927,7 @@
         </div>
 
         <!-- 4. DIAGNOSI ENERGETICA, CONTO TERMICO 3.0 E BANDI (D) -->
-        <div class="service-spec-box" id="box_cap_d">
+        <div class="service-spec-box avoid-break" id="box_cap_d">
           <h4>
             <span>D. Diagnosi Energetica, Conto Termico 3.0 e Finanza Agevolata (Bandi)</span>
             <span class="norm-tag">UNI CEI EN 16247 • Conto Termico 3.0 • Transizione 5.0 / Sabatini</span>
@@ -768,15 +940,15 @@
           </ul>
         </div>
 
-        <div class="signatures" style="margin-top: 15px;">
+        <div class="signatures avoid-break" style="margin-top: 24px;">
           <div class="sig-field">
             Per Presa Visione ed Accettazione Capitolato<br>
-            <strong>Il Committente</strong><br><br>
+            <strong>Il Committente</strong><br><br><br>
             ____________________________________
           </div>
           <div class="sig-field">
             Il Legale Rappresentante<br>
-            <strong>INGEGNIAMO S.r.l.</strong><br><br>
+            <strong>INGEGNIAMO S.r.l.</strong><br><br><br>
             ____________________________________
           </div>
         </div>
@@ -797,7 +969,6 @@
     return 0.03 + (10 / Math.pow(V, 0.4));
   }
 
-  // Sincronizza quote Conto Termico garantendo la somma a 100%
   function syncCtSplit(el, changedSide) {
     let val = parseFloat(el.value) || 0;
     if (val < 0) val = 0;
@@ -813,7 +984,6 @@
   }
 
   function recalcAll() {
-    // 1. Dati descrittivi e numero offerta
     const client = document.getElementById('inClient').value;
     const clientFiscal = document.getElementById('inClientFiscal').value;
     const subject = document.getElementById('inSubject').value;
@@ -829,18 +999,15 @@
     document.getElementById('outSubject').innerText = subject;
     document.getElementById('outLocation').innerText = loc;
 
-    // 2. Condizioni di pagamento generali
     const pAnticipo = parseFloat(document.getElementById('inPayAnticipo').value) || 0;
     const pAcconto = parseFloat(document.getElementById('inPayAcconto').value) || 0;
     const pSaldo = parseFloat(document.getElementById('inPaySaldo').value) || 0;
     document.getElementById('lblPaymentTerms').innerText = `${pAnticipo}% all'accettazione e incarico formale, ${pAcconto}% ad emissione/consegna elaborati progettuali, restante ${pSaldo}% a saldo finale e collaudo`;
 
-    // 3. Ripartizione Conto Termico (somma garantita a 100%)
     const ctPres = parseFloat(document.getElementById('inCtQuotaPres').value) || 30;
     const ctOtt = parseFloat(document.getElementById('inCtQuotaOtt').value) || 70;
     document.getElementById('lblCtTerms').innerText = `Una quota forfettaria pari al ${ctPres}% della stima è corrisposta all'invio dell'istanza a titolo di copertura spese di istruttoria; il saldo residuo del ${ctOtt}% (rideterminato sull'incentivo effettivo deliberato da GSE) diverrà esigibile entro e non oltre 15 giorni dalla notifica di accoglimento o dalla liquidazione del bonifico.`;
 
-    // 4. Calcolo Parametri e Tariffe
     const V_mecc = parseFloat(document.getElementById('inV_mecc').value) || 0;
     const G_mecc = parseFloat(document.getElementById('inG_mecc').value) || 0.75;
     const P_mecc = calcP(V_mecc);
@@ -849,7 +1016,7 @@
     const G_ele = 1.15;
     const P_ele = calcP(V_ele);
 
-    // PARAGRAFO 1: PROGETTAZIONE IMPIANTI
+    // 1. PROGETTAZIONE IMPIANTI
     let projSum = 0;
     const tblProj = document.getElementById('outTableProjRows');
     tblProj.innerHTML = '';
@@ -859,7 +1026,7 @@
         const fee = V_mecc * G_mecc * 0.27 * P_mecc;
         projSum += fee;
         tblProj.innerHTML += `<tr>
-          <td><strong>Progetto di Fattibilità Tecnico-Economica (PFTE) Meccanico</strong><br><small style="color:#64748b;">Relazione tecnica illustrativa, schemi di massima e stima sommaria (QbII.05)</small></td>
+          <td><strong>Progetto di Fattibilità Tecnico-Economica (PFTE) Meccanico</strong><br><small>Relazione illustrativa, schemi di massima e stima sommaria (QbII.05)</small></td>
           <td class="num">${formatEuro(V_mecc)}</td>
           <td style="text-align:center;">${G_mecc.toFixed(2)}</td>
           <td class="num">${(P_mecc * 100).toFixed(4)}%</td>
@@ -871,7 +1038,7 @@
         const fee = V_mecc * G_mecc * 0.35 * P_mecc;
         projSum += fee;
         tblProj.innerHTML += `<tr>
-          <td><strong>Progettazione Esecutiva Impianti Meccanici / Climatizzazione</strong><br><small style="color:#64748b;">Reti idroniche, aeraulica VMC, centrale termica/frigo (QbIII.04)</small></td>
+          <td><strong>Progettazione Esecutiva Impianti Meccanici / Climatizzazione</strong><br><small>Reti idroniche, aeraulica VMC, centrale termica/frigo (QbIII.04)</small></td>
           <td class="num">${formatEuro(V_mecc)}</td>
           <td style="text-align:center;">${G_mecc.toFixed(2)}</td>
           <td class="num">${(P_mecc * 100).toFixed(4)}%</td>
@@ -886,7 +1053,7 @@
         const fee = V_ele * G_ele * 0.27 * P_ele;
         projSum += fee;
         tblProj.innerHTML += `<tr>
-          <td><strong>Progetto di Fattibilità Tecnico-Economica (PFTE) Elettrico/Speciali</strong><br><small style="color:#64748b;">Dimensionamento preliminare fornitura, carichi presunti e layout di massima (QbII.07)</small></td>
+          <td><strong>Progetto di Fattibilità Tecnico-Economica (PFTE) Elettrico/Speciali</strong><br><small>Dimensionamento fornitura, carichi presunti e layout di massima (QbII.07)</small></td>
           <td class="num">${formatEuro(V_ele)}</td>
           <td style="text-align:center;">${G_ele.toFixed(2)}</td>
           <td class="num">${(P_ele * 100).toFixed(4)}%</td>
@@ -898,7 +1065,7 @@
         const fee = V_ele * G_ele * 0.35 * P_ele;
         projSum += fee;
         tblProj.innerHTML += `<tr>
-          <td><strong>Progettazione Esecutiva Impianti Elettrici e Speciali (IA.04)</strong><br><small style="color:#64748b;">Quadri generali, selettività, calcolo carichi, reti speciali dati (QbIII.05)</small></td>
+          <td><strong>Progettazione Esecutiva Impianti Elettrici e Speciali (IA.04)</strong><br><small>Quadri generali, selettività, calcolo carichi, reti speciali dati (QbIII.05)</small></td>
           <td class="num">${formatEuro(V_ele)}</td>
           <td style="text-align:center;">${G_ele.toFixed(2)}</td>
           <td class="num">${(P_ele * 100).toFixed(4)}%</td>
@@ -909,10 +1076,10 @@
     }
 
     if (projSum === 0) {
-      tblProj.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#ef4444;">Nessuna fase di progettazione selezionata.</td></tr>';
+      tblProj.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#ef4444; padding:14px;">Nessuna fase di progettazione selezionata.</td></tr>';
     }
 
-    // PARAGRAFO 2: DIREZIONE LAVORI E CONTABILITÀ
+    // 2. DIREZIONE LAVORI E CONTABILITÀ
     let dlSum = 0;
     const tblDl = document.getElementById('outTableDlRows');
     tblDl.innerHTML = '';
@@ -922,7 +1089,7 @@
         const fee = V_mecc * G_mecc * 0.32 * P_mecc;
         dlSum += fee;
         tblDl.innerHTML += `<tr>
-          <td><strong>Direzione Lavori Specialistica Impianti Meccanici</strong><br><small style="color:#64748b;">Supervisione tecnica di cantiere e collaudo funzionale (QcI.01)</small></td>
+          <td><strong>Direzione Lavori Specialistica Impianti Meccanici</strong><br><small>Supervisione tecnica di cantiere e collaudo funzionale (QcI.01)</small></td>
           <td class="num">${formatEuro(V_mecc)}</td>
           <td style="text-align:center;">${G_mecc.toFixed(2)}</td>
           <td class="num">${(P_mecc * 100).toFixed(4)}%</td>
@@ -934,7 +1101,7 @@
         const fee = V_mecc * G_mecc * 0.10 * P_mecc;
         dlSum += fee;
         tblDl.innerHTML += `<tr>
-          <td><strong>Contabilità Lavori e Liquidazione SAL Impianti Meccanici</strong><br><small style="color:#64748b;">Misure in contraddittorio e stati di avanzamento (QcI.09 - QcI.11)</small></td>
+          <td><strong>Contabilità Lavori e Liquidazione SAL Impianti Meccanici</strong><br><small>Misure in contraddittorio e stati di avanzamento (QcI.09 - QcI.11)</small></td>
           <td class="num">${formatEuro(V_mecc)}</td>
           <td style="text-align:center;">${G_mecc.toFixed(2)}</td>
           <td class="num">${(P_mecc * 100).toFixed(4)}%</td>
@@ -949,7 +1116,7 @@
         const fee = V_ele * G_ele * 0.32 * P_ele;
         dlSum += fee;
         tblDl.innerHTML += `<tr>
-          <td><strong>Direzione Lavori Specialistica Impianti Elettrici e Speciali</strong><br><small style="color:#64748b;">Verifica posa condutture, quadri e coordinamento protezioni (QcI.01)</small></td>
+          <td><strong>Direzione Lavori Specialistica Impianti Elettrici e Speciali</strong><br><small>Verifica posa condutture, quadri e coordinamento protezioni (QcI.01)</small></td>
           <td class="num">${formatEuro(V_ele)}</td>
           <td style="text-align:center;">${G_ele.toFixed(2)}</td>
           <td class="num">${(P_ele * 100).toFixed(4)}%</td>
@@ -961,7 +1128,7 @@
         const fee = V_ele * G_ele * 0.10 * P_ele;
         dlSum += fee;
         tblDl.innerHTML += `<tr>
-          <td><strong>Contabilità Lavori e SAL Impianti Elettrici e Speciali</strong><br><small style="color:#64748b;">Verifica contabile e stati di avanzamento (QcI.09 - QcI.11)</small></td>
+          <td><strong>Contabilità Lavori e SAL Impianti Elettrici e Speciali</strong><br><small>Verifica contabile e stati di avanzamento (QcI.09 - QcI.11)</small></td>
           <td class="num">${formatEuro(V_ele)}</td>
           <td style="text-align:center;">${G_ele.toFixed(2)}</td>
           <td class="num">${(P_ele * 100).toFixed(4)}%</td>
@@ -972,10 +1139,10 @@
     }
 
     if (dlSum === 0) {
-      tblDl.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#64748b;">Nessuna prestazione di direzione lavori selezionata.</td></tr>';
+      tblDl.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#64748b; padding:14px;">Nessuna prestazione di direzione lavori selezionata.</td></tr>';
     }
 
-    // PARAGRAFO 3: ASSISTENZA A VACAZIONE
+    // 3. ASSISTENZA A VACAZIONE
     let vacSum = 0;
     const tblVac = document.getElementById('outTableVacazioni');
     tblVac.innerHTML = '';
@@ -985,17 +1152,17 @@
       const tariffa = parseFloat(document.getElementById('inTariffaOra').value) || 0;
       vacSum = ore * tariffa;
       tblVac.innerHTML = `<tr>
-        <td><strong>Assistenza Tecnica e Sorveglianza di Cantiere ad ore (Vacazioni)</strong><br><small style="color:#64748b;">Tracciamenti tecnici, verifica interferenze e riunioni con le ditte installatrici</small></td>
-        <td style="text-align:center;">Ore / vacazione</td>
+        <td><strong>Assistenza Tecnica e Sorveglianza di Cantiere ad ore (Vacazioni)</strong><br><small>Tracciamenti tecnici, verifica interferenze e riunioni con le ditte installatrici</small></td>
+        <td style="text-align:center;">Ore / vacaz.</td>
         <td class="num">${ore} h</td>
         <td class="num">${formatEuro(tariffa)}/h</td>
         <td class="num">${formatEuro(vacSum)}</td>
       </tr>`;
     } else {
-      tblVac.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#64748b;">Assistenza tecnica a vacazione non inclusa nell\'offerta.</td></tr>';
+      tblVac.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#64748b; padding:12px;">Assistenza tecnica a vacazione non inclusa nell\'offerta.</td></tr>';
     }
 
-    // PARAGRAFO 4: SERVIZI SPECIALISTICI E BANDI
+    // 4. PRATICHE SPECIALISTICHE E BANDI
     let specialSum = 0;
     const tblSpec = document.getElementById('outTableSpecial');
     tblSpec.innerHTML = '';
@@ -1006,7 +1173,7 @@
       const feeDiagnosi = mq * tarMq;
       specialSum += feeDiagnosi;
       tblSpec.innerHTML += `<tr>
-        <td><strong>Diagnosi Energetica Strumentale dell'Immobile</strong><br><small style="color:#64748b;">Rilievo termico, modellazione, piano interventi migliorativi (UNI CEI EN 16247)</small></td>
+        <td><strong>Diagnosi Energetica Strumentale dell'Immobile</strong><br><small>Rilievo termico, modellazione, piano interventi migliorativi (UNI CEI EN 16247)</small></td>
         <td style="text-align:center;">Superficie Utile</td>
         <td class="num">${mq.toLocaleString('it-IT')} mq</td>
         <td style="text-align:center;">${formatEuro(tarMq)}/mq</td>
@@ -1020,7 +1187,7 @@
       const feeCT = incentivo * (percGSE / 100);
       specialSum += feeCT;
       tblSpec.innerHTML += `<tr>
-        <td><strong>Gestione Pratica GSE Conto Termico 3.0 (Success Fee)</strong><br><small style="color:#64748b;">Istruttoria tecnico-amministrativa, asseverazioni e caricamento Portaltermico (${ctPres}% invio / ${ctOtt}% saldo)</small></td>
+        <td><strong>Gestione Pratica GSE Conto Termico 3.0 (Success Fee)</strong><br><small>Istruttoria, asseverazioni e Portaltermico (${ctPres}% invio / ${ctOtt}% saldo erogazione)</small></td>
         <td style="text-align:center;">Incentivo GSE</td>
         <td class="num">${formatEuro(incentivo)}</td>
         <td style="text-align:center;">${percGSE.toFixed(1)}%</td>
@@ -1035,7 +1202,7 @@
       const feeBando = importoBando * (percBando / 100);
       specialSum += feeBando;
       tblSpec.innerHTML += `<tr>
-        <td><strong>Consulenza Tecnica & Domanda Bando: ${tipoBando}</strong><br><small style="color:#64748b;">Perizia tecnica asseverata, conformità requisiti e istruttoria a Success Fee</small></td>
+        <td><strong>Consulenza Tecnica & Domanda Bando: ${tipoBando}</strong><br><small>Perizia tecnica asseverata, conformità requisiti e istruttoria a Success Fee</small></td>
         <td style="text-align:center;">Beneficio Stimato</td>
         <td class="num">${formatEuro(importoBando)}</td>
         <td style="text-align:center;">${percBando.toFixed(1)}%</td>
@@ -1047,7 +1214,7 @@
       const fee = parseFloat(document.getElementById('fee_vvf').value) || 0;
       specialSum += fee;
       tblSpec.innerHTML += `<tr>
-        <td><strong>Prevenzione Incendi & Pratica VVF (Valutazione Progetto + SCIA)</strong><br><small style="color:#64748b;">Progettazione secondo Codice Prevenzione Incendi (D.M. 03/08/2015)</small></td>
+        <td><strong>Prevenzione Incendi & Pratica VVF (Valutazione Progetto + SCIA)</strong><br><small>Progettazione secondo Codice Prevenzione Incendi (D.M. 03/08/2015)</small></td>
         <td style="text-align:center;">A corpo</td>
         <td class="num">Unica</td>
         <td style="text-align:center;">Forfait</td>
@@ -1059,7 +1226,7 @@
       const fee = parseFloat(document.getElementById('fee_legge10').value) || 0;
       specialSum += fee;
       tblSpec.innerHTML += `<tr>
-        <td><strong>Relazione Energetica di Rispondenza (D.M. 28/10/2025)</strong><br><small style="color:#64748b;">Verifiche ponti termici, calcolo superfici lorde, BACS e requisiti minimi di legge</small></td>
+        <td><strong>Relazione Energetica di Rispondenza (D.M. 28/10/2025)</strong><br><small>Verifiche ponti termici, calcolo superfici lorde, BACS e requisiti minimi di legge</small></td>
         <td style="text-align:center;">A corpo</td>
         <td class="num">Unica</td>
         <td style="text-align:center;">Forfait</td>
@@ -1068,10 +1235,10 @@
     }
 
     if (specialSum === 0) {
-      tblSpec.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#64748b;">Nessun servizio specialistico selezionato.</td></tr>';
+      tblSpec.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#64748b; padding:12px;">Nessun servizio specialistico selezionato.</td></tr>';
     }
 
-    // GESTIONE VISIBILITÀ CAPITOLATO TECNICO (PAGINA 2)
+    // GESTIONE VISIBILITÀ CAPITOLATO TECNICO (PAGINA 3)
     document.getElementById('box_cap_a').style.display = document.getElementById('chk_cap_a').checked ? 'block' : 'none';
     document.getElementById('box_cap_b').style.display = document.getElementById('chk_cap_b').checked ? 'block' : 'none';
     document.getElementById('box_cap_c').style.display = document.getElementById('chk_cap_c').checked ? 'block' : 'none';
@@ -1110,7 +1277,7 @@
     const offerNumClean = (document.getElementById('inOfferNumber').value || 'OFF-26-001').replace(/[^a-zA-Z0-9_-]/g, '_');
     
     const opt = {
-      margin:       [8, 8, 8, 8],
+      margin:       [8, 10, 8, 10],
       filename:     `Offerta_${offerNumClean}.pdf`,
       image:        { type: 'jpeg', quality: 0.98 },
       html2canvas:  { scale: 2, useCORS: true, allowTaint: true, scrollY: 0 },
