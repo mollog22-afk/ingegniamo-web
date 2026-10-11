@@ -125,32 +125,6 @@
       margin-bottom: 14px;
     }
     .brand-logo-wrap { display: flex; flex-direction: column; }
-    .logo-svg-text {
-      font-size: 2.1rem;
-      font-weight: 900;
-      color: #000;
-      letter-spacing: -1px;
-      line-height: 1;
-      display: flex;
-      align-items: center;
-    }
-    .logo-door {
-      display: inline-block;
-      width: 18px;
-      height: 30px;
-      border: 4.5px solid #000;
-      border-right: none;
-      margin-right: 4px;
-      transform: skewY(-8deg);
-    }
-    .brand-claim {
-      font-size: 0.68rem;
-      color: #334155;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-top: 5px;
-    }
     .brand-contacts { text-align: right; font-size: 0.72rem; color: #64748b; line-height: 1.3; }
 
     .doc-banner {
@@ -483,10 +457,10 @@
     <div class="action-buttons">
       <button class="btn-action btn-print-browser" onclick="window.print()">
         <svg width="17" height="17" fill="currentColor" viewBox="0 0 16 16"><path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/><path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/></svg>
-        Stampa Diretta / Salva in PDF (Consigliato)
+        Stampa Diretta / Salva in PDF
       </button>
       <button class="btn-action btn-pdf-direct" onclick="generatePdfDirect()">
-        <svg width="17" height="17" fill="currentColor" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+        <svg width="17" height="17" fill="currentColor" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
         Download Automatico PDF
       </button>
     </div>
@@ -497,9 +471,9 @@
     <div class="sheet" id="documentSheet">
       
       <!-- ==================== PAGINA 1: PROSPETTO ECONOMICO ==================== -->
-     <div class="brand-header">
+      <div class="brand-header">
         <div class="brand-logo-wrap">
-          <img src="logo-ingegniamo.png" alt="INGEGNIAMO" style="max-width: 250px; height: auto; display: block;">
+          <img src="logo-ingegniamo.png" alt="INGEGNIAMO" style="max-width: 250px; height: auto; display: block;" onerror="this.style.display='none'">
         </div>
         <div class="brand-contacts">
           <strong>INGEGNIAMO S.r.l.</strong><br>
@@ -644,11 +618,11 @@
 
       <!-- ==================== PAGINA 2: CAPITOLATO TECNICO E QUADRO NORMATIVO ==================== -->
       <div class="page-break-forced">
-  <div class="brand-header" style="border-bottom: 1.5px solid var(--secondary); margin-bottom: 12px; padding-bottom: 8px;">
-    <div class="brand-logo-wrap">
-      <img src="logo-ingegniamo.png" alt="INGEGNIAMO" style="max-width: 170px; height: auto; display: block; margin-bottom: 4px;">
-      <span style="font-size: 0.68rem; color: #64748b; font-weight: 600;">ALLEGATO TECNICO PRESTAZIONALE ALL'OFFERTA-<span id="outCodeAnnex">2026/01</span></span>
-    </div>
+        <div class="brand-header" style="border-bottom: 1.5px solid var(--secondary); margin-bottom: 12px; padding-bottom: 8px;">
+          <div class="brand-logo-wrap">
+            <img src="logo-ingegniamo.png" alt="INGEGNIAMO" style="max-width: 170px; height: auto; display: block; margin-bottom: 4px;" onerror="this.style.display='none'">
+            <span style="font-size: 0.68rem; color: #64748b; font-weight: 600;">ALLEGATO TECNICO PRESTAZIONALE ALL'OFFERTA-<span id="outCodeAnnex">2026/01</span></span>
+          </div>
           <div class="brand-contacts" style="font-size: 0.68rem;">
             Sezione Normativa e Specifica delle Prestazioni d'Ingegneria
           </div>
@@ -684,7 +658,7 @@
           </h4>
           <p>La progettazione termomeccanica assicura il rispetto dei livelli di comfort termoigrometrico, la qualità dell'aria interna (IAQ) e l'efficienza energetica d'involucro e d'impianto in conformità all'aggiornamento normativo introdotto dal <strong>D.M. 28 Ottobre 2025</strong> (che sostituisce ed aggiorna il D.M. 26/06/2015):</p>
           <ul>
-            <li><strong>Nuovo Quadro di Calcolo D.M. 28/10/2025:</strong> Determinazione dei requisiti minimi e degli indici prestazionali calcolati su <strong>superfici esterne lorde</strong>, obbligo di <strong>valutazione puntuale dei ponti termici</strong> con abaco o calcolo FEM, e rispetto dei nuovi limiti restrittivi sul coefficiente medio di scambio termico $H'_T$.</li>
+            <li><strong>Nuovo Quadro di Calcolo D.M. 28/10/2025:</strong> Determinazione dei requisiti minimi e degli indici prestazionali calcolati su <strong>superfici esterne lorde</strong>, obbligo di <strong>valutazione puntuale dei ponti termici</strong> con abaco o calcolo FEM, e rispetto dei nuovi limiti restrittivi sul coefficiente medio di scambio termico H'<sub>T</sub>.</li>
             <li><strong>Automazione e Sistemi BACS:</strong> Integrazione obbligatoria di sistemi di automazione e regolazione degli edifici (BACS) di <strong>Classe B</strong> ai sensi della norma <strong>UNI EN ISO 52120-1</strong> per gli edifici non residenziali con potenza superiore a 290 kW.</li>
             <li><strong>Calcolo dei Fabbisogni Energetici:</strong> Calcolo analitico delle dispersioni termiche invernali secondo <strong>UNI EN 12831</strong> e dei carichi estivi con metodo ASHRAE RTS / Heat Balance.</li>
             <li><strong>Impianti Idrico-Sanitari e Scarichi:</strong> Dimensionamento delle reti idriche fredda e calda sanitaria (ACS) secondo <strong>UNI 9182</strong>, con prevenzione della legionellosi e scarichi conformi a <strong>UNI EN 12056</strong>.</li>
@@ -988,7 +962,7 @@
       margin:       [8, 8, 8, 8],
       filename:     `Preventivo_Capitolato_INGEGNIAMO_${clientClean}.pdf`,
       image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2, useCORS: true, scrollY: 0 },
+      html2canvas:  { scale: 2, useCORS: true, allowTaint: true, scrollY: 0 },
       jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
       pagebreak:    { mode: ['css', 'legacy'], avoid: ['tr', '.avoid-break', '.ledger-wrap', '.legal-text', '.service-spec-box', '.signatures'] }
     };
@@ -996,29 +970,9 @@
     html2pdf().set(opt).from(element).save();
   }
 
-  window.onload = recalcAll;
+  // Esecuzione immediata dei calcoli all'apertura della pagina
+  window.addEventListener('DOMContentLoaded', recalcAll);
 </script>
-<script>
-      function formatEuro(val) {
-        return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(val);
-      }
 
-      function calcP(V) {
-        if (V <= 0) return 0;
-        return 0.03 + (10 / Math.pow(V, 0.4));
-      }
-
-      function recalcAll() {
-        // ... tutta la logica di calcolo ...
-      }
-
-      function generatePdfDirect() {
-        // ... funzione per esportare in PDF ...
-      }
-
-      window.onload = recalcAll;
-    </script>
-
-  </body>
+</body>
 </html>
-
