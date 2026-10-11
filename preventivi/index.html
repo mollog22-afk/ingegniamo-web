@@ -4,7 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>INGEGNIAMO S.r.l. - Preventivatore Tecnico & Bandi</title>
+  
+  <!-- Titolo scheda browser e condivisione social/messaggistica -->
+  <title>Modulo di Offerta Economica - INGEGNIAMO S.r.l.</title>
+  <meta property="og:title" content="Modulo di Offerta Economica - INGEGNIAMO S.r.l.">
+  <meta property="og:description" content="Disciplinare di incarico professionale e proposta economica per prestazioni di ingegneria.">
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
@@ -289,7 +293,12 @@
 
   <!-- PANNELLO DI CONTROLLO -->
   <div class="control-panel">
-    <div class="panel-header">Parametri Preventivatore</div>
+    <div class="panel-header">Modulo di Offerta Economica</div>
+
+    <div class="form-group">
+      <label>Protocollo / Numero Offerta</label>
+      <input type="text" id="inOfferNumber" value="OFF-26-001_Committente" placeholder="Es. OFF-26-001_NomeCliente" oninput="recalcAll()">
+    </div>
 
     <div class="form-group">
       <label>Committente</label>
@@ -383,7 +392,7 @@
       </div>
     </div>
 
-    <!-- 5. CONTO TERMICO 3.0 (SUCCESS FEE) -->
+    <!-- 5. CONTO TERMICO 3.0 (SUCCESS FEE VARIABILE CON SOMMA 100%) -->
     <div class="box-block">
       <div class="box-block-title">
         <span>5. Conto Termico 3.0 (Success Fee)</span>
@@ -396,8 +405,18 @@
           <input type="number" id="inIncentivoGSE" value="45000" step="1000" min="0" oninput="recalcAll()">
         </div>
         <div class="form-group">
-          <label>Success Fee (%)</label>
+          <label>Success Fee Totale (%)</label>
           <input type="number" id="inPercentGSE" value="7.0" step="0.5" min="1" max="25" oninput="recalcAll()">
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 4px;">
+        <div class="form-group">
+          <label>Quota Presentazione %</label>
+          <input type="number" id="inCtQuotaPres" value="30" min="0" max="100" oninput="syncCtSplit(this, 'pres')">
+        </div>
+        <div class="form-group">
+          <label>Quota Ottenimento %</label>
+          <input type="number" id="inCtQuotaOtt" value="70" min="0" max="100" oninput="syncCtSplit(this, 'ott')">
         </div>
       </div>
     </div>
@@ -516,8 +535,8 @@
         </div>
       </div>
       <div class="doc-banner">
-        <h2>Offerta Economica e Disciplinare di Incarico Professionale</h2>
-        <p>Corrispettivi ai sensi del D.M. 17 giugno 2016 e dell'art. 9 L. 27/2012</p>
+        <h2>Modulo di Offerta Economica e Disciplinare di Incarico</h2>
+        <p>Determinazione dei corrispettivi ai sensi del D.M. 17 giugno 2016 e dell'art. 9 L. 27/2012</p>
       </div>
 
       <div class="details-grid avoid-break">
@@ -527,7 +546,7 @@
           <strong>Ubicazione Opera:</strong> <span id="outLocation">---</span>
         </div>
         <div class="card-meta">
-          <strong>Protocollo Offerta:</strong> ING-<span id="outCode">2026/01</span><br>
+          <strong>Numero Offerta:</strong> <span id="outOfferNumber" style="font-weight: 700; color: var(--primary);">OFF-26-001</span><br>
           <strong>Data Emissione:</strong> <span id="outDate">--/--/----</span><br>
           <strong>Validità Proposta:</strong> 30 giorni data emissione
         </div>
@@ -652,7 +671,7 @@
       <div class="legal-text">
         <strong>CONDIZIONI GENERALI DI CONTRATTO, SUCCESS FEE ED ESCLUSIONI:</strong><br>
         • <strong>Modalità e Termini di Pagamento Concordati:</strong> Il corrispettivo imponibile netto sarà corrisposto come segue: <span id="lblPaymentTerms">20% all'accettazione, 50% alla consegna elaborati, 30% a saldo</span>.<br>
-        • <strong>Regime Success Fee (Conto Termico 3.0 e Bandi Agevolati):</strong> I compensi percentuali su Conto Termico 3.0 / GSE e su misure agevolative (Transizione 5.0, Sabatini, Bandi Regionali/FESR, Ecobonus) sono subordinati al buon esito della pratica (*success fee*). Una quota forfettaria pari al 30% della stima è corrisposta all'invio dell'istanza a titolo di copertura spese vive e istruttoria; il saldo residuo del 70% (rideterminato sull'incentivo/beneficio effettivo concesso o deliberato) diverrà esigibile entro e non oltre 15 giorni dalla notifica del provvedimento di concessione o dalla liquidazione del contributo.<br>
+        • <strong>Regime Success Fee (Conto Termico 3.0 e Bandi Agevolati):</strong> I compensi percentuali su Conto Termico 3.0 / GSE e su misure agevolative (Transizione 5.0, Sabatini, Bandi Regionali/FESR, Ecobonus) sono subordinati al buon esito della pratica (*success fee*). <span id="lblCtTerms">Una quota forfettaria pari al 30% della stima è corrisposta all'invio dell'istanza a titolo di copertura spese vive e istruttoria; il saldo residuo del 70% (rideterminato sull'incentivo effettivo concesso) diverrà esigibile entro 15 giorni dalla prima erogazione da parte del GSE.</span><br>
         • <strong>Esclusioni:</strong> Oneri di istruttoria e tariffa di copertura GSE (D.M. 16/02/2016 e s.m.i.), diritti di segreteria/bolli VVF e Comuni, perizie giurate bancarie esterne non espressamente concordate, Coordinamento della Sicurezza ex D.Lgs. 81/2008 (CSP/CSE).<br>
         • <strong>Privacy GDPR (Reg. UE 2016/679):</strong> Titolare del trattamento è INGEGNIAMO S.r.l. I dati personali sono trattati unicamente per l'esecuzione del mandato professionale e gli adempimenti di legge connessi.
       </div>
@@ -675,7 +694,7 @@
         <div class="brand-header" style="border-bottom: 1.5px solid var(--secondary); margin-bottom: 12px; padding-bottom: 8px;">
           <div class="brand-logo-wrap">
             <img src="logo-ingegniamo.png" alt="INGEGNIAMO" style="max-width: 170px; height: auto; display: block; margin-bottom: 4px;" onerror="this.style.display='none'">
-            <span style="font-size: 0.68rem; color: #64748b; font-weight: 600;">ALLEGATO TECNICO PRESTAZIONALE ALL'OFFERTA-<span id="outCodeAnnex">2026/01</span></span>
+            <span style="font-size: 0.68rem; color: #64748b; font-weight: 600;">ALLEGATO TECNICO PRESTAZIONALE ALL'OFFERTA <span id="outCodeAnnex">OFF-26-001</span></span>
           </div>
           <div class="brand-contacts" style="font-size: 0.68rem;">
             Sezione Normativa e Specifica delle Prestazioni d'Ingegneria
@@ -778,30 +797,50 @@
     return 0.03 + (10 / Math.pow(V, 0.4));
   }
 
+  // Sincronizza quote Conto Termico garantendo la somma a 100%
+  function syncCtSplit(el, changedSide) {
+    let val = parseFloat(el.value) || 0;
+    if (val < 0) val = 0;
+    if (val > 100) val = 100;
+    el.value = val;
+
+    if (changedSide === 'pres') {
+      document.getElementById('inCtQuotaOtt').value = 100 - val;
+    } else {
+      document.getElementById('inCtQuotaPres').value = 100 - val;
+    }
+    recalcAll();
+  }
+
   function recalcAll() {
-    // 1. Dati descrittivi
+    // 1. Dati descrittivi e numero offerta
     const client = document.getElementById('inClient').value;
     const clientFiscal = document.getElementById('inClientFiscal').value;
     const subject = document.getElementById('inSubject').value;
     const loc = document.getElementById('inLocation').value;
+    const offerNum = document.getElementById('inOfferNumber').value.trim() || 'OFF-26-001';
 
     const today = new Date();
     document.getElementById('outDate').innerText = today.toLocaleDateString('it-IT');
-    const code = today.getFullYear() + "/" + String(today.getMonth() + 1).padStart(2, '0');
-    document.getElementById('outCode').innerText = code;
-    document.getElementById('outCodeAnnex').innerText = code;
+    document.getElementById('outOfferNumber').innerText = offerNum;
+    document.getElementById('outCodeAnnex').innerText = offerNum;
     document.getElementById('outClient').innerText = client;
     document.getElementById('outClientFiscal').innerText = clientFiscal;
     document.getElementById('outSubject').innerText = subject;
     document.getElementById('outLocation').innerText = loc;
 
-    // 2. Condizioni di pagamento dinamiche
+    // 2. Condizioni di pagamento generali
     const pAnticipo = parseFloat(document.getElementById('inPayAnticipo').value) || 0;
     const pAcconto = parseFloat(document.getElementById('inPayAcconto').value) || 0;
     const pSaldo = parseFloat(document.getElementById('inPaySaldo').value) || 0;
     document.getElementById('lblPaymentTerms').innerText = `${pAnticipo}% all'accettazione e incarico formale, ${pAcconto}% ad emissione/consegna elaborati progettuali, restante ${pSaldo}% a saldo finale e collaudo`;
 
-    // 3. Calcolo Parametri e Tariffe
+    // 3. Ripartizione Conto Termico (somma garantita a 100%)
+    const ctPres = parseFloat(document.getElementById('inCtQuotaPres').value) || 30;
+    const ctOtt = parseFloat(document.getElementById('inCtQuotaOtt').value) || 70;
+    document.getElementById('lblCtTerms').innerText = `Una quota forfettaria pari al ${ctPres}% della stima è corrisposta all'invio dell'istanza a titolo di copertura spese di istruttoria; il saldo residuo del ${ctOtt}% (rideterminato sull'incentivo effettivo deliberato da GSE) diverrà esigibile entro e non oltre 15 giorni dalla notifica di accoglimento o dalla liquidazione del bonifico.`;
+
+    // 4. Calcolo Parametri e Tariffe
     const V_mecc = parseFloat(document.getElementById('inV_mecc').value) || 0;
     const G_mecc = parseFloat(document.getElementById('inG_mecc').value) || 0.75;
     const P_mecc = calcP(V_mecc);
@@ -847,7 +886,7 @@
         const fee = V_ele * G_ele * 0.27 * P_ele;
         projSum += fee;
         tblProj.innerHTML += `<tr>
-          <td><strong>Progetto di Fattibilità Tecnico-Economica (PFTE) Elettrico/Speciali</strong><br><small style="color:#64748b;">Dimensionamento preliminare cabina/fornitura, carichi presunti e layout di massima (QbII.07)</small></td>
+          <td><strong>Progetto di Fattibilità Tecnico-Economica (PFTE) Elettrico/Speciali</strong><br><small style="color:#64748b;">Dimensionamento preliminare fornitura, carichi presunti e layout di massima (QbII.07)</small></td>
           <td class="num">${formatEuro(V_ele)}</td>
           <td style="text-align:center;">${G_ele.toFixed(2)}</td>
           <td class="num">${(P_ele * 100).toFixed(4)}%</td>
@@ -981,7 +1020,7 @@
       const feeCT = incentivo * (percGSE / 100);
       specialSum += feeCT;
       tblSpec.innerHTML += `<tr>
-        <td><strong>Gestione Pratica GSE Conto Termico 3.0 (Success Fee)</strong><br><small style="color:#64748b;">Istruttoria tecnico-amministrativa, asseverazioni e caricamento Portaltermico</small></td>
+        <td><strong>Gestione Pratica GSE Conto Termico 3.0 (Success Fee)</strong><br><small style="color:#64748b;">Istruttoria tecnico-amministrativa, asseverazioni e caricamento Portaltermico (${ctPres}% invio / ${ctOtt}% saldo)</small></td>
         <td style="text-align:center;">Incentivo GSE</td>
         <td class="num">${formatEuro(incentivo)}</td>
         <td style="text-align:center;">${percGSE.toFixed(1)}%</td>
@@ -1068,11 +1107,11 @@
 
   function generatePdfDirect() {
     const element = document.getElementById('documentSheet');
-    const clientClean = (document.getElementById('inClient').value || 'Cliente').replace(/[^a-zA-Z0-9]/g, '_');
+    const offerNumClean = (document.getElementById('inOfferNumber').value || 'OFF-26-001').replace(/[^a-zA-Z0-9_-]/g, '_');
     
     const opt = {
       margin:       [8, 8, 8, 8],
-      filename:     `Preventivo_Capitolato_INGEGNIAMO_${clientClean}.pdf`,
+      filename:     `Offerta_${offerNumClean}.pdf`,
       image:        { type: 'jpeg', quality: 0.98 },
       html2canvas:  { scale: 2, useCORS: true, allowTaint: true, scrollY: 0 },
       jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
