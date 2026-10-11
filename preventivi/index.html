@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>INGEGNIAMO S.r.l. - Preventivatore Tecnico & Bandi</title>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <style>
+    :root {
+      --primary: #0b1f36;
+      --secondary: #1e3a8a;
+      --accent: #0284c7;
+      --border: #cbd5e1;
+      --bg: #f8fafc;
+      --paper: #ffffff;
+      --text: #0f172a;
+    }
+
+    * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; font-size: 13px; }
+
+    .main-grid {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 450px 1fr;
+      gap: 25px;
+    }
+
+    /* PANNELLO DI CONTROLLO */
+    .control-panel {
+      background: var(--paper);
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      height: fit-content;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.06);
+    }
+    .panel-header {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--primary);
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 8px;
+      margin-top: 0;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+
+    .form-group { margin-bottom: 9px; }
+    .form-group label { display: block; font-size: 0.73rem; font-weight: 700; color: #475569; margin-bottom: 2px; text-transform: uppercase; }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 6px 8px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.82rem;
+      background: #fafafa;
+    }
+    .form-group input:focus { border-color: var(--accent); outline: none; background: #fff; }
+
+    .box-block {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    .box-block-title {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed var(--border);
+      padding-bottom: 3px;
+    }
+    .check-label { display: flex; align-items: flex-start; gap: 6px; font-size: 0.76rem; margin-bottom: 4px; cursor: pointer; }
+    .check-label input { margin-top: 2px; }
+
+    .action-buttons { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+    .btn-action {
+      width: 100%;
+      color: white;
+      border: none;
+      padding: 11px;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: opacity 0.2s;
+    }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-print-browser { background: #047857; }
+    .btn-pdf-direct { background: var(--primary); }
+
+    /* FOGLIO A4 DOCUMENTO */
+    .sheet-wrapper { background: transparent; }
+    .sheet {
+      background: var(--paper);
+      padding: 35px 40px;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.06);
+      color: #0f172a;
+      width: 100%;
+      max-width: 890px;
+      margin: 0 auto;
+    }
+
+    .brand-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+    }
+    .brand-logo-wrap { display: flex; flex-direction: column; }
+    .logo-svg-text {
+      font-size: 2.1rem;
+      font-weight: 900;
+      color: #000;
+      letter-spacing: -1px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+    }
+    .logo-door {
+      display: inline-block;
+      width: 18px;
+      height: 30px;
+      border: 4.5px solid #000;
+      border-right: none;
+      margin-right: 4px;
+      transform: skewY(-8deg);
+    }
+    .brand-claim {
+      font-size: 0.68rem;
+      color: #334155;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 5px;
+    }
+    .brand-contacts { text-align: right; font-size: 0.72rem; color: #64748b; line-height: 1.3; }
+
+    .doc-banner {
+      background: #f1f5f9;
+      border-left: 3px solid var(--primary);
+      padding: 6px 10px;
+      margin-bottom: 12px;
+    }
+    .doc-banner h2 { margin: 0; font-size: 0.95rem; color: var(--primary); text-transform: uppercase; }
+    .doc-banner p { margin: 1px 0 0 0; font-size: 0.72rem; color: #475569; }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-size: 0.76rem;
+    }
+    .card-meta { background: #f8fafc; padding: 8px 10px; border-radius: 4px; border: 1px solid #e2e8f0; }
+
+    .sec-heading {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin: 12px 0 4px 0;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+    }
+
+    table.calc-grid {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 10px;
+      font-size: 0.72rem;
+    }
+    table.calc-grid th { background: #f1f5f9; padding: 5px 6px; border: 1px solid var(--border); text-align: left; color: #334155; }
+    table.calc-grid td { padding: 4px 6px; border: 1px solid var(--border); vertical-align: top; }
+    table.calc-grid td.num, table.calc-grid th.num { text-align: right; }
+
+    tr { page-break-inside: avoid !important; break-inside: avoid !important; }
+    .avoid-break { page-break-inside: avoid !important; break-inside: avoid !important; }
+
+    .page-break-forced {
+      page-break-before: always !important;
+      break-before: page !important;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 2px dashed #94a3b8;
+    }
+
+    .ledger-wrap {
+      width: 400px;
+      margin-left: auto;
+      margin-top: 10px;
+      border: 1px solid var(--border);
+      background: #fcfcfc;
+      padding: 10px 12px;
+      border-radius: 4px;
+      page-break-inside: avoid;
+    }
+    .ledger-row { display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 3px; }
+    .ledger-row.bold { font-weight: 700; color: var(--primary); border-top: 1px solid var(--border); padding-top: 3px; }
+    .ledger-row.final-due {
+      font-size: 0.95rem;
+      font-weight: 900;
+      color: #047857;
+      border-top: 2px solid var(--primary);
+      padding-top: 5px;
+      margin-top: 5px;
+    }
+
+    .legal-text {
+      margin-top: 14px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+      font-size: 0.65rem;
+      color: #64748b;
+      line-height: 1.3;
+      text-align: justify;
+      page-break-inside: avoid;
+    }
+    .legal-text strong { color: #334155; }
+
+    .service-spec-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-left: 3.5px solid var(--secondary);
+      padding: 9px 12px;
+      margin-bottom: 10px;
+      page-break-inside: avoid;
+    }
+    .service-spec-box h4 {
+      margin: 0 0 4px 0;
+      font-size: 0.78rem;
+      color: var(--primary);
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+    }
+    .service-spec-box h4 span.norm-tag {
+      font-size: 0.70rem;
+      color: #0284c7;
+      font-weight: 700;
+      text-transform: none;
+    }
+    .service-spec-box p {
+      margin: 0 0 5px 0;
+      font-size: 0.70rem;
+      color: #334155;
+      line-height: 1.35;
+    }
+    .service-spec-box ul {
+      margin: 0;
+      padding-left: 16px;
+      font-size: 0.69rem;
+      color: #475569;
+      line-height: 1.35;
+    }
+
+    .signatures {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      page-break-inside: avoid;
+    }
+    .sig-field { width: 220px; text-align: center; border-top: 1px solid #94a3b8; padding-top: 5px; }
+
+    @media print {
+      @page {
+        size: A4;
+        margin: 8mm 8mm 8mm 8mm;
+      }
+      body { background: white !important; padding: 0 !important; }
+      .control-panel { display: none !important; }
+      .main-grid { display: block !important; }
+      .sheet {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+      tr, .avoid-break, .ledger-wrap, .legal-text, .signatures, .service-spec-box {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+      .page-break-forced {
+        page-break-before: always !important;
+        break-before: page !important;
+        margin-top: 0 !important;
+        padding-top: 10px !important;
+        border-top: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="main-grid">
+
+  <!-- PANNELLO DI CONTROLLO -->
+  <div class="control-panel">
+    <div class="panel-header">Parametri Preventivatore</div>
+
+    <div class="form-group">
+      <label>Committente</label>
+      <input type="text" id="inClient" value="Impresa / Committente S.r.l." oninput="recalcAll()">
+      <input type="text" id="inClientFiscal" value="P.IVA / C.F. 01234567890" style="margin-top:3px;" oninput="recalcAll()">
+    </div>
+    <div class="form-group">
+      <label>Oggetto Prestazione</label>
+      <input type="text" id="inSubject" value="Progettazione Impianti, DL, Diagnosi Energetica, Conto Termico 3.0 e Bandi Agevolati" oninput="recalcAll()">
+    </div>
+    <div class="form-group">
+      <label>Ubicazione Immobile</label>
+      <input type="text" id="inLocation" value="Immobile sito in Rende (CS) destinato a uffici e ambulatori" oninput="recalcAll()">
+    </div>
+
+    <!-- 1. IMPIANTI MECCANICI -->
+    <div class="box-block">
+      <div class="box-block-title">
+        <span>1. Impianti Meccanici</span>
+        <span>D.M. 17/06/2016</span>
+      </div>
+      <div class="form-group">
+        <label>Importo Lavori Meccanici V_mecc (€)</label>
+        <input type="number" id="inV_mecc" value="130000" step="5000" min="0" oninput="recalcAll()">
+      </div>
+      <div class="form-group">
+        <label>Complessità Meccanica (G)</label>
+        <select id="inG_mecc" onchange="recalcAll()">
+          <option value="0.75" selected>IA.01 - Climatizzazione / Idronico (G = 0.75)</option>
+          <option value="0.85">IA.02 - Idrosanitari complessi / Gas (G = 0.85)</option>
+          <option value="1.15">IA.03 - Meccanici speciali / VMC / Aeraulica (G = 1.15)</option>
+        </select>
+      </div>
+      <label class="check-label"><input type="checkbox" id="chk_esec_mecc" checked onchange="recalcAll()"> Progetto Esecutivo Meccanico (Q = 0.35)</label>
+      <label class="check-label"><input type="checkbox" id="chk_dl_mecc" checked onchange="recalcAll()"> Direzione Lavori Meccanica (Q = 0.32)</label>
+      <label class="check-label"><input type="checkbox" id="chk_sal_mecc" checked onchange="recalcAll()"> Contabilità / SAL Meccanica (Q = 0.10)</label>
+    </div>
+
+    <!-- 2. IMPIANTI ELETTRICI -->
+    <div class="box-block">
+      <div class="box-block-title">
+        <span>2. Impianti Elettrici</span>
+        <span>IA.04 (G=1.15)</span>
+      </div>
+      <div class="form-group">
+        <label>Importo Lavori Elettrici V_ele (€)</label>
+        <input type="number" id="inV_ele" value="120000" step="5000" min="0" oninput="recalcAll()">
+      </div>
+      <label class="check-label"><input type="checkbox" id="chk_esec_ele" checked onchange="recalcAll()"> Progetto Esecutivo Elettrico/Speciali (Q = 0.35)</label>
+      <label class="check-label"><input type="checkbox" id="chk_dl_ele" checked onchange="recalcAll()"> Direzione Lavori Elettrica (Q = 0.32)</label>
+      <label class="check-label"><input type="checkbox" id="chk_sal_ele" checked onchange="recalcAll()"> Contabilità / SAL Elettrica (Q = 0.10)</label>
+    </div>
+
+    <!-- 3. ASSISTENZA A VACAZIONE -->
+    <div class="box-block">
+      <div class="box-block-title">
+        <span>3. Assistenza Cantiere a Vacazione</span>
+        <span>Art. 22 D.M.</span>
+      </div>
+      <label class="check-label"><input type="checkbox" id="chk_vacazioni" checked onchange="recalcAll()"> Includi Assistenza e Sorveglianza Tecnica</label>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 3px;">
+        <div class="form-group">
+          <label>Ore Stimate</label>
+          <input type="number" id="inOreVac" value="40" min="0" oninput="recalcAll()">
+        </div>
+        <div class="form-group">
+          <label>Tariffa (€/ora)</label>
+          <input type="number" id="inTariffaOra" value="65" min="20" oninput="recalcAll()">
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. DIAGNOSI ENERGETICA A MQ -->
+    <div class="box-block">
+      <div class="box-block-title">
+        <span>4. Diagnosi Energetica (€/mq)</span>
+        <span>UNI CEI EN 16247</span>
+      </div>
+      <label class="check-label"><input type="checkbox" id="chk_diagnosi" checked onchange="recalcAll()"> Diagnosi Energetica Strumentale</label>
+      <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 6px; margin-top: 3px;">
+        <div class="form-group">
+          <label>Superficie (mq)</label>
+          <input type="number" id="inMqDiagnosi" value="850" min="1" oninput="recalcAll()">
+        </div>
+        <div class="form-group">
+          <label>Tariffa (€/mq)</label>
+          <input type="number" id="inTariffaMq" value="3.50" step="0.5" min="0.5" oninput="recalcAll()">
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. CONTO TERMICO 3.0 (SUCCESS FEE) -->
+    <div class="box-block">
+      <div class="box-block-title">
+        <span>5. Conto Termico 3.0 (Success Fee)</span>
+        <span>GSE Portaltermico</span>
+      </div>
+      <label class="check-label"><input type="checkbox" id="chk_ct" checked onchange="recalcAll()"> Pratica Conto Termico 3.0 a Success Fee</label>
+      <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 6px; margin-top: 3px;">
+        <div class="form-group">
+          <label>Incentivo GSE Previsto (€)</label>
+          <input type="number" id="inIncentivoGSE" value="45000" step="1000" min="0" oninput="recalcAll()">
+        </div>
+        <div class="form-group">
+          <label>Success Fee (%)</label>
+          <input type="number" id="inPercentGSE" value="7.0" step="0.5" min="1" max="25" oninput="recalcAll()">
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. BANDI & AGEVOLAZIONI FISCALI (SUCCESS FEE) -->
+    <div class="box-block">
+      <div class="box-block-title">
+        <span>6. Bandi & Finanza Agevolata (Success Fee)</span>
+      </div>
+      <label class="check-label"><input type="checkbox" id="chk_bando" checked onchange="recalcAll()"> Gestione Tecnico-Economica Bandi</label>
+      <div class="form-group">
+        <label>Tipologia Bando / Misura</label>
+        <select id="inTipoBando" onchange="recalcAll()">
+          <option value="Transizione 5.0 / Iperammortamento">Transizione 5.0 / Iperammortamento beni strumentali</option>
+          <option value="Nuova Sabatini (Beni Strumentali)">Nuova Sabatini (Investimenti produttivi e green)</option>
+          <option value="Ecobonus / Riqualificazione Energetica">Ecobonus / Riqualificazione Energetica ENEA</option>
+          <option value="Bando Regionale FESR / PNRR Imprese">Bando Regionale FESR / PNRR Transizione Ecologica</option>
+        </select>
+      </div>
+      <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 6px; margin-top: 3px;">
+        <div class="form-group">
+          <label>Agevolazione / Investimento (€)</label>
+          <input type="number" id="inImportoBando" value="60000" step="5000" min="0" oninput="recalcAll()">
+        </div>
+        <div class="form-group">
+          <label>Success Fee Bando (%)</label>
+          <input type="number" id="inPercentBando" value="5.0" step="0.5" min="1" max="20" oninput="recalcAll()">
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. PRATICHE A FORFAIT (VVF E LEGGE 10) -->
+    <div class="box-block">
+      <div class="box-block-title">
+        <span>7. VVF e Relazione Legge 10</span>
+      </div>
+      <label class="check-label"><input type="checkbox" id="chk_vvf" checked onchange="recalcAll()"> Prevenzione Incendi & SCIA VVF</label>
+      <input type="number" id="fee_vvf" value="3000" style="margin-bottom:4px;" oninput="recalcAll()">
+
+      <label class="check-label"><input type="checkbox" id="chk_legge10" checked onchange="recalcAll()"> Relazione Energetica (D.M. 28/10/2025)</label>
+      <input type="number" id="fee_legge10" value="1500" oninput="recalcAll()">
+    </div>
+
+    <!-- 8. SPESE E SCONTO -->
+    <div class="box-block">
+      <div class="box-block-title">
+        <span>8. Oneri e Sconto Commerciale</span>
+      </div>
+      <div class="form-group">
+        <label>Spese ed oneri accessori (%)</label>
+        <input type="number" id="inExpPercent" value="15" min="0" max="25" oninput="recalcAll()">
+      </div>
+      <div class="form-group">
+        <label>Sconto commerciale applicato (%)</label>
+        <input type="number" id="inDiscountPercent" value="10" min="0" max="80" oninput="recalcAll()">
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn-action btn-print-browser" onclick="window.print()">
+        <svg width="17" height="17" fill="currentColor" viewBox="0 0 16 16"><path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/><path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/></svg>
+        Stampa Diretta / Salva in PDF (Consigliato)
+      </button>
+      <button class="btn-action btn-pdf-direct" onclick="generatePdfDirect()">
+        <svg width="17" height="17" fill="currentColor" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+        Download Automatico PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- DOCUMENTO UFFICIALE -->
+  <div class="sheet-wrapper">
+    <div class="sheet" id="documentSheet">
+      
+      <!-- ==================== PAGINA 1: PROSPETTO ECONOMICO ==================== -->
+      <div class="brand-header">
+        <div class="brand-logo-wrap">
+          <div class="logo-svg-text">
+            <span class="logo-door"></span>INGEGNIAMO
+          </div>
+          <div class="brand-claim">INGEGNERIA • FORMAZIONE</div>
+        </div>
+        <div class="brand-contacts">
+          <strong>INGEGNIAMO S.r.l.</strong><br>
+          Società di Ingegneria e Servizi Tecnici<br>
+          Sede Operativa: Cosenza (CS) • Italia<br>
+          P.IVA / C.F.: 03867620786<br>
+          PEC: ingegniamosrl@pec.it • info@ingegniamo.it
+        </div>
+      </div>
+
+      <div class="doc-banner">
+        <h2>Offerta Economica e Disciplinare di Incarico Professionale</h2>
+        <p>Corrispettivi ai sensi del D.M. 17 giugno 2016 e dell'art. 9 L. 27/2012</p>
+      </div>
+
+      <div class="details-grid avoid-break">
+        <div class="card-meta">
+          <strong>Spett.le Committente:</strong> <span id="outClient">---</span><br>
+          <strong>Cod. Fiscale / P.IVA:</strong> <span id="outClientFiscal">---</span><br>
+          <strong>Ubicazione Opera:</strong> <span id="outLocation">---</span>
+        </div>
+        <div class="card-meta">
+          <strong>Protocollo Offerta:</strong> ING-<span id="outCode">2026/01</span><br>
+          <strong>Data Emissione:</strong> <span id="outDate">--/--/----</span><br>
+          <strong>Validità Proposta:</strong> 30 giorni data emissione
+        </div>
+      </div>
+
+      <div style="font-size:0.76rem; margin-bottom: 10px;" class="avoid-break">
+        <strong>Oggetto dell'intervento:</strong> <span id="outSubject">---</span>
+      </div>
+
+      <!-- 1. PRESTAZIONI IMPIANTI D.M. -->
+      <div class="sec-heading">1. Progettazione Esecutiva e Direzione Lavori Impianti (D.M. 17/06/2016)</div>
+      <table class="calc-grid">
+        <thead>
+          <tr>
+            <th>Categoria d'Opera & Prestazione Professionale</th>
+            <th class="num" style="width: 14%;">Importo Opere (V)</th>
+            <th style="width: 8%; text-align: center;">Grado</th>
+            <th class="num" style="width: 12%;">Param. P</th>
+            <th style="width: 8%; text-align: center;">Aliquota Q</th>
+            <th class="num" style="width: 16%;">Compenso (€)</th>
+          </tr>
+        </thead>
+        <tbody id="outTableDmRows"></tbody>
+      </table>
+
+      <!-- 2. ASSISTENZA A VACAZIONE -->
+      <div class="sec-heading">2. Assistenza Specialistica in Cantiere a Vacazione (Art. 22 D.M. 17/06/2016)</div>
+      <table class="calc-grid">
+        <thead>
+          <tr>
+            <th>Descrizione Attività di Sorveglianza Tecnica</th>
+            <th style="width: 16%; text-align: center;">Unità</th>
+            <th class="num" style="width: 16%;">Quantità</th>
+            <th class="num" style="width: 18%;">Tariffa Unitaria (€)</th>
+            <th class="num" style="width: 18%;">Totale Parziale (€)</th>
+          </tr>
+        </thead>
+        <tbody id="outTableVacazioni"></tbody>
+      </table>
+
+      <!-- 3. SERVIZI ENERGETICI, DIAGNOSI, CONTO TERMICO 3.0 E BANDI -->
+      <div class="sec-heading">3. Servizi Energetici, Pratiche Specialistiche e Finanza Agevolata (Bandi)</div>
+      <table class="calc-grid">
+        <thead>
+          <tr>
+            <th>Descrizione Servizio Specialistico</th>
+            <th style="width: 18%; text-align: center;">Parametro Base</th>
+            <th class="num" style="width: 16%;">Valore Base</th>
+            <th style="width: 14%; text-align: center;">Aliquota / Quota</th>
+            <th class="num" style="width: 18%;">Compenso (€)</th>
+          </tr>
+        </thead>
+        <tbody id="outTableSpecial"></tbody>
+      </table>
+
+      <!-- 4. QUADRO ECONOMICO -->
+      <div class="sec-heading avoid-break">4. Quadro Economico di Liquidazione</div>
+      <div class="ledger-wrap">
+        <div class="ledger-row">
+          <span>Parcella Impianti (D.M. 17/06/2016):</span>
+          <span id="totDm">€ 0,00</span>
+        </div>
+        <div class="ledger-row">
+          <span>Assistenza Tecnica a Vacazione:</span>
+          <span id="totVac">€ 0,00</span>
+        </div>
+        <div class="ledger-row">
+          <span>Diagnosi, Conto Termico 3.0, Bandi & VVF:</span>
+          <span id="totSpecial">€ 0,00</span>
+        </div>
+        <div class="ledger-row">
+          <span>Spese ed Oneri Accessori (<span id="lblExp">15</span>%):</span>
+          <span id="totExp">€ 0,00</span>
+        </div>
+        <div class="ledger-row bold">
+          <span>Totale Corrispettivo di Tariffa:</span>
+          <span id="totTariff">€ 0,00</span>
+        </div>
+        <div class="ledger-row" style="color: #b91c1c;">
+          <span>Sconto commerciale concordato (<span id="lblDiscount">0</span>%):</span>
+          <span id="totDiscount">- € 0,00</span>
+        </div>
+        <div class="ledger-row bold">
+          <span>Imponibile Netto Professionale:</span>
+          <span id="totNet">€ 0,00</span>
+        </div>
+        <div class="ledger-row">
+          <span>Cassa Previdenza (4% Inarcassa):</span>
+          <span id="totInarcassa">€ 0,00</span>
+        </div>
+        <div class="ledger-row">
+          <span>I.V.A. di Legge (22%):</span>
+          <span id="totVat">€ 0,00</span>
+        </div>
+        <div class="ledger-row final-due">
+          <span>TOTALE COMPLESSIVO:</span>
+          <span id="totFinal">€ 0,00</span>
+        </div>
+      </div>
+
+      <!-- CLAUSOLE CONTRATTUALI E GDPR -->
+      <div class="legal-text">
+        <strong>CONDIZIONI GENERALI DI CONTRATTO, SUCCESS FEE ED ESCLUSIONI:</strong><br>
+        • <strong>Regime Success Fee (Conto Termico 3.0 e Bandi Agevolati):</strong> I compensi percentuali su Conto Termico 3.0 / GSE e su misure agevolative (Transizione 5.0, Sabatini, Bandi Regionali/FESR, Ecobonus) sono subordinati al buon esito della pratica (*success fee*). Una quota forfettaria pari al 30% della stima è corrisposta all'invio dell'istanza a titolo di copertura spese vive e istruttoria; il saldo residuo del 70% (rideterminato sull'incentivo/beneficio effettivo concesso o deliberato) diverrà esigibile entro e non oltre 15 giorni dalla notifica del provvedimento di concessione o dalla liquidazione del contributo.<br>
+        • <strong>Fasi di Pagamento Prestazioni Tecniche:</strong> 20% all'accettazione; 40% alla consegna degli esecutivi e della Diagnosi Energetica; 30% a SAL durante il corso della Direzione Lavori; 10% a fine lavori / collaudo.<br>
+        • <strong>Esclusioni:</strong> Oneri di istruttoria e tariffa di copertura GSE (D.M. 16/02/2016 e s.m.i.), diritti di segreteria/bolli VVF e Comuni, perizie giurate bancarie esterne non espressamente concordate, Coordinamento della Sicurezza ex D.Lgs. 81/2008 (CSP/CSE).<br>
+        • <strong>Privacy GDPR (Reg. UE 2016/679):</strong> Titolare del trattamento è INGEGNIAMO S.r.l. I dati personali sono trattati unicamente per l'esecuzione del mandato professionale e gli adempimenti di legge connessi.
+      </div>
+
+      <div class="signatures">
+        <div class="sig-field">
+          Per Accettazione il Committente<br>
+          (Firma e Timbro)<br><br><br>
+          ____________________________________
+        </div>
+        <div class="sig-field">
+          Per la Società di Ingegneria<br>
+          <strong>INGEGNIAMO S.r.l.</strong><br><br><br>
+          ____________________________________
+        </div>
+      </div>
+
+      <!-- ==================== PAGINA 2: CAPITOLATO TECNICO E QUADRO NORMATIVO ==================== -->
+      <div class="page-break-forced">
+        <div class="brand-header" style="border-bottom: 1.5px solid var(--secondary); margin-bottom: 12px; padding-bottom: 8px;">
+          <div class="brand-logo-wrap">
+            <strong style="color: var(--primary); font-size: 1.1rem; letter-spacing: 0.5px;">INGEGNIAMO S.r.l.</strong>
+            <span style="font-size: 0.68rem; color: #64748b; font-weight: 600;">ALLEGATO TECNICO PRESTAZIONALE ALL'OFFERTA ING-<span id="outCodeAnnex">2026/01</span></span>
+          </div>
+          <div class="brand-contacts" style="font-size: 0.68rem;">
+            Sezione Normativa e Specifica delle Prestazioni d'Ingegneria
+          </div>
+        </div>
+
+        <div class="doc-banner" style="margin-bottom: 14px;">
+          <h2 style="font-size: 0.88rem;">Descrizione Analitica dei Servizi e Quadro Normativo di Riferimento</h2>
+          <p style="font-size: 0.70rem;">Le prestazioni di progettazione esecutiva e direzione lavori sono sviluppate in rigorosa conformità alle norme di legge e alle regole tecniche vigenti.</p>
+        </div>
+
+        <!-- 1. IMPIANTI ELETTRICI E SPECIALI -->
+        <div class="service-spec-box">
+          <h4>
+            <span>A. Impianti Elettrici, Speciali e Sicurezza Integrata</span>
+            <span class="norm-tag">CEI 64-8 • CEI 0-21 • CEI 0-16 • CEI EN 62305</span>
+          </h4>
+          <p>La progettazione esecutiva comprende il dimensionamento e la verifica di tutte le dorsali di potenza e dei quadri di distribuzione ai sensi del <strong>D.M. 37/08</strong> e della <strong>Norma CEI 64-8</strong> (con applicazione della <strong>Sezione 710</strong> specifica per locali medici e ambulatoriali, inclusi nodi equipotenziali supplementari e quadri d'isolamento IT-M ove previsti):</p>
+          <ul>
+            <li><strong>Connessione alla Rete:</strong> Rispondenza alle norme <strong>CEI 0-21</strong> (connessioni utenti BT) o <strong>CEI 0-16</strong> (allacciamento utenti MT/AT con eventuale cabina di trasformazione e protezioni d'interfaccia/generale).</li>
+            <li><strong>Quadri di Distribuzione (QGBT e Piani):</strong> Schemi unifilari esecutivi completi di studio del coordinamento e della selettività differenziale ed amperometrica delle protezioni.</li>
+            <li><strong>Protezione contro le Scariche Atmosferiche (LPS):</strong> Valutazione del rischio da fulminazione e dimensionamento scaricatori di sovratensione (SPD) secondo la norma <strong>CEI EN 62305 (parti 1-4)</strong>.</li>
+            <li><strong>Rivelazione Incendi (IRAI):</strong> Rete analogico-indirizzata con sensori ottici/termici e pulsanti manuali in conformità alla norma <strong>UNI 9795</strong>, integrata con sistema di evacuazione vocale (EVAC) conforme a <strong>UNI ISO 7240-19 / CEI EN 54-16</strong>.</li>
+            <li><strong>Cablaggio Strutturato e Dati:</strong> Dorsali in fibra ottica e cablaggio orizzontale in rame Cat. 6A / 7 conformi alle norme <strong>CEI EN 50173</strong> e <strong>ISO/IEC 11801</strong>.</li>
+            <li><strong>TVCC e Antintrusione:</strong> Videosorveglianza IP Megapixel secondo <strong>CEI EN 62676</strong> e antintrusione multilivello conforme alla norma <strong>CEI 79-3</strong>.</li>
+          </ul>
+        </div>
+
+        <!-- 2. IMPIANTI MECCANICI E D.M. REQUISITI MINIMI 28 OTTOBRE 2025 -->
+        <div class="service-spec-box">
+          <h4>
+            <span>B. Impianti Meccanici, Climatizzazione e D.M. Requisiti Minimi 28/10/2025</span>
+            <span class="norm-tag">D.M. 28/10/2025 • UNI EN 12831 • UNI 9182</span>
+          </h4>
+          <p>La progettazione termomeccanica assicura il rispetto dei livelli di comfort termoigrometrico, la qualità dell'aria interna (IAQ) e l'efficienza energetica d'involucro e d'impianto in conformità all'aggiornamento normativo introdotto dal <strong>D.M. 28 Ottobre 2025</strong> (che sostituisce ed aggiorna il D.M. 26/06/2015):</p>
+          <ul>
+            <li><strong>Nuovo Quadro di Calcolo D.M. 28/10/2025:</strong> Determinazione dei requisiti minimi e degli indici prestazionali calcolati su <strong>superfici esterne lorde</strong>, obbligo di <strong>valutazione puntuale dei ponti termici</strong> con abaco o calcolo FEM, e rispetto dei nuovi limiti restrittivi sul coefficiente medio di scambio termico $H'_T$.</li>
+            <li><strong>Automazione e Sistemi BACS:</strong> Integrazione obbligatoria di sistemi di automazione e regolazione degli edifici (BACS) di <strong>Classe B</strong> ai sensi della norma <strong>UNI EN ISO 52120-1</strong> per gli edifici non residenziali con potenza superiore a 290 kW.</li>
+            <li><strong>Calcolo dei Fabbisogni Energetici:</strong> Calcolo analitico delle dispersioni termiche invernali secondo <strong>UNI EN 12831</strong> e dei carichi estivi con metodo ASHRAE RTS / Heat Balance.</li>
+            <li><strong>Impianti Idrico-Sanitari e Scarichi:</strong> Dimensionamento delle reti idriche fredda e calda sanitaria (ACS) secondo <strong>UNI 9182</strong>, con prevenzione della legionellosi e scarichi conformi a <strong>UNI EN 12056</strong>.</li>
+            <li><strong>Ventilazione Meccanica Controllata (VMC / UTA):</strong> Calcolo delle portate d'aria di rinnovo e filtrazione ad alta efficienza secondo <strong>UNI EN 16798-1/3</strong> e <strong>UNI 10339</strong> per ambienti sanitari ed uffici.</li>
+          </ul>
+        </div>
+
+        <!-- 3. PREVENZIONE INCENDI -->
+        <div class="service-spec-box">
+          <h4>
+            <span>C. Prevenzione Incendi e Iter Vigili del Fuoco</span>
+            <span class="norm-tag">D.M. 03/08/2015 (Codice VVF) • UNI 10779 • D.P.R. 151/11</span>
+          </h4>
+          <p>Le prestazioni antincendio coprono la totalità dell'iter tecnico-amministrativo per le attività soggette a controllo di prevenzione incendi:</p>
+          <ul>
+            <li><strong>Codice di Prevenzione Incendi:</strong> Applicazione della Regola Tecnica Orizzontale (RTO di cui al <strong>D.M. 03/08/2015</strong> e s.m.i.) e delle Regole Tecniche Verticali pertinenti (<strong>RTV Uffici</strong>, <strong>RTV Strutture Sanitarie</strong> per gli ambulatori).</li>
+            <li><strong>Strategia Antincendio Integrata:</strong> Definizione dei livelli di prestazione da S.1 a S.10 (Resistenza al fuoco, Compartimentazione, Esodo, Gestione della Sicurezza, IRAI, Evacuatori di Fumo e Calore, Operatività).</li>
+            <li><strong>Impianti Idrici Antincendio:</strong> Progettazione esecutiva della rete ad idranti/naspi secondo <strong>UNI 10779</strong> e del gruppo di pompaggio con riserva idrica dedicata conforme a <strong>UNI EN 12845</strong>.</li>
+            <li><strong>Procedimenti di Prevenzione Incendi:</strong> Redazione dell'Istanza di Valutazione del Progetto (art. 3 D.P.R. 151/11) e successiva SCIA Antincendio (art. 4 D.P.R. 151/11) con asseverazioni ministeriali (PIN 2.1-2018).</li>
+          </ul>
+        </div>
+
+        <!-- 4. DIAGNOSI ENERGETICA, CONTO TERMICO 3.0 E BANDI -->
+        <div class="service-spec-box">
+          <h4>
+            <span>D. Diagnosi Energetica, Conto Termico 3.0 e Finanza Agevolata (Bandi)</span>
+            <span class="norm-tag">UNI CEI EN 16247 • Conto Termico 3.0 • Transizione 5.0 / Sabatini</span>
+          </h4>
+          <p>Servizi specialistici ad alto valore aggiunto per la valorizzazione del patrimonio immobiliare e l'ottenimento dei titoli di incentivo pubblico erogati dal GSE, Ministeri ed Enti Regionali:</p>
+          <ul>
+            <li><strong>Diagnosi Energetica Strumentale:</strong> Esecuzione secondo la norma <strong>UNI CEI EN 16247-1/2</strong> e in conformità al <strong>D.Lgs. 102/2014</strong>, con rilievo in situ, bilanci energetici e determinazione dei tempi di ritorno dell'investimento (VAN, TIR, Payback).</li>
+            <li><strong>Conto Termico 3.0 (GSE):</strong> Gestione tecnico-amministrativa completa sul Portaltermico GSE secondo le Regole Applicative vigenti del Conto Termico 3.0, con redazione perizia asseverata, schede tecniche di conformità e monitoraggio fino alla liquidazione del bonifico.</li>
+            <li><strong>Bandi e Finanza Agevolata:</strong> Assistenza tecnica e peritale per l'accesso a incentivi fiscali e bandi pubblici (<strong>Transizione 5.0</strong> per efficientamento dei processi produttivi e degli edifici, <strong>Nuova Sabatini</strong> per beni strumentali, <strong>Ecobonus</strong>, bandi <strong>FESR / PNRR</strong> regionali), con remunerazione incentivante a *success fee* legata all'accoglimento dell'agevolazione.</li>
+          </ul>
+        </div>
+
+        <div class="signatures" style="margin-top: 15px;">
+          <div class="sig-field">
+            Per Presa Visione ed Accettazione Capitolato<br>
+            <strong>Il Committente</strong><br><br>
+            ____________________________________
+          </div>
+          <div class="sig-field">
+            Il Legale Rappresentante<br>
+            <strong>INGEGNIAMO S.r.l.</strong><br><br>
+            ____________________________________
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function formatEuro(val) {
+    return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(val);
+  }
+
+  function calcP(V) {
+    if (V <= 0) return 0;
+    return 0.03 + (10 / Math.pow(V, 0.4));
+  }
+
+  function recalcAll() {
+    const client = document.getElementById('inClient').value;
+    const clientFiscal = document.getElementById('inClientFiscal').value;
+    const subject = document.getElementById('inSubject').value;
+    const loc = document.getElementById('inLocation').value;
+
+    const today = new Date();
+    document.getElementById('outDate').innerText = today.toLocaleDateString('it-IT');
+    const code = today.getFullYear() + "/" + String(today.getMonth() + 1).padStart(2, '0');
+    document.getElementById('outCode').innerText = code;
+    document.getElementById('outCodeAnnex').innerText = code;
+    document.getElementById('outClient').innerText = client;
+    document.getElementById('outClientFiscal').innerText = clientFiscal;
+    document.getElementById('outSubject').innerText = subject;
+    document.getElementById('outLocation').innerText = loc;
+
+    const V_mecc = parseFloat(document.getElementById('inV_mecc').value) || 0;
+    const G_mecc = parseFloat(document.getElementById('inG_mecc').value) || 0.75;
+    const P_mecc = calcP(V_mecc);
+
+    const V_ele = parseFloat(document.getElementById('inV_ele').value) || 0;
+    const G_ele = 1.15;
+    const P_ele = calcP(V_ele);
+
+    let dmSum = 0;
+    const tblDm = document.getElementById('outTableDmRows');
+    tblDm.innerHTML = '';
+
+    if (V_mecc > 0) {
+      if (document.getElementById('chk_esec_mecc').checked) {
+        const fee = V_mecc * G_mecc * 0.35 * P_mecc;
+        dmSum += fee;
+        tblDm.innerHTML += `<tr>
+          <td><strong>Progettazione Esecutiva Impianti Meccanici / Climatizzazione</strong><br><small style="color:#64748b;">Reti idroniche, aeraulica VMC, centrale termica/frigo (QbIII.04)</small></td>
+          <td class="num">${formatEuro(V_mecc)}</td>
+          <td style="text-align:center;">${G_mecc.toFixed(2)}</td>
+          <td class="num">${(P_mecc * 100).toFixed(4)}%</td>
+          <td style="text-align:center;">0.35</td>
+          <td class="num">${formatEuro(fee)}</td>
+        </tr>`;
+      }
+      if (document.getElementById('chk_dl_mecc').checked) {
+        const fee = V_mecc * G_mecc * 0.32 * P_mecc;
+        dmSum += fee;
+        tblDm.innerHTML += `<tr>
+          <td><strong>Direzione Lavori Specialistica Impianti Meccanici</strong><br><small style="color:#64748b;">Supervisione tecnica di cantiere e collaudo funzionale (QcI.01)</small></td>
+          <td class="num">${formatEuro(V_mecc)}</td>
+          <td style="text-align:center;">${G_mecc.toFixed(2)}</td>
+          <td class="num">${(P_mecc * 100).toFixed(4)}%</td>
+          <td style="text-align:center;">0.32</td>
+          <td class="num">${formatEuro(fee)}</td>
+        </tr>`;
+      }
+      if (document.getElementById('chk_sal_mecc').checked) {
+        const fee = V_mecc * G_mecc * 0.10 * P_mecc;
+        dmSum += fee;
+        tblDm.innerHTML += `<tr>
+          <td><strong>Contabilità Lavori e Liquidazione SAL Impianti Meccanici</strong><br><small style="color:#64748b;">Misure in contraddittorio e stati di avanzamento (QcI.09 - QcI.11)</small></td>
+          <td class="num">${formatEuro(V_mecc)}</td>
+          <td style="text-align:center;">${G_mecc.toFixed(2)}</td>
+          <td class="num">${(P_mecc * 100).toFixed(4)}%</td>
+          <td style="text-align:center;">0.10</td>
+          <td class="num">${formatEuro(fee)}</td>
+        </tr>`;
+      }
+    }
+
+    if (V_ele > 0) {
+      if (document.getElementById('chk_esec_ele').checked) {
+        const fee = V_ele * G_ele * 0.35 * P_ele;
+        dmSum += fee;
+        tblDm.innerHTML += `<tr>
+          <td><strong>Progettazione Esecutiva Impianti Elettrici e Speciali (IA.04)</strong><br><small style="color:#64748b;">Quadri generali, selettività, calcolo carichi, reti speciali dati (QbIII.05)</small></td>
+          <td class="num">${formatEuro(V_ele)}</td>
+          <td style="text-align:center;">${G_ele.toFixed(2)}</td>
+          <td class="num">${(P_ele * 100).toFixed(4)}%</td>
+          <td style="text-align:center;">0.35</td>
+          <td class="num">${formatEuro(fee)}</td>
+        </tr>`;
+      }
+      if (document.getElementById('chk_dl_ele').checked) {
+        const fee = V_ele * G_ele * 0.32 * P_ele;
+        dmSum += fee;
+        tblDm.innerHTML += `<tr>
+          <td><strong>Direzione Lavori Specialistica Impianti Elettrici e Speciali</strong><br><small style="color:#64748b;">Verifica posa condutture, quadri e coordinamento protezioni (QcI.01)</small></td>
+          <td class="num">${formatEuro(V_ele)}</td>
+          <td style="text-align:center;">${G_ele.toFixed(2)}</td>
+          <td class="num">${(P_ele * 100).toFixed(4)}%</td>
+          <td style="text-align:center;">0.32</td>
+          <td class="num">${formatEuro(fee)}</td>
+        </tr>`;
+      }
+      if (document.getElementById('chk_sal_ele').checked) {
+        const fee = V_ele * G_ele * 0.10 * P_ele;
+        dmSum += fee;
+        tblDm.innerHTML += `<tr>
+          <td><strong>Contabilità Lavori e SAL Impianti Elettrici e Speciali</strong><br><small style="color:#64748b;">Verifica contabile e stati di avanzamento (QcI.09 - QcI.11)</small></td>
+          <td class="num">${formatEuro(V_ele)}</td>
+          <td style="text-align:center;">${G_ele.toFixed(2)}</td>
+          <td class="num">${(P_ele * 100).toFixed(4)}%</td>
+          <td style="text-align:center;">0.10</td>
+          <td class="num">${formatEuro(fee)}</td>
+        </tr>`;
+      }
+    }
+
+    if (dmSum === 0) {
+      tblDm.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#ef4444;">Nessuna prestazione a percentuale D.M. selezionata.</td></tr>';
+    }
+
+    let vacSum = 0;
+    const tblVac = document.getElementById('outTableVacazioni');
+    tblVac.innerHTML = '';
+
+    if (document.getElementById('chk_vacazioni').checked) {
+      const ore = parseFloat(document.getElementById('inOreVac').value) || 0;
+      const tariffa = parseFloat(document.getElementById('inTariffaOra').value) || 0;
+      vacSum = ore * tariffa;
+      tblVac.innerHTML = `<tr>
+        <td><strong>Assistenza Tecnica e Sorveglianza di Cantiere ad ore (Vacazioni)</strong><br><small style="color:#64748b;">Tracciamenti tecnici, verifica interferenze e riunioni con le ditte installatrici</small></td>
+        <td style="text-align:center;">Ore / vacazione</td>
+        <td class="num">${ore} h</td>
+        <td class="num">${formatEuro(tariffa)}/h</td>
+        <td class="num">${formatEuro(vacSum)}</td>
+      </tr>`;
+    } else {
+      tblVac.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#64748b;">Assistenza tecnica a vacazione non inclusa nell\'offerta.</td></tr>';
+    }
+
+    let specialSum = 0;
+    const tblSpec = document.getElementById('outTableSpecial');
+    tblSpec.innerHTML = '';
+
+    if (document.getElementById('chk_diagnosi').checked) {
+      const mq = parseFloat(document.getElementById('inMqDiagnosi').value) || 0;
+      const tarMq = parseFloat(document.getElementById('inTariffaMq').value) || 0;
+      const feeDiagnosi = mq * tarMq;
+      specialSum += feeDiagnosi;
+      tblSpec.innerHTML += `<tr>
+        <td><strong>Diagnosi Energetica Strumentale dell'Immobile</strong><br><small style="color:#64748b;">Rilievo termico, modellazione, piano interventi migliorativi (UNI CEI EN 16247)</small></td>
+        <td style="text-align:center;">Superficie Utile</td>
+        <td class="num">${mq.toLocaleString('it-IT')} mq</td>
+        <td style="text-align:center;">${formatEuro(tarMq)}/mq</td>
+        <td class="num">${formatEuro(feeDiagnosi)}</td>
+      </tr>`;
+    }
+
+    if (document.getElementById('chk_ct').checked) {
+      const incentivo = parseFloat(document.getElementById('inIncentivoGSE').value) || 0;
+      const percGSE = parseFloat(document.getElementById('inPercentGSE').value) || 0;
+      const feeCT = incentivo * (percGSE / 100);
+      specialSum += feeCT;
+      tblSpec.innerHTML += `<tr>
+        <td><strong>Gestione Pratica GSE Conto Termico 3.0 (Success Fee)</strong><br><small style="color:#64748b;">Istruttoria tecnico-amministrativa, asseverazioni e caricamento Portaltermico</small></td>
+        <td style="text-align:center;">Incentivo GSE</td>
+        <td class="num">${formatEuro(incentivo)}</td>
+        <td style="text-align:center;">${percGSE.toFixed(1)}%</td>
+        <td class="num">${formatEuro(feeCT)}</td>
+      </tr>`;
+    }
+
+    if (document.getElementById('chk_bando').checked) {
+      const tipoBando = document.getElementById('inTipoBando').value;
+      const importoBando = parseFloat(document.getElementById('inImportoBando').value) || 0;
+      const percBando = parseFloat(document.getElementById('inPercentBando').value) || 0;
+      const feeBando = importoBando * (percBando / 100);
+      specialSum += feeBando;
+      tblSpec.innerHTML += `<tr>
+        <td><strong>Consulenza Tecnica & Domanda Bando: ${tipoBando}</strong><br><small style="color:#64748b;">Perizia tecnica asseverata, conformità requisiti e istruttoria a Success Fee</small></td>
+        <td style="text-align:center;">Beneficio Stimato</td>
+        <td class="num">${formatEuro(importoBando)}</td>
+        <td style="text-align:center;">${percBando.toFixed(1)}%</td>
+        <td class="num">${formatEuro(feeBando)}</td>
+      </tr>`;
+    }
+
+    if (document.getElementById('chk_vvf').checked) {
+      const fee = parseFloat(document.getElementById('fee_vvf').value) || 0;
+      specialSum += fee;
+      tblSpec.innerHTML += `<tr>
+        <td><strong>Prevenzione Incendi & Pratica VVF (Valutazione Progetto + SCIA)</strong><br><small style="color:#64748b;">Progettazione secondo Codice Prevenzione Incendi (D.M. 03/08/2015)</small></td>
+        <td style="text-align:center;">A corpo</td>
+        <td class="num">Unica</td>
+        <td style="text-align:center;">Forfait</td>
+        <td class="num">${formatEuro(fee)}</td>
+      </tr>`;
+    }
+
+    if (document.getElementById('chk_legge10').checked) {
+      const fee = parseFloat(document.getElementById('fee_legge10').value) || 0;
+      specialSum += fee;
+      tblSpec.innerHTML += `<tr>
+        <td><strong>Relazione Energetica di Rispondenza (D.M. 28/10/2025)</strong><br><small style="color:#64748b;">Verifiche ponti termici, calcolo superfici lorde, BACS e requisiti minimi di legge</small></td>
+        <td style="text-align:center;">A corpo</td>
+        <td class="num">Unica</td>
+        <td style="text-align:center;">Forfait</td>
+        <td class="num">${formatEuro(fee)}</td>
+      </tr>`;
+    }
+
+    if (specialSum === 0) {
+      tblSpec.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#64748b;">Nessun servizio specialistico selezionato.</td></tr>';
+    }
+
+    const expPercent = parseFloat(document.getElementById('inExpPercent').value) || 0;
+    const discPercent = parseFloat(document.getElementById('inDiscountPercent').value) || 0;
+
+    const baseCompensation = dmSum + vacSum + specialSum;
+    const expAmount = baseCompensation * (expPercent / 100);
+    const tariffBase = baseCompensation + expAmount;
+    const discountAmount = tariffBase * (discPercent / 100);
+    const netTaxable = tariffBase - discountAmount;
+    const inarcassa = netTaxable * 0.04;
+    const vat = (netTaxable + inarcassa) * 0.22;
+    const finalTotal = netTaxable + inarcassa + vat;
+
+    document.getElementById('totDm').innerText = formatEuro(dmSum);
+    document.getElementById('totVac').innerText = formatEuro(vacSum);
+    document.getElementById('totSpecial').innerText = formatEuro(specialSum);
+    document.getElementById('lblExp').innerText = expPercent;
+    document.getElementById('totExp').innerText = formatEuro(expAmount);
+    document.getElementById('totTariff').innerText = formatEuro(tariffBase);
+    document.getElementById('lblDiscount').innerText = discPercent;
+    document.getElementById('totDiscount').innerText = '- ' + formatEuro(discountAmount);
+    document.getElementById('totNet').innerText = formatEuro(netTaxable);
+    document.getElementById('totInarcassa').innerText = formatEuro(inarcassa);
+    document.getElementById('totVat').innerText = formatEuro(vat);
+    document.getElementById('totFinal').innerText = formatEuro(finalTotal);
+  }
+
+  function generatePdfDirect() {
+    const element = document.getElementById('documentSheet');
+    const clientClean = (document.getElementById('inClient').value || 'Cliente').replace(/[^a-zA-Z0-9]/g, '_');
+    
+    const opt = {
+      margin:       [8, 8, 8, 8],
+      filename:     `Preventivo_Capitolato_INGEGNIAMO_${clientClean}.pdf`,
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2, useCORS: true, scrollY: 0 },
+      jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      pagebreak:    { mode: ['css', 'legacy'], avoid: ['tr', '.avoid-break', '.ledger-wrap', '.legal-text', '.service-spec-box', '.signatures'] }
+    };
+
+    html2pdf().set(opt).from(element).save();
+  }
+
+  window.onload = recalcAll;
+</script>
+
+</body>
+</html>
