@@ -923,15 +923,15 @@
           </div>
         </div>
 
-        <!-- CLAUSOLE CONTRATTUALI E GDPR -->
+        <!-- CLAUSOLE CONTRATTUALI E GDPR (COMPLETAMENTE DINAMICHE) -->
         <div class="legal-text avoid-break">
           <strong>DISCIPLINARE ECONOMICO, MODALITÀ DI PAGAMENTO ED EFFICACIA DELLE OPZIONI:</strong><br>
           • <strong>Modalità di Pagamento Imponibile Principale:</strong> <span id="lblPaymentTerms">30% all'accettazione del disciplinare, 50% alla consegna degli elaborati progettuali esecutivi, 20% a saldo all'ottenimento delle autorizzazioni o rilascio pareri di legge</span>.<br>
-          • <strong>Assistenza Specialistica in Cantiere e SAL:</strong> Le spese accessorie per l'assistenza tecnica specialistica in cantiere con report di avanzamento sono pattuite a corpo forfettario fisso. La contabilità lavori e l'emissione dei SAL impiantistici sono liquidate proporzionalmente all'avanzamento degli stati contabili dell'appalto.<br>
+          <span id="clause_sal_assistenza">• <strong>Assistenza Specialistica in Cantiere e SAL:</strong> Le spese accessorie per l'assistenza tecnica specialistica in cantiere con report di avanzamento sono pattuite a corpo forfettario fisso. La contabilità lavori e l'emissione dei SAL impiantistici sono liquidate proporzionalmente all'avanzamento degli stati contabili dell'appalto.<br></span>
           • <strong>Validità ed Efficacia Unica delle Opzioni:</strong> Le prestazioni di cui alla <strong>Sezione 4 (Direzione Lavori Meccanica ed Elettrica, CSE, Diagnosi Energetica, Conto Termico 3.0 e Bandi di Finanza Agevolata)</strong> contrassegnate con la spunta <strong>[X]</strong> all'atto della firma o selezionate per estratto hanno pieno valore contrattuale vincolante tra le parti ai patti e compensi stabiliti, senza necessità di stipula o sottoscrizione di una seconda offerta.<br>
-          • <strong>Regime Direzione Lavori Specialistica e CSE:</strong> Saranno attivate a formale inizio dei lavori in cantiere e liquidate mensilmente pro-quota in base allo stato di avanzamento delle opere.<br>
-          • <strong>Regime Success Fee (Conto Termico 3.0 e Bandi / Transizione 5.0 / Sabatini):</strong> I corrispettivi restano subordinati al buon fine dell'iter. <span id="lblCtTerms">Una quota del 30% della stima è corrisposta alla protocollazione dell'istanza; il saldo residuo del 70% diverrà esigibile entro 15 giorni dalla delibera o accredito del beneficio.</span><br>
-          • <strong>Esclusioni Generali:</strong> Restano esclusi gli oneri di istruttoria e tariffe GSE, diritti di segreteria VVF e SUAP, indagini geologiche o geotecniche, perizie giurate bancarie esterne e collaudi statici delle strutture.<br>
+          <span id="clause_dl_cse">• <strong>Regime Direzione Lavori Specialistica e CSE:</strong> Saranno attivate a formale inizio dei lavori in cantiere e liquidate mensilmente pro-quota in base allo stato di avanzamento delle opere.<br></span>
+          <span id="clause_success_fee">• <strong>Regime Success Fee (Conto Termico 3.0 e Bandi / Transizione 5.0 / Sabatini):</strong> I corrispettivi restano subordinati al buon fine dell'iter. <span id="lblCtTerms">Una quota pari al 30% della stima è corrisposta all'invio dell'istanza; il saldo residuo del 70% (rideterminato sull'incentivo effettivo riconosciuto da GSE) diverrà esigibile entro 15 giorni dalla delibera o accredito del bonifico.</span><br></span>
+          • <strong>Esclusioni Generali:</strong> Restano esclusi gli oneri di istruttoria e tariffe GSE, diritti di segreteria, opere riguardanti la parte edile e strutturale, perizie giurate bancarie esterne.<br>
           • <strong>Privacy GDPR (Reg. UE 2016/679):</strong> Titolare del trattamento è INGEGNIAMO S.r.l. I dati raccolti saranno trattati conformemente agli obblighi legali e deontologici per l'esclusiva evasione dell'incarico.
         </div>
 
@@ -1107,13 +1107,13 @@
     document.getElementById('outSubject').innerText = subject;
     document.getElementById('outLocation').innerText = loc;
 
-    // 2. Condizioni Pagamento
+    // 2. Condizioni Pagamento Principale (Dinamico)
     const pAnticipo = parseFloat(document.getElementById('inPayAnticipo').value) || 0;
     const pAcconto = parseFloat(document.getElementById('inPayAcconto').value) || 0;
     const pSaldo = parseFloat(document.getElementById('inPaySaldo').value) || 0;
-    document.getElementById('lblPaymentTerms').innerText = `${pAnticipo}% all'accettazione e incarico, ${pAcconto}% ad emissione/consegna elaborati esecutivi, restante ${pSaldo}% a saldo finale e chiusura pareri di legge`;
+    document.getElementById('lblPaymentTerms').innerText = `${pAnticipo}% all'accettazione del disciplinare, ${pAcconto}% alla consegna degli elaborati progettuali esecutivi, ${pSaldo}% a saldo finale e chiusura pareri di legge`;
 
-    // 3. Conto Termico
+    // 3. Conto Termico Percentuali (Dinamico)
     const ctPres = parseFloat(document.getElementById('inCtQuotaPres').value) || 30;
     const ctOtt = parseFloat(document.getElementById('inCtQuotaOtt').value) || 70;
     document.getElementById('lblCtTerms').innerText = `Una quota pari al ${ctPres}% della stima è corrisposta all'invio dell'istanza; il saldo residuo del ${ctOtt}% (rideterminato sull'incentivo effettivo riconosciuto da GSE) diverrà esigibile entro 15 giorni dalla delibera o accredito del bonifico.`;
@@ -1283,6 +1283,9 @@
     const sec2Count = salSum + baseSum + feeAssistenzaTotale;
     document.getElementById('wrap_sec_2').style.display = (sec2Count > 0) ? 'block' : 'none';
 
+    // Clausola SAL & Assistenza
+    document.getElementById('clause_sal_assistenza').style.display = (salSum > 0 || feeAssistenzaTotale > 0) ? 'inline' : 'none';
+
     // ==========================================
     // QUADRO ECONOMICO CONTRATTUALE PRINCIPALE
     // ==========================================
@@ -1373,12 +1376,17 @@
       </tr>`;
     }
 
+    // Se non ci sono voci in 4.1, scompare tutto il blocco 4.1
     document.getElementById('wrap_opt_dl').style.display = (countDlOpt > 0) ? 'block' : 'none';
+
+    // Clausola DL e CSE: scompare se countDlOpt == 0
+    document.getElementById('clause_dl_cse').style.display = (countDlOpt > 0) ? 'inline' : 'none';
 
     // 4.2 Diagnosi, CT 3.0, Bandi
     const tblSpecialOpt = document.getElementById('outTableSpecialOptRows');
     tblSpecialOpt.innerHTML = '';
     let countSpecialOpt = 0;
+    let hasSuccessFee = false;
 
     if (document.getElementById('chk_diagnosi').checked) {
       countSpecialOpt++;
@@ -1397,6 +1405,7 @@
 
     if (document.getElementById('chk_ct').checked) {
       countSpecialOpt++;
+      hasSuccessFee = true;
       const incentivo = parseFloat(document.getElementById('inIncentivoGSE').value) || 0;
       const percGSE = parseFloat(document.getElementById('inPercentGSE').value) || 0;
       const feeCT = incentivo * (percGSE / 100);
@@ -1412,6 +1421,7 @@
 
     if (document.getElementById('chk_bando').checked) {
       countSpecialOpt++;
+      hasSuccessFee = true;
       const tipoBando = document.getElementById('inTipoBando').value;
       const importoBando = parseFloat(document.getElementById('inImportoBando').value) || 0;
       const percBando = parseFloat(document.getElementById('inPercentBando').value) || 0;
@@ -1426,9 +1436,13 @@
       </tr>`;
     }
 
+    // Se non ci sono voci in 4.2, scompare tutto il blocco 4.2
     document.getElementById('wrap_opt_special').style.display = (countSpecialOpt > 0) ? 'block' : 'none';
 
-    // Se sia 4.1 che 4.2 sono vuoti, scompare l'intero blocco Sezione 4 con titolo e bordo
+    // Clausola Success Fee (Conto Termico e Bandi): scompare se nessuno dei due è selezionato
+    document.getElementById('clause_success_fee').style.display = hasSuccessFee ? 'inline' : 'none';
+
+    // Se sia 4.1 che 4.2 sono vuoti, scompare l'intero blocco Sezione 4 con titolo, cornice e spiegazione
     const totalOptCount = countDlOpt + countSpecialOpt;
     document.getElementById('sec_opt_container').style.display = (totalOptCount > 0) ? 'block' : 'none';
 
