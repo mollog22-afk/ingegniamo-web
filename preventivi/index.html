@@ -610,7 +610,7 @@
 
       <label class="check-label"><input type="checkbox" id="chk_assistenza_totale" checked onchange="recalcAll()"> <strong>Assistenza Specialistica Cantiere (Forfait)</strong></label>
       <input type="number" id="fee_assistenza_totale" value="2600" step="100" min="0" oninput="recalcAll()">
-      <span style="font-size:0.68rem; color:#64748b;">* Importo a corpo fisso incluso nel totale contrattuale.</span>
+      <span style="font-size:0.68rem; color:#64748b;">* Importo a corpo forfettario incluso nel totale contrattuale.</span>
     </div>
 
     <!-- 5. PRESTAZIONI OPZIONALI A RICHIESTA (POST-TOTALE SPUNTABILI) -->
@@ -1275,7 +1275,7 @@
         <td><strong>Spese accessorie per assistenza tecnica specialistica in cantiere con report di avanzamento</strong><br><small>Sopralluoghi tecnici di verifica allineamenti esecutivi, interfaccia con le ditte e reportistica</small></td>
         <td style="text-align:center;">A corpo</td>
         <td class="num">Forfait</td>
-        <td style="text-align:center;">Fisso</td>
+        <td style="text-align:center;">Forfait</td>
         <td class="num">${formatEuro(feeAssistenzaTotale)}</td>
       </tr>`;
     }
@@ -1428,7 +1428,7 @@
 
     document.getElementById('wrap_opt_special').style.display = (countSpecialOpt > 0) ? 'block' : 'none';
 
-    // Se tutte le opzioni sono deselezionate, scompare l'intero blocco Sezione 4 con il titolo
+    // Se sia 4.1 che 4.2 sono vuoti, scompare l'intero blocco Sezione 4 con titolo e bordo
     const totalOptCount = countDlOpt + countSpecialOpt;
     document.getElementById('sec_opt_container').style.display = (totalOptCount > 0) ? 'block' : 'none';
 
