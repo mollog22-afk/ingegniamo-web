@@ -108,7 +108,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
-                
                 <div class="bg-slate-950/70 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-3">
                     <div>
                         <span class="text-slate-400 font-semibold block mb-1">1. Impianto Climatizzazione Ante</span>
@@ -134,7 +133,7 @@
                 <div class="bg-slate-950/70 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-3">
                     <div>
                         <span class="text-slate-400 font-semibold block mb-1">3. Inquadramento Catastale</span>
-                        <p class="text-slate-300 text-[11px] leading-relaxed">L'immobile è regolarmente censito al catasto (es. D/1, D/7, D/8) e conforme urbanisticamente?</p>
+                        <p class="text-slate-300 text-[11px] leading-relaxed">L'immobile è regolarmente censito al catasto (es. D/1, D/7, D/8) e conforme?</p>
                     </div>
                     <select id="chkCatasto" onchange="checkElegibilita()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500 font-semibold">
                         <option value="si" selected>Sì, regolarmente accatastato</option>
@@ -153,7 +152,6 @@
                         <option value="grande">Grande Impresa (Aliquota base 45%)</option>
                     </select>
                 </div>
-
             </div>
 
             <div id="boxAlertElegibilita" class="bg-slate-950/50 border border-emerald-900/40 rounded-2xl p-4 flex items-start gap-3 text-xs leading-relaxed">
@@ -178,7 +176,6 @@
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-
                 <!-- 1. Coibentazione Involucro (II.A) -->
                 <div id="card_cappotto" onclick="toggleIntervento('cappotto')" class="tile-card bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 flex flex-col justify-between tile-active">
                     <div>
@@ -306,7 +303,6 @@
                         <span class="text-amber-400 font-bold">90.000 €</span>
                     </div>
                 </div>
-
             </div>
         </section>
 
@@ -331,41 +327,49 @@
                         <label class="block text-xs font-semibold text-slate-300 mb-1">Superficie Utile Capannone (m²)</label>
                         <input type="number" id="mqCapannone" value="1200" oninput="recalculate()" class="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-xl px-3.5 py-2 text-sm font-semibold text-white focus:outline-none transition">
                     </div>
-                    <!-- AUTOCOMPLETAMENTO COMUNE -->
-                    <div>
+                    <!-- Autocompletamento Comune con Lista a Tendina Dinamica -->
+                    <div class="relative">
                         <div class="flex justify-between items-center mb-1">
                             <label class="block text-xs font-semibold text-slate-300">Comune di Installazione</label>
                             <span id="badgeZonaRilevata" class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded font-bold">Zona E (1.700 h)</span>
                         </div>
-                        <input type="text" id="comuneInput" list="listaComuni" placeholder="Digita il comune (es. Cosenza)..." oninput="onComuneChange()" class="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-xl px-3.5 py-2 text-sm font-semibold text-white focus:outline-none transition">
-                        <datalist id="listaComuni"></datalist>
+                        <input type="text" id="comuneInput" autocomplete="off" placeholder="Scrivi il comune (es. Cosenza)..." class="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-xl px-3.5 py-2 text-sm font-semibold text-white focus:outline-none transition">
+                        <ul id="calc-suggerimenti" class="absolute z-50 left-0 right-0 mt-1 bg-slate-900 text-slate-200 border border-slate-700 rounded-xl max-h-56 overflow-y-auto shadow-2xl text-xs divide-y divide-slate-800" hidden></ul>
                         <input type="hidden" id="zonaClimatica" value="E">
                     </div>
                 </div>
 
                 <div class="space-y-4">
                     
-                    <!-- Pompa di Calore (III.A) con CATALOGO PDC.JSON -->
+                    <!-- Pompa di Calore (III.A) con CATALOGO COMPLETO E FORMULA UFFICIALE -->
                     <div id="row_pdc" class="bg-slate-950/40 border border-emerald-900/40 rounded-2xl p-4 sm:p-5">
                         <div class="flex justify-between items-center mb-3">
                             <span class="font-bold text-sm text-emerald-300 flex items-center gap-2"><i class="fa-solid fa-fan"></i> III.A - Pompa di Calore (Trainante)</span>
                             <span class="text-[10px] text-emerald-400 bg-emerald-950 border border-emerald-800 px-2.5 py-0.5 rounded-full font-bold">Max 65% Spesa</span>
                         </div>
 
-                        <!-- Selezione da Catalogo pdc.json -->
-                        <div class="mb-4 bg-slate-900/80 p-3 rounded-xl border border-slate-800">
-                            <label class="text-[11px] font-semibold text-slate-300 block mb-1.5 flex items-center justify-between">
-                                <span>Seleziona Modello da Catalogo Certificato (pdc.json):</span>
-                                <span class="text-[10px] text-emerald-400 font-normal">Autocompila Potenza, SCOP e Incentivo</span>
-                            </label>
-                            <select id="selectPdcCatalog" onchange="onPdcSelected()" class="w-full bg-slate-950 border border-slate-700 text-white rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-emerald-500 font-medium">
-                                <option value="">-- Inserimento Libero / Fuori Catalogo --</option>
-                            </select>
+                        <!-- Selezione Sistema e Modello a Due Livelli -->
+                        <div class="mb-4 bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 space-y-3">
+                            <div>
+                                <label class="text-[11px] font-semibold text-slate-300 block mb-1">Tipo di Sistema (Categoria da modelli.json):</label>
+                                <select id="calc-categoria" class="w-full bg-slate-950 border border-slate-700 text-white rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-emerald-500 font-medium">
+                                    <option value="">Caricamento…</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-[11px] font-semibold text-slate-300 block mb-1 flex justify-between items-center">
+                                    <span>Modello Pompa di Calore:</span>
+                                    <span id="labelIncentivoModello" class="text-[10px] text-amber-400 font-bold"></span>
+                                </label>
+                                <select id="calc-modello" disabled class="w-full bg-slate-950 border border-slate-700 text-white rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-emerald-500 font-medium disabled:opacity-50">
+                                    <option value="">Scegli prima il tipo di sistema</option>
+                                </select>
+                            </div>
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                             <div>
-                                <label class="text-[11px] font-medium text-slate-400 block mb-1">Potenza Utile (kWt)</label>
+                                <label class="text-[11px] font-medium text-slate-400 block mb-1">Potenza Utile Pr (kWt)</label>
                                 <input type="number" id="kwPost" value="180" oninput="recalculate()" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-sm font-bold text-emerald-400 focus:outline-none focus:border-emerald-500">
                             </div>
                             <div>
@@ -525,7 +529,7 @@
                     </div>
                 </div>
 
-                <!-- ALERTS NORMATIVI DI DIAGNOSI / CONTABILIZZAZIONE MID -->
+                <!-- ALERTS NORMATIVI -->
                 <div id="boxAlertNormativi" class="space-y-3"></div>
 
                 <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-4 print-card">
@@ -603,7 +607,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs leading-relaxed">
-                
                 <!-- FASE 1 -->
                 <div class="bg-slate-950/70 p-5 rounded-2xl border border-slate-800 space-y-3">
                     <div class="flex items-center gap-2 text-white font-bold text-sm">
@@ -611,10 +614,10 @@
                         <span>Fase Ante-Operam</span>
                     </div>
                     <ul class="space-y-2 text-slate-400 list-disc list-inside">
-                        <li><strong class="text-slate-200">Richiesta Preliminare (Modello 4):</strong> Da inviare sul portale telematico PRIMA dell'inizio dei lavori o di qualsiasi stipula contrattuale vincolante.</li>
-                        <li><strong class="text-slate-200">Rilievo Fotografico Geolocalizzato:</strong> Fotografie a colori con coordinate GPS e timestamp visibile di centrale termica, generatori dismessi e involucro.</li>
-                        <li><strong class="text-slate-200">Diagnosi Energetica ex D.Lgs. 102/14:</strong> Obbligatoria per intervento II.A (cappotto) o se la potenza dell'impianto è &ge; 200 kWt, redatta da EGE certificato UNI CEI 11339.</li>
-                        <li><strong class="text-slate-200">APE Ante-Operam:</strong> Necessario per asseverare il salto prestazionale minimo richiesto nel settore terziario.</li>
+                        <li><strong class="text-slate-200">Richiesta Preliminare (Modello 4):</strong> Invio prima dell'avvio del cantiere o di impegni vincolanti.</li>
+                        <li><strong class="text-slate-200">Rilievo Fotografico Geolocalizzato:</strong> Foto a colori con coordinate GPS e timestamp visibile.</li>
+                        <li><strong class="text-slate-200">Diagnosi Energetica ex D.Lgs. 102/14:</strong> Obbligatoria per intervento II.A o se potenza &ge; 200 kWt, redatta da EGE certificato UNI CEI 11339.</li>
+                        <li><strong class="text-slate-200">APE Ante-Operam:</strong> Necessario per asseverare il salto prestazionale minimo.</li>
                     </ul>
                 </div>
 
@@ -625,536 +628,5 @@
                         <span>Fatture & Bonifici Parlanti</span>
                     </div>
                     <ul class="space-y-2 text-slate-400 list-disc list-inside">
-                        <li><strong class="text-slate-200">Dicitura Obbligatoria in Fattura:</strong> Inserire nei documenti contabili: <em>"Spesa sostenuta ai sensi del D.M. 7 Agosto 2025 (Conto Termico 3.0)"</em>.</li>
-                        <li><strong class="text-slate-200">Bonifico Specifico Dedicato:</strong> Bonifico con causale normativa, numero/data fattura, C.F./P.IVA beneficiario e fornitore.</li>
-                        <li><strong class="text-slate-200">Scorporo Analitico:</strong> Fatture con righe distinte per la fornitura dei componenti (con marca e matricola), posa in opera e spese tecniche.</li>
-                    </ul>
-                </div>
-
-                <!-- FASE 3 -->
-                <div class="bg-slate-950/70 p-5 rounded-2xl border border-slate-800 space-y-3">
-                    <div class="flex items-center gap-2 text-white font-bold text-sm">
-                        <span class="w-6 h-6 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center text-xs">3</span>
-                        <span>Chiusura su Portaltermico</span>
-                    </div>
-                    <ul class="space-y-2 text-slate-400 list-disc list-inside">
-                        <li><strong class="text-slate-200">Targhe Matricolari Post-Operam:</strong> Foto in piano delle targhette metalliche con matricola chiaramente leggibile a fine collaudo.</li>
-                        <li><strong class="text-slate-200">Contabilizzazione MID:</strong> Obbligo di installazione contatori omologati MID e trasmissione dati per PdC &gt; 200 kWt o Solare Termico &gt; 100 m².</li>
-                        <li><strong class="text-slate-200">Di.Co. DM 37/08 & Libretto:</strong> Dichiarazione di conformità e registrazione catastale dell'impianto termico (CURIT, CIT, CIRCE, ecc.).</li>
-                        <li><strong class="text-slate-200">Rata Unica Automatica:</strong> Erogazione al 1° anno per Solare Termico o importi spettanti &le; 15.000 €.</li>
-                    </ul>
-                </div>
-
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-slate-900 border-t border-slate-800 text-slate-500 py-6 px-6 text-xs text-center no-print">
-        <div class="max-w-7xl mx-auto space-y-2">
-            <p>© 2026 Ingegniamo S.r.l. • Società di Ingegneria Termotecnica, Elettrica & Academy Professionale</p>
-            <p class="text-[11px] text-slate-600">Simulatore sviluppato in conformità al D.M. 7 Agosto 2025. I risultati costituiscono una pre-diagnosi economica e non sostituiscono l'asseverazione dell'EGE abilitato.</p>
-        </div>
-    </footer>
-
-    <!-- JAVASCRIPT: LOGICA DI CALCOLO RIGOROSA CON CMAX, IMAX E LETTURA JSON -->
-    <script>
-        const ORE_ZONA = { 'A': 600, 'B': 850, 'C': 1100, 'D': 1400, 'E': 1700, 'F': 1800 };
-
-        let COMUNI_DB = [];
-        let PDC_CATALOG = [];
-        let selectedPdcModel = null;
-
-        const activeInterventi = {
-            cappotto: true,
-            infissi: true,
-            pdc: true,
-            ftv: true,
-            led: true,
-            bacs: true,
-            solare: true,
-            schermature: false
-        };
-
-        async function loadData() {
-            // 1. Carica comuni.json
-            try {
-                const resComuni = await fetch('comuni.json');
-                const rawComuni = await resComuni.json();
-                COMUNI_DB = Array.isArray(rawComuni) ? rawComuni : (rawComuni.regions || []);
-                const datalist = document.getElementById('listaComuni');
-                if (datalist && COMUNI_DB.length > 0) {
-                    datalist.innerHTML = COMUNI_DB.map(c => `<option value="${c.label}">Zona ${c.zone}</option>`).join('');
-                }
-            } catch (err) {
-                console.warn("comuni.json non caricato, uso fallback.", err);
-                COMUNI_DB = [
-                    {"label":"Cosenza","zone":"C"},{"label":"Rende","zone":"C"},{"label":"Castrovillari","zone":"D"},
-                    {"label":"Milano","zone":"E"},{"label":"Roma","zone":"D"},{"label":"Napoli","zone":"C"}
-                ];
-            }
-
-            // 2. Carica pdc.json
-            try {
-                const resPdc = await fetch('pdc.json');
-                const rawPdc = await resPdc.json();
-                let categories = Array.isArray(rawPdc) ? rawPdc : (rawPdc.categories || []);
-                PDC_CATALOG = [];
-                categories.forEach(cat => {
-                    (cat.skus || []).forEach(sku => {
-                        PDC_CATALOG.push({
-                            category: cat.label || cat.id,
-                            outdoor: sku.outdoor,
-                            indoor: sku.indoor || '',
-                            scop: parseFloat(sku.scop) || 4.2,
-                            prated: parseFloat(sku.prated || sku['p-rated']) || 10,
-                            zoneIncentivi: {
-                                A: parseEuro(sku.A),
-                                B: parseEuro(sku.B),
-                                C: parseEuro(sku.C),
-                                D: parseEuro(sku.D),
-                                E: parseEuro(sku.E),
-                                F: parseEuro(sku.F)
-                            }
-                        });
-                    });
-                });
-
-                const selectPdc = document.getElementById('selectPdcCatalog');
-                if (selectPdc && PDC_CATALOG.length > 0) {
-                    let opts = '<option value="">-- Inserimento Libero / Fuori Catalogo --</option>';
-                    PDC_CATALOG.forEach((item, index) => {
-                        opts += `<option value="${index}">[${item.category}] ${item.outdoor} - ${item.prated} kWt (SCOP ${item.scop})</option>`;
-                    });
-                    selectPdc.innerHTML = opts;
-                }
-            } catch (err) {
-                console.warn("pdc.json non caricato.", err);
-            }
-        }
-
-        function parseEuro(str) {
-            if (!str) return 0;
-            return parseFloat(str.replace('€', '').replace(/\./g, '').replace(',', '.').trim()) || 0;
-        }
-
-        function onComuneChange() {
-            const inputVal = document.getElementById('comuneInput').value.trim().toLowerCase();
-            const match = COMUNI_DB.find(c => c.label.toLowerCase() === inputVal);
-            if (match) {
-                document.getElementById('zonaClimatica').value = match.zone;
-                const ore = ORE_ZONA[match.zone] || 1700;
-                const badge = document.getElementById('badgeZonaRilevata');
-                if (badge) {
-                    badge.innerText = `Zona ${match.zone} (${ore.toLocaleString('it-IT')} h)`;
-                }
-                recalculate();
-            }
-        }
-
-        function onPdcSelected() {
-            const sel = document.getElementById('selectPdcCatalog').value;
-            if (sel !== "") {
-                const item = PDC_CATALOG[parseInt(sel, 10)];
-                if (item) {
-                    selectedPdcModel = item;
-                    document.getElementById('kwPost').value = item.prated;
-                    document.getElementById('scopPdC').value = item.scop;
-                }
-            } else {
-                selectedPdcModel = null;
-            }
-            recalculate();
-        }
-
-        function toggleIntervento(key) {
-            activeInterventi[key] = !activeInterventi[key];
-            const card = document.getElementById('card_' + key);
-            
-            if (card) {
-                if (activeInterventi[key]) {
-                    card.classList.add('tile-active');
-                    card.classList.remove('tile-inactive');
-                } else {
-                    card.classList.remove('tile-active');
-                    card.classList.add('tile-inactive');
-                }
-            }
-
-            updateRowsVisibility();
-            recalculate();
-        }
-
-        function updateRowsVisibility() {
-            const setDisplay = (id, visible) => {
-                const el = document.getElementById(id);
-                if (el) el.style.display = visible ? 'block' : 'none';
-            };
-
-            setDisplay('row_cappotto', activeInterventi.cappotto);
-            setDisplay('row_infissi', activeInterventi.infissi);
-            setDisplay('row_pdc', activeInterventi.pdc);
-            setDisplay('row_ftv', activeInterventi.ftv);
-            setDisplay('row_solare', activeInterventi.solare);
-            setDisplay('row_schermature', activeInterventi.schermature);
-
-            const showLed = activeInterventi.led;
-            const showBacs = activeInterventi.bacs;
-            setDisplay('row_led_bacs', showLed || showBacs);
-            setDisplay('sub_led', showLed);
-            setDisplay('sub_bacs', showBacs);
-        }
-
-        function checkElegibilita() {
-            const imp = document.getElementById('chkImpiantoEsistente') ? document.getElementById('chkImpiantoEsistente').value : 'si';
-            const lav = document.getElementById('chkLavoriAvviati') ? document.getElementById('chkLavoriAvviati').value : 'no';
-            const cat = document.getElementById('chkCatasto') ? document.getElementById('chkCatasto').value : 'si';
-            const badge = document.getElementById('statusIdoneitaBadge');
-            const box = document.getElementById('boxAlertElegibilita');
-            const msg = document.getElementById('msgAlertElegibilita');
-
-            if (!badge || !box || !msg) return;
-
-            if (lav === 'si') {
-                badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-bold self-start sm:self-auto";
-                badge.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> <span>Intervento NON Ammissibile</span>';
-                box.className = "bg-rose-950/40 border border-rose-900/60 rounded-2xl p-4 flex items-start gap-3 text-xs leading-relaxed";
-                msg.innerHTML = "<strong>ATTENZIONE (Avvio Lavori Prematuro):</strong> Per accedere al Conto Termico 3.0 la prenotazione o richiesta preliminare (Modello 4) deve essere presentata PRIMA dell'avvio del cantiere o dell'assunzione di impegni contrattuali vincolanti. Lavori già avviati comportano il rigetto formale.";
-                return;
-            }
-
-            if (imp === 'no') {
-                badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold self-start sm:self-auto";
-                badge.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> <span>Limitazioni di Accesso</span>';
-                box.className = "bg-amber-950/40 border border-amber-900/60 rounded-2xl p-4 flex items-start gap-3 text-xs leading-relaxed";
-                msg.innerHTML = "<strong>Attenzione:</strong> Senza un impianto di riscaldamento esistente ante-operam, il Conto Termico NON ammette la sostituzione con Pompa di Calore (III.A) né gli interventi di isolamento dell'involucro a catalogo. Restano valutabili unicamente interventi isolati sul solare termico o trasformazioni nZEB.";
-                return;
-            }
-
-            if (cat === 'no') {
-                badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-bold self-start sm:self-auto";
-                badge.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> <span>Irregolarità Catastale</span>';
-                box.className = "bg-rose-950/40 border border-rose-900/60 rounded-2xl p-4 flex items-start gap-3 text-xs leading-relaxed";
-                msg.innerHTML = "L'immobile deve risultare regolarmente accatastato alla data di presentazione dell'istanza e in piena conformità urbanistico-edilizia.";
-                return;
-            }
-
-            badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold self-start sm:self-auto";
-            badge.innerHTML = '<i class="fa-solid fa-circle-check"></i> <span>Requisiti Preliminari Soddisfatti</span>';
-            box.className = "bg-slate-950/50 border border-emerald-900/40 rounded-2xl p-4 flex items-start gap-3 text-xs leading-relaxed";
-            msg.innerHTML = "La presenza dell'impianto di riscaldamento esistente consente l'intervento trainante di sostituzione con Pompa di Calore (III.A) o coibentazione dell'involucro. I lavori non ancora avviati consentono la piena prenotabilità dei fondi.";
-        }
-
-        function recalculate() {
-            const zonaEl = document.getElementById('zonaClimatica');
-            const zona = zonaEl ? zonaEl.value : 'E';
-            const ore = ORE_ZONA[zona] || 1700;
-            const supCapannone = parseFloat(document.getElementById('mqCapannone').value) || 1200;
-
-            let totSpesaVal = 0;
-            let totIncVal = 0;
-            let incassoAnno1 = 0;
-            let quotaAnnualeCostante = 0;
-            let tableHtml = '';
-
-            const isZonaDEF = ['D', 'E', 'F'].includes(zona);
-
-            // 1. Pompa di Calore (III.A)
-            let incPdC = 0;
-            let kwPost = 0;
-            if (activeInterventi.pdc) {
-                kwPost = parseFloat(document.getElementById('kwPost').value) || 0;
-                const scopPdC = parseFloat(document.getElementById('scopPdC').value) || 4.20;
-                const costoPdC = parseFloat(document.getElementById('costoPdC').value) || 0;
-                
-                // Se selezionata da catalogo pdc.json, usa il valore di incentivo GSE certificato
-                if (selectedPdcModel && selectedPdcModel.zoneIncentivi && selectedPdcModel.zoneIncentivi[zona]) {
-                    const incTabellare = selectedPdcModel.zoneIncentivi[zona];
-                    incPdC = Math.min(incTabellare, costoPdC * 0.65);
-                } else {
-                    // Calcolo analitico
-                    const Ci = (kwPost <= 35) ? 0.15 : 0.055;
-                    const durataAnni = (kwPost <= 35) ? 2 : 5;
-                    const Ei_annua = (kwPost * ore) * (1 - (1 / scopPdC));
-                    const incPdCRaw = Ei_annua * Ci * durataAnni;
-                    incPdC = Math.min(incPdCRaw, costoPdC * 0.65);
-                }
-                
-                totSpesaVal += costoPdC;
-                totIncVal += incPdC;
-
-                if (incPdC <= 15000) {
-                    incassoAnno1 += incPdC;
-                } else {
-                    quotaAnnualeCostante += incPdC / 5;
-                }
-
-                tableHtml += `
-                    <tr class="hover:bg-slate-800/40">
-                        <td class="py-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> III.A - Pompa di Calore VRF</td>
-                        <td class="py-2.5 text-right font-bold text-emerald-400">€ ${Math.round(incPdC).toLocaleString('it-IT')}</td>
-                        <td class="py-2.5 text-right text-slate-400">${incPdC <= 15000 ? 'Rata Unica' : '5 Anni'}</td>
-                    </tr>
-                `;
-            }
-
-            // 2. Fotovoltaico & Accumulo (II.H) - TRAINATO
-            if (activeInterventi.ftv) {
-                const kwpFTV = parseFloat(document.getElementById('kwpFTV').value) || 0;
-                const kwhAcc = parseFloat(document.getElementById('kwhAcc').value) || 0;
-                const costoFTV = parseFloat(document.getElementById('costoFTV').value) || 0;
-
-                let cmaxFTVUnit = 1200;
-                if (kwpFTV <= 20) cmaxFTVUnit = 1500;
-                else if (kwpFTV <= 200) cmaxFTVUnit = 1200;
-                else if (kwpFTV <= 600) cmaxFTVUnit = 1100;
-                else cmaxFTVUnit = 1050;
-
-                const cmaxAccUnit = 1000;
-                const spesaMaxAmmFTV = (kwpFTV * cmaxFTVUnit) + (kwhAcc * cmaxAccUnit);
-                const spesaValidaFTV = Math.min(costoFTV, spesaMaxAmmFTV);
-
-                const incTeoricoFTV = spesaValidaFTV * 0.20;
-                const maxCapPdC = activeInterventi.pdc ? incPdC : 0;
-                const incFTV = Math.min(incTeoricoFTV, maxCapPdC);
-
-                totSpesaVal += costoFTV;
-                totIncVal += incFTV;
-
-                if (incFTV <= 15000) {
-                    incassoAnno1 += incFTV;
-                } else {
-                    quotaAnnualeCostante += incFTV / 5;
-                }
-
-                tableHtml += `
-                    <tr class="hover:bg-slate-800/40">
-                        <td class="py-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span> II.H - Fotovoltaico & Accumulo</td>
-                        <td class="py-2.5 text-right font-bold text-sky-400">€ ${Math.round(incFTV).toLocaleString('it-IT')}</td>
-                        <td class="py-2.5 text-right text-slate-400">${incFTV <= 15000 ? 'Rata Unica' : '5 Anni'}</td>
-                    </tr>
-                `;
-            }
-
-            // 3. Coibentazione Involucro Opaco (II.A)
-            if (activeInterventi.cappotto) {
-                const mqPareti = parseFloat(document.getElementById('mqPareti').value) || 0;
-                const mqTetto = parseFloat(document.getElementById('mqTetto').value) || 0;
-                const costoCap = parseFloat(document.getElementById('costoCappotto').value) || 0;
-
-                const spesaMaxAmmCap = (mqPareti * 200) + (mqTetto * 300);
-                const spesaValidaCap = Math.min(costoCap, spesaMaxAmmCap);
-
-                const aliqCap = activeInterventi.pdc ? 0.55 : (isZonaDEF ? 0.50 : 0.40);
-                const incCapTeorico = spesaValidaCap * aliqCap;
-                const incCap = Math.min(incCapTeorico, 1000000);
-
-                totSpesaVal += costoCap;
-                totIncVal += incCap;
-
-                if (incCap <= 15000) {
-                    incassoAnno1 += incCap;
-                } else {
-                    quotaAnnualeCostante += incCap / 5;
-                }
-
-                tableHtml += `
-                    <tr class="hover:bg-slate-800/40">
-                        <td class="py-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> II.A - Coibentazione Involucro</td>
-                        <td class="py-2.5 text-right font-bold text-amber-400">€ ${Math.round(incCap).toLocaleString('it-IT')}</td>
-                        <td class="py-2.5 text-right text-slate-400">${incCap <= 15000 ? 'Rata Unica' : '5 Anni'}</td>
-                    </tr>
-                `;
-            }
-
-            // 4. Infissi e Portoni (II.B)
-            if (activeInterventi.infissi) {
-                const mqInfissi = parseFloat(document.getElementById('mqInfissi').value) || 0;
-                const costoInf = parseFloat(document.getElementById('costoInfissi').value) || 0;
-
-                const cmaxInf = isZonaDEF ? 800 : 700;
-                const spesaMaxAmmInf = mqInfissi * cmaxInf;
-                const spesaValidaInf = Math.min(costoInf, spesaMaxAmmInf);
-
-                const aliqInf = (activeInterventi.cappotto && activeInterventi.pdc) ? 0.55 : 0.45;
-                const incInfTeorico = spesaValidaInf * aliqInf;
-                const incInf = Math.min(incInfTeorico, 500000);
-
-                totSpesaVal += costoInf;
-                totIncVal += incInf;
-
-                if (incInf <= 15000) {
-                    incassoAnno1 += incInf;
-                } else {
-                    quotaAnnualeCostante += incInf / 5;
-                }
-
-                tableHtml += `
-                    <tr class="hover:bg-slate-800/40">
-                        <td class="py-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span> II.B - Infissi & Portoni</td>
-                        <td class="py-2.5 text-right font-bold text-slate-200">€ ${Math.round(incInf).toLocaleString('it-IT')}</td>
-                        <td class="py-2.5 text-right text-slate-400">${incInf <= 15000 ? 'Rata Unica' : '5 Anni'}</td>
-                    </tr>
-                `;
-            }
-
-            // 5. Relamping LED (II.E)
-            if (activeInterventi.led) {
-                const costoLED = parseFloat(document.getElementById('costoLED').value) || 0;
-                const spesaMaxAmmLED = supCapannone * 35;
-                const spesaValidaLED = Math.min(costoLED, spesaMaxAmmLED);
-                const incLED = spesaValidaLED * 0.45;
-
-                totSpesaVal += costoLED;
-                totIncVal += incLED;
-
-                if (incLED <= 15000) {
-                    incassoAnno1 += incLED;
-                } else {
-                    quotaAnnualeCostante += incLED / 5;
-                }
-
-                tableHtml += `
-                    <tr class="hover:bg-slate-800/40">
-                        <td class="py-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> II.E - Relamping LED</td>
-                        <td class="py-2.5 text-right font-bold text-indigo-400">€ ${Math.round(incLED).toLocaleString('it-IT')}</td>
-                        <td class="py-2.5 text-right text-slate-400">${incLED <= 15000 ? 'Rata Unica' : '5 Anni'}</td>
-                    </tr>
-                `;
-            }
-
-            // 6. Building Automation BACS (II.F)
-            if (activeInterventi.bacs) {
-                const costoBACS = parseFloat(document.getElementById('costoBACS').value) || 0;
-                const spesaMaxAmmBACS = supCapannone * 60;
-                const spesaValidaBACS = Math.min(costoBACS, spesaMaxAmmBACS);
-                const incBACSTeorico = spesaValidaBACS * 0.45;
-                const incBACS = Math.min(incBACSTeorico, 100000);
-
-                totSpesaVal += costoBACS;
-                totIncVal += incBACS;
-
-                if (incBACS <= 15000) {
-                    incassoAnno1 += incBACS;
-                } else {
-                    quotaAnnualeCostante += incBACS / 5;
-                }
-
-                tableHtml += `
-                    <tr class="hover:bg-slate-800/40">
-                        <td class="py-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> II.F - BACS Automazione</td>
-                        <td class="py-2.5 text-right font-bold text-indigo-400">€ ${Math.round(incBACS).toLocaleString('it-IT')}</td>
-                        <td class="py-2.5 text-right text-slate-400">${incBACS <= 15000 ? 'Rata Unica' : '5 Anni'}</td>
-                    </tr>
-                `;
-            }
-
-            // 7. Solare Termico (III.D)
-            let mqSolare = 0;
-            if (activeInterventi.solare) {
-                mqSolare = parseFloat(document.getElementById('mqSolare').value) || 0;
-                const costoSol = parseFloat(document.getElementById('costoSolare').value) || 0;
-                const incSol = Math.min(mqSolare * 256, costoSol * 0.65);
-
-                totSpesaVal += costoSol;
-                totIncVal += incSol;
-                incassoAnno1 += incSol;
-
-                tableHtml += `
-                    <tr class="hover:bg-slate-800/40">
-                        <td class="py-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-orange-400"></span> III.D - Solare Termico ACS</td>
-                        <td class="py-2.5 text-right font-bold text-orange-400">€ ${Math.round(incSol).toLocaleString('it-IT')}</td>
-                        <td class="py-2.5 text-right text-amber-400 font-bold">Rata Unica</td>
-                    </tr>
-                `;
-            }
-
-            // 8. Schermature Solari (II.C)
-            if (activeInterventi.schermature) {
-                const mqScherm = parseFloat(document.getElementById('mqSchermatures').value) || 0;
-                const costoScherm = parseFloat(document.getElementById('costoSchermature').value) || 0;
-                const spesaMaxAmmScherm = mqScherm * 250;
-                const spesaValidaScherm = Math.min(costoScherm, spesaMaxAmmScherm);
-                const incSchermTeorico = spesaValidaScherm * 0.45;
-                const incScherm = Math.min(incSchermTeorico, 90000);
-
-                totSpesaVal += costoScherm;
-                totIncVal += incScherm;
-
-                if (incScherm <= 15000) {
-                    incassoAnno1 += incScherm;
-                } else {
-                    quotaAnnualeCostante += incScherm / 5;
-                }
-
-                tableHtml += `
-                    <tr class="hover:bg-slate-800/40">
-                        <td class="py-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> II.C - Schermature Solari</td>
-                        <td class="py-2.5 text-right font-bold text-amber-400">€ ${Math.round(incScherm).toLocaleString('it-IT')}</td>
-                        <td class="py-2.5 text-right text-slate-400">${incScherm <= 15000 ? 'Rata Unica' : '5 Anni'}</td>
-                    </tr>
-                `;
-            }
-
-            const flussoAnno1 = incassoAnno1 + quotaAnnualeCostante;
-            const pctCop = totSpesaVal > 0 ? ((totIncVal / totSpesaVal) * 100).toFixed(1) : 0;
-
-            document.getElementById('totSpesa').innerText = '€ ' + Math.round(totSpesaVal).toLocaleString('it-IT');
-            document.getElementById('totIncentivo').innerText = '€ ' + Math.round(totIncVal).toLocaleString('it-IT');
-            document.getElementById('pctCopertura').innerText = 'Copertura media: ' + pctCop + '% a fondo perduto';
-            document.getElementById('incassoAnno1').innerText = '€ ' + Math.round(flussoAnno1).toLocaleString('it-IT');
-
-            document.getElementById('flussoA1').innerText = '€ ' + Math.round(flussoAnno1).toLocaleString('it-IT');
-            document.getElementById('flussoA2').innerText = '€ ' + Math.round(quotaAnnualeCostante).toLocaleString('it-IT');
-            document.getElementById('flussoA3').innerText = '€ ' + Math.round(quotaAnnualeCostante).toLocaleString('it-IT');
-            document.getElementById('flussoA4').innerText = '€ ' + Math.round(quotaAnnualeCostante).toLocaleString('it-IT');
-            document.getElementById('flussoA5').innerText = '€ ' + Math.round(quotaAnnualeCostante).toLocaleString('it-IT');
-
-            document.getElementById('tblResult').innerHTML = tableHtml || '<tr><td colspan="3" class="py-4 text-center text-slate-500">Nessun intervento selezionato.</td></tr>';
-
-            // ALERTS
-            let alertHtml = '';
-            const obbligoDiagnosi = activeInterventi.cappotto || (kwPost >= 200);
-            if (obbligoDiagnosi) {
-                alertHtml += `
-                    <div class="bg-rose-950/40 border border-rose-900/60 p-4 rounded-2xl flex items-start gap-3 text-xs leading-relaxed">
-                        <i class="fa-solid fa-triangle-exclamation text-rose-400 text-base mt-0.5"></i>
-                        <div>
-                            <span class="font-bold text-rose-300 block uppercase">Diagnosi Energetica Obbligatoria (D.Lgs. 102/2014)</span>
-                            <span class="text-slate-300">Scatta l'obbligo di Diagnosi Energetica redatta da EGE certificato UNI CEI 11339 poiché è presente l'intervento di coibentazione (II.A) o la potenza termica è &ge; 200 kWt (${kwPost} kWt).</span>
-                        </div>
-                    </div>
-                `;
-            } else {
-                alertHtml += `
-                    <div class="bg-blue-950/40 border border-blue-900/60 p-4 rounded-2xl flex items-start gap-3 text-xs leading-relaxed">
-                        <i class="fa-solid fa-circle-info text-blue-400 text-base mt-0.5"></i>
-                        <div>
-                            <span class="font-bold text-blue-300 block uppercase">Esenzione Diagnosi Energetica</span>
-                            <span class="text-slate-300">Potenza &lt; 200 kWt e assenza di coibentazione involucro: sufficiente APE Ante/Post e Relazione Tecnica asseverata.</span>
-                        </div>
-                    </div>
-                `;
-            }
-
-            if (kwPost > 200 || mqSolare > 100) {
-                alertHtml += `
-                    <div class="bg-amber-950/40 border border-amber-900/60 p-4 rounded-2xl flex items-start gap-3 text-xs leading-relaxed">
-                        <i class="fa-solid fa-gauge-high text-amber-400 text-base mt-0.5"></i>
-                        <div>
-                            <span class="font-bold text-amber-300 block uppercase">Obbligo Contabilizzazione del Calore MID</span>
-                            <span class="text-slate-300">È richiesta l'installazione di contatori omologati MID e la trasmissione telematica annuale delle misure al GSE (PdC &gt; 200 kWt o Solare Termico &gt; 100 m²).</span>
-                        </div>
-                    </div>
-                `;
-            }
-
-            document.getElementById('boxAlertNormativi').innerHTML = alertHtml;
-        }
-
-        window.onload = async function() {
-            checkElegibilita();
-            updateRowsVisibility();
-            await loadData();
-            recalculate();
+                        <li><strong class="text-slate-200">Dicitura Obbligatoria in Fattura:</strong> <em>"Spesa sostenuta ai sensi del D.M. 7 Agosto 2025 (Conto Termico 3.0)"</em>.</li>
+                        <li><strong class="text-slate-200">Bonifico Specifico:</strong> Causale con riferimento normativo, estremi fattura, C
