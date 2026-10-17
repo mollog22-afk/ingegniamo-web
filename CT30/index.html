@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulatore Conto Termico 3.0 - Capannone Piccola Impresa</title>
+    <script src="[suspicious link removed]"></script>
+    <style>
+        @media print {
+            body { background: white; color: black; }
+            .no-print { display: none !important; }
+            .card { border: 1px solid #ccc; box-shadow: none !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 font-sans text-slate-800 min-h-screen">
+
+    <header class="bg-slate-900 text-white py-6 px-4 shadow-lg border-b-4 border-emerald-500">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <h1 class="text-2xl font-bold tracking-wide flex items-center gap-2">
+                    <span class="bg-emerald-500 text-slate-900 px-2 py-1 rounded text-sm uppercase font-black">CT 3.0</span>
+                    Simulatore Capannone Industriale
+                </h1>
+                <p class="text-slate-400 text-xs mt-1">D.M. 7 Agosto 2025 - Riservato a Piccola Impresa (Titolo V - Aliquota fino al 65%)</p>
+            </div>
+            <button onclick="window.print()" class="no-print bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-5 py-2.5 rounded-lg shadow transition text-sm">
+                Stampa Report PDF
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div class="lg:col-span-7 space-y-6">
+            <div class="bg-white rounded-xl p-6 shadow-md border border-slate-200 space-y-4">
+                <h2 class="text-lg font-bold text-slate-900 border-b pb-2">Parametri Progetto Capannone</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Superficie Utile (m²)</label>
+                        <input type="number" id="supCapannone" value="1200" onchange="calculateIncentive()" class="w-full bg-slate-50 border rounded px-3 py-2 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Zona Climatica</label>
+                        <select id="zonaClimatica" onchange="calculateIncentive()" class="w-full bg-slate-50 border rounded px-3 py-2 text-sm">
+                            <option value="A">Zona A</option><option value="B">Zona B</option><option value="C">Zona C</option>
+                            <option value="D">Zona D</option><option value="E" selected>Zona E</option><option value="F">Zona F</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 pt-2">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600">Isolamento Cappotto/Tetto (m²)</label>
+                        <input type="number" id="mqCappotto" value="1000" onchange="calculateIncentive()" class="w-full bg-slate-50 border rounded px-3 py-1.5 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600">Infissi Industriali (m²)</label>
+                        <input type="number" id="mqInfissi" value="150" onchange="calculateIncentive()" class="w-full bg-slate-50 border rounded px-3 py-1.5 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600">Relamping LED (m²)</label>
+                        <input type="number" id="mqLED" value="1200" onchange="calculateIncentive()" class="w-full bg-slate-50 border rounded px-3 py-1.5 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600">BACS Classe B (m²)</label>
+                        <input type="number" id="mqBACS" value="1200" onchange="calculateIncentive()" class="w-full bg-slate-50 border rounded px-3 py-1.5 text-sm">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-4 pt-2">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600">Potenza PdC Post (kWt)</label>
+                        <input type="number" id="kwPost" value="180" onchange="calculateIncentive()" class="w-full bg-slate-50 border rounded px-3 py-1.5 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600">Fotovoltaico (kWp)</label>
+                        <input type="number" id="kwpFTV" value="80" onchange="calculateIncentive()" class="w-full bg-slate-50 border rounded px-3 py-1.5 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600">Solare Termico (m²)</label>
+                        <input type="number" id="mqSolare" value="20" onchange="calculateIncentive()" class="w-full bg-slate-50 border rounded px-3 py-1.5 text-sm">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:col-span-5 space-y-6">
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-white p-4 rounded-xl shadow border-l-4 border-slate-800">
+                    <p class="text-xs font-bold text-slate-500">Spesa Stimata</p>
+                    <p id="kpiSpesa" class="text-xl font-black text-slate-900 mt-1">€ 0</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow border-l-4 border-emerald-500">
+                    <p class="text-xs font-bold text-slate-500">Contributo GSE</p>
+                    <p id="kpiIncentivo" class="text-xl font-black text-emerald-600 mt-1">€ 0</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-6 border">
+                <h3 class="text-md font-bold text-slate-900 mb-4 pb-2 border-b">Prospetto Analitico GSE</h3>
+                <table class="w-full text-left text-xs">
+                    <thead><tr class="bg-slate-100 font-bold"><th class="py-2 px-2">Intervento</th><th class="py-2 px-2 text-right">Spesa (€)</th><th class="py-2 px-2 text-right">Incentivo (€)</th></tr></thead>
+                    <tbody id="tableBreakdown" class="divide-y"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function calculateIncentive() {
+            const mqCap = parseFloat(document.getElementById('mqCappotto').value) || 0;
+            const mqInf = parseFloat(document.getElementById('mqInfissi').value) || 0;
+            const mqLED = parseFloat(document.getElementById('mqLED').value) || 0;
+            const mqBACS = parseFloat(document.getElementById('mqBACS').value) || 0;
+            const kwPost = parseFloat(document.getElementById('kwPost').value) || 0;
+            const kwpFTV = parseFloat(document.getElementById('kwpFTV').value) || 0;
+            const mqSol = parseFloat(document.getElementById('mqSolare').value) || 0;
+
+            const spesaCap = mqCap * 180; const incCap = spesaCap * 0.55;
+            const spesaInf = mqInf * 300; const incInf = spesaInf * 0.55;
+            const spesaLED = mqLED * 30;  const incLED = spesaLED * 0.45;
+            const spesaBACS = mqBACS * 45;const incBACS = spesaBACS * 0.45;
+            const spesaPdC = kwPost * 470; const incPdC = kwPost * 1700 * (1 - 1/4.2) * 1.2 * 0.055 * 5;
+            const spesaFTV = kwpFTV * 1200; const incFTV = Math.min(spesaFTV * 0.20, incPdC);
+            const spesaSol = mqSol * 500; const incSol = mqSol * 256;
+
+            const totalSpesa = spesaCap + spesaInf + spesaLED + spesaBACS + spesaPdC + spesaFTV + spesaSol;
+            const totalIncentivo = incCap + incInf + incLED + incBACS + Math.min(incPdC, spesaPdC*0.65) + incFTV + incSol;
+
+            document.getElementById('kpiSpesa').innerText = '€ ' + Math.round(totalSpesa).toLocaleString('it-IT');
+            document.getElementById('kpiIncentivo').innerText = '€ ' + Math.round(totalIncentivo).toLocaleString('it-IT');
+
+            document.getElementById('tableBreakdown').innerHTML = `
+                <tr><td class="py-1.5 px-2">Isolamento Involucro</td><td class="py-1.5 px-2 text-right">€ ${Math.round(spesaCap).toLocaleString('it-IT')}</td><td class="py-1.5 px-2 text-right font-semibold">€ ${Math.round(incCap).toLocaleString('it-IT')}</td></tr>
+                <tr><td class="py-1.5 px-2">Infissi Industriali</td><td class="py-1.5 px-2 text-right">€ ${Math.round(spesaInf).toLocaleString('it-IT')}</td><td class="py-1.5 px-2 text-right font-semibold">€ ${Math.round(incInf).toLocaleString('it-IT')}</td></tr>
+                <tr><td class="py-1.5 px-2">Relamping LED</td><td class="py-1.5 px-2 text-right">€ ${Math.round(spesaLED).toLocaleString('it-IT')}</td><td class="py-1.5 px-2 text-right font-semibold">€ ${Math.round(incLED).toLocaleString('it-IT')}</td></tr>
+                <tr><td class="py-1.5 px-2">BACS Classe B</td><td class="py-1.5 px-2 text-right">€ ${Math.round(spesaBACS).toLocaleString('it-IT')}</td><td class="py-1.5 px-2 text-right font-semibold">€ ${Math.round(incBACS).toLocaleString('it-IT')}</td></tr>
+                <tr><td class="py-1.5 px-2">Pompa di Calore</td><td class="py-1.5 px-2 text-right">€ ${Math.round(spesaPdC).toLocaleString('it-IT')}</td><td class="py-1.5 px-2 text-right font-semibold">€ ${Math.round(Math.min(incPdC, spesaPdC*0.65)).toLocaleString('it-IT')}</td></tr>
+                <tr><td class="py-1.5 px-2">Fotovoltaico</td><td class="py-1.5 px-2 text-right">€ ${Math.round(spesaFTV).toLocaleString('it-IT')}</td><td class="py-1.5 px-2 text-right font-semibold">€ ${Math.round(incFTV).toLocaleString('it-IT')}</td></tr>
+                <tr><td class="py-1.5 px-2">Solare Termico</td><td class="py-1.5 px-2 text-right">€ ${Math.round(spesaSol).toLocaleString('it-IT')}</td><td class="py-1.5 px-2 text-right font-semibold">€ ${Math.round(incSol).toLocaleString('it-IT')}</td></tr>
+            `;
+        }
+        window.onload = calculateIncentive;
+    </script>
+</body>
+</html>
