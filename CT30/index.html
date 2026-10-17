@@ -243,7 +243,7 @@
                             <span class="tile-badge text-[10px] font-bold px-2 py-0.5 rounded border border-slate-700 bg-slate-800 text-slate-300">Art. II.E</span>
                         </div>
                         <h4 class="font-bold text-sm text-white mb-1">Illuminazione LED</h4>
-                        <p class="text-[11px] text-slate-400 leading-snug">Corpi illuminanti industriali ($C_{max} = 35\text{ €/m}^2$).</p>
+                        <p class="text-[11px] text-slate-400 leading-snug">Corpi illuminanti industriali (Cmax = 35 €/m²).</p>
                     </div>
                     <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
                         <span class="text-slate-500 font-semibold">Cmax</span>
@@ -258,7 +258,7 @@
                             <span class="tile-badge text-[10px] font-bold px-2 py-0.5 rounded border border-slate-700 bg-slate-800 text-slate-300">Art. II.F</span>
                         </div>
                         <h4 class="font-bold text-sm text-white mb-1">Building Automation</h4>
-                        <p class="text-[11px] text-slate-400 leading-snug">Regolazione BACS Classe B ($C_{max} = 60\text{ €/m}^2$).</p>
+                        <p class="text-[11px] text-slate-400 leading-snug">Regolazione BACS Classe B (Cmax = 60 €/m²).</p>
                     </div>
                     <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
                         <span class="text-slate-500 font-semibold">Imax</span>
@@ -288,7 +288,7 @@
                             <span class="tile-badge text-[10px] font-bold px-2 py-0.5 rounded border border-slate-700 bg-slate-800 text-slate-300">Art. II.C</span>
                         </div>
                         <h4 class="font-bold text-sm text-white mb-1">Schermature Solari</h4>
-                        <p class="text-[11px] text-slate-400 leading-snug">Frangisole esterni ($C_{max} = 250\text{ €/m}^2$).</p>
+                        <p class="text-[11px] text-slate-400 leading-snug">Frangisole esterni (Cmax = 250 €/m²).</p>
                     </div>
                     <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
                         <span class="text-slate-500 font-semibold">Imax</span>
@@ -318,40 +318,37 @@
                         <label class="block text-xs font-semibold text-slate-300 mb-1">Superficie Utile Capannone (m²)</label>
                         <input type="number" id="mqCapannone" value="1200" class="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-xl px-3.5 py-2 text-sm font-semibold text-white focus:outline-none transition">
                     </div>
-                    
-                    <!-- MENU A TENDINA COMPLETO PER COMUNE -->
-                    <div>
+                    <div class="relative">
                         <div class="flex justify-between items-center mb-1">
-                            <label for="calc-comune" class="block text-xs font-semibold text-slate-300">Comune di Installazione</label>
+                            <label class="block text-xs font-semibold text-slate-300">Comune di Installazione</label>
                             <span id="badgeZonaRilevata" class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded font-bold">Zona E (1.700 h)</span>
                         </div>
-                        <select id="calc-comune" class="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-xl px-3 py-2 text-xs font-semibold text-white focus:outline-none transition">
-                            <option value="">Caricamento comuni…</option>
-                        </select>
+                        <!-- Campo comune privo di attributi oninput inline -->
+                        <input type="text" id="comuneInput" autocomplete="off" placeholder="Scrivi il comune (es. Cosenza)..." class="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-xl px-3.5 py-2 text-sm font-semibold text-white focus:outline-none transition">
+                        <ul id="calc-suggerimenti" class="absolute z-50 left-0 right-0 mt-1 bg-slate-900 text-slate-200 border border-slate-700 rounded-xl max-h-56 overflow-y-auto shadow-2xl text-xs divide-y divide-slate-800" hidden></ul>
                         <input type="hidden" id="zonaClimatica" value="E">
                     </div>
                 </div>
 
                 <div class="space-y-4">
                     
-                    <!-- Pompa di Calore (III.A) con SELEZIONE DA modelli.json -->
+                    <!-- Pompa di Calore (III.A) -->
                     <div id="row_pdc" class="bg-slate-950/40 border border-emerald-900/40 rounded-2xl p-4 sm:p-5">
                         <div class="flex justify-between items-center mb-3">
                             <span class="font-bold text-sm text-emerald-300 flex items-center gap-2"><i class="fa-solid fa-fan"></i> III.A - Pompa di Calore (Trainante)</span>
                             <span class="text-[10px] text-emerald-400 bg-emerald-950 border border-emerald-800 px-2.5 py-0.5 rounded-full font-bold">Max 65% Spesa</span>
                         </div>
 
-                        <!-- Categoria & Modello da modelli.json -->
                         <div class="mb-4 bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 space-y-3">
                             <div>
-                                <label for="calc-categoria" class="text-[11px] font-semibold text-slate-300 block mb-1">Tipo di Sistema (Categoria):</label>
+                                <label class="text-[11px] font-semibold text-slate-300 block mb-1">Tipo di Sistema (Categoria da modelli.json):</label>
                                 <select id="calc-categoria" class="w-full bg-slate-950 border border-slate-700 text-white rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-emerald-500 font-medium">
-                                    <option value="">Caricamento categorie…</option>
+                                    <option value="">Caricamento…</option>
                                 </select>
                             </div>
                             <div>
-                                <label for="calc-modello" class="text-[11px] font-semibold text-slate-300 block mb-1 flex justify-between items-center">
-                                    <span>Modello Pompa di Calore (Catalogo):</span>
+                                <label class="text-[11px] font-semibold text-slate-300 block mb-1 flex justify-between items-center">
+                                    <span>Modello Pompa di Calore:</span>
                                     <span id="labelIncentivoModello" class="text-[10px] text-amber-400 font-bold"></span>
                                 </label>
                                 <select id="calc-modello" disabled class="w-full bg-slate-950 border border-slate-700 text-white rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-emerald-500 font-medium disabled:opacity-50">
@@ -648,7 +645,7 @@
         </div>
     </footer>
 
-    <!-- LOGICA JAVASCRIPT NATIVA SENZA ATTRIBUTI INLINE -->
+    <!-- LOGICA JAVASCRIPT -->
     <script>
         let COMUNI_DB = [];
         let DATI_MODELLI = null;
@@ -667,6 +664,21 @@
         };
 
         const ORE_ZONA = { 'A': 600, 'B': 850, 'C': 1100, 'D': 1400, 'E': 1700, 'F': 1800 };
+
+        // Carica un file JSON provando prima il percorso dalla radice del sito, poi quello relativo alla pagina.
+        // Se un percorso risponde con una pagina HTML (es. errore 404 mascherato) passa al successivo.
+        async function caricaJSON(nome) {
+            const percorsi = ['/' + nome, nome];
+            for (const p of percorsi) {
+                try {
+                    const r = await fetch(p);
+                    if (r.ok) return await r.json();
+                } catch (err) {
+                    console.warn('Percorso non valido per ' + nome + ': ' + p, err);
+                }
+            }
+            return null;
+        }
 
         window.toggleIntervento = function(key) {
             activeInterventi[key] = !activeInterventi[key];
@@ -771,7 +783,7 @@
                     const incFormula = MODELLO_SCELTO.pr * quf * (1 - (1 / MODELLO_SCELTO.scop)) * MODELLO_SCELTO.nsh * MODELLO_SCELTO.k;
                     incPdC = Math.min(incFormula, costoPdC * 0.65);
                     const lbl = document.getElementById('labelIncentivoModello');
-                    if (lbl) lbl.innerText = `Incentivo GSE: € ${Math.round(incFormula).toLocaleString('it-IT')}`;
+                    if (lbl) lbl.innerText = `Incentivo GSE tabellare: € ${Math.round(incFormula).toLocaleString('it-IT')}`;
                 } else {
                     const Ci = (kwPost <= 35) ? 0.15 : 0.055;
                     const durataAnni = (kwPost <= 35) ? 2 : 5;
@@ -1054,12 +1066,18 @@
             document.getElementById('boxAlertNormativi').innerHTML = alertHtml;
         };
 
-        // INIZIALIZZAZIONE ASINCRONA
+        // Collegamento eventi (nessun attributo inline per comune e modelli)
         document.addEventListener('DOMContentLoaded', async () => {
             checkElegibilita();
             updateRowsVisibility();
 
-            // Ascolto input di calcolo
+            const inputComune = document.getElementById("comuneInput");
+            const suggerimenti = document.getElementById("calc-suggerimenti");
+            const badgeZona = document.getElementById("badgeZonaRilevata");
+            const selCat = document.getElementById("calc-categoria");
+            const selMod = document.getElementById("calc-modello");
+
+            // Ascolto input numerici per ricalcolo continuo
             const inputIds = [
                 'mqCapannone', 'kwPost', 'scopPdC', 'costoPdC',
                 'kwpFTV', 'kwhAcc', 'costoFTV',
@@ -1085,79 +1103,111 @@
                 }
             });
 
-            const selComune = document.getElementById("calc-comune");
-            const badgeZona = document.getElementById("badgeZonaRilevata");
-            const selCat = document.getElementById("calc-categoria");
-            const selMod = document.getElementById("calc-modello");
-
-            // Caricamento dei due file JSON
-            try {
-                const [rComuni, rModelli] = await Promise.all([
-                    fetch("comuni.json"),
-                    fetch("modelli.json")
-                ]);
-
-                if (rComuni.ok) {
-                    const rawC = await rComuni.json();
-                    COMUNI_DB = rawC.map(c => ({
-                        n: c.n || c.label,
-                        z: c.z || c.zone
-                    })).filter(c => c.n && c.z);
-                } else {
-                    console.warn("comuni.json non trovato (HTTP " + rComuni.status + ")");
+            // Se si modificano a mano potenza o SCOP, il calcolo torna manuale (la scelta del modello viene tolta)
+            ['kwPost', 'scopPdC'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener('input', () => {
+                        if (MODELLO_SCELTO) {
+                            MODELLO_SCELTO = null;
+                            selMod.value = "";
+                            recalculate();
+                        }
+                    });
                 }
+            });
 
-                if (rModelli.ok) {
-                    DATI_MODELLI = await rModelli.json();
-                } else {
-                    console.warn("modelli.json non trovato (HTTP " + rModelli.status + ")");
-                }
-            } catch (err) {
-                console.error("Errore nel caricamento file JSON:", err);
+            // Caricamento dati
+            const [rawC, rawM] = await Promise.all([caricaJSON('comuni.json'), caricaJSON('modelli.json')]);
+
+            if (rawC) {
+                COMUNI_DB = rawC.map(c => ({
+                    n: c.n || c.label,
+                    z: c.z || c.zone
+                }));
+            }
+            if (rawM) {
+                DATI_MODELLI = rawM;
             }
 
-            // Fallback Comuni se vuoto
-            if (!COMUNI_DB || COMUNI_DB.length === 0) {
+            // Fallback Comuni se mancanti
+            if (COMUNI_DB.length === 0) {
                 COMUNI_DB = [
                     {n: "Cosenza", z: "C"}, {n: "Rende", z: "C"}, {n: "Castrovillari", z: "D"},
                     {n: "Milano", z: "E"}, {n: "Roma", z: "D"}, {n: "Napoli", z: "C"}
                 ];
             }
 
-            // Ordinamento alfabetico e popolazione del <select> Comuni
-            COMUNI_DB.sort((a, b) => a.n.localeCompare(b.n, 'it', { sensitivity: 'base' }));
-
-            selComune.innerHTML = '<option value="">-- Seleziona il Comune --</option>';
-            let preselectIndex = -1;
-            COMUNI_DB.forEach((c, idx) => {
-                const opt = document.createElement("option");
-                opt.value = idx;
-                opt.textContent = `${c.n} (Zona ${c.z})`;
-                if (c.n.toLowerCase() === "cosenza") preselectIndex = idx;
-                selComune.appendChild(opt);
-            });
-
-            // Gestione Cambio Comune dal Menu a Tendina
-            selComune.addEventListener("change", () => {
-                const idx = selComune.value;
-                if (idx !== "" && COMUNI_DB[idx]) {
-                    COMUNE_SCELTO = COMUNI_DB[idx];
-                    document.getElementById('zonaClimatica').value = COMUNE_SCELTO.z;
-                    const ore = (DATI_MODELLI && DATI_MODELLI.quf && DATI_MODELLI.quf[COMUNE_SCELTO.z]) 
-                                ? DATI_MODELLI.quf[COMUNE_SCELTO.z] 
-                                : (ORE_ZONA[COMUNE_SCELTO.z] || 1700);
-                    badgeZona.innerText = `Zona ${COMUNE_SCELTO.z} (${ore.toLocaleString('it-IT')} h)`;
-                }
-                recalculate();
-            });
-
-            // Seleziona Cosenza di default se presente
-            if (preselectIndex !== -1) {
-                selComune.value = preselectIndex;
-                selComune.dispatchEvent(new Event('change'));
+            // Messaggio visibile se un file non è stato caricato
+            const nonCaricati = [];
+            if (!rawC) nonCaricati.push('comuni.json');
+            if (!rawM) nonCaricati.push('modelli.json');
+            if (nonCaricati.length > 0) {
+                badgeZona.innerText = 'Errore: ' + nonCaricati.join(' e ') + ' non caricato';
+                console.error('File non caricati: ' + nonCaricati.join(', ') + '. Controlla che siano nella cartella principale del sito.');
             }
 
-            // Popolamento Categorie Modelli
+            // Etichette per i comuni omonimi con zone diverse
+            const zonePerNome = {}, omonimi = {};
+            COMUNI_DB.forEach(c => { (zonePerNome[c.n] = zonePerNome[c.n] || {})[c.z] = 1; });
+            Object.keys(zonePerNome).forEach(n => { if (Object.keys(zonePerNome[n]).length > 1) omonimi[n] = true; });
+            COMUNI_DB.forEach(c => {
+                c.label = omonimi[c.n] ? `${c.n} (zona ${c.z})` : c.n;
+                c.chiave = c.label.toLowerCase();
+            });
+
+            function scegliComune(c) {
+                COMUNE_SCELTO = c;
+                inputComune.value = c.label;
+                document.getElementById('zonaClimatica').value = c.z;
+                const ore = (DATI_MODELLI && DATI_MODELLI.quf && DATI_MODELLI.quf[c.z]) ? DATI_MODELLI.quf[c.z] : (ORE_ZONA[c.z] || 1700);
+                badgeZona.innerText = `Zona ${c.z} (${ore.toLocaleString('it-IT')} h)`;
+                suggerimenti.hidden = true;
+                recalculate();
+            }
+
+            function mostraSuggerimenti() {
+                const q = inputComune.value.trim().toLowerCase();
+                suggerimenti.innerHTML = "";
+                if (q.length < 2) { suggerimenti.hidden = true; return; }
+                const inizio = COMUNI_DB.filter(c => c.chiave.indexOf(q) === 0);
+                const dentro = COMUNI_DB.filter(c => c.chiave.indexOf(q) > 0);
+                const trovati = inizio.concat(dentro).slice(0, 15);
+                
+                trovati.forEach(c => {
+                    const li = document.createElement("li");
+                    li.className = "px-4 py-2 hover:bg-slate-800 cursor-pointer text-slate-200 flex justify-between items-center transition";
+                    const nome = document.createElement("span");
+                    nome.textContent = c.label;
+                    const zona = document.createElement("span");
+                    zona.className = "text-[10px] bg-slate-800 text-amber-400 px-2 py-0.5 rounded font-bold";
+                    zona.textContent = "Zona " + c.z;
+                    li.appendChild(nome);
+                    li.appendChild(zona);
+                    li.addEventListener("mousedown", (ev) => {
+                        ev.preventDefault();
+                        scegliComune(c);
+                    });
+                    suggerimenti.appendChild(li);
+                });
+                suggerimenti.hidden = trovati.length === 0;
+            }
+
+            // Quando si scrive un nuovo comune, la scelta precedente viene azzerata
+            inputComune.addEventListener("input", () => {
+                COMUNE_SCELTO = null;
+                mostraSuggerimenti();
+            });
+            inputComune.addEventListener("blur", () => {
+                suggerimenti.hidden = true;
+                if (!COMUNE_SCELTO) {
+                    const q = inputComune.value.trim().toLowerCase();
+                    const esatti = COMUNI_DB.filter(c => c.chiave === q);
+                    if (esatti.length === 1) scegliComune(esatti[0]);
+                }
+            });
+
+            // Popolamento categorie modelli
             if (DATI_MODELLI && DATI_MODELLI.categorie) {
                 selCat.innerHTML = '<option value="">-- Seleziona Categoria Sistema --</option>';
                 DATI_MODELLI.categorie.forEach(c => {
@@ -1167,14 +1217,13 @@
                     selCat.appendChild(opt);
                 });
             } else {
-                selCat.innerHTML = '<option value="">Catalogo modelli non disponibile</option>';
+                selCat.innerHTML = '<option value="">Errore: modelli.json non caricato</option>';
             }
 
-            // Cambio Categoria -> Popola Modelli
             selCat.addEventListener("change", () => {
                 selMod.innerHTML = "";
                 MODELLO_SCELTO = null;
-                if (!selCat.value || !DATI_MODELLI || !DATI_MODELLI.modelli) {
+                if (!selCat.value || !DATI_MODELLI) {
                     selMod.disabled = true;
                     selMod.innerHTML = '<option value="">Scegli prima il tipo di sistema</option>';
                     recalculate();
@@ -1182,24 +1231,20 @@
                 }
 
                 selMod.innerHTML = '<option value="">-- Seleziona il Modello --</option>';
-                let count = 0;
                 DATI_MODELLI.modelli.forEach((m, idx) => {
                     if (m.c !== selCat.value) return;
-                    count++;
                     const opt = document.createElement("option");
                     opt.value = idx;
                     opt.textContent = `${m.m}${m.i ? " (" + m.i + ")" : ""} - ${m.pr} kWt (SCOP ${m.scop})`;
                     selMod.appendChild(opt);
                 });
-
-                selMod.disabled = (count === 0);
+                selMod.disabled = false;
                 recalculate();
             });
 
-            // Cambio Modello -> Compilazione Automatica Campi
             selMod.addEventListener("change", () => {
                 const idx = selMod.value;
-                if (idx !== "" && DATI_MODELLI && DATI_MODELLI.modelli && DATI_MODELLI.modelli[idx]) {
+                if (idx !== "" && DATI_MODELLI && DATI_MODELLI.modelli[idx]) {
                     MODELLO_SCELTO = DATI_MODELLI.modelli[idx];
                     document.getElementById('kwPost').value = MODELLO_SCELTO.pr;
                     document.getElementById('scopPdC').value = MODELLO_SCELTO.scop;
