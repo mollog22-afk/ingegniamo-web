@@ -3,216 +3,330 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ingegniamo | Simulatore Conto Termico 3.0 - Capannone Piccola Impresa</title>
-    <meta name="description" content="Simulatore di calcolo incentivo GSE Conto Termico 3.0 (D.M. 7 Agosto 2025 - Titolo V) per capannoni industriali e piccole imprese.">
-    
-    <!-- Tailwind CSS CDN Ufficiale -->
+    <title>Ingegniamo | Simulatore Conto Termico 3.0 - Capannone Industriale</title>
+    <meta name="description" content="Simulatore tecnico Conto Termico 3.0 (D.M. 7 Agosto 2025) per capannoni industriali e piccole imprese. Calcolo incentivi, schema interattivo e vademecum GSE.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
     <style>
         body { font-family: 'Inter', sans-serif; }
+        .hotspot { transition: all 0.25s ease; cursor: pointer; }
+        .hotspot:hover { filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.8)); stroke-width: 3; }
+        .active-component { stroke: #38bdf8 !important; stroke-width: 3.5 !important; fill-opacity: 0.85 !important; }
         @media print {
-            body { background: white !important; color: black !important; }
+            body { background: white !important; color: black !important; font-size: 11px; }
             .no-print { display: none !important; }
+            .print-break { page-break-before: always; }
             .card { border: 1px solid #cbd5e1 !important; box-shadow: none !important; }
         }
     </style>
 </head>
 <body class="bg-slate-100 font-sans text-slate-800 min-h-screen flex flex-col justify-between">
 
-    <!-- BARRA SUPERIORE AZIENDALE -->
+    <!-- BARRA SUPERIORE -->
     <div class="bg-slate-950 text-slate-300 text-xs py-2 px-4 border-b border-slate-800 no-print">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-            <p><span class="inline-block w-2 h-2 rounded-full bg-emerald-400 mr-2 animate-pulse"></span>Strumento Tecnico di Pre-Diagnosi Energetica GSE</p>
+            <p><span class="inline-block w-2 h-2 rounded-full bg-emerald-400 mr-2 animate-pulse"></span>Strumento di Modellazione & Asseverazione GSE - D.M. 7 Agosto 2025 (Titolo V)</p>
             <div class="flex items-center gap-6">
                 <span>Email: <strong class="text-white">info@ingegniamo.com</strong></span>
-                <a href="/" class="text-amber-400 hover:underline">Torna al Sito Principale</a>
+                <a href="/" class="text-amber-400 hover:underline">Torna alla Home</a>
             </div>
         </div>
     </div>
 
-    <!-- HEADER CON LOGO E AZIONI -->
-    <header class="bg-white py-4 px-6 shadow-md border-b border-slate-200 sticky top-0 z-30">
+    <!-- HEADER -->
+    <header class="bg-white py-4 px-6 shadow-md border-b border-slate-200 sticky top-0 z-40">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-4">
-                <!-- Se il logo è nella root del sito -->
                 <a href="/">
                     <img src="/logo-ingegniamo.png" onerror="this.onerror=null; this.src='../logo-ingegniamo.png';" alt="Ingegniamo Logo" class="h-12 w-auto object-contain">
                 </a>
                 <div class="border-l border-slate-300 pl-4">
                     <h1 class="text-xl font-black text-slate-900 tracking-tight flex items-center gap-2">
                         <span class="bg-amber-500 text-slate-950 px-2 py-0.5 rounded text-xs uppercase font-extrabold">CT 3.0</span>
-                        Simulatore Capannone Industriale
+                        Simulatore Riqualificazione Capannone
                     </h1>
-                    <p class="text-slate-500 text-xs">D.M. 7 Agosto 2025 • Titolo V (Piccola Impresa • Fino al 65% a fondo perduto)</p>
+                    <p class="text-slate-500 text-xs">Modellazione Multi-Intervento Piccola Impresa (Aliquota fino al 65% a fondo perduto)</p>
                 </div>
             </div>
             
             <div class="flex items-center gap-3 no-print">
-                <button onclick="window.print()" class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-4 py-2 rounded-lg shadow transition text-xs flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-                    Stampa Report PDF
+                <button onclick="window.print()" class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-4 py-2.5 rounded-lg shadow transition text-xs flex items-center gap-2">
+                    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                    Stampa Dossier PDF
                 </button>
-                <a href="mailto:info@ingegniamo.com?subject=Richiesta%20Pratica%20Conto%20Termico%203.0" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded-lg shadow transition text-xs">
-                    Richiedi Asseverazione
+                <a href="#vademecum" class="bg-blue-50 text-blue-700 hover:bg-blue-100 font-bold px-3 py-2.5 rounded-lg border border-blue-200 text-xs">
+                    Vademecum GSE
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- AREA DI CALCOLO -->
-    <main class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8 flex-grow">
+    <!-- ALERT DINAMICI NORMATIVI -->
+    <section class="max-w-7xl mx-auto px-4 mt-6 w-full space-y-3 no-print">
+        <!-- ALERT DIAGNOSI ENERGETICA -->
+        <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-sm flex items-start gap-3">
+            <span class="text-xl">⚠️</span>
+            <div class="text-xs text-amber-900">
+                <p class="font-bold text-sm uppercase">Obbligo di Diagnosi Energetica Preliminare (D.Lgs. 102/2014 & CT 3.0)</p>
+                <p class="mt-0.5">Per interventi su capannoni industriali con superficie &gt; 1.000 m² o con potenza installata &ge; 100 kW, la richiesta di incentivo su Portaltermico richiede obbligatoriamente la <strong>Diagnosi Energetica ante-operam redatta da un EGE certificato (UNI CEI 11339)</strong> e l'APE post-operam.</p>
+            </div>
+        </div>
+
+        <!-- ALERT TRAINANTI / TRAINATI -->
+        <div id="alertTrainati" class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded-r-xl shadow-sm flex items-start gap-3">
+            <span class="text-xl">ℹ️</span>
+            <div class="text-xs text-blue-900">
+                <p class="font-bold text-sm uppercase">Regola di Traino e Massimali Incrociati (Art. II.H / III.A)</p>
+                <p class="mt-0.5" id="alertTrainatiTesto">
+                    Il <strong>Fotovoltaico (II.H)</strong> è un intervento <em>trainato</em>: l'incentivo ammesso non può eccedere il valore dell'incentivo generato dalla <strong>Pompa di Calore (III.A - Trainante)</strong>. L'abbinamento contestuale della PdC con l'isolamento dell'involucro eleva l'aliquota di quest'ultimo dal 45% al 55%.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CORPO PRINCIPALE: GRAFICA + INPUT + PROSPETTO -->
+    <main class="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-12 gap-8 flex-grow w-full">
         
-        <!-- COLONNA INPUT (SINISTRA) -->
+        <!-- COLONNA SINISTRA (SCHEMA CAPANNONE + FORM) -->
         <div class="lg:col-span-7 space-y-6">
             
-            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-6">
-                <div class="border-b border-slate-100 pb-3 flex justify-between items-center">
-                    <h2 class="text-base font-extrabold text-slate-900 uppercase tracking-wide">1. Dati Fabbricato & Localizzazione</h2>
-                    <span class="text-xs text-blue-600 font-semibold bg-blue-50 px-2.5 py-1 rounded-full">Capannone 1.200 m²</span>
+            <!-- SCHEMA GRAFICO INTERATTIVO DEL CAPANNONE (SVG) -->
+            <div class="bg-slate-900 rounded-2xl p-6 shadow-lg border border-slate-800 text-white relative">
+                <div class="flex justify-between items-center mb-4">
+                    <div>
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-sky-400">Schema Interattivo del Capannone</h3>
+                        <p class="text-xs text-slate-400">Clicca sui componenti per evidenziare e modificare i parametri</p>
+                    </div>
+                    <span class="text-[10px] bg-slate-800 border border-slate-700 text-slate-300 px-2 py-1 rounded">Asset Industriale</span>
                 </div>
 
+                <div class="w-full flex justify-center bg-slate-950/60 rounded-xl p-4 border border-slate-800/80">
+                    <svg viewBox="0 0 800 450" class="w-full h-auto max-h-[320px] select-none">
+                        <defs>
+                            <linearGradient id="gradWall" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#334155"/>
+                                <stop offset="100%" stop-color="#1e293b"/>
+                            </linearGradient>
+                            <linearGradient id="gradRoof" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#475569"/>
+                                <stop offset="100%" stop-color="#334155"/>
+                            </linearGradient>
+                            <linearGradient id="gradSolar" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#0284c7"/>
+                                <stop offset="100%" stop-color="#0369a1"/>
+                            </linearGradient>
+                        </defs>
+
+                        <!-- STRUTTURA PARETE LATERALE (CAPPOTTO II.A) -->
+                        <polygon id="svgPareti" points="160,220 540,220 540,360 160,360" fill="url(#gradWall)" stroke="#64748b" stroke-width="2" class="hotspot" onclick="focusInput('mqCappotto')"/>
+                        
+                        <!-- FACCIATA FRONTALE (CAPPOTTO II.A) -->
+                        <polygon points="540,220 680,180 680,300 540,360" fill="#1e293b" stroke="#64748b" stroke-width="2" class="hotspot" onclick="focusInput('mqCappotto')"/>
+                        
+                        <!-- COPERTURA TETTO (ISOLAMENTO II.A) -->
+                        <polygon id="svgTetto" points="160,220 300,140 680,140 540,220" fill="url(#gradRoof)" stroke="#64748b" stroke-width="2" class="hotspot" onclick="focusInput('mqCappotto')"/>
+                        <polygon points="300,140 680,140 680,180 540,220" fill="#334155" stroke="#475569" stroke-width="1.5"/>
+
+                        <!-- FOTOVOLTAICO SU TETTO (II.H) -->
+                        <polygon id="svgFTV" points="330,155 490,155 420,205 260,205" fill="url(#gradSolar)" stroke="#38bdf8" stroke-width="1.5" class="hotspot" onclick="focusInput('kwpFTV')"/>
+                        <!-- Righe sezioni FTV -->
+                        <line x1="370" y1="155" x2="310" y2="205" stroke="#7dd3fc" stroke-width="1" opacity="0.6"/>
+                        <line x1="410" y1="155" x2="350" y2="205" stroke="#7dd3fc" stroke-width="1" opacity="0.6"/>
+                        <line x1="450" y1="155" x2="390" y2="205" stroke="#7dd3fc" stroke-width="1" opacity="0.6"/>
+
+                        <!-- SOLARE TERMICO ACS (III.D) -->
+                        <polygon id="svgSolare" points="510,155 580,155 530,205 460,205" fill="#f59e0b" stroke="#fbbf24" stroke-width="1.5" class="hotspot" onclick="focusInput('mqSolare')"/>
+
+                        <!-- PORTONE E INFISSI INDUSTRIALI (II.B) -->
+                        <polygon id="svgInfissi" points="565,245 640,225 640,295 565,325" fill="#0284c7" stroke="#38bdf8" stroke-width="2" class="hotspot" onclick="focusInput('mqInfissi')"/>
+                        <rect x="220" y="240" width="80" height="35" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5" class="hotspot" onclick="focusInput('mqInfissi')"/>
+                        <rect x="340" y="240" width="80" height="35" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5" class="hotspot" onclick="focusInput('mqInfissi')"/>
+
+                        <!-- CENTRALE TERMICA ESTERNA / POMPA DI CALORE (III.A) -->
+                        <g id="svgPdC" class="hotspot" onclick="focusInput('kwPost')">
+                            <rect x="100" y="300" width="55" height="55" rx="4" fill="#059669" stroke="#34d399" stroke-width="2"/>
+                            <!-- Ventilatori PdC -->
+                            <circle cx="127" cy="318" r="12" fill="#064e3b" stroke="#34d399" stroke-width="1.5"/>
+                            <circle cx="127" cy="340" r="7" fill="#064e3b" stroke="#34d399" stroke-width="1.5"/>
+                        </g>
+
+                        <!-- ILLUMINAZIONE LED / BACS INTERNO -->
+                        <circle id="svgLED" cx="300" cy="235" r="5" fill="#facc15" stroke="#fef08a" stroke-width="2" class="hotspot animate-pulse" onclick="focusInput('mqLED')"/>
+                        <circle cx="420" cy="235" r="5" fill="#facc15" stroke="#fef08a" stroke-width="2" class="hotspot animate-pulse" onclick="focusInput('mqLED')"/>
+                        <circle id="svgBACS" cx="600" cy="220" r="5" fill="#a855f7" stroke="#d8b4fe" stroke-width="2" class="hotspot animate-pulse" onclick="focusInput('mqBACS')"/>
+
+                        <!-- ETICHETTE CALLOUT -->
+                        <text x="75" y="290" fill="#34d399" font-size="11" font-weight="bold">PdC 180 kWt (III.A)</text>
+                        <text x="320" y="130" fill="#38bdf8" font-size="11" font-weight="bold">Fotovoltaico (II.H)</text>
+                        <text x="520" y="145" fill="#fbbf24" font-size="11" font-weight="bold">Solare Termico (III.D)</text>
+                        <text x="650" y="250" fill="#38bdf8" font-size="11" font-weight="bold">Infissi (II.B)</text>
+                        <text x="210" y="380" fill="#94a3b8" font-size="11" font-weight="bold">Isolamento Pareti & Copertura (II.A)</text>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- FORM DETTAGLIATO INTERVENTI -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-6">
+                
+                <div class="border-b border-slate-100 pb-3 flex justify-between items-center">
+                    <h2 class="text-base font-extrabold text-slate-900 uppercase tracking-wide">Parametri di Intervento</h2>
+                    <span class="text-xs text-blue-600 font-semibold bg-blue-50 px-2.5 py-1 rounded-full">D.M. 7 Agosto 2025</span>
+                </div>
+
+                <!-- 1. DATI FABBRICATO -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Superficie Utile Capannone (m²)</label>
                         <input type="number" id="supCapannone" value="1200" oninput="calculateIncentive()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-none">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Zona Climatica DPR 412/93</label>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Zona Climatica</label>
                         <select id="zonaClimatica" onchange="calculateIncentive()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-none">
-                            <option value="A">Zona A (600 h/anno)</option>
-                            <option value="B">Zona B (850 h/anno)</option>
-                            <option value="C">Zona C (1.100 h/anno)</option>
-                            <option value="D">Zona D (1.400 h/anno)</option>
-                            <option value="E" selected>Zona E (1.700 h/anno)</option>
-                            <option value="F">Zona F (1.800 h/anno)</option>
+                            <option value="A">Zona A (600 h)</option>
+                            <option value="B">Zona B (850 h)</option>
+                            <option value="C">Zona C (1.100 h)</option>
+                            <option value="D">Zona D (1.400 h)</option>
+                            <option value="E" selected>Zona E (1.700 h)</option>
+                            <option value="F">Zona F (1.800 h)</option>
                         </select>
                     </div>
                 </div>
 
-                <div class="border-b border-slate-100 pb-3 pt-2">
-                    <h2 class="text-base font-extrabold text-slate-900 uppercase tracking-wide">2. Involucro & Impianti Elettrici (Titolo II)</h2>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 mb-1">Isolamento Copertura e Pareti (m²)</label>
-                        <input type="number" id="mqCappotto" value="1000" oninput="calculateIncentive()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm">
-                        <span class="text-[11px] text-slate-400">Art. II.A • Aliquota 55% combinata</span>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 mb-1">Infissi & Portoni Coibentati (m²)</label>
-                        <input type="number" id="mqInfissi" value="150" oninput="calculateIncentive()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm">
-                        <span class="text-[11px] text-slate-400">Art. II.B • Aliquota 55% combinata</span>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 mb-1">Relamping LED Intelligente (m²)</label>
-                        <input type="number" id="mqLED" value="1200" oninput="calculateIncentive()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm">
-                        <span class="text-[11px] text-slate-400">Art. II.E • Aliquota 45% Piccola Impresa</span>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 mb-1">BACS - Building Automation (m²)</label>
-                        <input type="number" id="mqBACS" value="1200" oninput="calculateIncentive()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm">
-                        <span class="text-[11px] text-slate-400">Art. II.F (Classe B) • Aliquota 45%</span>
-                    </div>
-                </div>
-
-                <div class="border-b border-slate-100 pb-3 pt-2">
-                    <h2 class="text-base font-extrabold text-slate-900 uppercase tracking-wide">3. Generazione Termica & Rinnovabili (Titolo III / II.H)</h2>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 mb-1">Pompa di Calore (kWt)</label>
-                        <input type="number" id="kwPost" value="180" oninput="calculateIncentive()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm">
-                        <span class="text-[11px] text-slate-400">Art. III.A (Aria/Acqua)</span>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 mb-1">Impianto Solare PV (kWp)</label>
-                        <input type="number" id="kwpFTV" value="80" oninput="calculateIncentive()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm">
-                        <span class="text-[11px] text-slate-400">Art. II.H (Cap su PdC)</span>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 mb-1">Solare Termico ACS (m²)</label>
-                        <input type="number" id="mqSolare" value="20" oninput="calculateIncentive()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm">
-                        <span class="text-[11px] text-slate-400">Art. III.D (Rata Unica)</span>
+                <!-- 2. INVOLUCRO & LED/BACS -->
+                <div class="border-t border-slate-100 pt-4">
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Involucro & Sistemi di Controllo (Titolo II)</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Isolamento Pareti e Tetto (m²)</label>
+                            <input type="number" id="mqCappotto" value="1000" oninput="calculateIncentive()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                            <span class="text-[10px] text-slate-500">Art. II.A • 55% combinata con PdC</span>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Infissi e Portoni Taglio Termico (m²)</label>
+                            <input type="number" id="mqInfissi" value="150" oninput="calculateIncentive()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                            <span class="text-[10px] text-slate-500">Art. II.B • 55% combinata con PdC</span>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Relamping LED & Sensori Presenza (m²)</label>
+                            <input type="number" id="mqLED" value="1200" oninput="calculateIncentive()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                            <span class="text-[10px] text-slate-500">Art. II.E • Aliquota 45% (Piccola Impresa)</span>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Building Automation BACS Classe B (m²)</label>
+                            <input type="number" id="mqBACS" value="1200" oninput="calculateIncentive()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                            <span class="text-[10px] text-slate-500">Art. II.F • Aliquota 45% (Piccola Impresa)</span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- NOTA TECNICA E NORMATIVA -->
-            <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-xs text-amber-900 space-y-1">
-                <p class="font-bold">Nota per la Certificazione GSE:</p>
-                <p>La simulazione applica le aliquote premiali del Titolo V (Piccola Impresa). L'abbinamento della Pompa di Calore (III.A) con interventi di involucro (II.A, II.B) eleva l'aliquota di questi ultimi dal 45% al 55%. L'impianto fotovoltaico (II.H) è ammesso come intervento trainato con tetto massimo pari all'incentivo erogato per la pompa di calore.</p>
+                <!-- 3. IMPIANTI TERMICI & RINNOVABILI -->
+                <div class="border-t border-slate-100 pt-4">
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Generazione Termica & Rinnovabili (Titolo III & II.H)</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Pompa di Calore (kWt)</label>
+                            <input type="number" id="kwPost" value="180" oninput="calculateIncentive()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                            <span class="text-[10px] text-emerald-600 font-medium">Trainante (III.A)</span>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Fotovoltaico (kWp)</label>
+                            <input type="number" id="kwpFTV" value="80" oninput="calculateIncentive()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                            <span class="text-[10px] text-blue-600 font-medium">Trainato su PdC (II.H)</span>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Solare Termico ACS (m²)</label>
+                            <input type="number" id="mqSolare" value="20" oninput="calculateIncentive()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                            <span class="text-[10px] text-amber-600 font-medium">Rata Unica (III.D)</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
-        <!-- COLONNA RISULTATI E PROSPETTO (DESTRA) -->
+        <!-- COLONNA DESTRA (PROSPETTO ECONOMICO & FLUSSI FINANZIARI) -->
         <div class="lg:col-span-5 space-y-6">
             
             <!-- SCHEDE TOTALI -->
             <div class="grid grid-cols-2 gap-4">
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-                    <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Investimento Stimato</p>
+                    <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Spesa Complessiva</p>
                     <p id="kpiSpesa" class="text-2xl font-black text-slate-900 mt-1">€ 0</p>
-                    <p class="text-[10px] text-slate-400 mt-1">Opere + Forniture + Tecnico</p>
+                    <p class="text-[10px] text-slate-400 mt-0.5">Opere civili + MEP + Spese tecniche</p>
                 </div>
                 <div class="bg-emerald-950 p-5 rounded-2xl shadow-sm border border-emerald-800 text-white">
-                    <p class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider">Contributo GSE Totale</p>
+                    <p class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider">Contributo GSE a Fondo Perduto</p>
                     <p id="kpiIncentivo" class="text-2xl font-black text-emerald-300 mt-1">€ 0</p>
-                    <p id="kpiCopertura" class="text-[10px] text-emerald-400/80 mt-1">Copertura: 0% a fondo perduto</p>
+                    <p id="kpiCopertura" class="text-[10px] text-emerald-400/80 mt-0.5">Copertura media: 0%</p>
                 </div>
             </div>
 
-            <div class="bg-blue-900 p-4 rounded-xl text-white flex justify-between items-center shadow-sm">
+            <div class="bg-gradient-to-r from-blue-900 to-indigo-950 p-4 rounded-xl text-white flex justify-between items-center shadow-md">
                 <div>
-                    <p class="text-xs text-blue-200 font-semibold">Incasso Stimato 1° Anno</p>
-                    <p class="text-[11px] text-blue-300">Include rate costanti + rata unica immediata</p>
+                    <p class="text-xs text-blue-200 font-semibold">Incasso Bonifico 1° Anno</p>
+                    <p class="text-[10px] text-blue-300">Rata unica (&le;15k o Solare) + 1ª annualità</p>
                 </div>
-                <p id="kpiPrimoAnno" class="text-xl font-black text-amber-400">€ 0</p>
+                <p id="kpiPrimoAnno" class="text-2xl font-black text-amber-400">€ 0</p>
             </div>
 
-            <!-- PROSPETTO ANALITICO DEGLI INTERVENTI -->
+            <!-- PROSPETTO ANALITICO GSE -->
             <div class="bg-white rounded-2xl shadow-sm p-6 border border-slate-200 space-y-4">
                 <div class="border-b border-slate-100 pb-3 flex justify-between items-center">
-                    <h3 class="text-sm font-extrabold text-slate-900 uppercase">Dettaglio per Singolo Intervento</h3>
-                    <span class="text-[11px] text-slate-500">Valori Iva Esclusa</span>
+                    <h3 class="text-sm font-extrabold text-slate-900 uppercase">Prospetto Economico per Intervento</h3>
+                    <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-semibold">IVA Esclusa</span>
                 </div>
 
                 <div class="overflow-x-auto">
                     <table class="w-full text-left text-xs">
                         <thead>
-                            <tr class="border-b border-slate-200 text-slate-500">
-                                <th class="pb-2 font-bold">Intervento</th>
-                                <th class="pb-2 text-right font-bold">Spesa</th>
-                                <th class="pb-2 text-right font-bold">Incentivo</th>
+                            <tr class="border-b border-slate-200 text-slate-500 font-bold">
+                                <th class="pb-2">Intervento / Art.</th>
+                                <th class="pb-2 text-right">Spesa</th>
+                                <th class="pb-2 text-right">Incentivo</th>
+                                <th class="pb-2 text-right">Aliquota</th>
                             </tr>
                         </thead>
                         <tbody id="tableBreakdown" class="divide-y divide-slate-100 text-slate-700">
-                            <!-- Popolato via JS -->
+                            <!-- Popolato da JS -->
                         </tbody>
                     </table>
                 </div>
 
-                <div class="pt-4 border-t border-slate-100 flex flex-col gap-2">
-                    <div class="flex justify-between text-xs font-bold text-slate-900">
-                        <span>Rateizzazione Standard:</span>
-                        <span class="text-blue-600">5 Annualità Costanti</span>
+                <!-- FLUSSI DI CASSA QUINQUENNALI -->
+                <div class="pt-4 border-t border-slate-100 space-y-2">
+                    <h4 class="text-xs font-bold text-slate-800 uppercase">Piano Finanziario Erogazioni GSE</h4>
+                    <div class="grid grid-cols-5 gap-1.5 text-center text-[10px]">
+                        <div class="bg-slate-50 p-2 rounded border border-slate-200">
+                            <span class="block text-slate-400 font-bold">Anno 1</span>
+                            <span id="flussoA1" class="font-extrabold text-emerald-600">€ 0</span>
+                        </div>
+                        <div class="bg-slate-50 p-2 rounded border border-slate-200">
+                            <span class="block text-slate-400 font-bold">Anno 2</span>
+                            <span id="flussoA2" class="font-semibold text-slate-700">€ 0</span>
+                        </div>
+                        <div class="bg-slate-50 p-2 rounded border border-slate-200">
+                            <span class="block text-slate-400 font-bold">Anno 3</span>
+                            <span id="flussoA3" class="font-semibold text-slate-700">€ 0</span>
+                        </div>
+                        <div class="bg-slate-50 p-2 rounded border border-slate-200">
+                            <span class="block text-slate-400 font-bold">Anno 4</span>
+                            <span id="flussoA4" class="font-semibold text-slate-700">€ 0</span>
+                        </div>
+                        <div class="bg-slate-50 p-2 rounded border border-slate-200">
+                            <span class="block text-slate-400 font-bold">Anno 5</span>
+                            <span id="flussoA5" class="font-semibold text-slate-700">€ 0</span>
+                        </div>
                     </div>
-                    <p class="text-[11px] text-slate-400 leading-normal">
-                        * Gli interventi con contributo ≤ € 15.000 o il Solare Termico vengono liquidati dal GSE in un'unica soluzione al primo anno.
-                    </p>
                 </div>
             </div>
 
-            <!-- BOX CONTATTI INGEGNIAMO -->
-            <div class="bg-slate-900 text-white rounded-2xl p-6 text-center space-y-3 no-print">
-                <h4 class="font-bold text-sm">Vuoi presentare la pratica GSE con INGEGNIAMO?</h4>
-                <p class="text-xs text-slate-400">Curiamo la diagnosi energetica preliminare, la modellazione oraria e l'asseverazione con caricamento su Portaltermico.</p>
-                <a href="mailto:info@ingegniamo.com?subject=Studio%20Fattibilita%20Conto%20Termico%20Capannone" class="inline-block w-full py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs transition">
+            <!-- CARD CONTATTI ASSEVERAZIONE -->
+            <div class="bg-slate-900 text-white rounded-2xl p-6 text-center space-y-3 shadow-md no-print">
+                <h4 class="font-bold text-sm">Affida la Pratica a INGEGNIAMO</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">Siamo certificati EGE e gestiamo l'intero iter: diagnosi energetica, calcoli secondo UNI EN ISO 52000, asseverazione tecnica e caricamento telematico su Portaltermico senza errori bloccanti.</p>
+                <a href="mailto:info@ingegniamo.com?subject=Incarico%20Conto%20Termico%20Capannone" class="inline-block w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs transition shadow-md">
                     Richiedi Studio di Fattibilità
                 </a>
             </div>
@@ -220,25 +334,82 @@
         </div>
     </main>
 
+    <!-- SEZIONE VADEMECUM & CHECKLIST DI CARICAMENTO GSE -->
+    <section id="vademecum" class="max-w-7xl mx-auto px-4 py-12 w-full print-break">
+        <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200 space-y-8">
+            <div class="border-b border-slate-200 pb-4">
+                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full">Guida Operativa</span>
+                <h2 class="text-2xl font-black text-slate-900 mt-2">Vademecum & Check-list per il Caricamento su Portaltermico</h2>
+                <p class="text-xs text-slate-500 mt-1">Regole tassative per non incorrere in preavvisi di rigetto o richieste di integrazione da parte del GSE.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs leading-relaxed">
+                <!-- COLONNA 1 -->
+                <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                    <div class="flex items-center gap-2 text-slate-900 font-bold text-sm">
+                        <span class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs">1</span>
+                        Requisiti Soggetto Ammesso
+                    </div>
+                    <ul class="space-y-2 text-slate-600 list-disc list-inside">
+                        <li><strong>Dichiarazione Dimensione d'Impresa:</strong> attestazione formale di status "Piccola Impresa" (&lt; 50 dipendenti e fatturato o bilancio annuo &le; 10 M€).</li>
+                        <li><strong>Disponibilità Immobile:</strong> contratto di locazione registrato con autorizzazione del proprietario oppure titolo di proprietà.</li>
+                        <li><strong>Regolarità Fiscale e DURC:</strong> DURC regolare in corso di validità sia per l'impresa beneficiaria che per gli installatori.</li>
+                    </ul>
+                </div>
+
+                <!-- COLONNA 2 -->
+                <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                    <div class="flex items-center gap-2 text-slate-900 font-bold text-sm">
+                        <span class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs">2</span>
+                        Fatturazione & Pagamenti
+                    </div>
+                    <ul class="space-y-2 text-slate-600 list-disc list-inside">
+                        <li><strong>Bonifico Dedicato:</strong> causale con riferimento normativo D.M. 7 Agosto 2025 (o Conto Termico), numero fattura e C.F./P.IVA delle parti.</li>
+                        <li><strong>Descrizione Analitica:</strong> fatture scorporate per singolo intervento (es. riga distinta per fornitura PdC, manodopera, isolamento).</li>
+                        <li><strong>Datazione Spese:</strong> interventi avviati successivamente alla data di entrata in vigore del decreto per le imprese.</li>
+                    </ul>
+                </div>
+
+                <!-- COLONNA 3 -->
+                <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                    <div class="flex items-center gap-2 text-slate-900 font-bold text-sm">
+                        <span class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs">3</span>
+                        Allegati Tecnici Obbligatori
+                    </div>
+                    <ul class="space-y-2 text-slate-600 list-disc list-inside">
+                        <li><strong>Asseverazione EGE / Tecnico Abilitato:</strong> verifica conformità delle trasmittanze $U$ e COP/SCOP minimi di targa.</li>
+                        <li><strong>Schede Tecniche di Fabbrica:</strong> certificati di prova secondo EN 14825 per la PdC ed Eurovent/CE.</li>
+                        <li><strong>Di.Co. DM 37/08:</strong> dichiarazione di conformità completa di relazione con tipologia dei materiali e schema di impianto.</li>
+                        <li><strong>Libretto di Impianto Catastale:</strong> registrazione sul catasto regionale (CURIT, CIT, CIRCE, ecc.) con rapporto di controllo.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- FOOTER -->
-    <footer class="bg-slate-950 text-slate-400 py-6 border-t border-slate-800 text-xs no-print text-center">
-        <p>© 2026 Ingegniamo S.r.l. - Tutti i diritti riservati • Modello di simulazione basato su D.M. 7 Agosto 2025</p>
+    <footer class="bg-slate-950 text-slate-400 py-8 border-t border-slate-800 text-xs no-print text-center">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p>© 2026 Ingegniamo S.r.l. - Società di Ingegneria & Academy Tecnica Impiantistica</p>
+            <p class="text-slate-600">Simulatore parametrato su D.M. 7 Agosto 2025 (Titolo V). Le simulazioni hanno valore orientativo e richiedono asseverazione energetica preliminare.</p>
+        </div>
     </footer>
 
     <!-- LOGICA DI CALCOLO JAVASCRIPT -->
     <script>
-        // Ore convenzionali Zona Climatica (DPR 412/93 - Tabella CT 3.0)
-        const ORE_ZONA = {
-            'A': 600,
-            'B': 850,
-            'C': 1100,
-            'D': 1400,
-            'E': 1700,
-            'F': 1800
-        };
+        const ORE_ZONA = { 'A': 600, 'B': 850, 'C': 1100, 'D': 1400, 'E': 1700, 'F': 1800 };
+
+        function focusInput(id) {
+            const input = document.getElementById(id);
+            if(input) {
+                input.focus();
+                input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                input.classList.add('ring-2', 'ring-amber-500');
+                setTimeout(() => input.classList.remove('ring-2', 'ring-amber-500'), 1500);
+            }
+        }
 
         function calculateIncentive() {
-            // Lettura Valori Input
             const mqCap = parseFloat(document.getElementById('mqCappotto').value) || 0;
             const mqInf = parseFloat(document.getElementById('mqInfissi').value) || 0;
             const mqLED = parseFloat(document.getElementById('mqLED').value) || 0;
@@ -249,94 +420,121 @@
             const zona = document.getElementById('zonaClimatica').value;
             const ore = ORE_ZONA[zona] || 1700;
 
-            // 1. Isolamento Involucro Opaco (Art. II.A) - 55% combinata
+            // 1. Involucro Opaco (II.A) - Costo 180 €/m² - Aliquota 55% combinata con PdC
             const spesaCap = mqCap * 180;
             const incCap = spesaCap * 0.55;
 
-            // 2. Infissi Industriali (Art. II.B) - 55% combinata
+            // 2. Infissi (II.B) - Costo 300 €/m² - Aliquota 55% combinata con PdC
             const spesaInf = mqInf * 300;
             const incInf = spesaInf * 0.55;
 
-            // 3. Relamping LED (Art. II.E) - 45% Piccola Impresa
+            // 3. Relamping LED (II.E) - Costo 30 €/m² - Aliquota 45% (Piccola Impresa)
             const spesaLED = mqLED * 30;
             const incLED = spesaLED * 0.45;
 
-            // 4. BACS Classe B (Art. II.F) - 45% Piccola Impresa
+            // 4. BACS Classe B (II.F) - Costo 45 €/m² - Aliquota 45% (Piccola Impresa)
             const spesaBACS = mqBACS * 45;
             const incBACS = spesaBACS * 0.45;
 
-            // 5. Pompa di Calore (Art. III.A)
-            // Ei = Qu * (1 - 1/SCOP) con Qu = P * ore. SCOP medio = 4.2. Ci = 0.055 €/kWht, durata = 5 anni
+            // 5. Pompa di Calore (III.A)
+            // Ei = Qu * (1 - 1/SCOP). Con SCOP 4.2 -> Ei = (kwPost * ore) * (1 - 1/4.2). Ci = 0.055 €/kWh
             const spesaPdC = kwPost * 470;
             const Ei_annua = (kwPost * ore) * (1 - (1 / 4.2));
             const incPdCTeorico = Ei_annua * 0.055 * 5;
-            // Massimale di aiuto per Piccola Impresa Titolo V = 65% della spesa
-            const incPdC = Math.min(incPdCTeorico, spesaPdC * 0.65);
+            const incPdC = Math.min(incPdCTeorico, spesaPdC * 0.65); // Cap 65% Piccola Impresa
 
-            // 6. Fotovoltaico (Art. II.H) - 20% base, con tetto pari all'incentivo PdC
+            // 6. Fotovoltaico (II.H) - 20% base. VINCOLO TRAINATO: incFTV <= incPdC
             const spesaFTV = kwpFTV * 1200;
             const incFTVTeorico = spesaFTV * 0.20;
             const incFTV = Math.min(incFTVTeorico, incPdC);
 
-            // 7. Solare Termico ACS (Art. III.D) - 256 €/m²
+            // 7. Solare Termico ACS (III.D) - 256 €/m² (Rata Unica)
             const spesaSol = mqSol * 500;
             const incSol = mqSol * 256;
 
-            // Calcolo Totali
+            // Totali
             const totalSpesa = spesaCap + spesaInf + spesaLED + spesaBACS + spesaPdC + spesaFTV + spesaSol;
             const totalIncentivo = incCap + incInf + incLED + incBACS + incPdC + incFTV + incSol;
             const copertura = totalSpesa > 0 ? (totalIncentivo / totalSpesa * 100).toFixed(1) : 0;
 
-            // Calcolo Incasso 1° Anno (Solare Termico a rata unica + quinta parte degli interventi a 5 rate)
-            const incassoPrimoAnno = (incCap / 5) + (incInf / 5) + (incLED / 5) + (incBACS / 5) + (incPdC / 5) + (incFTV / 5) + incSol;
+            // Calcolo Flussi Annuali
+            // Il solare termico è a rata unica. Gli altri a 5 quote annuali costanti.
+            const quotaAnnualeRateale = (incCap + incInf + incLED + incBACS + incPdC + incFTV) / 5;
+            const anno1 = quotaAnnualeRateale + incSol;
+            const anno2 = quotaAnnualeRateale;
+            const anno3 = quotaAnnualeRateale;
+            const anno4 = quotaAnnualeRateale;
+            const anno5 = quotaAnnualeRateale;
 
             // Aggiornamento KPI
             document.getElementById('kpiSpesa').innerText = '€ ' + Math.round(totalSpesa).toLocaleString('it-IT');
             document.getElementById('kpiIncentivo').innerText = '€ ' + Math.round(totalIncentivo).toLocaleString('it-IT');
-            document.getElementById('kpiCopertura').innerText = 'Copertura: ' + copertura + '% a fondo perduto';
-            document.getElementById('kpiPrimoAnno').innerText = '€ ' + Math.round(incassoPrimoAnno).toLocaleString('it-IT');
+            document.getElementById('kpiCopertura').innerText = 'Copertura media: ' + copertura + '% a fondo perduto';
+            document.getElementById('kpiPrimoAnno').innerText = '€ ' + Math.round(anno1).toLocaleString('it-IT');
 
-            // Aggiornamento Tabella Dettaglio
+            // Flussi Finanziari
+            document.getElementById('flussoA1').innerText = '€ ' + Math.round(anno1).toLocaleString('it-IT');
+            document.getElementById('flussoA2').innerText = '€ ' + Math.round(anno2).toLocaleString('it-IT');
+            document.getElementById('flussoA3').innerText = '€ ' + Math.round(anno3).toLocaleString('it-IT');
+            document.getElementById('flussoA4').innerText = '€ ' + Math.round(anno4).toLocaleString('it-IT');
+            document.getElementById('flussoA5').innerText = '€ ' + Math.round(anno5).toLocaleString('it-IT');
+
+            // Tabella Analitica
             document.getElementById('tableBreakdown').innerHTML = `
-                <tr class="hover:bg-slate-50 transition">
-                    <td class="py-2.5 font-medium">Isolamento Involucro (II.A)</td>
-                    <td class="py-2.5 text-right">€ ${Math.round(spesaCap).toLocaleString('it-IT')}</td>
-                    <td class="py-2.5 text-right font-bold text-emerald-600">€ ${Math.round(incCap).toLocaleString('it-IT')}</td>
+                <tr class="hover:bg-slate-50">
+                    <td class="py-2 font-medium">Isolamento Involucro (II.A)</td>
+                    <td class="py-2 text-right">€ ${Math.round(spesaCap).toLocaleString('it-IT')}</td>
+                    <td class="py-2 text-right font-bold text-emerald-600">€ ${Math.round(incCap).toLocaleString('it-IT')}</td>
+                    <td class="py-2 text-right text-slate-500 font-semibold">55%</td>
                 </tr>
-                <tr class="hover:bg-slate-50 transition">
-                    <td class="py-2.5 font-medium">Infissi Industriali (II.B)</td>
-                    <td class="py-2.5 text-right">€ ${Math.round(spesaInf).toLocaleString('it-IT')}</td>
-                    <td class="py-2.5 text-right font-bold text-emerald-600">€ ${Math.round(incInf).toLocaleString('it-IT')}</td>
+                <tr class="hover:bg-slate-50">
+                    <td class="py-2 font-medium">Infissi e Portoni (II.B)</td>
+                    <td class="py-2 text-right">€ ${Math.round(spesaInf).toLocaleString('it-IT')}</td>
+                    <td class="py-2 text-right font-bold text-emerald-600">€ ${Math.round(incInf).toLocaleString('it-IT')}</td>
+                    <td class="py-2 text-right text-slate-500 font-semibold">55%</td>
                 </tr>
-                <tr class="hover:bg-slate-50 transition">
-                    <td class="py-2.5 font-medium">Relamping LED (II.E)</td>
-                    <td class="py-2.5 text-right">€ ${Math.round(spesaLED).toLocaleString('it-IT')}</td>
-                    <td class="py-2.5 text-right font-bold text-emerald-600">€ ${Math.round(incLED).toLocaleString('it-IT')}</td>
+                <tr class="hover:bg-slate-50">
+                    <td class="py-2 font-medium">Relamping LED (II.E)</td>
+                    <td class="py-2 text-right">€ ${Math.round(spesaLED).toLocaleString('it-IT')}</td>
+                    <td class="py-2 text-right font-bold text-emerald-600">€ ${Math.round(incLED).toLocaleString('it-IT')}</td>
+                    <td class="py-2 text-right text-slate-500 font-semibold">45%</td>
                 </tr>
-                <tr class="hover:bg-slate-50 transition">
-                    <td class="py-2.5 font-medium">BACS Classe B (II.F)</td>
-                    <td class="py-2.5 text-right">€ ${Math.round(spesaBACS).toLocaleString('it-IT')}</td>
-                    <td class="py-2.5 text-right font-bold text-emerald-600">€ ${Math.round(incBACS).toLocaleString('it-IT')}</td>
+                <tr class="hover:bg-slate-50">
+                    <td class="py-2 font-medium">BACS Classe B (II.F)</td>
+                    <td class="py-2 text-right">€ ${Math.round(spesaBACS).toLocaleString('it-IT')}</td>
+                    <td class="py-2 text-right font-bold text-emerald-600">€ ${Math.round(incBACS).toLocaleString('it-IT')}</td>
+                    <td class="py-2 text-right text-slate-500 font-semibold">45%</td>
                 </tr>
-                <tr class="hover:bg-slate-50 transition">
-                    <td class="py-2.5 font-medium">Pompa di Calore (III.A)</td>
-                    <td class="py-2.5 text-right">€ ${Math.round(spesaPdC).toLocaleString('it-IT')}</td>
-                    <td class="py-2.5 text-right font-bold text-emerald-600">€ ${Math.round(incPdC).toLocaleString('it-IT')}</td>
+                <tr class="hover:bg-slate-50">
+                    <td class="py-2 font-medium">Pompa di Calore (III.A) <span class="text-[9px] bg-emerald-100 text-emerald-700 px-1 py-0.5 rounded font-bold">TRAINANTE</span></td>
+                    <td class="py-2 text-right">€ ${Math.round(spesaPdC).toLocaleString('it-IT')}</td>
+                    <td class="py-2 text-right font-bold text-emerald-600">€ ${Math.round(incPdC).toLocaleString('it-IT')}</td>
+                    <td class="py-2 text-right text-slate-500 font-semibold">${(incPdC/spesaPdC*100).toFixed(0)}%</td>
                 </tr>
-                <tr class="hover:bg-slate-50 transition">
-                    <td class="py-2.5 font-medium">Fotovoltaico (II.H)</td>
-                    <td class="py-2.5 text-right">€ ${Math.round(spesaFTV).toLocaleString('it-IT')}</td>
-                    <td class="py-2.5 text-right font-bold text-emerald-600">€ ${Math.round(incFTV).toLocaleString('it-IT')}</td>
+                <tr class="hover:bg-slate-50">
+                    <td class="py-2 font-medium">Fotovoltaico (II.H) <span class="text-[9px] bg-blue-100 text-blue-700 px-1 py-0.5 rounded font-bold">TRAINATO</span></td>
+                    <td class="py-2 text-right">€ ${Math.round(spesaFTV).toLocaleString('it-IT')}</td>
+                    <td class="py-2 text-right font-bold text-emerald-600">€ ${Math.round(incFTV).toLocaleString('it-IT')}</td>
+                    <td class="py-2 text-right text-slate-500 font-semibold">${(incFTV/spesaFTV*100).toFixed(0)}%</td>
                 </tr>
-                <tr class="hover:bg-slate-50 transition">
-                    <td class="py-2.5 font-medium">Solare Termico ACS (III.D)</td>
-                    <td class="py-2.5 text-right">€ ${Math.round(spesaSol).toLocaleString('it-IT')}</td>
-                    <td class="py-2.5 text-right font-bold text-amber-600">€ ${Math.round(incSol).toLocaleString('it-IT')}*</td>
+                <tr class="hover:bg-slate-50">
+                    <td class="py-2 font-medium">Solare Termico ACS (III.D) <span class="text-[9px] bg-amber-100 text-amber-800 px-1 py-0.5 rounded font-bold">RATA UNICA</span></td>
+                    <td class="py-2 text-right">€ ${Math.round(spesaSol).toLocaleString('it-IT')}</td>
+                    <td class="py-2 text-right font-bold text-amber-600">€ ${Math.round(incSol).toLocaleString('it-IT')}</td>
+                    <td class="py-2 text-right text-slate-500 font-semibold">${(incSol/spesaSol*100).toFixed(0)}%</td>
                 </tr>
             `;
+
+            // Aggiornamento Testo Alert Trainato
+            if(incFTVTeorico > incPdC) {
+                document.getElementById('alertTrainatiTesto').innerHTML = `⚠️ <strong>Attenzione al Cap di Traino:</strong> L'incentivo teorico del Fotovoltaico (€ ${Math.round(incFTVTeorico).toLocaleString('it-IT')}) supera quello della Pompa di Calore (€ ${Math.round(incPdC).toLocaleString('it-IT')}). Il GSE limita l'incentivo FTV al tetto massimo di € ${Math.round(incPdC).toLocaleString('it-IT')}.`;
+                document.getElementById('alertTrainati').className = "bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-sm flex items-start gap-3";
+            } else {
+                document.getElementById('alertTrainatiTesto').innerHTML = `L'intervento Fotovoltaico (II.H) è pienamente coperto dal cap di traino della Pompa di Calore (III.A) (€ ${Math.round(incFTV).toLocaleString('it-IT')} &le; € ${Math.round(incPdC).toLocaleString('it-IT')}). Gli interventi di involucro (II.A, II.B) beneficiano dell'aliquota maggiorata al 55%.`;
+                document.getElementById('alertTrainati').className = "bg-blue-50 border-l-4 border-blue-600 p-4 rounded-r-xl shadow-sm flex items-start gap-3";
+            }
         }
 
-        // Avvio automatico al caricamento della pagina
         window.onload = calculateIncentive;
     </script>
 </body>
