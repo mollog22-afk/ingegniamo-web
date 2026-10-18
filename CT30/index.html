@@ -336,6 +336,37 @@
         <span class="text-slate-900 font-bold">30% (Cap PdC)</span>
     </div>
 </div>
+            <!-- TESSERA TRASFORMAZIONE nZEB (II.D) -->
+<div id="card_nzeb" onclick="toggleIntervento('nzeb')" class="tile-card bg-[#eef2f6] border border-slate-300 rounded-2xl p-4 sm:p-5 flex flex-col justify-between tile-inactive">
+    <div>
+        <div class="flex justify-between items-start mb-3">
+            <i class="fa-solid fa-building-circle-check text-2xl text-slate-700 tile-icon transition-transform"></i>
+            <span class="tile-badge text-[10px] font-bold px-2 py-0.5 rounded border border-slate-700 bg-slate-800 text-slate-600">Art. II.D</span>
+        </div>
+        <h4 class="font-bold text-sm text-slate-900 mb-1">Trasformazione in nZEB</h4>
+        <p class="text-[11px] text-slate-700 leading-snug">Riqualificazione profonda a energia quasi zero (esclusivo Titolo II).</p>
+    </div>
+    <div class="mt-4 pt-3 border-t border-slate-300/80 flex items-center justify-between text-[11px]">
+        <span class="text-amber-600 font-bold uppercase text-[9px] bg-amber-100 border border-amber-300 px-1.5 py-0.5 rounded">Macro-Opus</span>
+        <span class="text-slate-900 font-bold">65% Spesa</span>
+    </div>
+</div>
+
+<!-- TESSERA SCALDACQUA PDC (III.E) -->
+<div id="card_scaldacqua" onclick="toggleIntervento('scaldacqua')" class="tile-card bg-[#eef2f6] border border-slate-300 rounded-2xl p-4 sm:p-5 flex flex-col justify-between tile-inactive">
+    <div>
+        <div class="flex justify-between items-start mb-3">
+            <i class="fa-solid fa-faucet-drip text-2xl text-slate-700 tile-icon transition-transform"></i>
+            <span class="tile-badge text-[10px] font-bold px-2 py-0.5 rounded border border-slate-700 bg-slate-800 text-slate-600">Art. III.E</span>
+        </div>
+        <h4 class="font-bold text-sm text-slate-900 mb-1">Scaldacqua a PdC</h4>
+        <p class="text-[11px] text-slate-700 leading-snug">Pompe di calore dedicate ad acqua calda sanitaria.</p>
+    </div>
+    <div class="mt-4 pt-3 border-t border-slate-300/80 flex items-center justify-between text-[11px]">
+        <span class="text-sky-600 font-bold uppercase text-[9px] bg-sky-100 border border-sky-300 px-1.5 py-0.5 rounded">ACS 40%</span>
+        <span class="text-amber-500 font-bold">Rata Unica</span>
+    </div>
+</div>
  </section>
         <!-- 3. PARAMETRI DI CALCOLO & PROSPETTO ECONOMICO -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start page-break">
@@ -557,8 +588,7 @@
     </div>
        </div>
             </div>
-                    </div>
-            </div>
+              
     <!-- 2. Numero Punti / Infrastrutture -->
     <div>
         <label id="lblQtaCol" class="text-[11px] font-medium text-slate-700 block mb-1">Q.tà / Punti Ricarica</label>
@@ -579,6 +609,60 @@
 </div>
 </div>
 </div>
+        <!-- RIGA TRASFORMAZIONE nZEB (II.D) -->
+<div id="row_nzeb" class="bg-[#f8fafc]/40 border border-amber-900/40 rounded-2xl p-4 sm:p-5" style="display: none;">
+    <div class="flex justify-between items-center mb-3">
+        <span class="font-bold text-sm text-amber-800 flex items-center gap-2">
+            <i class="fa-solid fa-building-circle-check text-amber-600"></i> II.D - Trasformazione Edificio in nZEB
+        </span>
+        <span class="text-[10px] text-amber-800 bg-amber-100 border border-amber-300 px-2.5 py-0.5 rounded-full font-bold">65% Spesa • Cmax: 1.000 €/m² (A-C) | 1.300 €/m² (D-F)</span>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+            <label class="text-[11px] font-medium text-slate-700 block mb-1">Superficie Utile Riscaldata Ristrutturata (m²)</label>
+            <input type="number" id="mqNzeb" value="1200" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none focus:border-amber-500">
+        </div>
+        <div>
+            <label class="text-[11px] font-medium text-slate-700 block mb-1">Spesa Preventivata Globale nZEB (€)</label>
+            <input type="number" id="costoNzeb" value="1400000" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none focus:border-amber-500">
+        </div>
+    </div>
+</div>
+
+<!-- RIGA SCALDACQUA A POMPA DI CALORE (III.E) -->
+<div id="row_scaldacqua" class="bg-[#f8fafc]/40 border border-sky-900/40 rounded-2xl p-4 sm:p-5" style="display: none;">
+    <div class="flex justify-between items-center mb-3">
+        <span class="font-bold text-sm text-sky-800 flex items-center gap-2">
+            <i class="fa-solid fa-faucet-drip text-sky-600"></i> III.E - Scaldacqua a Pompa di Calore ACS
+        </span>
+        <span class="text-[10px] text-sky-800 bg-sky-100 border border-sky-300 px-2.5 py-0.5 rounded-full font-bold">Aliquota 40% • Rata Unica ≤ 15.000 €</span>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+        <div class="sm:col-span-1">
+            <label class="text-[11px] font-medium text-slate-700 block mb-1">Capacità e Classe</label>
+            <select id="tipoScaldacqua" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-2 py-2 text-xs font-semibold text-slate-900 focus:outline-none">
+                <option value="a_sub150">Classe A (≤ 150 L) - Max 500 €</option>
+                <option value="a_over150">Classe A (> 150 L) - Max 1.100 €</option>
+                <option value="aplus_sub150">Classe A+ o sup. (≤ 150 L) - Max 700 €</option>
+                <option value="aplus_over150" selected>Classe A+ o sup. (> 150 L) - Max 1.500 €</option>
+            </select>
+        </div>
+        <div>
+            <label class="text-[11px] font-medium text-slate-700 block mb-1">Numero Unità (Q.tà)</label>
+            <input type="number" id="numScaldacqua" value="1" min="1" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
+        </div>
+        <div>
+            <label class="text-[11px] font-medium text-slate-700 block mb-1">Capacità Serbatoio (L)</label>
+            <input type="number" id="litriScaldacqua" value="250" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
+        </div>
+        <div>
+            <label class="text-[11px] font-medium text-slate-700 block mb-1">Spesa Totale (€)</label>
+            <input type="number" id="costoScaldacqua" value="3200" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
+        </div>
+    </div>
+</div>
+              </div>
+            </div>
 
             <!-- PROSPETTO ECONOMICO & FLUSSI (5 COLONNE) -->
 
