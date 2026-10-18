@@ -853,22 +853,21 @@
 
         const ORE_ZONA = { 'A': 600, 'B': 850, 'C': 1100, 'D': 1400, 'E': 1700, 'F': 1800 };
 
-  window.toggleIntervento = function(key) {
+window.toggleIntervento = function(key) {
             // Tutti gli altri interventi del catalogo incompatibili con la trasformazione globale nZEB
             const altriInterventi = ['cappotto', 'infissi', 'pdc', 'ftv', 'led', 'bacs', 'solare', 'schermature', 'colonnine', 'scaldacqua'];
 
-            // Se si clicca su nZEB e lo si sta attivando
+            // Se si clicca su nZEB e lo si sta attivando, spegne tutti gli altri
             if (key === 'nzeb' && !activeInterventi.nzeb) {
-                // Spegne forzatamente tutti gli altri interventi
                 altriInterventi.forEach(k => {
                     activeInterventi[k] = false;
                 });
             }
 
-            // Inverte lo stato della chiave cliccata
+            // Inverte lo stato dell'intervento cliccato
             activeInterventi[key] = !activeInterventi[key];
 
-            // Aggiorna lo stato visivo (bordo/colore) di tutte le schede
+            // Aggiorna lo stato grafico (attivo/inattivo) di tutte le tessere dello Step 2
             Object.keys(activeInterventi).forEach(k => {
                 const c = document.getElementById('card_' + k);
                 if (c) {
@@ -895,7 +894,7 @@
             const altriInterventi = ['cappotto', 'infissi', 'pdc', 'ftv', 'led', 'bacs', 'solare', 'schermature', 'colonnine', 'scaldacqua'];
             const nzebAttivo = activeInterventi.nzeb;
 
-            // Se nZEB è attivo, fa sparire tutte le altre card dallo Step 2
+            // Se nZEB è attivo, nasconde visivamente tutte le altre tessere nello Step 2; altrimenti le mostra
             altriInterventi.forEach(k => {
                 const c = document.getElementById('card_' + k);
                 if (c) {
@@ -903,7 +902,7 @@
                 }
             });
 
-            // Se nZEB è attivo, nasconde TUTTI i campi degli altri interventi nello Step 3
+            // Gestione visibilità sezioni parametri nello Step 3 (escluse se nZEB è attivo)
             setDisplay('row_cappotto', !nzebAttivo && activeInterventi.cappotto);
             setDisplay('row_infissi', !nzebAttivo && activeInterventi.infissi);
             setDisplay('row_pdc', !nzebAttivo && activeInterventi.pdc);
@@ -919,43 +918,9 @@
             setDisplay('sub_led', showLed);
             setDisplay('sub_bacs', showBacs);
 
-            // Mostra esclusivamente la scheda nZEB
+            // Mostra esclusivamente la scheda parametri nZEB
             setDisplay('row_nzeb', nzebAttivo);
         }
-
-            // Se l'utente disattiva nZEB (cliccandoci di nuovo sopra)
-            if (key === 'nzeb' && activeInterventi.nzeb) {
-                // Fa ricomparire tutte le card del Titolo II
-                interventiTitoloII.forEach(k => {
-                    const c = document.getElementById('card_' + k);
-                    if (c) {
-                        c.style.display = ''; // Ripristina la visibilità
-                    }
-                });
-            }
-
-            // Cambia lo stato dell'intervento selezionato
-            activeInterventi[key] = !activeInterventi[key];
-            const card = document.getElementById('card_' + key);
-            if (card) {
-                if (activeInterventi[key]) {
-                    card.classList.add('tile-active');
-                    card.classList.remove('tile-inactive');
-                } else {
-                    card.classList.remove('tile-active');
-                    card.classList.add('tile-inactive');
-                }
-            }
-
-            updateRowsVisibility();
-            recalculate();
-        };
-
-        function updateRowsVisibility() {
-            const setDisplay = (id, visible) => {
-                const el = document.getElementById(id);
-                if (el) el.style.display = visible ? 'block' : 'none';
-            };
 
             setDisplay('row_cappotto', activeInterventi.cappotto);
             setDisplay('row_infissi', activeInterventi.infissi);
