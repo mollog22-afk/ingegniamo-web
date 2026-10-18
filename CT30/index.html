@@ -841,34 +841,49 @@ if (activeInterventi.pdc) {
                 const kwhAcc = parseFloat(document.getElementById('kwhAcc').value) || 0;
                 const costoFTV = parseFloat(document.getElementById('costoFTV').value) || 0;
 
-                let cmaxFTVUnit = 1200;
+                // Tetti massimi unitari Cmax (D.M. 7 Agosto 2025)
+                let cmaxFTVUnit = 1050;
                 if (kwpFTV <= 20) cmaxFTVUnit = 1500;
                 else if (kwpFTV <= 200) cmaxFTVUnit = 1200;
                 else if (kwpFTV <= 600) cmaxFTVUnit = 1100;
-                else cmaxFTVUnit = 1050;
 
                 const cmaxAccUnit = 1000;
+
+                // Calcolo Spesa Ammissibile e Spesa Valida
                 const spesaMaxAmmFTV = (kwpFTV * cmaxFTVUnit) + (kwhAcc * cmaxAccUnit);
                 const spesaValidaFTV = Math.min(costoFTV, spesaMaxAmmFTV);
 
+                // Aliquota Base 20%
                 const incTeoricoFTV = spesaValidaFTV * 0.20;
+
+                // Cap Vincolato all'Incentivo della Pompa di Calore (Trainante)
                 const maxCapPdC = activeInterventi.pdc ? incPdC : 0;
                 const incFTV = Math.min(incTeoricoFTV, maxCapPdC);
 
                 totSpesaVal += costoFTV;
                 totIncVal += incFTV;
 
-                if (incFTV <= 15000) {
+                // Ripartizione Finanziaria (Rata Unica vs 5 Rate)
+                const isRataUnicaFTV = incFTV <= 15000;
+                if (isRataUnicaFTV) {
                     incassoAnno1 += incFTV;
                 } else {
-                    quotaAnnualeCostante += incFTV / 5;
+                    incassoAnno1 += incFTV / 5;         // Incassa la 1° rata al 1° anno
+                    quotaAnnualeCostante += incFTV / 5; // Salva la quota per gli anni 2-5
+                }
+
+                let testoModalitaFTV = isRataUnicaFTV ? 'Rata Unica (1° Anno)' : '5 Rate Annuali';
+                if (!activeInterventi.pdc && kwpFTV > 0) {
+                    testoModalitaFTV = 'Richiede PdC Trainante';
                 }
 
                 tableHtml += `
                     <tr class="hover:bg-slate-800/40">
-                        <td class="py-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span> II.H - Fotovoltaico & Accumulo</td>
+                        <td class="py-2.5 font-medium flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span> II.H - Fotovoltaico & Accumulo
+                        </td>
                         <td class="py-2.5 text-right font-bold text-sky-400">€ ${Math.round(incFTV).toLocaleString('it-IT')}</td>
-                        <td class="py-2.5 text-right text-slate-700">${incFTV <= 15000 ? 'Rata Unica' : '5 Anni'}</td>
+                        <td class="py-2.5 text-right text-slate-300 text-xs">${testoModalitaFTV}</td>
                     </tr>
                 `;
             }
