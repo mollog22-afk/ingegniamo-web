@@ -22,7 +22,7 @@
         .tile-card:hover { transform: translateY(-2px); }
         .tile-active {
             border-color: #f59e0b !important;
-            background: linear-gradient(145deg, #1e293b, #0f172a) !important;
+            background: #ffffff !important;
             box-shadow: 0 0 0 2px #f59e0b, 0 10px 25px -5px rgba(245, 158, 11, 0.25) !important;
         }
         .tile-active .tile-icon { color: #fbbf24 !important; }
@@ -45,17 +45,17 @@
         }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-amber-400 selection:text-slate-950">
+<body class="bg-[#f8fafc] text-slate-100 min-h-screen flex flex-col justify-between selection:bg-amber-400 selection:text-slate-950">
 
     <!-- TOPBAR -->
-    <div class="bg-slate-900/90 backdrop-blur border-b border-slate-800 text-[11px] text-slate-400 py-2 px-6 no-print">
+    <div class="bg-white/90 backdrop-blur border-b border-slate-200 text-[11px] text-slate-400 py-2 px-6 no-print">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
             <div class="flex items-center gap-2">
                 <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
                 <span>Audit GSE • <strong>D.M. 7 Agosto 2025 (Conto Termico 3.0 - Titolo V Piccola Impresa)</strong></span>
             </div>
             <div class="flex items-center gap-4 text-slate-300">
-                <span>Certificazione EGE: <strong class="text-white">INGEGNIAMO S.r.l.</strong></span>
+                <span>Certificazione EGE: <strong class="text-slate-900">INGEGNIAMO S.r.l.</strong></span>
                 <span class="text-slate-600">|</span>
                 <a href="/" class="hover:text-amber-400 transition">← Torna alla Home</a>
             </div>
@@ -63,15 +63,15 @@
     </div>
 
     <!-- HEADER -->
-    <header class="bg-slate-900/60 backdrop-blur-md border-b border-slate-800/80 sticky top-0 z-40 px-6 py-4">
+    <header class="bg-white/60 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-40 px-6 py-4">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-4">
                 <a href="/" class="flex items-center gap-3 group">
                     <img src="/logo-ingegniamo.png" onerror="this.onerror=null; this.src='../logo-ingegniamo.png';" alt="Ingegniamo Logo" class="h-10 w-auto object-contain transition-transform group-hover:scale-105">
                 </a>
-                <div class="border-l border-slate-800 pl-4">
+                <div class="border-l border-slate-200 pl-4">
                     <div class="flex items-center gap-2">
-                        <span class="text-sm font-black tracking-tight text-white uppercase">Ingegniamo<span class="text-blue-500">.</span></span>
+                        <span class="text-sm font-black tracking-tight text-slate-900 uppercase">Ingegniamo<span class="text-blue-500">.</span></span>
                         <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[10px] font-black px-2 py-0.5 rounded tracking-wide">PORTALETERMICO 3.0</span>
                     </div>
                     <p class="text-[11px] text-slate-400">Verifica Massimali Cmax / Imax & Catalogo PdC Certificato</p>
@@ -94,13 +94,13 @@
     <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8 flex-grow w-full">
 
         <!-- 1. CHECKLIST ANTE-OPERAM -->
-        <section class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-7 shadow-xl space-y-5 print-card">
-            <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b border-slate-800 pb-4">
+        <section class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-7 shadow-xl space-y-5 print-card">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b border-slate-200 pb-4">
                 <div>
                     <span class="text-[10px] font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
                         <i class="fa-solid fa-clipboard-check"></i> Step 1: Requisiti di Accesso (GSE Check-list)
                     </span>
-                    <h2 class="text-lg font-black text-white mt-1">Stato Ante-Operam & Condizioni di Ammissibilità</h2>
+                    <h2 class="text-lg font-black text-slate-900 mt-1">Stato Ante-Operam & Condizioni di Ammissibilità</h2>
                 </div>
                 <div id="statusIdoneitaBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold self-start sm:self-auto">
                     <i class="fa-solid fa-circle-check"></i> <span>Requisiti Preliminari Soddisfatti</span>
@@ -108,45 +108,45 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
-                <div class="bg-slate-950/70 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-3">
+                <div class="bg-[#f8fafc]/70 p-4 rounded-2xl border border-slate-200 flex flex-col justify-between space-y-3">
                     <div>
                         <span class="text-slate-400 font-semibold block mb-1">1. Impianto Climatizzazione Ante</span>
                         <p class="text-slate-300 text-[11px] leading-relaxed">Il capannone è già dotato di un impianto di riscaldamento fisso e funzionante?</p>
                     </div>
-                    <select id="chkImpiantoEsistente" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500 font-semibold">
+                    <select id="chkImpiantoEsistente" class="w-full bg-white border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-slate-900 focus:outline-none focus:border-amber-500 font-semibold">
                         <option value="si" selected>Sì, esistente e operativo</option>
                         <option value="no">No (Edificio non riscaldato)</option>
                     </select>
                 </div>
 
-                <div class="bg-slate-950/70 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-3">
+                <div class="bg-[#f8fafc]/70 p-4 rounded-2xl border border-slate-200 flex flex-col justify-between space-y-3">
                     <div>
                         <span class="text-slate-400 font-semibold block mb-1">2. Avvio Lavori & Contratti</span>
                         <p class="text-slate-300 text-[11px] leading-relaxed">I lavori o ordini vincolanti sono già stati formalmente avviati prima della prenotazione?</p>
                     </div>
-                    <select id="chkLavoriAvviati" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500 font-semibold">
+                    <select id="chkLavoriAvviati" class="w-full bg-white border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-slate-900 focus:outline-none focus:border-amber-500 font-semibold">
                         <option value="no" selected>No, cantiere ancora da avviare</option>
                         <option value="si">Sì, già avviati / fatturati</option>
                     </select>
                 </div>
 
-                <div class="bg-slate-950/70 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-3">
+                <div class="bg-[#f8fafc]/70 p-4 rounded-2xl border border-slate-200 flex flex-col justify-between space-y-3">
                     <div>
                         <span class="text-slate-400 font-semibold block mb-1">3. Inquadramento Catastale</span>
                         <p class="text-slate-300 text-[11px] leading-relaxed">L'immobile è regolarmente censito al catasto (es. D/1, D/7, D/8) e conforme?</p>
                     </div>
-                    <select id="chkCatasto" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500 font-semibold">
+                    <select id="chkCatasto" class="w-full bg-white border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-slate-900 focus:outline-none focus:border-amber-500 font-semibold">
                         <option value="si" selected>Sì, regolarmente accatastato</option>
                         <option value="no">No / Non conforme</option>
                     </select>
                 </div>
 
-                <div class="bg-slate-950/70 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-3">
+                <div class="bg-[#f8fafc]/70 p-4 rounded-2xl border border-slate-200 flex flex-col justify-between space-y-3">
                     <div>
                         <span class="text-slate-400 font-semibold block mb-1">4. Classificazione Impresa</span>
                         <p class="text-slate-300 text-[11px] leading-relaxed">La società rientra nei parametri dimensionali ex Raccomandazione 2003/361/CE?</p>
                     </div>
-                    <select id="chkDimensioneImpresa" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500 font-semibold">
+                    <select id="chkDimensioneImpresa" class="w-full bg-white border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-slate-900 focus:outline-none focus:border-amber-500 font-semibold">
                         <option value="piccola" selected>Piccola Impresa (Aliquota max 65%)</option>
                         <option value="media">Media Impresa (Aliquota max 55%)</option>
                         <option value="grande">Grande Impresa (Aliquota base 45%)</option>
@@ -154,7 +154,7 @@
                 </div>
             </div>
 
-            <div id="boxAlertElegibilita" class="bg-slate-950/50 border border-emerald-900/40 rounded-2xl p-4 flex items-start gap-3 text-xs leading-relaxed">
+            <div id="boxAlertElegibilita" class="bg-[#f8fafc]/50 border border-emerald-900/40 rounded-2xl p-4 flex items-start gap-3 text-xs leading-relaxed">
                 <i class="fa-solid fa-circle-check text-emerald-400 text-lg mt-0.5"></i>
                 <div>
                     <span class="font-bold text-slate-200 block">L'edificio possiede i requisiti per accedere al Conto Termico 3.0:</span>
@@ -165,132 +165,132 @@
 
         <!-- 2. MATRICE TESSERE GSE -->
         <section class="space-y-4">
-            <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b border-slate-800 pb-3">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b border-slate-200 pb-3">
                 <div>
                     <span class="text-[10px] font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
                         <i class="fa-solid fa-shapes"></i> Step 2: Seleziona gli Interventi Previsti
                     </span>
-                    <h3 class="text-xl font-black text-white mt-1">Catalogo Interventi Ammissibili (D.M. 7 Agosto 2025)</h3>
+                    <h3 class="text-xl font-black text-slate-900 mt-1">Catalogo Interventi Ammissibili (D.M. 7 Agosto 2025)</h3>
                 </div>
                 <p class="text-xs text-slate-400">Fai clic su ciascuna tessera per includere o escludere l'intervento dal computo finale.</p>
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <div id="card_cappotto" onclick="toggleIntervento('cappotto')" class="tile-card bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 flex flex-col justify-between tile-active">
+                <div id="card_cappotto" onclick="toggleIntervento('cappotto')" class="tile-card bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between tile-active">
                     <div>
                         <div class="flex justify-between items-start mb-3">
                             <i class="fa-solid fa-cubes text-2xl text-slate-400 tile-icon transition-transform"></i>
                             <span class="tile-badge text-[10px] font-bold px-2 py-0.5 rounded border border-slate-700 bg-slate-800 text-slate-300">Art. II.A</span>
                         </div>
-                        <h4 class="font-bold text-sm text-white mb-1">Coibentazione Involucro</h4>
+                        <h4 class="font-bold text-sm text-slate-900 mb-1">Coibentazione Involucro</h4>
                         <p class="text-[11px] text-slate-400 leading-snug">Cappotto pareti e isolamento copertura a tetto.</p>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
+                    <div class="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-[11px]">
                         <span class="text-slate-500 font-semibold">Imax</span>
                         <span class="text-amber-400 font-bold">1.000.000 €</span>
                     </div>
                 </div>
 
-                <div id="card_infissi" onclick="toggleIntervento('infissi')" class="tile-card bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 flex flex-col justify-between tile-active">
+                <div id="card_infissi" onclick="toggleIntervento('infissi')" class="tile-card bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between tile-active">
                     <div>
                         <div class="flex justify-between items-start mb-3">
                             <i class="fa-solid fa-table-cells text-2xl text-slate-400 tile-icon transition-transform"></i>
                             <span class="tile-badge text-[10px] font-bold px-2 py-0.5 rounded border border-slate-700 bg-slate-800 text-slate-300">Art. II.B</span>
                         </div>
-                        <h4 class="font-bold text-sm text-white mb-1">Infissi & Portoni</h4>
+                        <h4 class="font-bold text-sm text-slate-900 mb-1">Infissi & Portoni</h4>
                         <p class="text-[11px] text-slate-400 leading-snug">Chiusure trasparenti e portoni industriali termici.</p>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
+                    <div class="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-[11px]">
                         <span class="text-slate-500 font-semibold">Imax</span>
                         <span class="text-amber-400 font-bold">500.000 €</span>
                     </div>
                 </div>
 
-                <div id="card_pdc" onclick="toggleIntervento('pdc')" class="tile-card bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 flex flex-col justify-between tile-active">
+                <div id="card_pdc" onclick="toggleIntervento('pdc')" class="tile-card bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between tile-active">
                     <div>
                         <div class="flex justify-between items-start mb-3">
                             <i class="fa-solid fa-fan text-2xl text-slate-400 tile-icon transition-transform"></i>
                             <span class="tile-badge text-[10px] font-bold px-2 py-0.5 rounded border border-slate-700 bg-slate-800 text-slate-300">Art. III.A</span>
                         </div>
-                        <h4 class="font-bold text-sm text-white mb-1">Pompa di Calore / VRF</h4>
+                        <h4 class="font-bold text-sm text-slate-900 mb-1">Pompa di Calore / VRF</h4>
                         <p class="text-[11px] text-slate-400 leading-snug">Generazione termica elettrica ad alta efficienza.</p>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
+                    <div class="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-[11px]">
                         <span class="text-emerald-400 font-bold uppercase text-[9px] bg-emerald-950 px-1.5 py-0.5 rounded border border-emerald-800">Trainante</span>
                         <span class="text-emerald-400 font-bold">Fino al 65%</span>
                     </div>
                 </div>
 
-                <div id="card_ftv" onclick="toggleIntervento('ftv')" class="tile-card bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 flex flex-col justify-between tile-active">
+                <div id="card_ftv" onclick="toggleIntervento('ftv')" class="tile-card bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between tile-active">
                     <div>
                         <div class="flex justify-between items-start mb-3">
                             <i class="fa-solid fa-solar-panel text-2xl text-slate-400 tile-icon transition-transform"></i>
                             <span class="tile-badge text-[10px] font-bold px-2 py-0.5 rounded border border-slate-700 bg-slate-800 text-slate-300">Art. II.H</span>
                         </div>
-                        <h4 class="font-bold text-sm text-white mb-1">Fotovoltaico + Batteria</h4>
+                        <h4 class="font-bold text-sm text-slate-900 mb-1">Fotovoltaico + Batteria</h4>
                         <p class="text-[11px] text-slate-400 leading-snug">Impianto solare PV e accumulo su tetto capannone.</p>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
+                    <div class="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-[11px]">
                         <span class="text-sky-400 font-bold uppercase text-[9px] bg-sky-950 px-1.5 py-0.5 rounded border border-sky-800">Trainato</span>
                         <span class="text-sky-400 font-bold">Cap su PdC</span>
                     </div>
                 </div>
 
-                <div id="card_led" onclick="toggleIntervento('led')" class="tile-card bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 flex flex-col justify-between tile-active">
+                <div id="card_led" onclick="toggleIntervento('led')" class="tile-card bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between tile-active">
                     <div>
                         <div class="flex justify-between items-start mb-3">
                             <i class="fa-solid fa-lightbulb text-2xl text-slate-400 tile-icon transition-transform"></i>
                             <span class="tile-badge text-[10px] font-bold px-2 py-0.5 rounded border border-slate-700 bg-slate-800 text-slate-300">Art. II.E</span>
                         </div>
-                        <h4 class="font-bold text-sm text-white mb-1">Illuminazione LED</h4>
+                        <h4 class="font-bold text-sm text-slate-900 mb-1">Illuminazione LED</h4>
                         <p class="text-[11px] text-slate-400 leading-snug">Corpi illuminanti industriali ($C_{max} = 35\text{ €/m}^2$).</p>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
+                    <div class="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-[11px]">
                         <span class="text-slate-500 font-semibold">Cmax</span>
                         <span class="text-indigo-400 font-bold">35 €/m²</span>
                     </div>
                 </div>
 
-                <div id="card_bacs" onclick="toggleIntervento('bacs')" class="tile-card bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 flex flex-col justify-between tile-active">
+                <div id="card_bacs" onclick="toggleIntervento('bacs')" class="tile-card bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between tile-active">
                     <div>
                         <div class="flex justify-between items-start mb-3">
                             <i class="fa-solid fa-network-wired text-2xl text-slate-400 tile-icon transition-transform"></i>
                             <span class="tile-badge text-[10px] font-bold px-2 py-0.5 rounded border border-slate-700 bg-slate-800 text-slate-300">Art. II.F</span>
                         </div>
-                        <h4 class="font-bold text-sm text-white mb-1">Building Automation</h4>
+                        <h4 class="font-bold text-sm text-slate-900 mb-1">Building Automation</h4>
                         <p class="text-[11px] text-slate-400 leading-snug">Regolazione BACS Classe B ($C_{max} = 60\text{ €/m}^2$).</p>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
+                    <div class="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-[11px]">
                         <span class="text-slate-500 font-semibold">Imax</span>
                         <span class="text-indigo-400 font-bold">100.000 €</span>
                     </div>
                 </div>
 
-                <div id="card_solare" onclick="toggleIntervento('solare')" class="tile-card bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 flex flex-col justify-between tile-active">
+                <div id="card_solare" onclick="toggleIntervento('solare')" class="tile-card bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between tile-active">
                     <div>
                         <div class="flex justify-between items-start mb-3">
                             <i class="fa-solid fa-sun text-2xl text-slate-400 tile-icon transition-transform"></i>
                             <span class="tile-badge text-[10px] font-bold px-2 py-0.5 rounded border border-slate-700 bg-slate-800 text-slate-300">Art. III.D</span>
                         </div>
-                        <h4 class="font-bold text-sm text-white mb-1">Solare Termico ACS</h4>
+                        <h4 class="font-bold text-sm text-slate-900 mb-1">Solare Termico ACS</h4>
                         <p class="text-[11px] text-slate-400 leading-snug">Collettori solari termici per sanitari e processi.</p>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
+                    <div class="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-[11px]">
                         <span class="text-amber-500 font-bold uppercase text-[9px] bg-amber-950 px-1.5 py-0.5 rounded border border-amber-800">Rata 1</span>
                         <span class="text-amber-400 font-bold">Rata Unica</span>
                     </div>
                 </div>
 
-                <div id="card_schermature" onclick="toggleIntervento('schermature')" class="tile-card bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 flex flex-col justify-between tile-inactive">
+                <div id="card_schermature" onclick="toggleIntervento('schermature')" class="tile-card bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between tile-inactive">
                     <div>
                         <div class="flex justify-between items-start mb-3">
                             <i class="fa-solid fa-bars text-2xl text-slate-400 tile-icon transition-transform"></i>
                             <span class="tile-badge text-[10px] font-bold px-2 py-0.5 rounded border border-slate-700 bg-slate-800 text-slate-300">Art. II.C</span>
                         </div>
-                        <h4 class="font-bold text-sm text-white mb-1">Schermature Solari</h4>
+                        <h4 class="font-bold text-sm text-slate-900 mb-1">Schermature Solari</h4>
                         <p class="text-[11px] text-slate-400 leading-snug">Frangisole esterni ($C_{max} = 250\text{ €/m}^2$).</p>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
+                    <div class="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-[11px]">
                         <span class="text-slate-500 font-semibold">Imax</span>
                         <span class="text-amber-400 font-bold">90.000 €</span>
                     </div>
@@ -301,22 +301,22 @@
         <!-- 3. PARAMETRI DI CALCOLO & PROSPETTO ECONOMICO -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            <div class="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-7 shadow-xl space-y-6 print-card">
+            <div class="lg:col-span-7 bg-white border border-slate-200 rounded-3xl p-6 sm:p-7 shadow-xl space-y-6 print-card">
                 
-                <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div class="flex items-center justify-between border-b border-slate-200 pb-4">
                     <div>
                         <span class="text-[10px] font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
                             <i class="fa-solid fa-sliders"></i> Step 3: Parametri & Spese
                         </span>
-                        <h3 class="text-base font-bold text-white mt-0.5">Dati Quantitativi degli Interventi Selezionati</h3>
+                        <h3 class="text-base font-bold text-slate-900 mt-0.5">Dati Quantitativi degli Interventi Selezionati</h3>
                     </div>
                     <span class="text-xs bg-slate-800 border border-slate-700 text-slate-300 font-semibold px-3 py-1 rounded-full">Database Integrato</span>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-950/60 p-4 rounded-2xl border border-slate-800">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-[#f8fafc]/60 p-4 rounded-2xl border border-slate-200">
                     <div>
                         <label class="block text-xs font-semibold text-slate-300 mb-1">Superficie Utile Capannone (m²)</label>
-                        <input type="number" id="mqCapannone" value="1200" class="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-xl px-3.5 py-2 text-sm font-semibold text-white focus:outline-none transition">
+                        <input type="number" id="mqCapannone" value="1200" class="w-full bg-white border border-slate-700 focus:border-amber-500 rounded-xl px-3.5 py-2 text-sm font-semibold text-slate-900 focus:outline-none transition">
                     </div>
                     
                     <!-- MENU A TENDINA COMPLETO PER COMUNE -->
@@ -325,7 +325,7 @@
                             <label for="calc-comune" class="block text-xs font-semibold text-slate-300">Comune di Installazione</label>
                             <span id="badgeZonaRilevata" class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded font-bold">Zona C (1.100 h)</span>
                         </div>
-                        <select id="calc-comune" class="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-xl px-3 py-2 text-xs font-semibold text-white focus:outline-none transition">
+                        <select id="calc-comune" class="w-full bg-white border border-slate-700 focus:border-amber-500 rounded-xl px-3 py-2 text-xs font-semibold text-slate-900 focus:outline-none transition">
                             <option value="">Caricamento comuni…</option>
                         </select>
                         <input type="hidden" id="zonaClimatica" value="C">
@@ -335,17 +335,17 @@
                 <div class="space-y-4">
                     
                     <!-- Pompa di Calore (III.A) con CATALOGO COMPLETO INTEGRATO -->
-                    <div id="row_pdc" class="bg-slate-950/40 border border-emerald-900/40 rounded-2xl p-4 sm:p-5">
+                    <div id="row_pdc" class="bg-[#f8fafc]/40 border border-emerald-900/40 rounded-2xl p-4 sm:p-5">
                         <div class="flex justify-between items-center mb-3">
                             <span class="font-bold text-sm text-emerald-300 flex items-center gap-2"><i class="fa-solid fa-fan"></i> III.A - Pompa di Calore (Trainante)</span>
                             <span class="text-[10px] text-emerald-400 bg-emerald-950 border border-emerald-800 px-2.5 py-0.5 rounded-full font-bold">Max 65% Spesa</span>
                         </div>
 
                         <!-- Categoria & Modello -->
-                        <div class="mb-4 bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 space-y-3">
+                        <div class="mb-4 bg-white/80 p-3.5 rounded-xl border border-slate-200 space-y-3">
                             <div>
                                 <label for="calc-categoria" class="text-[11px] font-semibold text-slate-300 block mb-1">Tipo di Sistema (Categoria):</label>
-                                <select id="calc-categoria" class="w-full bg-slate-950 border border-slate-700 text-white rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-emerald-500 font-medium">
+                                <select id="calc-categoria" class="w-full bg-[#f8fafc] border border-slate-700 text-slate-900 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-emerald-500 font-medium">
                                     <option value="">Caricamento categorie…</option>
                                 </select>
                             </div>
@@ -354,7 +354,7 @@
                                     <span>Modello Pompa di Calore (Catalogo):</span>
                                     <span id="labelIncentivoModello" class="text-[10px] text-amber-400 font-bold"></span>
                                 </label>
-                                <select id="calc-modello" disabled class="w-full bg-slate-950 border border-slate-700 text-white rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-emerald-500 font-medium disabled:opacity-50">
+                                <select id="calc-modello" disabled class="w-full bg-[#f8fafc] border border-slate-700 text-slate-900 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-emerald-500 font-medium disabled:opacity-50">
                                     <option value="">Scegli prima il tipo di sistema</option>
                                 </select>
                             </div>
@@ -362,39 +362,39 @@
 <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
     <div>
         <label class="text-[11px] font-medium text-slate-400 block mb-1">Numero Unità (Q.tà)</label>
-        <input type="number" id="numPdC" value="1" min="1" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-sm font-bold text-amber-400 focus:outline-none focus:border-amber-500">
+        <input type="number" id="numPdC" value="1" min="1" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-sm font-bold text-amber-400 focus:outline-none focus:border-amber-500">
     </div>
     <div>
         <label class="text-[11px] font-medium text-slate-400 block mb-1">Pot. Singola Pr (kWt)</label>
-        <input type="number" id="kwPost" value="180" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-sm font-bold text-emerald-400 focus:outline-none focus:border-emerald-500">
+        <input type="number" id="kwPost" value="180" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-sm font-bold text-emerald-400 focus:outline-none focus:border-emerald-500">
     </div>
     <div>
         <label class="text-[11px] font-medium text-slate-400 block mb-1">SCOP Nominale</label>
-        <input type="number" step="0.01" id="scopPdC" value="4.20" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-sm font-semibold text-white focus:outline-none focus:border-emerald-500">
+        <input type="number" step="0.01" id="scopPdC" value="4.20" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none focus:border-emerald-500">
     </div>
     <div>
         <label class="text-[11px] font-medium text-slate-400 block mb-1">Spesa Totale (€)</label>
-        <input type="number" id="costoPdC" value="85000" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-sm font-semibold text-white focus:outline-none focus:border-emerald-500">
+        <input type="number" id="costoPdC" value="85000" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none focus:border-emerald-500">
     </div>
 </div>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                             <div>
                                 <label class="text-[11px] font-medium text-slate-400 block mb-1">Potenza Utile Pr (kWt)</label>
-                                <input type="number" id="kwPost" value="180" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-sm font-bold text-emerald-400 focus:outline-none focus:border-emerald-500">
+                                <input type="number" id="kwPost" value="180" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-sm font-bold text-emerald-400 focus:outline-none focus:border-emerald-500">
                             </div>
                             <div>
                                 <label class="text-[11px] font-medium text-slate-400 block mb-1">SCOP Nominale</label>
-                                <input type="number" step="0.01" id="scopPdC" value="4.20" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-sm font-semibold text-white focus:outline-none focus:border-emerald-500">
+                                <input type="number" step="0.01" id="scopPdC" value="4.20" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none focus:border-emerald-500">
                             </div>
                             <div>
                                 <label class="text-[11px] font-medium text-slate-400 block mb-1">Spesa Preventivata (€)</label>
-                                <input type="number" id="costoPdC" value="85000" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-sm font-semibold text-white focus:outline-none focus:border-emerald-500">
+                                <input type="number" id="costoPdC" value="85000" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none focus:border-emerald-500">
                             </div>
                         </div>
                     </div>
 
                     <!-- Fotovoltaico (II.H) -->
-                    <div id="row_ftv" class="bg-slate-950/40 border border-sky-900/40 rounded-2xl p-4 sm:p-5">
+                    <div id="row_ftv" class="bg-[#f8fafc]/40 border border-sky-900/40 rounded-2xl p-4 sm:p-5">
                         <div class="flex justify-between items-center mb-3">
                             <span class="font-bold text-sm text-sky-300 flex items-center gap-2"><i class="fa-solid fa-solar-panel"></i> II.H - Fotovoltaico & Accumulo (Trainato)</span>
                             <span class="text-[10px] text-sky-400 bg-sky-950 border border-sky-800 px-2.5 py-0.5 rounded-full font-bold">Cap Vincolato su PdC</span>
@@ -402,21 +402,21 @@
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                             <div>
                                 <label class="text-[11px] font-medium text-slate-400 block mb-1">Potenza FTV (kWp)</label>
-                                <input type="number" id="kwpFTV" value="80" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-sm font-semibold text-white focus:outline-none focus:border-sky-500">
+                                <input type="number" id="kwpFTV" value="80" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none focus:border-sky-500">
                             </div>
                             <div>
                                 <label class="text-[11px] font-medium text-slate-400 block mb-1">Capacità Batteria (kWh)</label>
-                                <input type="number" id="kwhAcc" value="120" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-sm font-semibold text-white focus:outline-none focus:border-sky-500">
+                                <input type="number" id="kwhAcc" value="120" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none focus:border-sky-500">
                             </div>
                             <div>
                                 <label class="text-[11px] font-medium text-slate-400 block mb-1">Spesa Totale FTV (€)</label>
-                                <input type="number" id="costoFTV" value="180000" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-sm font-semibold text-white focus:outline-none focus:border-sky-500">
+                                <input type="number" id="costoFTV" value="180000" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none focus:border-sky-500">
                             </div>
                         </div>
                     </div>
 
                     <!-- Cappotto (II.A) -->
-                    <div id="row_cappotto" class="bg-slate-950/40 border border-amber-900/40 rounded-2xl p-4 sm:p-5">
+                    <div id="row_cappotto" class="bg-[#f8fafc]/40 border border-amber-900/40 rounded-2xl p-4 sm:p-5">
                         <div class="flex justify-between items-center mb-3">
                             <span class="font-bold text-sm text-amber-300 flex items-center gap-2"><i class="fa-solid fa-cubes"></i> II.A - Coibentazione Pareti & Copertura</span>
                             <span class="text-[10px] text-amber-400 bg-amber-950 border border-amber-800 px-2.5 py-0.5 rounded-full font-bold">Cmax: 200 €/m² Pareti | 300 €/m² Tetto</span>
@@ -424,21 +424,21 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
                             <div>
                                 <label class="text-[11px] font-medium text-slate-400 block mb-1">Superficie Pareti Esterne (m²)</label>
-                                <input type="number" id="mqPareti" value="600" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-sm font-semibold text-white focus:outline-none focus:border-amber-500">
+                                <input type="number" id="mqPareti" value="600" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none focus:border-amber-500">
                             </div>
                             <div>
                                 <label class="text-[11px] font-medium text-slate-400 block mb-1">Superficie Tetto/Copertura (m²)</label>
-                                <input type="number" id="mqTetto" value="400" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-sm font-semibold text-white focus:outline-none focus:border-amber-500">
+                                <input type="number" id="mqTetto" value="400" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none focus:border-amber-500">
                             </div>
                         </div>
                         <div>
                             <label class="text-[11px] font-medium text-slate-400 block mb-1">Spesa Preventivata Totale Involucro (€)</label>
-                            <input type="number" id="costoCappotto" value="180000" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-sm font-semibold text-white focus:outline-none focus:border-amber-500">
+                            <input type="number" id="costoCappotto" value="180000" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none focus:border-amber-500">
                         </div>
                     </div>
 
                     <!-- Infissi (II.B) -->
-                    <div id="row_infissi" class="bg-slate-950/40 border border-slate-800 rounded-2xl p-4 sm:p-5">
+                    <div id="row_infissi" class="bg-[#f8fafc]/40 border border-slate-200 rounded-2xl p-4 sm:p-5">
                         <div class="flex justify-between items-center mb-3">
                             <span class="font-bold text-sm text-slate-300 flex items-center gap-2"><i class="fa-solid fa-table-cells"></i> II.B - Infissi Industriali & Portoni</span>
                             <span class="text-[10px] text-slate-300 bg-slate-800 px-2.5 py-0.5 rounded-full font-bold">Cmax: 700 €/m² (A-C) | 800 €/m² (D-F)</span>
@@ -446,17 +446,17 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div>
                                 <label class="text-[11px] font-medium text-slate-400 block mb-1">Superficie Infissi (m²)</label>
-                                <input type="number" id="mqInfissi" value="150" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-sm font-semibold text-white focus:outline-none">
+                                <input type="number" id="mqInfissi" value="150" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
                             </div>
                             <div>
                                 <label class="text-[11px] font-medium text-slate-400 block mb-1">Spesa Preventivata (€)</label>
-                                <input type="number" id="costoInfissi" value="45000" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-sm font-semibold text-white focus:outline-none">
+                                <input type="number" id="costoInfissi" value="45000" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
                             </div>
                         </div>
                     </div>
 
                     <!-- LED & BACS -->
-                    <div id="row_led_bacs" class="bg-slate-950/40 border border-indigo-900/40 rounded-2xl p-4 sm:p-5">
+                    <div id="row_led_bacs" class="bg-[#f8fafc]/40 border border-indigo-900/40 rounded-2xl p-4 sm:p-5">
                         <div class="flex justify-between items-center mb-3">
                             <span class="font-bold text-sm text-indigo-300 flex items-center gap-2"><i class="fa-solid fa-lightbulb"></i> II.E / II.F - Relamping LED & BACS</span>
                             <span class="text-[10px] text-indigo-300 bg-indigo-950 border border-indigo-800 px-2.5 py-0.5 rounded-full font-bold">45% Piccola Impresa</span>
@@ -464,17 +464,17 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div id="sub_led">
                                 <label class="text-[11px] font-medium text-slate-400 block mb-1">Spesa Relamping LED (€) [Cmax: 35 €/m²]</label>
-                                <input type="number" id="costoLED" value="36000" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-sm font-semibold text-white focus:outline-none">
+                                <input type="number" id="costoLED" value="36000" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
                             </div>
                             <div id="sub_bacs">
                                 <label class="text-[11px] font-medium text-slate-400 block mb-1">Spesa BACS (€) [Cmax: 60 €/m²]</label>
-                                <input type="number" id="costoBACS" value="54000" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-sm font-semibold text-white focus:outline-none">
+                                <input type="number" id="costoBACS" value="54000" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
                             </div>
                         </div>
                     </div>
 
                     <!-- Solare Termico (III.D) -->
-                    <div id="row_solare" class="bg-slate-950/40 border border-orange-900/40 rounded-2xl p-4 sm:p-5">
+                    <div id="row_solare" class="bg-[#f8fafc]/40 border border-orange-900/40 rounded-2xl p-4 sm:p-5">
                         <div class="flex justify-between items-center mb-3">
                             <span class="font-bold text-sm text-orange-300 flex items-center gap-2"><i class="fa-solid fa-sun"></i> III.D - Solare Termico ACS</span>
                             <span class="text-[10px] text-orange-400 bg-orange-950 border border-orange-800 px-2.5 py-0.5 rounded-full font-bold">Rata Unica Immediata</span>
@@ -482,17 +482,17 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div>
                                 <label class="text-[11px] font-medium text-slate-400 block mb-1">Superficie Collettori (m²)</label>
-                                <input type="number" id="mqSolare" value="20" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-sm font-semibold text-white focus:outline-none">
+                                <input type="number" id="mqSolare" value="20" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
                             </div>
                             <div>
                                 <label class="text-[11px] font-medium text-slate-400 block mb-1">Spesa Preventivata (€)</label>
-                                <input type="number" id="costoSolare" value="10000" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-sm font-semibold text-white focus:outline-none">
+                                <input type="number" id="costoSolare" value="10000" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
                             </div>
                         </div>
                     </div>
 
                     <!-- Schermature Solari (II.C) -->
-                    <div id="row_schermature" class="bg-slate-950/40 border border-slate-800 rounded-2xl p-4 sm:p-5" style="display: none;">
+                    <div id="row_schermature" class="bg-[#f8fafc]/40 border border-slate-200 rounded-2xl p-4 sm:p-5" style="display: none;">
                         <div class="flex justify-between items-center mb-3">
                             <span class="font-bold text-sm text-slate-300 flex items-center gap-2"><i class="fa-solid fa-bars"></i> II.C - Schermature Solari</span>
                             <span class="text-[10px] text-slate-300 bg-slate-800 px-2.5 py-0.5 rounded-full font-bold">Cmax: 250 €/m² | Imax: 90.000 €</span>
@@ -500,11 +500,11 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div>
                                 <label class="text-[11px] font-medium text-slate-400 block mb-1">Superficie Schermata (m²)</label>
-                                <input type="number" id="mqSchermatures" value="50" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-sm font-semibold text-white focus:outline-none">
+                                <input type="number" id="mqSchermatures" value="50" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
                             </div>
                             <div>
                                 <label class="text-[11px] font-medium text-slate-400 block mb-1">Spesa Preventivata (€)</label>
-                                <input type="number" id="costoSchermature" value="15000" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-sm font-semibold text-white focus:outline-none">
+                                <input type="number" id="costoSchermature" value="15000" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
                             </div>
                         </div>
                     </div>
@@ -515,9 +515,9 @@
             <!-- PROSPETTO ECONOMICO & FLUSSI (5 COLONNE) -->
             <div class="lg:col-span-5 space-y-6">
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-slate-900 border border-slate-800 p-5 rounded-3xl shadow-lg relative overflow-hidden print-card">
+                    <div class="bg-white border border-slate-200 p-5 rounded-3xl shadow-lg relative overflow-hidden print-card">
                         <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Spesa Complessiva</span>
-                        <p id="totSpesa" class="text-2xl font-black text-white mt-1.5 tracking-tight">€ 0</p>
+                        <p id="totSpesa" class="text-2xl font-black text-slate-900 mt-1.5 tracking-tight">€ 0</p>
                         <p class="text-[10px] text-slate-500 mt-1">Opere edili, MEP, collaudi</p>
                     </div>
 
@@ -540,16 +540,16 @@
 
                 <div id="boxAlertNormativi" class="space-y-3"></div>
 
-                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-4 print-card">
-                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                        <h4 class="text-xs font-black text-white uppercase tracking-wider">Ripartizione Contributo GSE</h4>
+                <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-xl space-y-4 print-card">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                        <h4 class="text-xs font-black text-slate-900 uppercase tracking-wider">Ripartizione Contributo GSE</h4>
                         <span class="text-[10px] font-bold text-slate-500 uppercase">Valori IVA Esclusa</span>
                     </div>
 
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-xs">
                             <thead>
-                                <tr class="text-slate-400 border-b border-slate-800/80">
+                                <tr class="text-slate-400 border-b border-slate-200/80">
                                     <th class="pb-2 font-semibold">Intervento</th>
                                     <th class="pb-2 text-right font-semibold">Incentivo</th>
                                     <th class="pb-2 text-right font-semibold">Modalità</th>
@@ -560,26 +560,26 @@
                         </table>
                     </div>
 
-                    <div class="pt-4 border-t border-slate-800 space-y-2.5">
+                    <div class="pt-4 border-t border-slate-200 space-y-2.5">
                         <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Flussi Accreditati sul C/C Aziendale</span>
                         <div class="grid grid-cols-5 gap-1.5 text-center text-[10px]">
-                            <div class="bg-slate-950 p-2.5 rounded-xl border border-emerald-900/40">
+                            <div class="bg-[#f8fafc] p-2.5 rounded-xl border border-emerald-900/40">
                                 <span class="block text-slate-500 font-bold mb-0.5">Anno 1</span>
                                 <span id="flussoA1" class="font-black text-emerald-400 text-xs">€ 0</span>
                             </div>
-                            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                            <div class="bg-[#f8fafc] p-2.5 rounded-xl border border-slate-200">
                                 <span class="block text-slate-500 font-bold mb-0.5">Anno 2</span>
                                 <span id="flussoA2" class="font-bold text-slate-300">€ 0</span>
                             </div>
-                            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                            <div class="bg-[#f8fafc] p-2.5 rounded-xl border border-slate-200">
                                 <span class="block text-slate-500 font-bold mb-0.5">Anno 3</span>
                                 <span id="flussoA3" class="font-bold text-slate-300">€ 0</span>
                             </div>
-                            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                            <div class="bg-[#f8fafc] p-2.5 rounded-xl border border-slate-200">
                                 <span class="block text-slate-500 font-bold mb-0.5">Anno 4</span>
                                 <span id="flussoA4" class="font-bold text-slate-300">€ 0</span>
                             </div>
-                            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                            <div class="bg-[#f8fafc] p-2.5 rounded-xl border border-slate-200">
                                 <span class="block text-slate-500 font-bold mb-0.5">Anno 5</span>
                                 <span id="flussoA5" class="font-bold text-slate-300">€ 0</span>
                             </div>
@@ -587,11 +587,11 @@
                     </div>
                 </div>
 
-                <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 rounded-3xl p-6 text-center space-y-3 shadow-xl no-print">
+                <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-200 rounded-3xl p-6 text-center space-y-3 shadow-xl no-print">
                     <div class="w-10 h-10 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-2xl flex items-center justify-center mx-auto text-base">
                         <i class="fa-solid fa-stamp"></i>
                     </div>
-                    <h4 class="font-bold text-sm text-white">Hai un Cantiere da Asseverare?</h4>
+                    <h4 class="font-bold text-sm text-slate-900">Hai un Cantiere da Asseverare?</h4>
                     <p class="text-xs text-slate-400 leading-relaxed max-w-sm mx-auto">
                         In qualità di Esperti in Gestione dell'Energia (EGE) certificati, curiamo il rilievo ante-operam, la diagnosi energetica, i calcoli orari e l'asseverazione telematica su Portaltermico.
                     </p>
@@ -605,18 +605,18 @@
         </div>
 
         <!-- 4. VADEMECUM GSE -->
-        <section class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6 print-card print-break">
-            <div class="border-b border-slate-800 pb-4 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+        <section class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6 print-card print-break">
+            <div class="border-b border-slate-200 pb-4 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
                 <div>
                     <span class="text-[10px] font-black uppercase tracking-widest text-emerald-400 bg-emerald-950 border border-emerald-800/80 px-2.5 py-0.5 rounded-full">Protocollo Anti-Rigetto GSE</span>
-                    <h3 class="text-lg font-bold text-white mt-1.5">Vademecum Tecnico & Regole di Caricamento su Portaltermico</h3>
+                    <h3 class="text-lg font-bold text-slate-900 mt-1.5">Vademecum Tecnico & Regole di Caricamento su Portaltermico</h3>
                 </div>
                 <span class="text-xs text-slate-500">D.M. 7 Agosto 2025 • Titolo V Piccola Impresa</span>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs leading-relaxed">
-                <div class="bg-slate-950/70 p-5 rounded-2xl border border-slate-800 space-y-3">
-                    <div class="flex items-center gap-2 text-white font-bold text-sm">
+                <div class="bg-[#f8fafc]/70 p-5 rounded-2xl border border-slate-200 space-y-3">
+                    <div class="flex items-center gap-2 text-slate-900 font-bold text-sm">
                         <span class="w-6 h-6 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center text-xs">1</span>
                         <span>Fase Ante-Operam</span>
                     </div>
@@ -628,8 +628,8 @@
                     </ul>
                 </div>
 
-                <div class="bg-slate-950/70 p-5 rounded-2xl border border-slate-800 space-y-3">
-                    <div class="flex items-center gap-2 text-white font-bold text-sm">
+                <div class="bg-[#f8fafc]/70 p-5 rounded-2xl border border-slate-200 space-y-3">
+                    <div class="flex items-center gap-2 text-slate-900 font-bold text-sm">
                         <span class="w-6 h-6 rounded-lg bg-blue-500/10 border border-blue-500/30 text-blue-400 flex items-center justify-center text-xs">2</span>
                         <span>Fatture & Bonifici Parlanti</span>
                     </div>
@@ -641,8 +641,8 @@
                     </ul>
                 </div>
 
-                <div class="bg-slate-950/70 p-5 rounded-2xl border border-slate-800 space-y-3">
-                    <div class="flex items-center gap-2 text-white font-bold text-sm">
+                <div class="bg-[#f8fafc]/70 p-5 rounded-2xl border border-slate-200 space-y-3">
+                    <div class="flex items-center gap-2 text-slate-900 font-bold text-sm">
                         <span class="w-6 h-6 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center text-xs">3</span>
                         <span>Chiusura su Portaltermico</span>
                     </div>
@@ -659,7 +659,7 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-slate-900 border-t border-slate-800 text-slate-500 py-6 px-6 text-xs text-center no-print">
+    <footer class="bg-white border-t border-slate-200 text-slate-500 py-6 px-6 text-xs text-center no-print">
         <div class="max-w-7xl mx-auto space-y-2">
             <p>© 2026 Ingegniamo S.r.l. • Società di Ingegneria Termotecnica, Elettrica & Academy Professionale</p>
             <p class="text-[11px] text-slate-600">Simulatore sviluppato in conformità al D.M. 7 Agosto 2025. I risultati costituiscono una pre-diagnosi economica e non sostituiscono l'asseverazione dell'EGE abilitato.</p>
@@ -772,7 +772,7 @@
 
             badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold self-start sm:self-auto";
             badge.innerHTML = '<i class="fa-solid fa-circle-check"></i> <span>Requisiti Preliminari Soddisfatti</span>';
-            box.className = "bg-slate-950/50 border border-emerald-900/40 rounded-2xl p-4 flex items-start gap-3 text-xs leading-relaxed";
+            box.className = "bg-[#f8fafc]/50 border border-emerald-900/40 rounded-2xl p-4 flex items-start gap-3 text-xs leading-relaxed";
             msg.innerHTML = "La presenza dell'impianto di riscaldamento esistente consente l'intervento trainante di sostituzione con Pompa di Calore (III.A) o coibentazione dell'involucro. I lavori non ancora avviati consentono la piena prenotabilità dei fondi.";
         };
 
