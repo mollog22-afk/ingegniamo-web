@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingegniamo | Società di Ingegneria Termotecnica ed Elettrica MEP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+
+<body class="bg-[#f7f9fa] text-slate-900 antialiased">
+
+    <!-- TOP BAR -->
+    <div class="bg-white text-slate-600 text-xs py-2 px-4 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <p>Servizi tecnici di ingegneria per contractor, aziende e committenti privati</p>
+            <div class="flex items-center gap-6">
+                <span>Email: <strong class="text-slate-900">info@ingegniamo.com</strong></span>
+                <span>PEC: <strong class="text-slate-900">info@pec.ingegniamo.com</strong></span>
+                <a href="index.html" class="text-blue-600 font-semibold hover:underline">↔ Cambia Divisione</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center">
+                <img src="logo-ingegniamo.png" alt="Ingegniamo Ingegneria" class="h-14 w-auto object-contain">
+            </a>
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-800">
+                <a href="#servizi" class="hover:text-blue-600 transition">Servizi MEP</a>
+                <a href="#consulenza" class="hover:text-blue-600 transition">Consulenza</a>
+                <a href="formazione.html" class="text-slate-500 hover:text-slate-900 transition">Academy Formazione →</a>
+                <a href="#contatto" class="bg-black hover:bg-slate-800 text-white px-5 py-2.5 rounded-full font-medium transition">
+                    Contatta lo Studio
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION CON IMMAGINEINGEGNERIA.PNG GRANDE -->
+    <section class="relative bg-white border-b border-slate-200 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 py-12 lg:py-16">
+            
+            <div class="max-w-3xl mb-12">
+                <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 text-slate-800 font-semibold text-xs mb-4">
+                    🏢 Divisione Progettazione & Direzione Lavori
+                </span>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-950 leading-tight">
+                    Ingegneria Termotecnica ed Elettrica ad <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-800">Alta Efficienza.</span>
+                </h1>
+                <p class="text-base sm:text-lg text-slate-600 mt-4 leading-relaxed">
+                    Sviluppiamo progetti impiantistici complessi (HVAC, cabine MT/BT, fotovoltaico industriale, catasto termico e diagnosi energetiche) coniugando rigore normativo ed esperienza diretta di cantiere.
+                </p>
+                <div class="pt-6 flex flex-wrap gap-4">
+                    <a href="#contatto" class="px-8 py-3.5 rounded-full bg-black hover:bg-slate-800 text-white font-semibold text-sm transition shadow-sm">
+                        Richiedi Consulenza Tecnica
+                    </a>
+                    <a href="#servizi" class="px-8 py-3.5 rounded-full bg-white hover:bg-slate-100 text-slate-900 font-semibold text-sm transition border border-slate-300">
+                        Scopri le Aree di Attività
+                    </a>
+                </div>
+            </div>
+
+            <!-- IMMAGINE GRANDE NELL'HEADER: IMMAGINEINGEGNERIA.PNG -->
+            <div class="relative w-full h-80 sm:h-[450px] lg:h-[520px] rounded-3xl overflow-hidden shadow-lg border border-slate-200">
+                <img src="immagineingegneria.png" alt="Divisione Ingegneria e Progettazione Impianti" class="w-full h-full object-cover">
+                <div class="absolute bottom-6 left-6 bg-black/60 backdrop-blur-md text-white px-5 py-3 rounded-2xl text-xs sm:text-sm font-medium">
+                    Progettazione MEP, perizie e conformità energetica per impianti civili e industriali
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ELENCO SERVIZI TECNICI -->
+    <section id="servizi" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-xs font-bold tracking-widest text-blue-600 uppercase mb-2">Servizi Specialistici</h2>
+            <h3 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Competenze Tecniche Integrate</h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center font-bold text-xl mb-6">⚙️</div>
+                <h4 class="text-xl font-bold text-slate-900 mb-3">Termotecnica & HVAC</h4>
+                <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                    Progettazione di centrali a pompa di calore, sistemi ibridi, reti idroniche a portata variabile, ventilazione meccanica VMC e relazioni energetiche Legge 10.
+                </p>
+                <ul class="text-xs text-slate-500 space-y-1.5 border-t border-slate-100 pt-3">
+                    <li>• Dimensionamento carichi termici</li>
+                    <li>• Schemi idraulici di principio e dettaglio</li>
+                </ul>
+            </div>
+
+            <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                <div class="w-12 h-12 bg-slate-100 text-slate-900 rounded-2xl flex items-center justify-center font-bold text-xl mb-6">⚡</div>
+                <h4 class="text-xl font-bold text-slate-900 mb-3">Ingegneria Elettrica BT / MT</h4>
+                <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                    Quadri di distribuzione generale e secondaria, cabine di trasformazione MT/BT, cablaggi industriali, impianti fotovoltaici e accumuli BESS.
+                </p>
+                <ul class="text-xs text-slate-500 space-y-1.5 border-t border-slate-100 pt-3">
+                    <li>• Calcolo delle correnti di corto circuito</li>
+                    <li>• Progetti esecutivi e as-built</li>
+                </ul>
+            </div>
+
+            <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center font-bold text-xl mb-6">📋</div>
+                <h4 class="text-xl font-bold text-slate-900 mb-3">Diagnosi & Collaudi</h4>
+                <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                    Audit energetici ISO 50001, pratiche GSE, Conto Termico, asseverazioni fiscali, collaudi strumentali e perizie tecniche in cantiere.
+                </p>
+                <ul class="text-xs text-slate-500 space-y-1.5 border-t border-slate-100 pt-3">
+                    <li>• Misure strumentali e verifiche di portata</li>
+                    <li>• Certificazioni e conformità antincendio</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- BOX CONSULENZA / CONTATTO CHIARO -->
+    <section id="contatto" class="py-20 bg-white border-t border-slate-200">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h3 class="text-3xl font-extrabold text-slate-900 mb-4">Hai un progetto o un cantiere da analizzare?</h3>
+            <p class="text-slate-600 text-sm sm:text-base mb-8 max-w-xl mx-auto">
+                Offriamo consulenze tecniche preliminari, supporto a computi metrici e progettazione su misura per aziende e committenti privati.
+            </p>
+            <div class="inline-flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="mailto:info@ingegniamo.com" class="px-8 py-3.5 bg-black hover:bg-slate-800 text-white font-semibold rounded-full transition shadow-sm">
+                    Invia una richiesta a info@ingegniamo.com
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-white text-slate-600 py-12 border-t border-slate-200 text-xs">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+                <p class="font-bold text-slate-900">Ingegniamo S.r.l. - Divisione Ingegneria</p>
+                <p>P.IVA: 04033650781 | C.F.: 04033650781</p>
+                <p>PEC: <a href="mailto:info@pec.ingegniamo.com" class="text-blue-600">info@pec.ingegniamo.com</a> | Email: info@ingegniamo.com</p>
+            </div>
+            <a href="formazione.html" class="px-5 py-2.5 rounded-full border border-slate-300 hover:bg-slate-100 text-slate-800 font-semibold">
+                Passa all'Academy Formazione →
+            </a>
+        </div>
+    </footer>
+
+</body>
+</html>
