@@ -1126,7 +1126,7 @@
                     quotaAnnualeCostante += incCol / 5;
                 }
 
-                tableHtml += `
+            tableHtml += `
                     <tr class="hover:bg-slate-100">
                         <td class="py-2.5 font-medium flex items-center gap-1.5">
                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> II.G - Colonnine EV (${qtaCol} un.)
@@ -1135,7 +1135,6 @@
                         <td class="py-2.5 text-right text-slate-500">${incCol <= 15000 ? 'Rata Unica' : '5 Anni'}</td>
                     </tr>
                 `;
-            }
 
                 // Alert normativo se la Pompa di Calore non è selezionata
                 if (!activeInterventi.pdc || incPdC <= 0) {
