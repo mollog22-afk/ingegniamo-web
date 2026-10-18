@@ -1494,52 +1494,80 @@
                 }
             });
 
+      
+          const inputCerca = document.getElementById("cerca-comune");
             const selComune = document.getElementById("calc-comune");
             const badgeZona = document.getElementById("badgeZonaRilevata");
             const selCat = document.getElementById("calc-categoria");
             const selMod = document.getElementById("calc-modello");
 
-        // Popolamento Comuni con Datalist per ricerca testuale fluida
-            const datalistComuni = document.getElementById("lista-comuni");
-            if (Array.isArray(COMUNI_DB) && COMUNI_DB.length > 0 && datalistComuni) {
+            // Motore di ricerca rapido per gli 8.000 Comuni Italiani
+            if (Array.isArray(COMUNI_DB) && COMUNI_DB.length > 0 && selComune) {
+                // Ordine alfabetico preliminare
                 COMUNI_DB.sort((a, b) => (a.n || a.label || "").localeCompare(b.n || b.label || "", 'it', { sensitivity: 'base' }));
 
-                datalistComuni.innerHTML = '';
-                const mapComuni = new Map();
+                const renderizzaOpzioni = (filtro = "") => {
+                    selComune.innerHTML = "";
+                    const query = filtro.trim().toLowerCase();
+                    let conteggio = 0;
 
-                COMUNI_DB.forEach(c => {
-                    const nome = c.n || c.label;
-                    const zona = c.z || c.zone;
-                    const labelCompleta = `${nome} (Zona ${zona})`;
-                    mapComuni.set(labelCompleta.toLowerCase(), c);
-                    mapComuni.set(nome.toLowerCase(), c);
+                    for (let i = 0; i < COMUNI_DB.length; i++) {
+                        const c = COMUNI_DB[i];
+                        const nome = c.n || c.label || "";
+                        if (!query || nome.toLowerCase().includes(query)) {
+                            const opt = document.createElement("option");
+                            opt.value = i;
+                            opt.textContent = `${nome} (Zona ${c.z || c.zone})`;
+                            selComune.appendChild(opt);
+                            conteggio++;
+                            if (conteggio >= 100) break; // Limite a 100 risultati per massima fluidità
+                        }
+                    }
 
-                    const opt = document.createElement("option");
-                    opt.value = labelCompleta;
-                    datalistComuni.appendChild(opt);
-                });
+                    if (conteggio === 0) {
+                        const opt = document.createElement("option");
+                        opt.disabled = true;
+                        opt.textContent = "Nessun comune trovato...";
+                        selComune.appendChild(opt);
+                    }
+                };
 
-                const selezionaComune = (valore) => {
-                    if (!valore) return;
-                    const trovato = mapComuni.get(valore.trim().toLowerCase());
-                    if (trovato) {
-                        COMUNE_SCELTO = trovato;
+                const applicaComune = (idx) => {
+                    if (idx !== "" && COMUNI_DB[idx]) {
+                        COMUNE_SCELTO = COMUNI_DB[idx];
+                        const nome = COMUNE_SCELTO.n || COMUNE_SCELTO.label;
                         const zona = COMUNE_SCELTO.z || COMUNE_SCELTO.zone;
                         document.getElementById('zonaClimatica').value = zona;
                         const ore = (DATI_MODELLI && DATI_MODELLI.quf && DATI_MODELLI.quf[zona]) 
                                     ? DATI_MODELLI.quf[zona] 
                                     : (ORE_ZONA[zona] || 1100);
                         badgeZona.innerText = `Zona ${zona} (${ore.toLocaleString('it-IT')} h)`;
+                        if (inputCerca) inputCerca.value = nome;
                         recalculate();
                     }
                 };
 
-                selComune.addEventListener("input", () => selezionaComune(selComune.value));
-                selComune.addEventListener("change", () => selezionaComune(selComune.value));
+                // Filtro istantaneo mentre si digita qualsiasi lettera
+                inputCerca.addEventListener("input", () => {
+                    renderizzaOpzioni(inputCerca.value);
+                    if (selComune.options.length > 0 && !selComune.options[0].disabled) {
+                        selComune.selectedIndex = 0;
+                        applicaComune(selComune.value);
+                    }
+                });
 
-                // Pre-impostazione iniziale su Cosenza
-                selComune.value = "Cosenza (Zona C)";
-                selezionaComune(selComune.value);
+                // Selezione diretta dall'elenco filtrato
+                selComune.addEventListener("change", () => {
+                    applicaComune(selComune.value);
+                });
+
+                // Inizializzazione predefinita su Cosenza
+                renderizzaOpzioni("Cosenza");
+                const cosenzaIdx = COMUNI_DB.findIndex(c => (c.n || "").toLowerCase() === "cosenza");
+                if (cosenzaIdx !== -1) {
+                    selComune.value = cosenzaIdx;
+                    applicaComune(cosenzaIdx);
+                }
             }
 
             // Popolamento Categorie Modelli
