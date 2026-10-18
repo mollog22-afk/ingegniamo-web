@@ -854,47 +854,34 @@
 
         const ORE_ZONA = { 'A': 600, 'B': 850, 'C': 1100, 'D': 1400, 'E': 1700, 'F': 1800 };
 
-   window.toggleIntervento = function(key) {
-            // Lista di tutti gli interventi del Titolo II incompatibili con II.D nZEB
-            const interventiTitoloII = ['cappotto', 'infissi', 'schermature', 'led', 'bacs', 'colonnine', 'ftv'];
+ window.toggleIntervento = function(key) {
+            // Tutti gli altri interventi del catalogo incompatibili con la trasformazione globale nZEB
+            const altriInterventi = ['cappotto', 'infissi', 'pdc', 'ftv', 'led', 'bacs', 'solare', 'schermature', 'colonnine', 'scaldacqua'];
 
-            // Se l'utente clicca su nZEB e lo sta per attivare
+            // Se si clicca su nZEB e lo si sta attivando
             if (key === 'nzeb' && !activeInterventi.nzeb) {
-                // Disattiva e nasconde visivamente tutti gli altri interventi del Titolo II
-                interventiTitoloII.forEach(k => {
+                // Spegne forzatamente tutti gli altri interventi
+                altriInterventi.forEach(k => {
                     activeInterventi[k] = false;
-                    const c = document.getElementById('card_' + k);
-                    if (c) {
+                });
+            }
+
+            // Inverte lo stato della chiave cliccata
+            activeInterventi[key] = !activeInterventi[key];
+
+            // Aggiorna lo stato visivo (bordo/colore) di tutte le schede
+            Object.keys(activeInterventi).forEach(k => {
+                const c = document.getElementById('card_' + k);
+                if (c) {
+                    if (activeInterventi[k]) {
+                        c.classList.add('tile-active');
+                        c.classList.remove('tile-inactive');
+                    } else {
                         c.classList.remove('tile-active');
                         c.classList.add('tile-inactive');
-                        c.style.display = 'none'; // Fa sparire la card
                     }
-                });
-            }
-
-            // Se l'utente disattiva nZEB (cliccandoci di nuovo sopra)
-            if (key === 'nzeb' && activeInterventi.nzeb) {
-                // Fa ricomparire tutte le card del Titolo II
-                interventiTitoloII.forEach(k => {
-                    const c = document.getElementById('card_' + k);
-                    if (c) {
-                        c.style.display = ''; // Ripristina la visibilità
-                    }
-                });
-            }
-
-            // Cambia lo stato dell'intervento selezionato
-            activeInterventi[key] = !activeInterventi[key];
-            const card = document.getElementById('card_' + key);
-            if (card) {
-                if (activeInterventi[key]) {
-                    card.classList.add('tile-active');
-                    card.classList.remove('tile-inactive');
-                } else {
-                    card.classList.remove('tile-active');
-                    card.classList.add('tile-inactive');
                 }
-            }
+            });
 
             updateRowsVisibility();
             recalculate();
@@ -906,21 +893,35 @@
                 if (el) el.style.display = visible ? 'block' : 'none';
             };
 
-            setDisplay('row_cappotto', activeInterventi.cappotto);
-            setDisplay('row_infissi', activeInterventi.infissi);
-            setDisplay('row_pdc', activeInterventi.pdc);
-            setDisplay('row_ftv', activeInterventi.ftv);
-            setDisplay('row_solare', activeInterventi.solare);
-            setDisplay('row_schermature', activeInterventi.schermature);
-            setDisplay('row_colonnine', activeInterventi.colonnine);
-            setDisplay('row_nzeb', activeInterventi.nzeb);
-            setDisplay('row_scaldacqua', activeInterventi.scaldacqua);
+            const altriInterventi = ['cappotto', 'infissi', 'pdc', 'ftv', 'led', 'bacs', 'solare', 'schermature', 'colonnine', 'scaldacqua'];
+            const nzebAttivo = activeInterventi.nzeb;
 
-            const showLed = activeInterventi.led;
-            const showBacs = activeInterventi.bacs;
+            // Se nZEB è attivo, fa sparire tutte le altre card dallo Step 2
+            altriInterventi.forEach(k => {
+                const c = document.getElementById('card_' + k);
+                if (c) {
+                    c.style.display = nzebAttivo ? 'none' : '';
+                }
+            });
+
+            // Se nZEB è attivo, nasconde TUTTI i campi degli altri interventi nello Step 3
+            setDisplay('row_cappotto', !nzebAttivo && activeInterventi.cappotto);
+            setDisplay('row_infissi', !nzebAttivo && activeInterventi.infissi);
+            setDisplay('row_pdc', !nzebAttivo && activeInterventi.pdc);
+            setDisplay('row_ftv', !nzebAttivo && activeInterventi.ftv);
+            setDisplay('row_solare', !nzebAttivo && activeInterventi.solare);
+            setDisplay('row_schermature', !nzebAttivo && activeInterventi.schermature);
+            setDisplay('row_colonnine', !nzebAttivo && activeInterventi.colonnine);
+            setDisplay('row_scaldacqua', !nzebAttivo && activeInterventi.scaldacqua);
+
+            const showLed = !nzebAttivo && activeInterventi.led;
+            const showBacs = !nzebAttivo && activeInterventi.bacs;
             setDisplay('row_led_bacs', showLed || showBacs);
             setDisplay('sub_led', showLed);
             setDisplay('sub_bacs', showBacs);
+
+            // Mostra esclusivamente la scheda nZEB
+            setDisplay('row_nzeb', nzebAttivo);
         }
 
         window.checkElegibilita = function() {
