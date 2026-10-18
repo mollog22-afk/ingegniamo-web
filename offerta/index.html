@@ -1,320 +1,779 @@
-<!DOCTYPE html>
+html_code = """<!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modulo di Offerta Economica e Disciplinare d'Incarico - INGEGNIAMO S.r.l.</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
-        }
-        @media print {
-            .no-print {
-                display: none !important;
-            }
-            body {
-                background-color: #ffffff;
-            }
-            .print-shadow {
-                box-shadow: none !important;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  
+  <title>Modulo di Offerta Economica - INGEGNIAMO S.r.l.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <style>
+    :root {
+      --navy: #0f172a;
+      --navy-light: #1e293b;
+      --accent: #2563eb;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --border-dark: #cbd5e1;
+      --bg: #f8fafc;
+      --paper: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      background-color: #cbd5e1;
+      color: var(--text);
+      margin: 0;
+      padding: 24px;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 13px;
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .main-grid {
+      max-width: 1520px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 480px 1fr;
+      gap: 30px;
+      align-items: start;
+    }
+
+    /* PANNELLO DI CONTROLLO */
+    .control-panel {
+      background: var(--paper);
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid var(--border-dark);
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 20px;
+      max-height: 94vh;
+      overflow-y: auto;
+    }
+    .panel-header {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--navy);
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 10px;
+      margin-top: 0;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .form-group { margin-bottom: 11px; }
+    .form-group label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 7px 10px;
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-family: inherit;
+      background: #fdfdfd;
+      color: var(--navy);
+    }
+    .form-group textarea { resize: vertical; min-height: 60px; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+      outline: none;
+      background: #fff;
+    }
+
+    .box-block {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .box-block-title {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed var(--border-dark);
+      padding-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .item-row-ctrl {
+      display: grid;
+      grid-template-columns: 1fr 100px 32px;
+      gap: 6px;
+      margin-bottom: 6px;
+      align-items: center;
+    }
+    .btn-icon {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #f87171;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-icon:hover { background: #fecaca; }
+    .btn-add {
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 6px;
+    }
+    .btn-add:hover { background: #bae6fd; }
+
+    .action-buttons { display: flex; flex-direction: column; gap: 9px; margin-top: 14px; }
+    .btn-action {
+      width: 100%;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: inherit;
+    }
+    .btn-print-browser { background: #059669; }
+    .btn-print-browser:hover { background: #047857; }
+    .btn-pdf-direct { background: var(--navy); }
+    .btn-pdf-direct:hover { background: #000; }
+
+    /* FOGLIO A4 DOCUMENTO */
+    .sheet-wrapper { background: transparent; }
+    .sheet {
+      background: var(--paper);
+      padding: 44px 50px;
+      border-radius: 6px;
+      box-shadow: 0 15px 35px -5px rgba(15,23,42,0.12);
+      color: var(--text);
+      width: 100%;
+      max-width: 950px;
+      margin: 0 auto;
+    }
+
+    .brand-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1.5px solid var(--navy);
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+    }
+    .brand-logo-wrap { display: flex; flex-direction: column; }
+    .brand-contacts {
+      text-align: right;
+      font-size: 0.74rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .brand-contacts strong { color: var(--navy); font-weight: 700; }
+
+    .doc-banner {
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+    .doc-banner h2 {
+      margin: 0 0 4px 0;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+    .doc-banner p {
+      margin: 0;
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+      font-size: 0.78rem;
+    }
+    .card-meta {
+      background: #fafafa;
+      padding: 10px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      line-height: 1.5;
+    }
+    .card-meta strong { color: var(--navy); }
+    .obj-banner {
+      font-size: 0.8rem;
+      margin-bottom: 16px;
+      padding: 9px 14px;
+      background: var(--bg);
+      border-left: 3px solid var(--navy);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+    }
+
+    .sec-heading {
+      font-size: 0.79rem;
+      font-weight: 800;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 20px 0 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sec-heading::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border-dark);
+    }
+
+    table.calc-grid {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-bottom: 14px;
+      font-size: 0.76rem;
+    }
+    table.calc-grid th {
+      background: #f8fafc;
+      color: #334155;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      letter-spacing: 0.4px;
+      padding: 8px 10px;
+      border-top: 1px solid var(--navy);
+      border-bottom: 1.5px solid var(--navy);
+      text-align: left;
+    }
+    table.calc-grid td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      color: #1e293b;
+    }
+    table.calc-grid tbody tr:last-child td { border-bottom: 1.5px solid var(--navy); }
+    table.calc-grid td.num, table.calc-grid th.num {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .ledger-wrap {
+      width: 500px;
+      margin-left: auto;
+      margin-top: 14px;
+      margin-bottom: 18px;
+      background: #ffffff;
+      border: 1.5px solid var(--navy);
+      border-radius: 8px;
+      padding: 16px 20px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);
+    }
+    .ledger-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      margin-bottom: 4px;
+      color: #334155;
+    }
+    .ledger-row span:last-child {
+      font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums;
+    }
+    .ledger-row.bold {
+      font-weight: 700;
+      color: var(--navy);
+      border-top: 1px dashed var(--border-dark);
+      padding-top: 5px;
+      margin-top: 5px;
+    }
+    .ledger-row.final-due {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--navy);
+      background: #f8fafc;
+      border-top: 2px solid var(--navy);
+      margin: 10px -20px -16px -20px;
+      padding: 14px 20px;
+      border-radius: 0 0 8px 8px;
+    }
+    .ledger-row.final-due span:last-child {
+      color: #047857;
+      font-size: 1.15rem;
+    }
+
+    .exclusions-box {
+      margin-top: 20px;
+      background: #fffbeb;
+      border: 1.5px solid #fde68a;
+      border-radius: 8px;
+      padding: 16px 18px;
+      font-size: 0.74rem;
+      color: #78350f;
+      line-height: 1.5;
+    }
+    .exclusions-box h4 {
+      margin: 0 0 6px 0;
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #92400e;
+      letter-spacing: 0.4px;
+    }
+    .exclusions-box p {
+      margin: 0;
+      white-space: pre-line;
+    }
+
+    .signatures {
+      margin-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.76rem;
+    }
+    .sig-field {
+      width: 260px;
+      text-align: center;
+      border-top: 1px solid var(--border-dark);
+      padding-top: 8px;
+      color: var(--muted);
+    }
+    .sig-field strong { color: var(--navy); }
+
+    .page-break-forced {
+      page-break-before: always !important;
+      break-before: page !important;
+      margin-top: 36px;
+      padding-top: 10px;
+    }
+
+    tr { page-break-inside: avoid !important; break-inside: avoid !important; }
+    .avoid-break { page-break-inside: avoid !important; break-inside: avoid !important; }
+
+    @media print {
+      @page { size: A4; margin: 12mm; }
+      body { background: white !important; padding: 0 !important; font-size: 12px !important; }
+      .control-panel { display: none !important; }
+      .main-grid { display: block !important; }
+      .sheet { border: none !important; box-shadow: none !important; padding: 0 !important; width: 100% !important; max-width: 100% !important; }
+    }
+  </style>
 </head>
-<body class="py-8 px-4 sm:px-6 lg:px-8">
+<body>
 
-    <!-- BARRA AZIONI SUPERIORE (Non stampabile) -->
-    <div class="max-w-4xl mx-auto mb-6 flex flex-wrap items-center justify-between gap-4 bg-white p-4 rounded-xl shadow-sm border border-slate-200 no-print">
-        <div>
-            <h1 class="text-lg font-bold text-slate-800">Generatore Offerta Economica</h1>
-            <p class="text-sm text-slate-500">Modifica i campi direttamente nel modulo e premi Stampa o Salva PDF.</p>
-        </div>
-        <div class="flex items-center gap-3">
-            <button onclick="aggiungiRiga('progettazione-tbody')" class="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg text-sm font-semibold hover:bg-blue-100 transition-colors">
-                + Voce Progettazione
-            </button>
-            <button onclick="aggiungiRiga('dl-tbody')" class="px-4 py-2 bg-emerald-50 text-emerald-600 rounded-lg text-sm font-semibold hover:bg-emerald-100 transition-colors">
-                + Voce DL & Sicurezza
-            </button>
-            <button onclick="window.print()" class="px-5 py-2 bg-slate-900 text-white rounded-lg text-sm font-semibold hover:bg-slate-800 transition-colors shadow-md">
-                Stampa / PDF
-            </button>
-        </div>
+<div class="main-grid">
+
+  <!-- ==================== PANNELLO DI CONTROLLO (MODIFICABILE LIBERAMENTE) ==================== -->
+  <div class="control-panel">
+    <div class="panel-header">Configuratore Offerta Libera</div>
+
+    <div class="form-group">
+      <label>Numero Offerta / Protocollo</label>
+      <input type="text" id="inOfferNumber" value="OFF-26-001_Committente" oninput="recalcAll()">
     </div>
 
-    <!-- DOCUMENTO PRINCIPALE -->
-    <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden print-shadow">
-        
-        <!-- INTESTAZIONE AZIENDALE -->
-        <div class="p-8 border-b border-slate-200 bg-slate-50/50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <div>
-                <h2 class="text-2xl font-black text-slate-900 tracking-tight">INGEGNIAMO S.r.l.</h2>
-                <p class="text-xs font-medium text-slate-600">Società di Ingegneria e Servizi Tecnici Integrati</p>
-                <p class="text-xs text-slate-500 mt-1">PEC: ingegniamosrl@pec.it • info@ingegniamosrl.it</p>
-            </div>
-            <div class="text-right sm:text-right">
-                <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-full uppercase tracking-wider mb-1">Modello Ufficiale</span>
-                <p class="text-xs text-slate-500">D.M. 17 giugno 2016 e art. 9 L. 27/2012</p>
-            </div>
-        </div>
-
-        <!-- TITOLO MODULO -->
-        <div class="px-8 pt-8 pb-4">
-            <h1 class="text-xl font-bold text-slate-900">MODULO DI OFFERTA ECONOMICA E DISCIPLINARE DI INCARICO</h1>
-            <p class="text-sm text-slate-500 mt-1">Determinazione dei corrispettivi ai sensi delle normative vigenti</p>
-        </div>
-
-        <!-- DATI COMMITTENTE E OFFERTA -->
-        <div class="px-8 grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
-            <!-- Box Committente -->
-            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
-                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Spett.le Committente</h3>
-                <div class="space-y-1">
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs font-semibold text-slate-600 w-24">Cliente:</span>
-                        <input type="text" value="Impresa / Committente S.r.l." class="w-full bg-transparent border-b border-dashed border-slate-300 text-sm font-medium text-slate-800 focus:outline-none focus:border-blue-500">
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs font-semibold text-slate-600 w-24">P.IVA / C.F.:</span>
-                        <input type="text" value="01234567890" class="w-full bg-transparent border-b border-dashed border-slate-300 text-sm font-medium text-slate-800 focus:outline-none focus:border-blue-500">
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs font-semibold text-slate-600 w-24">Ubicazione:</span>
-                        <input type="text" value="Immobile a destinazione ricettiva / terziaria" class="w-full bg-transparent border-b border-dashed border-slate-300 text-sm font-medium text-slate-800 focus:outline-none focus:border-blue-500">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Box Dati Offerta -->
-            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
-                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Riferimenti Offerta</h3>
-                <div class="space-y-1">
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs font-semibold text-slate-600 w-28">N. Offerta:</span>
-                        <input type="text" value="OFF-26-001_Committente" class="w-full bg-transparent border-b border-dashed border-slate-300 text-sm font-medium text-slate-800 focus:outline-none focus:border-blue-500">
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs font-semibold text-slate-600 w-28">Data Emissione:</span>
-                        <input type="date" value="2026-10-18" class="w-full bg-transparent border-b border-dashed border-slate-300 text-sm font-medium text-slate-800 focus:outline-none focus:border-blue-500">
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs font-semibold text-slate-600 w-28">Validità:</span>
-                        <input type="text" value="30 giorni data emissione" class="w-full bg-transparent border-b border-dashed border-slate-300 text-sm font-medium text-slate-800 focus:outline-none focus:border-blue-500">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- OGGETTO DELL'INCARICO -->
-        <div class="px-8 my-4">
-            <div class="p-4 border-l-4 border-blue-600 bg-blue-50/40 rounded-r-xl">
-                <span class="text-xs font-bold uppercase tracking-wider text-blue-700 block mb-1">Oggetto dell'Incarico</span>
-                <input type="text" value="Progettazione Impianti Meccanici ed Elettrici, Contabilità Lavori, Sicurezza PSC e Assistenza Specialistica" class="w-full bg-transparent text-sm font-semibold text-slate-900 focus:outline-none">
-            </div>
-        </div>
-
-        <!-- SEZIONE 1: PROGETTAZIONE -->
-        <div class="px-8 mt-8">
-            <div class="flex items-center justify-between mb-3">
-                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider">1. Attività di Progettazione e Servizi Tecnici</h3>
-                <span class="text-xs text-slate-500">Importi in €</span>
-            </div>
-            <div class="overflow-x-auto border border-slate-200 rounded-xl">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-slate-100 text-slate-700 text-xs uppercase font-semibold">
-                            <th class="p-3">Descrizione delle prestazioni</th>
-                            <th class="p-3 w-40 text-right">Importo (€)</th>
-                            <th class="p-3 w-12 text-center no-print">Azioni</th>
-                        </tr>
-                    </thead>
-                    <tbody id="progettazione-tbody" class="divide-y divide-slate-200 text-sm">
-                        <tr>
-                            <td class="p-3">
-                                <input type="text" value="Progettazione Definitiva Impianti Meccanici (HVAC)" class="w-full bg-transparent focus:outline-none text-slate-800">
-                            </td>
-                            <td class="p-3 text-right">
-                                <input type="number" value="3500.00" oninput="ricalcolaTotali()" class="importo-progg w-full bg-slate-50 p-1 rounded border border-slate-200 text-right font-medium focus:outline-none focus:border-blue-500">
-                            </td>
-                            <td class="p-3 text-center no-print">
-                                <button onclick="rimuoviRiga(this)" class="text-red-500 hover:text-red-700 font-bold text-xs">✕</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3">
-                                <input type="text" value="Progettazione Esecutiva Impianti Elettrici e Speciali" class="w-full bg-transparent focus:outline-none text-slate-800">
-                            </td>
-                            <td class="p-3 text-right">
-                                <input type="number" value="4200.00" oninput="ricalcolaTotali()" class="importo-progg w-full bg-slate-50 p-1 rounded border border-slate-200 text-right font-medium focus:outline-none focus:border-blue-500">
-                            </td>
-                            <td class="p-3 text-center no-print">
-                                <button onclick="rimuoviRiga(this)" class="text-red-500 hover:text-red-700 font-bold text-xs">✕</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- SEZIONE 2: DIREZIONE LAVORI E SICUREZZA -->
-        <div class="px-8 mt-6">
-            <div class="flex items-center justify-between mb-3">
-                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider">2. Direzione Lavori, Contabilità e Sicurezza (PSC)</h3>
-                <span class="text-xs text-slate-500">Importi in €</span>
-            </div>
-            <div class="overflow-x-auto border border-slate-200 rounded-xl">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-slate-100 text-slate-700 text-xs uppercase font-semibold">
-                            <th class="p-3">Descrizione delle prestazioni</th>
-                            <th class="p-3 w-40 text-right">Importo (€)</th>
-                            <th class="p-3 w-12 text-center no-print">Azioni</th>
-                        </tr>
-                    </thead>
-                    <tbody id="dl-tbody" class="divide-y divide-slate-200 text-sm">
-                        <tr>
-                            <td class="p-3">
-                                <input type="text" value="Direzione Lavori e Contabilità Impianti" class="w-full bg-transparent focus:outline-none text-slate-800">
-                            </td>
-                            <td class="p-3 text-right">
-                                <input type="number" value="3000.00" oninput="ricalcolaTotali()" class="importo-dl w-full bg-slate-50 p-1 rounded border border-slate-200 text-right font-medium focus:outline-none focus:border-blue-500">
-                            </td>
-                            <td class="p-3 text-center no-print">
-                                <button onclick="rimuoviRiga(this)" class="text-red-500 hover:text-red-700 font-bold text-xs">✕</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-3">
-                                <input type="text" value="Coordinamento della Sicurezza in fase di Esecuzione (CSE)" class="w-full bg-transparent focus:outline-none text-slate-800">
-                            </td>
-                            <td class="p-3 text-right">
-                                <input type="number" value="1800.00" oninput="ricalcolaTotali()" class="importo-dl w-full bg-slate-50 p-1 rounded border border-slate-200 text-right font-medium focus:outline-none focus:border-blue-500">
-                            </td>
-                            <td class="p-3 text-center no-print">
-                                <button onclick="rimuoviRiga(this)" class="text-red-500 hover:text-red-700 font-bold text-xs">✕</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- RIEPILOGO ECONOMICO DINAMICO -->
-        <div class="px-8 mt-8">
-            <div class="bg-slate-900 text-white p-6 rounded-2xl shadow-md space-y-3">
-                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Riepilogo Economico dell'Offerta</h3>
-                
-                <div class="flex justify-between items-center text-sm">
-                    <span class="text-slate-300">Totale Compensi Progettazione & Servizi:</span>
-                    <span id="tot-compensi" class="font-semibold">€ 0,00</span>
-                </div>
-                <div class="flex justify-between items-center text-sm">
-                    <span class="text-slate-300">Contributo Cassa Previdenziale (CNPAIA 4%):</span>
-                    <span id="tot-cassa" class="font-semibold">€ 0,00</span>
-                </div>
-                <div class="pt-2 border-t border-slate-800 flex justify-between items-center text-base">
-                    <span class="font-bold text-white">Importo Imponibile:</span>
-                    <span id="tot-imponibile" class="font-bold text-white">€ 0,00</span>
-                </div>
-                <div class="flex justify-between items-center text-sm">
-                    <span class="text-slate-300">IVA (22%):</span>
-                    <span id="tot-iva" class="font-semibold">€ 0,00</span>
-                </div>
-                <div class="pt-3 border-t border-slate-700 flex justify-between items-center text-lg">
-                    <span class="font-black text-blue-400">Totale Complessivo Offerta:</span>
-                    <span id="tot-complessivo" class="font-black text-blue-400 text-xl">€ 0,00</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- SEZIONE ESCLUSIONI -->
-        <div class="px-8 my-8">
-            <div class="p-5 bg-amber-50/50 rounded-xl border border-amber-200">
-                <h3 class="text-xs font-bold uppercase tracking-wider text-amber-800 mb-2">3. Esclusioni e Note Generali</h3>
-                <div contenteditable="true" class="text-xs text-slate-700 space-y-2 outline-none leading-relaxed">
-                    <p>Restano espressamente esclusi dal presente corrispettivo e quantificati a parte:</p>
-                    <ul class="list-disc list-inside space-y-1 pl-2">
-                        <li>Diritti di segreteria, bolli, oneri concessori, diritti di copia e pareri di enti terzi (VVF, Genio Civile, ASL, ecc.).</li>
-                        <li>Indagini geologiche, geotecniche, saggi diagnostici e relazioni specialistiche non espressamente menzionate.</li>
-                        <li>Tutto ciò che non è strettamente specificato nell'oggetto dell'incarico.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- FIRMA E CHIUSURA -->
-        <div class="px-8 pb-12 pt-4 flex flex-col sm:flex-row justify-between items-end gap-6 text-xs text-slate-500 border-t border-slate-100">
-            <div>
-                <p class="font-semibold text-slate-800">INGEGNIAMO S.r.l.</p>
-                <p>Il Legale Rappresentante / Tecnico Incaricato</p>
-            </div>
-            <div class="text-center sm:text-right">
-                <div class="w-48 border-b border-slate-400 mb-2 h-12"></div>
-                <p>Firma per accettazione del Committente</p>
-            </div>
-        </div>
-
+    <div class="form-group">
+      <label>Spett.le Committente</label>
+      <input type="text" id="inClient" value="Impresa / Committente S.r.l." oninput="recalcAll()">
+      <input type="text" id="inClientFiscal" value="P.IVA / C.F. 01234567890" style="margin-top:3px;" oninput="recalcAll()">
+    </div>
+    <div class="form-group">
+      <label>Ubicazione Opera</label>
+      <input type="text" id="inLocation" value="Immobile a destinazione ricettiva / terziaria" oninput="recalcAll()">
+    </div>
+    <div class="form-group">
+      <label>Oggetto dell'Incarico</label>
+      <textarea id="inSubject" oninput="recalcAll()">Progettazione Impianti Meccanici ed Elettrici, Contabilità Lavori, Sicurezza PSC e Assistenza Specialistica</textarea>
     </div>
 
-    <!-- SCRIPT DI CALCOLO E DINAMICA -->
-    <script>
-        function ricalcolaTotali() {
-            let totalProgg = 0;
-            document.querySelectorAll('.importo-progg').forEach(input => {
-                totalProgg += parseFloat(input.value) || 0;
-            });
+    <!-- PARTE CENTRALE: PROGETTAZIONE (LIBERA) -->
+    <div class="box-block">
+      <div class="box-block-title">
+        <span>Attività di Progettazione (Inclusi)</span>
+      </div>
+      <div id="projItemsContainer">
+        <!-- Inserite dinamicamente via JS -->
+      </div>
+      <button class="btn-add" onclick="addProjItem()">+ Aggiungi Voce Progettazione</button>
+    </div>
 
-            let totalDl = 0;
-            document.querySelectorAll('.importo-dl').forEach(input => {
-                totalDl += parseFloat(input.value) || 0;
-            });
+    <!-- PARTE DL & SICUREZZA -->
+    <div class="box-block">
+      <div class="box-block-title">
+        <span>Direzione Lavori & Sicurezza (DL)</span>
+      </div>
+      <div id="dlItemsContainer">
+        <!-- Inserite dinamicamente via JS -->
+      </div>
+      <button class="btn-add" onclick="addDlItem()">+ Aggiungi Voce DL / Sicurezza</button>
+    </div>
 
-            const compensiTotali = totalProgg + totalDl;
-            const cassa = compensiTotali * 0.04;
-            const imponibile = compensiTotali + cassa;
-            const iva = imponibile * 0.22;
-            const complessivo = imponibile + iva;
+    <!-- ESCLUSIONI GENERALI -->
+    <div class="box-block">
+      <div class="box-block-title">
+        <span>Esclusioni Generali</span>
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <textarea id="inExclusions" rows="5" oninput="recalcAll()">• Tutto ciò non strettamente specificato nella presente offerta e negli elaborati inclusi.
+• Diritti di segreteria, bolli, oneri concessori, diritti di istruttoria e tariffe per pareri/nulla osta di enti terzi (VVF, Comune, ASL, ARPA, ecc.).
+• Relazioni geologiche, geotecniche, acustiche o collaudi statici specialistici.
+• Variazioni e varianti in corso d'opera non imputabili ad errori di progettazione.</textarea>
+      </div>
+    </div>
 
-            document.getElementById('tot-compensi').innerText = '€ ' + compensiTotali.toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            document.getElementById('tot-cassa').innerText = '€ ' + cassa.toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            document.getElementById('tot-imponibile').innerText = '€ ' + imponibile.toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            document.getElementById('tot-iva').innerText = '€ ' + iva.toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            document.getElementById('tot-complessivo').innerText = '€ ' + complessivo.toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-        }
+    <!-- ALIQUOTE E SPESE -->
+    <div class="box-block">
+      <div class="box-block-title">
+        <span>Oneri e Fiscalità</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+        <div class="form-group" style="margin-bottom:0;">
+          <label>Cassa Previdenza (%)</label>
+          <input type="number" id="inCassaPercent" value="4" step="0.5" min="0" oninput="recalcAll()">
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label>IVA (%)</label>
+          <input type="number" id="inVatPercent" value="22" step="1" min="0" oninput="recalcAll()">
+        </div>
+      </div>
+    </div>
 
-        function aggiungiRiga(tbodyId) {
-            const tbody = document.getElementById(tbodyId);
-            const tr = document.createElement('tr');
-            const classeInput = tbodyId === 'progettazione-tbody' ? 'importo-progg' : 'importo-dl';
-            
-            tr.innerHTML = `
-                <td class="p-3">
-                    <input type="text" value="Nuova prestazione..." class="w-full bg-transparent focus:outline-none text-slate-800">
-                </td>
-                <td class="p-3 text-right">
-                    <input type="number" value="0.00" oninput="ricalcolaTotali()" class="${classeInput} w-full bg-slate-50 p-1 rounded border border-slate-200 text-right font-medium focus:outline-none focus:border-blue-500">
-                </td>
-                <td class="p-3 text-center no-print">
-                    <button onclick="rimuoviRiga(this)" class="text-red-500 hover:text-red-700 font-bold text-xs">✕</button>
-                </td>
-            `;
-            tbody.appendChild(tr);
-            ricalcolaTotali();
-        }
+    <div class="action-buttons">
+      <button class="btn-action btn-print-browser" onclick="window.print()">
+        <svg width="17" height="17" fill="currentColor" viewBox="0 0 16 16"><path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/><path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/></svg>
+        Stampa / Salva in PDF
+      </button>
+      <button class="btn-action btn-pdf-direct" onclick="generatePdfDirect()">
+        <svg width="17" height="17" fill="currentColor" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+        Download Automatico PDF
+      </button>
+    </div>
+  </div>
 
-        function rimuoviRiga(button) {
-            const tr = button.closest('tr');
-            tr.remove();
-            ricalcolaTotali();
-        }
+  <!-- ==================== DOCUMENTO RENDERIZZATO ==================== -->
+  <div class="sheet-wrapper">
+    <div class="sheet" id="documentSheet">
+      
+      <div class="brand-header">
+        <div class="brand-logo-wrap">
+          <strong style="font-size: 1.2rem; color: var(--navy);">INGEGNIAMO S.r.l.</strong>
+          <span style="font-size: 0.72rem; color: var(--muted);">Società di Ingegneria e Servizi Tecnici Integrati</span>
+        </div>
+        <div class="brand-contacts">
+          <strong>INGEGNIAMO S.r.l.</strong><br>
+          Società di Ingegneria e Servizi Tecnici Integrati<br>
+          PEC: ingegniamosrl@pec.it • info@ingegniamo.it
+        </div>
+      </div>
 
-        // Calcola i totali all'avvio della pagina
-        window.onload = ricalcolaTotali;
-    </script>
+      <div class="doc-banner">
+        <h2>Modulo di Offerta Economica e Disciplinare di Incarico</h2>
+        <p>Proposta di prestazione professionale per servizi di ingegneria e architettura</p>
+      </div>
+
+      <div class="details-grid avoid-break">
+        <div class="card-meta">
+          <strong>Spett.le Committente:</strong> <span id="outClient">---</span><br>
+          <strong>Cod. Fiscale / P.IVA:</strong> <span id="outClientFiscal">---</span><br>
+          <strong>Ubicazione Opera:</strong> <span id="outLocation">---</span>
+        </div>
+        <div class="card-meta">
+          <strong>Numero Offerta:</strong> <span id="outOfferNumber" style="font-weight: 700; color: var(--navy); font-family: 'JetBrains Mono', monospace;">---</span><br>
+          <strong>Data Emissione:</strong> <span id="outDate">--/--/----</span><br>
+          <strong>Validità Proposta:</strong> 30 giorni data emissione
+        </div>
+      </div>
+
+      <div class="obj-banner avoid-break">
+        <strong>Oggetto dell'incarico:</strong> <span id="outSubject">---</span>
+      </div>
+
+      <!-- SEZIONE 1: PROGETTAZIONE (LIBERA) -->
+      <div class="sec-heading">1. Descrizione delle Attività di Progettazione e Servizi Inclusi</div>
+      <table class="calc-grid">
+        <thead>
+          <tr>
+            <th style="width: 10%;">Voce</th>
+            <th>Descrizione Attività di Progettazione / Servizi Inclusi</th>
+            <th class="num" style="width: 22%;">Importo (€)</th>
+          </tr>
+        </thead>
+        <tbody id="outProjTable"></tbody>
+      </table>
+
+      <!-- SEZIONE 2: DIREZIONE LAVORI E SICUREZZA -->
+      <div class="sec-heading">2. Direzione Lavori (DL) e Sicurezza in Cantiere</div>
+      <table class="calc-grid">
+        <thead>
+          <tr>
+            <th style="width: 10%;">Voce</th>
+            <th>Descrizione Attività Direzione Lavori e Sicurezza</th>
+            <th class="num" style="width: 22%;">Importo (€)</th>
+          </tr>
+        </thead>
+        <tbody id="outDlTable"></tbody>
+      </table>
+
+      <!-- QUADRO RIEPILOGATIVO ECONOMICO -->
+      <div class="sec-heading avoid-break">3. Riepilogo Offerta Economica</div>
+      <div class="ledger-wrap avoid-break">
+        <div class="ledger-row">
+          <span>Totale Compensi Progettazione:</span>
+          <span id="sumProj">€ 0,00</span>
+        </div>
+        <div class="ledger-row">
+          <span>Totale Compensi Direzione Lavori e Sicurezza:</span>
+          <span id="sumDl">€ 0,00</span>
+        </div>
+        <div class="ledger-row bold" style="border-top:1.5px solid var(--navy); padding-top:6px; margin-top:6px;">
+          <span>ONORARIO NETTO COMPLESSIVO:</span>
+          <span id="sumNet">€ 0,00</span>
+        </div>
+        <div class="ledger-row">
+          <span>Cassa Previdenziale (<span id="lblCassa">4</span>%):</span>
+          <span id="sumCassa">€ 0,00</span>
+        </div>
+        <div class="ledger-row bold">
+          <span>TOTALE IMPONIBILE:</span>
+          <span id="sumTaxable">€ 0,00</span>
+        </div>
+        <div class="ledger-row">
+          <span>IVA (<span id="lblVat">22</span>%):</span>
+          <span id="sumVat">€ 0,00</span>
+        </div>
+        <div class="ledger-row final-due">
+          <span>TOTALE COMPLESSIVO OFFERTA:</span>
+          <span id="sumFinal">€ 0,00</span>
+        </div>
+      </div>
+
+      <!-- ESCLUSIONI GENERALI -->
+      <div class="exclusions-box avoid-break">
+        <h4>Esclusioni d'Incarico</h4>
+        <p id="outExclusions">---</p>
+      </div>
+
+      <!-- FIRME -->
+      <div class="signatures avoid-break">
+        <div class="sig-field">
+          Per Accettazione e Conferma Incarico<br>
+          <strong>Il Committente</strong><br><br><br>
+          ____________________________________
+        </div>
+        <div class="sig-field">
+          Per la Società di Ingegneria<br>
+          <strong>INGEGNIAMO S.r.l.</strong><br><br><br>
+          ____________________________________
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  let projItems = [
+    { desc: "Progettazione Preliminare / Definitiva degli impianti meccanici ed elettrici", amount: 2500 },
+    { desc: "Progettazione Esecutiva e dimensionamento esecutivo degli impianti", amount: 3500 },
+    { desc: "Elaborazione computo metrico estimativo e quadro economico estimativo", amount: 1500 },
+    { desc: "Pratiche autorizzative e deposito progetti presso gli enti competenti", amount: 1500 }
+  ];
+
+  let dlItems = [
+    { desc: "Direzione Lavori Impianti (controlli in cantiere, verbali, ordini di servizio)", amount: 3000 },
+    { desc: "Contabilità Lavori, stati di avanzamento (SAL) e certificato di regolare esecuzione", amount: 2000 },
+    { desc: "Coordinamento della Sicurezza in fase di Esecuzione (PSC e POS)", amount: 2500 }
+  ];
+
+  function formatEuro(val) {
+    return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(val);
+  }
+
+  function renderControls() {
+    // Progettazione controls
+    const pCont = document.getElementById('projItemsContainer');
+    pCont.innerHTML = '';
+    projItems.forEach((item, index) => {
+      pCont.innerHTML += `
+        <div class="item-row-ctrl">
+          <input type="text" value="${item.desc}" oninput="updateProj(${index}, 'desc', this.value)" placeholder="Descrizione attività">
+          <input type="number" value="${item.amount}" step="100" min="0" oninput="updateProj(${index}, 'amount', this.value)" placeholder="Importo">
+          <button class="btn-icon" onclick="removeProj(${index})" title="Elimina">×</button>
+        </div>`;
+    });
+
+    // DL controls
+    const dlCont = document.getElementById('dlItemsContainer');
+    dlCont.innerHTML = '';
+    dlItems.forEach((item, index) => {
+      dlCont.innerHTML += `
+        <div class="item-row-ctrl">
+          <input type="text" value="${item.desc}" oninput="updateDl(${index}, 'desc', this.value)" placeholder="Descrizione DL">
+          <input type="number" value="${item.amount}" step="100" min="0" oninput="updateDl(${index}, 'amount', this.value)" placeholder="Importo">
+          <button class="btn-icon" onclick="removeDl(${index})" title="Elimina">×</button>
+        </div>`;
+    });
+  }
+
+  function addProjItem() {
+    projItems.push({ desc: "Nuova attività di progettazione", amount: 1000 });
+    renderControls();
+    recalcAll();
+  }
+
+  function removeProj(index) {
+    projItems.splice(index, 1);
+    renderControls();
+    recalcAll();
+  }
+
+  function updateProj(index, field, val) {
+    if (field === 'amount') projItems[index].amount = parseFloat(val) || 0;
+    else projItems[index].desc = val;
+    recalcAll();
+  }
+
+  function addDlItem() {
+    dlItems.push({ desc: "Nuova attività DL o Sicurezza", amount: 1000 });
+    renderControls();
+    recalcAll();
+  }
+
+  function removeDl(index) {
+    dlItems.splice(index, 1);
+    renderControls();
+    recalcAll();
+  }
+
+  function updateDl(index, field, val) {
+    if (field === 'amount') dlItems[index].amount = parseFloat(val) || 0;
+    else dlItems[index].desc = val;
+    recalcAll();
+  }
+
+  function recalcAll() {
+    const client = document.getElementById('inClient').value;
+    const clientFiscal = document.getElementById('inClientFiscal').value;
+    const location = document.getElementById('inLocation').value;
+    const subject = document.getElementById('inSubject').value;
+    const offerNum = document.getElementById('inOfferNumber').value.trim() || 'OFF-26-001';
+    const exclusions = document.getElementById('inExclusions').value;
+
+    const cassaRate = parseFloat(document.getElementById('inCassaPercent').value) || 0;
+    const vatRate = parseFloat(document.getElementById('inVatPercent').value) || 0;
+
+    const today = new Date();
+    document.getElementById('outDate').innerText = today.toLocaleDateString('it-IT');
+    document.getElementById('outOfferNumber').innerText = offerNum;
+    document.getElementById('outClient').innerText = client;
+    document.getElementById('outClientFiscal').innerText = clientFiscal;
+    document.getElementById('outLocation').innerText = location;
+    document.getElementById('outSubject').innerText = subject;
+    document.getElementById('outExclusions').innerText = exclusions;
+    document.getElementById('lblCassa').innerText = cassaRate;
+    document.getElementById('lblVat').innerText = vatRate;
+
+    // Render Progettazione Table
+    let projTotal = 0;
+    const outProj = document.getElementById('outProjTable');
+    outProj.innerHTML = '';
+    projItems.forEach((item, idx) => {
+      projTotal += item.amount;
+      outProj.innerHTML += `<tr>
+        <td>1.${idx+1}</td>
+        <td>${item.desc}</td>
+        <td class="num">${formatEuro(item.amount)}</td>
+      </tr>`;
+    });
+
+    // Render DL Table
+    let dlTotal = 0;
+    const outDl = document.getElementById('outDlTable');
+    outDl.innerHTML = '';
+    dlItems.forEach((item, idx) => {
+      dlTotal += item.amount;
+      outDl.innerHTML += `<tr>
+        <td>2.${idx+1}</td>
+        <td>${item.desc}</td>
+        <td class="num">${formatEuro(item.amount)}</td>
+      </tr>`;
+    });
+
+    const netTotal = projTotal + dlTotal;
+    const cassaAmount = netTotal * (cassaRate / 100);
+    const taxableTotal = netTotal + cassaAmount;
+    const vatAmount = taxableTotal * (vatRate / 100);
+    const finalTotal = taxableTotal + vatAmount;
+
+    document.getElementById('sumProj').innerText = formatEuro(projTotal);
+    document.getElementById('sumDl').innerText = formatEuro(dlTotal);
+    document.getElementById('sumNet').innerText = formatEuro(netTotal);
+    document.getElementById('sumCassa').innerText = formatEuro(cassaAmount);
+    document.getElementById('sumTaxable').innerText = formatEuro(taxableTotal);
+    document.getElementById('sumVat').innerText = formatEuro(vatAmount);
+    document.getElementById('sumFinal').innerText = formatEuro(finalTotal);
+  }
+
+  function generatePdfDirect() {
+    const element = document.getElementById('documentSheet');
+    const offerNumClean = (document.getElementById('inOfferNumber').value || 'OFF-26-001').replace(/[^a-zA-Z0-9_-]/g, '_');
+    const opt = {
+      margin: [10, 10, 10, 10],
+      filename: `Offerta_${offerNumClean}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(element).save();
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    renderControls();
+    recalcAll();
+  });
+</script>
 
 </body>
 </html>
+"""
+with open("offerta_modificabile_libera.html", "w", encoding="utf-8") as f:
+    f.write(html_code)
+print("Generato con successo!")
