@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingegniamo Academy | Corsi Pratici per Termoidraulici ed Elettrici</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" /> 
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .corsiSwiper { width: 100%; padding-bottom: 50px !important; }
+        .swiper-pagination-bullet-active { background: #000000 !important; width: 28px !important; border-radius: 9999px !important; }
+        .swiper-pagination-bullet { background: #94a3b8; opacity: 0.6; }
+    </style>
+</head>
+
+<body class="bg-[#f7f9fa] text-slate-900 antialiased">
+
+    <!-- TOP BAR -->
+    <div class="bg-white text-slate-600 text-xs py-2 px-4 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <p><span class="inline-block w-2 h-2 rounded-full bg-blue-600 mr-2 animate-pulse"></span>Iscrizioni aperte per la nuova sessione corsi tecnici</p>
+            <div class="flex items-center gap-6">
+                <span>Email: <strong class="text-slate-900">info@ingegniamo.com</strong></span>
+                <span>PEC: <strong class="text-slate-900">info@pec.ingegniamo.com</strong></span>
+                <a href="index.html" class="text-blue-600 font-semibold hover:underline">↔ Cambia Divisione</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER PRINCIPALE -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center">
+                <img src="logo-ingegniamo.png" alt="Ingegniamo Academy" class="h-14 w-auto object-contain">
+            </a>
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-800">
+                <a href="#corsi-slider" class="hover:text-blue-600 transition">Corsi Pratici</a>
+                <a href="#metodo" class="hover:text-blue-600 transition">Il Metodo</a>
+                <a href="ingegneria.html" class="text-slate-500 hover:text-slate-900 transition">Divisione Ingegneria →</a>
+                <a href="#iscrizione" class="bg-black hover:bg-slate-800 text-white px-5 py-2.5 rounded-full font-medium transition">
+                    Richiedi Programma
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION CON IMMAGINEFORMAZIONE.PNG GRANDE -->
+    <section class="relative bg-white border-b border-slate-200 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 py-12 lg:py-16">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mb-12">
+                <div class="lg:col-span-7 space-y-4">
+                    <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 font-semibold text-xs">
+                        ⚡ Laboratori & Banchi Prova Funzionanti
+                    </span>
+                    <h1 class="text-4xl sm:text-5xl font-black tracking-tight text-slate-950 leading-tight">
+                        Academy Pratica per <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-sky-600">Installatori Termoidraulici ed Elettrici.</span>
+                    </h1>
+                    <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+                        Dalla teoria alle mani sugli impianti reali. Impara a dimensionare, cablare, impostare curve climatiche e fare diagnosi guasti su pompe di calore e centrali idroniche.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-4">
+                        <a href="#corsi-slider" class="px-7 py-3.5 rounded-full bg-black hover:bg-slate-800 text-white font-semibold text-sm transition">
+                            Vedi Tutti i Moduli
+                        </a>
+                        <a href="#iscrizione" class="px-7 py-3.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition shadow-sm">
+                            Iscriviti Ora
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5">
+                    <div id="iscrizione" class="bg-[#f8fafc] p-7 rounded-3xl border border-slate-200 shadow-sm">
+                        <h3 class="text-xl font-bold text-slate-900 mb-1">Richiedi Schede e Calendario</h3>
+                        <p class="text-xs text-slate-500 mb-5">Ricevi i dettagli completi sui banchi prova e date disponibili.</p>
+                        <form class="space-y-3.5" action="https://formspree.io/f/maeyqorn" method="POST">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Nome e Cognome</label>
+                                <input type="text" name="nome_cognome" required placeholder="Mario Rossi" class="w-full px-4 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-blue-600 outline-none bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Email</label>
+                                <input type="email" name="email" required placeholder="mario@esempio.it" class="w-full px-4 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-blue-600 outline-none bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Telefono / WhatsApp</label>
+                                <input type="tel" name="telefono" required placeholder="+39 340 0000000" class="w-full px-4 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-blue-600 outline-none bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Modulo di Interesse</label>
+                                <select name="modulo" class="w-full px-4 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-blue-600 outline-none bg-white">
+                                    <option value="Modulo 1">Mod. 1: Idraulica Pratica & Dimensionamento</option>
+                                    <option value="Modulo 2">Mod. 2: Idronica Applicata & Centrali Termiche</option>
+                                    <option value="Modulo 3">Mod. 3: Pompe di Calore, Ibridi & Regolazioni</option>
+                                    <option value="Modulo 4">Mod. 4: Collaudi, Di.Co. (DM 37/08) & Libretti</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full transition text-sm shadow">
+                                Ricevi Informazioni Gratuite
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IMMAGINE GRANDE NELL'HEADER: IMMAGINEFORMAZIONE.PNG -->
+            <div class="relative w-full h-80 sm:h-[450px] lg:h-[520px] rounded-3xl overflow-hidden shadow-lg border border-slate-200">
+                <img src="immagineformazione.png" alt="Laboratorio e Formazione Tecnica Impianti" class="w-full h-full object-cover">
+                <div class="absolute bottom-6 left-6 bg-black/60 backdrop-blur-md text-white px-5 py-3 rounded-2xl text-xs sm:text-sm font-medium">
+                    Banchi prova reali: centrali termiche, pompe di calore e quadri elettrici
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- METODO DIDATTICO -->
+    <section id="metodo" class="py-20 px-6 max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-xs font-bold tracking-widest text-blue-600 uppercase mb-2">Didattica sul Campo</h2>
+            <h3 class="text-3xl font-extrabold text-slate-900 tracking-tight">Cosa rende unica la nostra formazione?</h3>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center font-bold text-lg mb-6">01</div>
+                <h4 class="text-xl font-bold text-slate-900 mb-3">Laboratorio & Banchi Prova</h4>
+                <p class="text-slate-600 text-sm leading-relaxed">Operi su impianti idraulici completi funzionanti, collettori, pompe di calore e quadri di manovra.</p>
+            </div>
+            <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+                <div class="w-12 h-12 bg-slate-100 text-slate-800 rounded-2xl flex items-center justify-center font-bold text-lg mb-6">02</div>
+                <h4 class="text-xl font-bold text-slate-900 mb-3">Integrazione Elettrica</h4>
+                <p class="text-slate-600 text-sm leading-relaxed">Ti insegniamo a cablare sonde, relè e termostati per non dipendere da figure esterne in cantiere.</p>
+            </div>
+            <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center font-bold text-lg mb-6">03</div>
+                <h4 class="text-xl font-bold text-slate-900 mb-3">Diagnosi Errori & Guasti</h4>
+                <p class="text-slate-600 text-sm leading-relaxed">Simulazione reale di cortocircuiti idraulici, errori centraline e tarature dei vasi d'espansione.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDER CORSI -->
+    <section class="py-20 bg-white border-y border-slate-200" id="corsi-slider">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">I Percorsi Formativi Disponibili</h2>
+            </div>
+            <div class="swiper corsiSwiper overflow-hidden">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="bg-[#f8fafc] border border-slate-200 rounded-3xl p-8 w-full flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-200 text-slate-700">Modulo 01</span>
+                                <h3 class="text-xl font-bold text-slate-900 mt-4 mb-2">Idraulica Pratica & Dimensionamento</h3>
+                                <p class="text-slate-600 text-sm mb-4">Dimensionamento tubazioni, perdite di carico, curve circolatori e scarichi sanitari.</p>
+                            </div>
+                            <a href="#iscrizione" class="block text-center w-full py-3 rounded-full bg-black hover:bg-slate-800 text-white font-medium text-xs">Richiedi Info</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="bg-[#f8fafc] border border-slate-200 rounded-3xl p-8 w-full flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 text-blue-700">Modulo 02</span>
+                                <h3 class="text-xl font-bold text-slate-900 mt-4 mb-2">Idronica Applicata & Centrali</h3>
+                                <p class="text-slate-600 text-sm mb-4">Separatori idraulici, bilanciamento valvole PICV, rilanci diretti e miscelati.</p>
+                            </div>
+                            <a href="#iscrizione" class="block text-center w-full py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs">Richiedi Info</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="bg-[#f8fafc] border border-slate-200 rounded-3xl p-8 w-full flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800">Modulo 03</span>
+                                <h3 class="text-xl font-bold text-slate-900 mt-4 mb-2">Pompe di Calore & Regolazione</h3>
+                                <p class="text-slate-600 text-sm mb-4">Schemi monoblocco e split, curve climatiche, integrazione FV e sbrinamento.</p>
+                            </div>
+                            <a href="#iscrizione" class="block text-center w-full py-3 rounded-full bg-black hover:bg-slate-800 text-white font-medium text-xs">Richiedi Info</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="bg-[#f8fafc] border border-slate-200 rounded-3xl p-8 w-full flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-purple-100 text-purple-800">Modulo 04</span>
+                                <h3 class="text-xl font-bold text-slate-900 mt-4 mb-2">Collaudi, Di.Co. & Libretti</h3>
+                                <p class="text-slate-600 text-sm mb-4">Compilazione della Dichiarazione di Conformità DM 37/08, prove di tenuta e catasto.</p>
+                            </div>
+                            <a href="#iscrizione" class="block text-center w-full py-3 rounded-full bg-black hover:bg-slate-800 text-white font-medium text-xs">Richiedi Info</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-white text-slate-600 py-12 border-t border-slate-200 text-xs">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+                <p class="font-bold text-slate-900">Ingegniamo S.r.l. - Divisione Formazione</p>
+                <p>P.IVA: 04033650781 | C.F.: 04033650781</p>
+                <p>PEC: <a href="mailto:info@pec.ingegniamo.com" class="text-blue-600">info@pec.ingegniamo.com</a> | Email: info@ingegniamo.com</p>
+            </div>
+            <a href="ingegneria.html" class="px-5 py-2.5 rounded-full border border-slate-300 hover:bg-slate-100 text-slate-800 font-semibold">
+                Passa alla Divisione Ingegneria →
+            </a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        new Swiper('.corsiSwiper', {
+          slidesPerView: 1,
+          spaceBetween: 24,
+          loop: true,
+          pagination: { el: '.swiper-pagination', clickable: true },
+          breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+        });
+      });
+    </script>
+</body>
+</html>
