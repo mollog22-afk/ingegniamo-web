@@ -497,36 +497,7 @@
 
                 </div>
             </div>
-<!-INTERVENTO II.G) -->
-<div class="bg-slate-900/60 border border-slate-800 rounded-xl p-5 mb-4 shadow-lg">
-    <div class="flex items-center justify-between mb-2">
-        <label class="flex items-center gap-3 cursor-pointer">
-            <input type="checkbox" id="chkEV" onchange="toggleIntervento('colonnine')" class="w-5 h-5 rounded border-slate-700 text-indigo-500 focus:ring-indigo-500">
-            <span class="font-bold text-white text-base">II.G - Colonnine di Ricarica Veicoli Elettrici</span>
-        </label>
-        <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Trainato (30% Spesa)</span>
-    </div>
 
-    <!-- CAMPI DI INPUT (Nascosti di default, visibili solo se spuntato) -->
-    <div id="boxEVInputs" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4 hidden">
-        <div>
-            <label class="block text-xs font-medium text-slate-400 mb-1">Punti Monofase (7.4-22 kW)</label>
-            <input type="number" id="numColonnineMono" value="0" min="0" oninput="calcolaTotali()" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-indigo-500">
-        </div>
-        <div>
-            <label class="block text-xs font-medium text-slate-400 mb-1">Punti Trifase (7.4-22 kW)</label>
-            <input type="number" id="numColonnineTri" value="0" min="0" oninput="calcolaTotali()" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-indigo-500">
-        </div>
-        <div>
-            <label class="block text-xs font-medium text-slate-400 mb-1">Potenza > 22 kW (kW tot)</label>
-            <input type="number" id="kwColonnineAltaPotenza" value="0" min="0" placeholder="es. 30" oninput="calcolaTotali()" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-indigo-500">
-        </div>
-        <div>
-            <label class="block text-xs font-medium text-slate-400 mb-1">Costo Totale Posa ed EV (€)</label>
-            <input type="number" id="costoColonnine" value="0" min="0" placeholder="es. 12000" oninput="calcolaTotali()" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-indigo-500">
-        </div>
-    </div>
-</div>
             <!-- PROSPETTO ECONOMICO & FLUSSI (5 COLONNE) -->
             <div class="lg:col-span-5 space-y-6">
                 <div class="grid grid-cols-2 gap-4">
@@ -805,114 +776,82 @@
 
             const isZonaDEF = ['D', 'E', 'F'].includes(zona);
 
+            // 1. Pompa di Calore (III.A)
             let incPdC = 0;
-let kwPost = 0;
-if (activeInterventi.pdc) {
-    // 1. Lettura parametri e numero di unità installate
-    kwPost = parseFloat(document.getElementById('kwPost').value) || 0; // Potenza singola unità (kWt)
-    const scopPdC = parseFloat(document.getElementById('scopPdC').value) || 4.20;
-    const costoPdC = parseFloat(document.getElementById('costoPdC').value) || 0; // Costo totale fornitura/posa
-    const nUnita = parseInt(document.getElementById('numPdC')?.value || document.getElementById('numPdC')?.value) || 1; // Numero macchine
+            let kwPost = 0;
+            if (activeInterventi.pdc) {
+                kwPost = parseFloat(document.getElementById('kwPost').value) || 0;
+                const scopPdC = parseFloat(document.getElementById('scopPdC').value) || 4.20;
+                const costoPdC = parseFloat(document.getElementById('costoPdC').value) || 0;
+                
+                if (MODELLO_SCELTO && DATI_MODELLI && DATI_MODELLI.quf) {
+                    const quf = DATI_MODELLI.quf[zona] || ore;
+                    const incFormula = MODELLO_SCELTO.pr * quf * (1 - (1 / MODELLO_SCELTO.scop)) * MODELLO_SCELTO.nsh * MODELLO_SCELTO.k;
+                    incPdC = Math.min(incFormula, costoPdC * 0.65);
+                    const lbl = document.getElementById('labelIncentivoModello');
+                    if (lbl) lbl.innerText = `Incentivo GSE: € ${Math.round(incFormula).toLocaleString('it-IT')}`;
+                } else {
+                    const Ci = (kwPost <= 35) ? 0.15 : 0.055;
+                    const durataAnni = (kwPost <= 35) ? 2 : 5;
+                    const Ei_annua = (kwPost * ore) * (1 - (1 / scopPdC));
+                    const incPdCRaw = Ei_annua * Ci * durataAnni;
+                    incPdC = Math.min(incPdCRaw, costoPdC * 0.65);
+                    const lbl = document.getElementById('labelIncentivoModello');
+                    if (lbl) lbl.innerText = '';
+                }
+                
+                totSpesaVal += costoPdC;
+                totIncVal += incPdC;
 
-    // 2. Calcolo potenza complessiva edificio per determinare il coefficiente Ci
-    const kwTotaleEdificio = kwPost * nUnita;
-    const Ci = (kwTotaleEdificio <= 35) ? 0.15 : 0.055; // Passa a 0.055 €/kWht se la somma supera 35 kWt
+                if (incPdC <= 15000) {
+                    incassoAnno1 += incPdC;
+                } else {
+                    quotaAnnualeCostante += incPdC / 5;
+                }
 
-    let incPdCSingolaRaw = 0;
-    if (MODELLO_SCELTO && DATI_MODELLI && DATI_MODELLI.quf) {
-        const quf = DATI_MODELLI.quf[zona] || ore;
-        incPdCSingolaRaw = MODELLO_SCELTO.pr * quf * (1 - (1 / MODELLO_SCELTO.scop)) * MODELLO_SCELTO.nsh * MODELLO_SCELTO.k;
-        const lbl = document.getElementById('labelIncentivoModello');
-        if (lbl) lbl.innerText = `Incentivo GSE per singola unità: € ${Math.round(incPdCSingolaRaw).toLocaleString('it-IT')}`;
-    } else {
-        const Ei_annua_singola = (kwPost * ore) * (1 - (1 / scopPdC));
-        incPdCSingolaRaw = Ei_annua_singola * Ci * 5; // Incentivo teorico 5 anni per 1 unità
-        const lbl = document.getElementById('labelIncentivoModello');
-        if (lbl) lbl.innerText = '';
-    }
+                tableHtml += `
+                    <tr class="hover:bg-slate-800/40">
+                        <td class="py-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> III.A - Pompa di Calore VRF</td>
+                        <td class="py-2.5 text-right font-bold text-emerald-400">€ ${Math.round(incPdC).toLocaleString('it-IT')}</td>
+                        <td class="py-2.5 text-right text-slate-700">${incPdC <= 15000 ? 'Rata Unica' : '5 Anni'}</td>
+                    </tr>
+                `;
+            }
 
-    // 3. Cap 65% della spesa applicato alla singola macchina
-    const costoSingola = costoPdC / nUnita;
-    const incPdCSingola = Math.min(incPdCSingolaRaw, costoSingola * 0.65);
-    
-    // 4. Incentivo totale per l'intero gruppo di macchine
-    incPdC = incPdCSingola * nUnita;
-
-    totSpesaVal += costoPdC;
-    totIncVal += incPdC;
-
-    // 5. Verifica RATA UNICA per SINGOLA MACCHINA:
-    // Scatta se la singola unità è <= 35 kWt OPPURE se il suo incentivo singolo è <= 15.000 €
-    const isRataUnica = (kwPost <= 35) || (incPdCSingola <= 15000);
-
-    if (isRataUnica) {
-        // Se ciascuna macchina rispetta il requisito, l'intero incentivo (anche di 10 macchine) si incassa al 1° Anno!
-        incassoAnno1 += incPdC;
-    } else {
-        incassoAnno1 += incPdC / 5;
-        quotaAnnualeCostante += incPdC / 5;
-    }
-
-    const modalitaTesto = isRataUnica ? 'Rata Unica (1° Anno)' : '5 Rate Annuali';
-    const labelMacchine = nUnita > 1 ? `III.A - Pompa di Calore VRF (${nUnita}x ${kwPost} kWt)` : 'III.A - Pompa di Calore VRF';
-
-    tableHtml += `
-        <tr class="hover:bg-slate-800/40">
-            <td class="py-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> ${labelMacchine}</td>
-            <td class="py-2.5 text-right font-bold text-emerald-400">€ ${Math.round(incPdC).toLocaleString('it-IT')}</td>
-            <td class="py-2.5 text-right text-slate-300">${modalitaTesto}</td>
-        </tr>
-    `;
-}
             // 2. Fotovoltaico (II.H)
             if (activeInterventi.ftv) {
                 const kwpFTV = parseFloat(document.getElementById('kwpFTV').value) || 0;
                 const kwhAcc = parseFloat(document.getElementById('kwhAcc').value) || 0;
                 const costoFTV = parseFloat(document.getElementById('costoFTV').value) || 0;
 
-                // Tetti massimi unitari Cmax (D.M. 7 Agosto 2025)
-                let cmaxFTVUnit = 1050;
+                let cmaxFTVUnit = 1200;
                 if (kwpFTV <= 20) cmaxFTVUnit = 1500;
                 else if (kwpFTV <= 200) cmaxFTVUnit = 1200;
                 else if (kwpFTV <= 600) cmaxFTVUnit = 1100;
+                else cmaxFTVUnit = 1050;
 
                 const cmaxAccUnit = 1000;
-
-                // Calcolo Spesa Ammissibile e Spesa Valida
                 const spesaMaxAmmFTV = (kwpFTV * cmaxFTVUnit) + (kwhAcc * cmaxAccUnit);
                 const spesaValidaFTV = Math.min(costoFTV, spesaMaxAmmFTV);
 
-                // Aliquota Base 20%
                 const incTeoricoFTV = spesaValidaFTV * 0.20;
-
-                // Cap Vincolato all'Incentivo della Pompa di Calore (Trainante)
                 const maxCapPdC = activeInterventi.pdc ? incPdC : 0;
                 const incFTV = Math.min(incTeoricoFTV, maxCapPdC);
 
                 totSpesaVal += costoFTV;
                 totIncVal += incFTV;
 
-                // Ripartizione Finanziaria (Rata Unica vs 5 Rate)
-                const isRataUnicaFTV = incFTV <= 15000;
-                if (isRataUnicaFTV) {
+                if (incFTV <= 15000) {
                     incassoAnno1 += incFTV;
                 } else {
-                    incassoAnno1 += incFTV / 5;         // Incassa la 1° rata al 1° anno
-                    quotaAnnualeCostante += incFTV / 5; // Salva la quota per gli anni 2-5
-                }
-
-                let testoModalitaFTV = isRataUnicaFTV ? 'Rata Unica (1° Anno)' : '5 Rate Annuali';
-                if (!activeInterventi.pdc && kwpFTV > 0) {
-                    testoModalitaFTV = 'Richiede PdC Trainante';
+                    quotaAnnualeCostante += incFTV / 5;
                 }
 
                 tableHtml += `
                     <tr class="hover:bg-slate-800/40">
-                        <td class="py-2.5 font-medium flex items-center gap-1.5">
-                            <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span> II.H - Fotovoltaico & Accumulo
-                        </td>
+                        <td class="py-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span> II.H - Fotovoltaico & Accumulo</td>
                         <td class="py-2.5 text-right font-bold text-sky-400">€ ${Math.round(incFTV).toLocaleString('it-IT')}</td>
-                        <td class="py-2.5 text-right text-slate-300 text-xs">${testoModalitaFTV}</td>
+                        <td class="py-2.5 text-right text-slate-700">${incFTV <= 15000 ? 'Rata Unica' : '5 Anni'}</td>
                     </tr>
                 `;
             }
@@ -1076,61 +1015,6 @@ if (activeInterventi.pdc) {
                     </tr>
                 `;
             }
-            / =========================================================================
-// 3. GESTIONE COLONNINE DI RICARICA EV (II.G - INTERVENTO TRAINATO)
-// =========================================================================
-if (activeInterventi.colonnine || activeInterventi.ev) {
-    const numPuntiMono = parseInt(document.getElementById('numColonnineMono')?.value) || 0; // Monofase (7.4 - 22 kW)
-    const numPuntiTri = parseInt(document.getElementById('numColonnineTri')?.value) || 0;   // Trifase (7.4 - 22 kW)
-    const kwAltePotenze = parseFloat(document.getElementById('kwColonnineAltaPotenza')?.value) || 0; // > 22 kW
-    const costoEV = parseFloat(document.getElementById('costoColonnine')?.value) || 0;
-
-    // 1. Calcolo Spesa Massima Ammissibile (Cmax) ex D.M. 7 Agosto 2025
-    let spesaMaxAmmEV = (numPuntiMono * 2400) + (numPuntiTri * 8400);
-
-    if (kwAltePotenze > 22 && kwAltePotenze <= 50) {
-        spesaMaxAmmEV += kwAltePotenze * 1200;
-    } else if (kwAltePotenze > 50 && kwAltePotenze <= 100) {
-        spesaMaxAmmEV += 60000;
-    } else if (kwAltePotenze > 100) {
-        spesaMaxAmmEV += 110000;
-    }
-
-    // 2. Calcolo Spesa Valida e Incentivo Teorico (30%)
-    const spesaValidaEV = Math.min(costoEV, spesaMaxAmmEV);
-    const incTeoricoEV = spesaValidaEV * 0.30;
-
-    // 3. Cap Vincolato all'Incentivo della Pompa di Calore (Trainante)
-    const maxCapPdC = activeInterventi.pdc ? incPdC : 0;
-    const incEV = Math.min(incTeoricoEV, maxCapPdC);
-
-    totSpesaVal += costoEV;
-    totIncVal += incEV;
-
-    // 4. Ripartizione Finanziaria (Rata Unica vs Rateizzato)
-    const isRataUnicaEV = incEV <= 15000;
-    if (isRataUnicaEV) {
-        incassoAnno1 += incEV;
-    } else {
-        incassoAnno1 += incEV / 5;
-        quotaAnnualeCostante += incEV / 5;
-    }
-
-    let testoModalitaEV = isRataUnicaEV ? 'Rata Unica (1° Anno)' : '5 Rate Annuali';
-    if (!activeInterventi.pdc && (numPuntiMono > 0 || numPuntiTri > 0 || kwAltePotenze > 0)) {
-        testoModalitaEV = 'Richiede PdC Trainante';
-    }
-
-    tableHtml += `
-        <tr class="hover:bg-slate-800/40">
-            <td class="py-2.5 font-medium flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> II.G - Colonnine Ricarica EV
-            </td>
-            <td class="py-2.5 text-right font-bold text-indigo-400">€ ${Math.round(incEV).toLocaleString('it-IT')}</td>
-            <td class="py-2.5 text-right text-slate-300 text-xs">${testoModalitaEV}</td>
-        </tr>
-    `;
-}
 
             const flussoAnno1 = incassoAnno1 + quotaAnnualeCostante;
             const pctCop = totSpesaVal > 0 ? ((totIncVal / totSpesaVal) * 100).toFixed(1) : 0;
@@ -1202,7 +1086,7 @@ if (activeInterventi.colonnine || activeInterventi.ev) {
                 'costoLED', 'costoBACS',
                 'mqSolare', 'costoSolare',
                 'mqSchermatures', 'costoSchermature',
-                'chkImpiantoEsistente', 'chkLavoriAvviati', 'chkCatasto', 'chkDimensioneImpresa','numPdC'
+                'chkImpiantoEsistente', 'chkLavoriAvviati', 'chkCatasto', 'chkDimensioneImpresa'
             ];
 
             inputIds.forEach(id => {
