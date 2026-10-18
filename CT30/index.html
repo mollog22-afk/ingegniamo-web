@@ -401,9 +401,8 @@
                             <label for="calc-comune" class="block text-xs font-semibold text-slate-600">Comune di Installazione</label>
                             <span id="badgeZonaRilevata" class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded font-bold">Zona C (1.100 h)</span>
                         </div>
-                        <select id="calc-comune" class="w-full bg-[#eef2f6] border border-slate-700 focus:border-amber-500 rounded-xl px-3 py-2 text-xs font-semibold text-slate-900 focus:outline-none transition">
-                            <option value="">Caricamento comuni…</option>
-                        </select>
+                       <input type="text" id="calc-comune" list="lista-comuni" placeholder="Inizia a digitare il comune..." autocomplete="off" class="w-full bg-[#eef2f6] border border-slate-700 focus:border-amber-500 rounded-xl px-3 py-2 text-xs font-semibold text-slate-900 focus:outline-none transition">
+                        <datalist id="lista-comuni"></datalist>
                         <input type="hidden" id="zonaClimatica" value="C">
                     </div>
                 </div>
