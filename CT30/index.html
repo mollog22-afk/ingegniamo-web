@@ -1140,8 +1140,13 @@
                 'costoLED', 'costoBACS',
                 'mqSolare', 'costoSolare',
                 'mqSchermatures', 'costoSchermature',
-                'chkImpiantoEsistente', 'chkLavoriAvviati', 'chkCatasto', 'chkDimensioneImpresa'
+                'chkImpiantoEsistente', 'chkLavoriAvviati', 'chkCatasto', 'chkDimensioneImpresa','boxPotenzaEsistente''kwEsistente'
             ];
+            
+            const boxKw = document.getElementById('boxPotenzaEsistente');
+if (boxKw) {
+    boxKw.style.display = (document.getElementById('chkImpiantoEsistente').value === 'si') ? 'block' : 'none';
+}
 
             inputIds.forEach(id => {
                 const el = document.getElementById(id);
