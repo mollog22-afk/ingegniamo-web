@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tavola Z-2 - Prestazioni e Parametri (Q) di Incidenza</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Cella barrata con linee diagonali come nel decreto */
+        .diagonal-cross {
+            background: 
+                linear-gradient(to top right, transparent calc(50% - 0.5px), #94a3b8 calc(50% - 0.5px), #94a3b8 calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+                linear-gradient(to bottom right, transparent calc(50% - 0.5px), #94a3b8 calc(50% - 0.5px), #94a3b8 calc(50% + 0.5px), transparent calc(50% + 0.5px));
+            background-color: #f8fafc;
+        }
+
+        @media print {
+            body { font-size: 8.5px; }
+            table { page-break-inside: auto; }
+            tr { page-break-inside: avoid; page-break-after: auto; }
+            thead { display: table-header-group; }
+            .page-break { page-break-before: always; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 p-4 sm:p-8 font-sans text-xs">
+
+    <div class="max-w-full mx-auto space-y-12 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+        
+        <!-- FOGLIO 1: a) ATTIVITA' PROPEDEUTICHE ALLA PROGETTAZIONE -->
+        <div>
+            <div class="text-center font-bold text-sm border border-slate-300 py-1.5 bg-slate-100 uppercase tracking-wide">
+                Tavola Z-2 "Prestazioni e Parametri (Q) di Incidenza"
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse border border-slate-300 text-[10px] text-center">
+                    <thead>
+                        <tr class="bg-slate-50 font-bold">
+                            <th rowspan="2" class="border border-slate-300 p-2 w-28">Fasi Prestazionali</th>
+                            <th rowspan="2" colspan="2" class="border border-slate-300 p-2">Descrizione Singole Prestazioni</th>
+                            <th colspan="8" class="border border-slate-300 p-1.5 uppercase">Categorie</th>
+                        </tr>
+                        <tr class="bg-slate-50 font-bold text-[9px] uppercase">
+                            <th class="border border-slate-300 p-1 w-14">Edilizia</th>
+                            <th class="border border-slate-300 p-1 w-14">Strutture</th>
+                            <th class="border border-slate-300 p-1 w-14">Impianti</th>
+                            <th class="border border-slate-300 p-1 w-14">Viabilità</th>
+                            <th class="border border-slate-300 p-1 w-14">Idraulica</th>
+                            <th class="border border-slate-300 p-1 w-20">Tecnologie Informazione</th>
+                            <th class="border border-slate-300 p-1 w-24">Paesaggio, Amb., Agroal., Forestale</th>
+                            <th class="border border-slate-300 p-1 w-20">Territorio e Urbanistica</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- a.0 Pianificazione e Programmazione -->
+                        <tr>
+                            <td rowspan="12" class="border border-slate-300 p-2 font-bold rotate-180 [writing-mode:vertical-rl] bg-slate-50">
+                                a.0) PIANIFICAZIONE E PROGRAMMAZIONE
+                            </td>
+                            <td rowspan="3" class="border border-slate-300 p-1 font-semibold">Qa.0.01</td>
+                            <td class="border border-slate-300 p-1 text-left">Pianificazione urbanistica generale (sino a 15.000 abitanti)</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,005</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Pianificazione urbanistica generale (da 15.000 abitanti a 50.000)</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,003</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Pianificazione urbanistica generale (sull'eccedenza dei 50.000 abitanti)</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,001</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3" class="border border-slate-300 p-1 font-semibold">Qa.0.02</td>
+                            <td class="border border-slate-300 p-1 text-left">Rilievi e controlli del terreno, analisi geoambientali... (fino a 15.000 ab.)</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,0010</td>
+                            <td class="border border-slate-300 p-1">0,0010</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Rilievi e controlli... (sull'eccedenza fino a 50.000 ab.)</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,0005</td>
+                            <td class="border border-slate-300 p-1">0,0005</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Rilievi e controlli... (sull'eccedenza)</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,0001</td>
+                            <td class="border border-slate-300 p-1">0,0001</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">Qa.0.03</td>
+                            <td class="border border-slate-300 p-1 text-left">Pianificazione forestale, paesaggistica, naturalistica ed ambientale</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,005</td>
+                            <td class="border border-slate-300 p-1">0,005</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">Qa.0.04</td>
+                            <td class="border border-slate-300 p-1 text-left">Piani aziendali agronomici, di concimazione, fertilizzazione, reflui e fitoiatrici</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">Qa.0.05</td>
+                            <td class="border border-slate-300 p-1 text-left">Programmazione economica, territoriale, locale e rurale</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,003</td>
+                            <td class="border border-slate-300 p-1">0,003</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3" class="border border-slate-300 p-1 font-semibold">Qa.0.06</td>
+                            <td class="border border-slate-300 p-1 text-left">Piani urbanistici esecutivi, di sviluppo aziendale... (V fino a € 7.500.000)</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,026</td>
+                            <td class="border border-slate-300 p-1">0,036</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Piani urbanistici esecutivi... (sull'eccedenza fino a € 15.000.000)</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,016</td>
+                            <td class="border border-slate-300 p-1">0,028</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Piani urbanistici esecutivi... (sull'eccedenza oltre € 15.000.000)</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                        </tr>
+
+                        <!-- a.I) Studi di fattibilità -->
+                        <tr>
+                            <td rowspan="3" class="border border-slate-300 p-2 font-bold bg-slate-50">a.I) STUDI DI FATTIBILITÀ</td>
+                            <td class="border border-slate-300 p-1 font-semibold">QaI.01</td>
+                            <td class="border border-slate-300 p-1 text-left">Relazione illustrativa</td>
+                            <td class="border border-slate-300 p-1">0,045</td>
+                            <td class="border border-slate-300 p-1">0,045</td>
+                            <td class="border border-slate-300 p-1">0,045</td>
+                            <td class="border border-slate-300 p-1">0,040</td>
+                            <td class="border border-slate-300 p-1">0,035</td>
+                            <td class="border border-slate-300 p-1">0,050</td>
+                            <td class="border border-slate-300 p-1">0,040</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QaI.02</td>
+                            <td class="border border-slate-300 p-1 text-left">Relazione illustrativa, Elaborati progettuali e tecnico economici</td>
+                            <td class="border border-slate-300 p-1">0,090</td>
+                            <td class="border border-slate-300 p-1">0,090</td>
+                            <td class="border border-slate-300 p-1">0,090</td>
+                            <td class="border border-slate-300 p-1">0,080</td>
+                            <td class="border border-slate-300 p-1">0,070</td>
+                            <td class="border border-slate-300 p-1">0,100</td>
+                            <td class="border border-slate-300 p-1">0,080</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QaI.03</td>
+                            <td class="border border-slate-300 p-1 text-left">Supporto al RUP: accertamenti e verifiche preliminari</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+
+                        <!-- a.II) Stime e valutazioni -->
+                        <tr>
+                            <td rowspan="3" class="border border-slate-300 p-2 font-bold bg-slate-50">a.II) STIME E VALUTAZIONI</td>
+                            <td class="border border-slate-300 p-1 font-semibold">QaII.01</td>
+                            <td class="border border-slate-300 p-1 text-left">Sintetiche, basate su elementi sintetici e globali, vani, metri cubi (d.P.R. 327/2001)</td>
+                            <td class="border border-slate-300 p-1">0,040</td>
+                            <td class="border border-slate-300 p-1">0,040</td>
+                            <td class="border border-slate-300 p-1">0,040</td>
+                            <td class="border border-slate-300 p-1">0,040</td>
+                            <td class="border border-slate-300 p-1">0,040</td>
+                            <td class="border border-slate-300 p-1">0,040</td>
+                            <td class="border border-slate-300 p-1">0,040</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QaII.02</td>
+                            <td class="border border-slate-300 p-1 text-left">Particolareggiate, complete di criteri di valutazione, motivata (d.P.R. 327/2001)</td>
+                            <td class="border border-slate-300 p-1">0,080</td>
+                            <td class="border border-slate-300 p-1">0,080</td>
+                            <td class="border border-slate-300 p-1">0,080</td>
+                            <td class="border border-slate-300 p-1">0,080</td>
+                            <td class="border border-slate-300 p-1">0,080</td>
+                            <td class="border border-slate-300 p-1">0,080</td>
+                            <td class="border border-slate-300 p-1">0,090</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QaII.03</td>
+                            <td class="border border-slate-300 p-1 text-left">Analitiche, integrate con specifiche e distinte dei singoli componenti (d.P.R. 327/2001)</td>
+                            <td class="border border-slate-300 p-1">0,160</td>
+                            <td class="border border-slate-300 p-1">0,160</td>
+                            <td class="border border-slate-300 p-1">0,160</td>
+                            <td class="border border-slate-300 p-1">0,160</td>
+                            <td class="border border-slate-300 p-1">0,160</td>
+                            <td class="border border-slate-300 p-1">0,160</td>
+                            <td class="border border-slate-300 p-1">0,160</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+
+                        <!-- a.III) Rilievi, studi ed analisi -->
+                        <tr>
+                            <td rowspan="3" class="border border-slate-300 p-2 font-bold bg-slate-50">a.III) RILIEVI, STUDI ED ANALISI</td>
+                            <td class="border border-slate-300 p-1 font-semibold">QaIII.01</td>
+                            <td class="border border-slate-300 p-1 text-left">Rilievi, studi e classificazioni agronomiche, colturali, biomasse (d.Lgs 152/2006)</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,0003</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QaIII.02</td>
+                            <td class="border border-slate-300 p-1 text-left">Rilievo botanico e analisi vegetazionali erbacei ed arborei (d.Lgs 152/2006)</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,00025</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QaIII.03</td>
+                            <td class="border border-slate-300 p-1 text-left">Modelli numerici e software dedicati (idrogeologia, inquinanti, frane, incendi...)</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,025</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                        </tr>
+
+                        <!-- a.IV) Piani Economici -->
+                        <tr>
+                            <td class="border border-slate-300 p-2 font-bold bg-slate-50">a.IV) PIANI ECONOMICI</td>
+                            <td class="border border-slate-300 p-1 font-semibold">QaIV.01</td>
+                            <td class="border border-slate-300 p-1 text-left">Piani economici, aziendali, business plan e di investimento</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,005</td>
+                            <td class="border border-slate-300 p-1">0,0015</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- FOGLIO 2: b.I) PROGETTAZIONE PRELIMINARE -->
+        <div class="page-break">
+            <div class="text-center font-bold text-sm border border-slate-300 py-1.5 bg-slate-100 uppercase tracking-wide">
+                b.I) Progettazione Preliminare
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse border border-slate-300 text-[10px] text-center">
+                    <thead>
+                        <tr class="bg-slate-50 font-bold">
+                            <th rowspan="3" class="border border-slate-300 p-2 w-28">Fasi Prestazionali</th>
+                            <th rowspan="3" colspan="2" class="border border-slate-300 p-2">Descrizione Singole Prestazioni</th>
+                            <th colspan="9" class="border border-slate-300 p-1.5 uppercase">Categorie</th>
+                        </tr>
+                        <tr class="bg-slate-50 font-bold text-[9px] uppercase">
+                            <th rowspan="2" class="border border-slate-300 p-1 w-12">Edilizia</th>
+                            <th colspan="2" class="border border-slate-300 p-1">Strutture</th>
+                            <th rowspan="2" class="border border-slate-300 p-1 w-12">Impianti</th>
+                            <th rowspan="2" class="border border-slate-300 p-1 w-12">Viabilità</th>
+                            <th rowspan="2" class="border border-slate-300 p-1 w-12">Idraulica</th>
+                            <th rowspan="2" class="border border-slate-300 p-1 w-16">Tecnologie Inf.</th>
+                            <th rowspan="2" class="border border-slate-300 p-1 w-20">Paesaggio Amb.</th>
+                            <th rowspan="2" class="border border-slate-300 p-1 w-16">Territorio Urb.</th>
+                        </tr>
+                        <tr class="bg-slate-50 font-bold text-[8px]">
+                            <th class="border border-slate-300 p-0.5 w-10">S.01 S.03</th>
+                            <th class="border border-slate-300 p-0.5 w-10">S.02 S.04 S.05 S.06</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="26" class="border border-slate-300 p-2 font-bold rotate-180 [writing-mode:vertical-rl] bg-slate-50">
+                                b.I) PROGETTAZIONE PRELIMINARE
+                            </td>
+                            <td class="border border-slate-300 p-1 font-semibold">QbI.01</td>
+                            <td class="border border-slate-300 p-1 text-left">Relazioni, planimetrie, elaborati grafici</td>
+                            <td class="border border-slate-300 p-1">0,090</td>
+                            <td class="border border-slate-300 p-1">0,090</td>
+                            <td class="border border-slate-300 p-1">0,090</td>
+                            <td class="border border-slate-300 p-1">0,090</td>
+                            <td class="border border-slate-300 p-1">0,080</td>
+                            <td class="border border-slate-300 p-1">0,070</td>
+                            <td class="border border-slate-300 p-1">0,100</td>
+                            <td class="border border-slate-300 p-1">0,080</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbI.02</td>
+                            <td class="border border-slate-300 p-1 text-left">Calcolo sommario spesa, quadro economico di progetto</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbI.03</td>
+                            <td class="border border-slate-300 p-1 text-left">Piano particellare preliminare delle aree o rilievo di massima degli immobili</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbI.04</td>
+                            <td class="border border-slate-300 p-1 text-left">Piano economico e finanziario di massima</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbI.05</td>
+                            <td class="border border-slate-300 p-1 text-left">Capitolato speciale descrittivo e prestazionale, schema di contratto</td>
+                            <td class="border border-slate-300 p-1">0,070</td>
+                            <td class="border border-slate-300 p-1">0,070</td>
+                            <td class="border border-slate-300 p-1">0,070</td>
+                            <td class="border border-slate-300 p-1">0,070</td>
+                            <td class="border border-slate-300 p-1">0,070</td>
+                            <td class="border border-slate-300 p-1">0,070</td>
+                            <td class="border border-slate-300 p-1">0,070</td>
+                            <td class="border border-slate-300 p-1">0,070</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbI.06</td>
+                            <td class="border border-slate-300 p-1 text-left">Relazione geotecnica</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbI.07</td>
+                            <td class="border border-slate-300 p-1 text-left">Relazione idrologica</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbI.08</td>
+                            <td class="border border-slate-300 p-1 text-left">Relazione idraulica</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbI.09</td>
+                            <td class="border border-slate-300 p-1 text-left">Relazione sismica e sulle strutture</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbI.10</td>
+                            <td class="border border-slate-300 p-1 text-left">Relazione archeologica</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <!-- Relazione geologica con scaglioni -->
+                        <tr>
+                            <td rowspan="6" class="border border-slate-300 p-1 font-semibold">QbI.11</td>
+                            <td class="border border-slate-300 p-1 text-left">Relazione geologica: Fino a € 250.000,00</td>
+                            <td class="border border-slate-300 p-1">0,039</td>
+                            <td class="border border-slate-300 p-1">0,039</td>
+                            <td class="border border-slate-300 p-1">0,053</td>
+                            <td class="border border-slate-300 p-1">0,039</td>
+                            <td class="border border-slate-300 p-1">0,068</td>
+                            <td class="border border-slate-300 p-1">0,053</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,053</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Sull'eccedenza fino a € 500.000,00</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,048</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,058</td>
+                            <td class="border border-slate-300 p-1">0,048</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,048</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Sull'eccedenza fino a € 1.000.000,00</td>
+                            <td class="border border-slate-300 p-1">0,013</td>
+                            <td class="border border-slate-300 p-1">0,013</td>
+                            <td class="border border-slate-300 p-1">0,044</td>
+                            <td class="border border-slate-300 p-1">0,013</td>
+                            <td class="border border-slate-300 p-1">0,047</td>
+                            <td class="border border-slate-300 p-1">0,044</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,044</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Sull'eccedenza fino a € 2.500.000,00</td>
+                            <td class="border border-slate-300 p-1">0,018</td>
+                            <td class="border border-slate-300 p-1">0,018</td>
+                            <td class="border border-slate-300 p-1">0,042</td>
+                            <td class="border border-slate-300 p-1">0,018</td>
+                            <td class="border border-slate-300 p-1">0,034</td>
+                            <td class="border border-slate-300 p-1">0,042</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,042</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Sull'eccedenza fino a € 10.000.000,00</td>
+                            <td class="border border-slate-300 p-1">0,022</td>
+                            <td class="border border-slate-300 p-1">0,022</td>
+                            <td class="border border-slate-300 p-1">0,027</td>
+                            <td class="border border-slate-300 p-1">0,022</td>
+                            <td class="border border-slate-300 p-1">0,019</td>
+                            <td class="border border-slate-300 p-1">0,027</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,027</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Sull'eccedenza</td>
+                            <td class="border border-slate-300 p-1">0,021</td>
+                            <td class="border border-slate-300 p-1">0,021</td>
+                            <td class="border border-slate-300 p-1">0,025</td>
+                            <td class="border border-slate-300 p-1">0,021</td>
+                            <td class="border border-slate-300 p-1">0,018</td>
+                            <td class="border border-slate-300 p-1">0,025</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,025</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbI.12</td>
+                            <td class="border border-slate-300 p-1 text-left">Progettazione integrale e coordinata - Integrazione delle prestazioni specialistiche</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbI.13</td>
+                            <td class="border border-slate-300 p-1 text-left">Studio di inserimento urbanistico</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbI.14</td>
+                            <td class="border border-slate-300 p-1 text-left">Relazione tecnica sullo stato di consistenza degli immobili da ristrutturare</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbI.15</td>
+                            <td class="border border-slate-300 p-1 text-left">Prime indicazioni di progettazione antincendio (d.m. 6/02/1982)</td>
+                            <td class="border border-slate-300 p-1">0,005</td>
+                            <td class="border border-slate-300 p-1">0,005</td>
+                            <td class="border border-slate-300 p-1">0,005</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbI.16</td>
+                            <td class="border border-slate-300 p-1 text-left">Prime indicazioni e prescrizioni per la stesura dei Piani di Sicurezza</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <!-- Studi prefattibilità ambientale -->
+                        <tr>
+                            <td rowspan="3" class="border border-slate-300 p-1 font-semibold">QbI.17</td>
+                            <td class="border border-slate-300 p-1 text-left">Studi di prefattibilità ambientale: Fino a € 5.000.000,00</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,035</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,035</td>
+                            <td class="border border-slate-300 p-1">0,035</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,035</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Sull'eccedenza fino a € 20.000.000,00</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Sull'eccedenza</td>
+                            <td class="border border-slate-300 p-1">0,005</td>
+                            <td class="border border-slate-300 p-1">0,008</td>
+                            <td class="border border-slate-300 p-1">0,005</td>
+                            <td class="border border-slate-300 p-1">0,008</td>
+                            <td class="border border-slate-300 p-1">0,008</td>
+                            <td class="border border-slate-300 p-1">0,005</td>
+                            <td class="border border-slate-300 p-1">0,008</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <!-- Piano monitoraggio ambientale -->
+                        <tr>
+                            <td rowspan="3" class="border border-slate-300 p-1 font-semibold">QbI.18</td>
+                            <td class="border border-slate-300 p-1 text-left">Piano di monitoraggio ambientale: Fino a € 5.000.000,00</td>
+                            <td class="border border-slate-300 p-1">0,018</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,018</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,018</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Sull'eccedenza fino a € 20.000.000,00</td>
+                            <td class="border border-slate-300 p-1">0,008</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,008</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,008</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Sull'eccedenza</td>
+                            <td class="border border-slate-300 p-1">0,004</td>
+                            <td class="border border-slate-300 p-1">0,005</td>
+                            <td class="border border-slate-300 p-1">0,004</td>
+                            <td class="border border-slate-300 p-1">0,005</td>
+                            <td class="border border-slate-300 p-1">0,005</td>
+                            <td class="border border-slate-300 p-1">0,004</td>
+                            <td class="border border-slate-300 p-1">0,005</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbI.19</td>
+                            <td class="border border-slate-300 p-1 text-left">Supporto al RUP: supervisione e coordinamento della progettazione preliminare</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbI.20</td>
+                            <td class="border border-slate-300 p-1 text-left">Supporto al RUP: verifica della progettazione preliminare</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- FOGLIO 3: b.II) PROGETTAZIONE DEFINITIVA -->
+        <div class="page-break">
+            <div class="text-center font-bold text-sm border border-slate-300 py-1.5 bg-slate-100 uppercase tracking-wide">
+                b.II) Progettazione Definitiva
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse border border-slate-300 text-[10px] text-center">
+                    <thead>
+                        <tr class="bg-slate-50 font-bold">
+                            <th rowspan="3" class="border border-slate-300 p-2 w-28">Fasi Prestazionali</th>
+                            <th rowspan="3" colspan="2" class="border border-slate-300 p-2">Descrizione Singole Prestazioni</th>
+                            <th colspan="10" class="border border-slate-300 p-1.5 uppercase">Categorie</th>
+                        </tr>
+                        <tr class="bg-slate-50 font-bold text-[9px] uppercase">
+                            <th rowspan="2" class="border border-slate-300 p-1 w-12">Edilizia</th>
+                            <th colspan="2" class="border border-slate-300 p-1">Strutture</th>
+                            <th colspan="2" class="border border-slate-300 p-1">Impianti</th>
+                            <th rowspan="2" class="border border-slate-300 p-1 w-12">Viabilità</th>
+                            <th rowspan="2" class="border border-slate-300 p-1 w-12">Idraulica</th>
+                            <th rowspan="2" class="border border-slate-300 p-1 w-16">Tecnologie Inf.</th>
+                            <th rowspan="2" class="border border-slate-300 p-1 w-20">Paesaggio Amb.</th>
+                            <th rowspan="2" class="border border-slate-300 p-1 w-16">Territorio Urb.</th>
+                        </tr>
+                        <tr class="bg-slate-50 font-bold text-[8px]">
+                            <th class="border border-slate-300 p-0.5 w-10">S.01 S.03</th>
+                            <th class="border border-slate-300 p-0.5 w-10">S.02 S.04 S.05 S.06</th>
+                            <th class="border border-slate-300 p-0.5 w-8">A</th>
+                            <th class="border border-slate-300 p-0.5 w-8">B</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="36" class="border border-slate-300 p-2 font-bold rotate-180 [writing-mode:vertical-rl] bg-slate-50">
+                                b.II) PROGETTAZIONE DEFINITIVA
+                            </td>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.01</td>
+                            <td class="border border-slate-300 p-1 text-left">Relazioni generale e tecniche, Elaborati grafici, Calcoli, interferenze...</td>
+                            <td class="border border-slate-300 p-1">0,230</td>
+                            <td class="border border-slate-300 p-1">0,180</td>
+                            <td class="border border-slate-300 p-1">0,180</td>
+                            <td class="border border-slate-300 p-1">0,16</td>
+                            <td class="border border-slate-300 p-1">0,20</td>
+                            <td class="border border-slate-300 p-1">0,220</td>
+                            <td class="border border-slate-300 p-1">0,180</td>
+                            <td class="border border-slate-300 p-1">0,250</td>
+                            <td class="border border-slate-300 p-1">0,180</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.02</td>
+                            <td class="border border-slate-300 p-1 text-left">Rilievi dei manufatti</td>
+                            <td class="border border-slate-300 p-1">0,04</td>
+                            <td class="border border-slate-300 p-1">0,04</td>
+                            <td class="border border-slate-300 p-1">0,04</td>
+                            <td class="border border-slate-300 p-1">0,04</td>
+                            <td class="border border-slate-300 p-1">0,04</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.03</td>
+                            <td class="border border-slate-300 p-1 text-left">Disciplinare descrittivo e prestazionale</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.04</td>
+                            <td class="border border-slate-300 p-1 text-left">Piano particellare d'esproprio</td>
+                            <td class="border border-slate-300 p-1">0,04</td>
+                            <td class="border border-slate-300 p-1">0,04</td>
+                            <td class="border border-slate-300 p-1">0,04</td>
+                            <td class="border border-slate-300 p-1">0,04</td>
+                            <td class="border border-slate-300 p-1">0,04</td>
+                            <td class="border border-slate-300 p-1">0,04</td>
+                            <td class="border border-slate-300 p-1">0,04</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,04</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.05</td>
+                            <td class="border border-slate-300 p-1 text-left">Elenco prezzi unitari, Computo metrico estimativo, Quadro economico</td>
+                            <td class="border border-slate-300 p-1">0,070</td>
+                            <td class="border border-slate-300 p-1">0,040</td>
+                            <td class="border border-slate-300 p-1">0,040</td>
+                            <td class="border border-slate-300 p-1">0,070</td>
+                            <td class="border border-slate-300 p-1">0,070</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 p-1">0,050</td>
+                            <td class="border border-slate-300 p-1">0,050</td>
+                            <td class="border border-slate-300 p-1">0,050</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.06</td>
+                            <td class="border border-slate-300 p-1 text-left">Studio di inserimento urbanistico</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.07</td>
+                            <td class="border border-slate-300 p-1 text-left">Rilievi planoaltimetrici</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.08</td>
+                            <td class="border border-slate-300 p-1 text-left">Schema di contratto, Capitolato speciale d'appalto</td>
+                            <td class="border border-slate-300 p-1">0,070</td>
+                            <td class="border border-slate-300 p-1">0,070</td>
+                            <td class="border border-slate-300 p-1">0,070</td>
+                            <td class="border border-slate-300 p-1">0,080</td>
+                            <td class="border border-slate-300 p-1">0,080</td>
+                            <td class="border border-slate-300 p-1">0,070</td>
+                            <td class="border border-slate-300 p-1">0,070</td>
+                            <td class="border border-slate-300 p-1">0,070</td>
+                            <td class="border border-slate-300 p-1">0,070</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.09</td>
+                            <td class="border border-slate-300 p-1 text-left">Relazione geotecnica</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.10</td>
+                            <td class="border border-slate-300 p-1 text-left">Relazione idrologica</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.11</td>
+                            <td class="border border-slate-300 p-1 text-left">Relazione idraulica</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.12</td>
+                            <td class="border border-slate-300 p-1 text-left">Relazione sismica e sulle strutture</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <!-- Relazione geologica con scaglioni -->
+                        <tr>
+                            <td rowspan="6" class="border border-slate-300 p-1 font-semibold">QbII.13</td>
+                            <td class="border border-slate-300 p-1 text-left">Relazione geologica: Fino a € 250.000,00</td>
+                            <td class="border border-slate-300 p-1">0,064</td>
+                            <td class="border border-slate-300 p-1">0,064</td>
+                            <td class="border border-slate-300 p-1">0,133</td>
+                            <td class="border border-slate-300 p-1">0,064</td>
+                            <td class="border border-slate-300 p-1">0,064</td>
+                            <td class="border border-slate-300 p-1">0,145</td>
+                            <td class="border border-slate-300 p-1">0,133</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,133</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Sull'eccedenza fino a € 500.000,00</td>
+                            <td class="border border-slate-300 p-1">0,019</td>
+                            <td class="border border-slate-300 p-1">0,019</td>
+                            <td class="border border-slate-300 p-1">0,107</td>
+                            <td class="border border-slate-300 p-1">0,019</td>
+                            <td class="border border-slate-300 p-1">0,019</td>
+                            <td class="border border-slate-300 p-1">0,114</td>
+                            <td class="border border-slate-300 p-1">0,107</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,107</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Sull'eccedenza fino a € 1.000.000,00</td>
+                            <td class="border border-slate-300 p-1">0,021</td>
+                            <td class="border border-slate-300 p-1">0,021</td>
+                            <td class="border border-slate-300 p-1">0,096</td>
+                            <td class="border border-slate-300 p-1">0,021</td>
+                            <td class="border border-slate-300 p-1">0,021</td>
+                            <td class="border border-slate-300 p-1">0,070</td>
+                            <td class="border border-slate-300 p-1">0,096</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,096</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Sull'eccedenza fino a € 2.500.000,00</td>
+                            <td class="border border-slate-300 p-1">0,029</td>
+                            <td class="border border-slate-300 p-1">0,029</td>
+                            <td class="border border-slate-300 p-1">0,079</td>
+                            <td class="border border-slate-300 p-1">0,029</td>
+                            <td class="border border-slate-300 p-1">0,029</td>
+                            <td class="border border-slate-300 p-1">0,035</td>
+                            <td class="border border-slate-300 p-1">0,079</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,079</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Sull'eccedenza fino a € 10.000.000,00</td>
+                            <td class="border border-slate-300 p-1">0,038</td>
+                            <td class="border border-slate-300 p-1">0,038</td>
+                            <td class="border border-slate-300 p-1">0,054</td>
+                            <td class="border border-slate-300 p-1">0,038</td>
+                            <td class="border border-slate-300 p-1">0,038</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,054</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,054</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Sull'eccedenza</td>
+                            <td class="border border-slate-300 p-1">0,028</td>
+                            <td class="border border-slate-300 p-1">0,028</td>
+                            <td class="border border-slate-300 p-1">0,035</td>
+                            <td class="border border-slate-300 p-1">0,028</td>
+                            <td class="border border-slate-300 p-1">0,028</td>
+                            <td class="border border-slate-300 p-1">0,018</td>
+                            <td class="border border-slate-300 p-1">0,035</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1">0,035</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.14</td>
+                            <td class="border border-slate-300 p-1 text-left">Analisi storico critica e relazione sulle strutture esistenti</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1" colspan="2">0,090</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.15</td>
+                            <td class="border border-slate-300 p-1 text-left">Relazione sulle indagini dei materiali e delle strutture per edifici esistenti</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1" colspan="2">0,120</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.16</td>
+                            <td class="border border-slate-300 p-1 text-left">Verifica sismica delle strutture esistenti e individuazione delle carenze strutturali</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 p-1" colspan="2">0,180</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.17</td>
+                            <td class="border border-slate-300 p-1 text-left">Progettazione integrale e coordinata - Integrazione delle prestazioni specialistiche</td>
+                            <td class="border border-slate-300 p-1">0,050</td>
+                            <td class="border border-slate-300 p-1">0,050</td>
+                            <td class="border border-slate-300 p-1">0,050</td>
+                            <td class="border border-slate-300 p-1">0,050</td>
+                            <td class="border border-slate-300 p-1">0,050</td>
+                            <td class="border border-slate-300 p-1">0,050</td>
+                            <td class="border border-slate-300 p-1">0,050</td>
+                            <td class="border border-slate-300 p-1">0,050</td>
+                            <td class="border border-slate-300 p-1">0,050</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.18</td>
+                            <td class="border border-slate-300 p-1 text-left">Elaborati di progettazione antincendio (d.m. 16/02/1982)</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.19</td>
+                            <td class="border border-slate-300 p-1 text-left">Relazione paesaggistica (d.lgs. 42/2004)</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.20</td>
+                            <td class="border border-slate-300 p-1 text-left">Elaborati e relazioni per requisiti acustici (Legge 447/95-d.p.c.m. 512/97)</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.21</td>
+                            <td class="border border-slate-300 p-1 text-left">Relazione energetica (ex Legge 10/91 e s.m.i.)</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.22</td>
+                            <td class="border border-slate-300 p-1 text-left">Diagnosi energetica (ex Legge 10/91 e s.m.i.) degli edifici esistenti, esclusi i rilievi</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.23</td>
+                            <td class="border border-slate-300 p-1 text-left">Aggiornamento delle prime indicazioni e prescrizioni per la redazione del PSC</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <!-- Studio di impatto ambientale con scaglioni -->
+                        <tr>
+                            <td rowspan="3" class="border border-slate-300 p-1 font-semibold">QbII.24</td>
+                            <td class="border border-slate-300 p-1 text-left">Studio di impatto ambientale o di fattibilità ambientale (VIA-VAS-AIA): Fino a € 5.000.000,00</td>
+                            <td class="border border-slate-300 p-1">0,090</td>
+                            <td class="border border-slate-300 p-1">0,100</td>
+                            <td class="border border-slate-300 p-1">0,100</td>
+                            <td class="border border-slate-300 p-1">0,090</td>
+                            <td class="border border-slate-300 p-1">0,090</td>
+                            <td class="border border-slate-300 p-1">0,100</td>
+                            <td class="border border-slate-300 p-1">0,100</td>
+                            <td class="border border-slate-300 p-1">0,090</td>
+                            <td class="border border-slate-300 p-1">0,100</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Sull'eccedenza fino a € 20.000.000,00</td>
+                            <td class="border border-slate-300 p-1">0,045</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 p-1">0,045</td>
+                            <td class="border border-slate-300 p-1">0,045</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 p-1">0,045</td>
+                            <td class="border border-slate-300 p-1">0,060</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Sull'eccedenza</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,025</td>
+                            <td class="border border-slate-300 p-1">0,025</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,025</td>
+                            <td class="border border-slate-300 p-1">0,025</td>
+                            <td class="border border-slate-300 p-1">0,015</td>
+                            <td class="border border-slate-300 p-1">0,025</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <!-- Piano monitoraggio ambientale con scaglioni -->
+                        <tr>
+                            <td rowspan="3" class="border border-slate-300 p-1 font-semibold">QbII.25</td>
+                            <td class="border border-slate-300 p-1 text-left">Piano di monitoraggio ambientale: Fino a € 5.000.000,00</td>
+                            <td class="border border-slate-300 p-1">0,018</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,018</td>
+                            <td class="border border-slate-300 p-1">0,018</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,018</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Sull'eccedenza fino a € 20.000.000,00</td>
+                            <td class="border border-slate-300 p-1">0,008</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,008</td>
+                            <td class="border border-slate-300 p-1">0,008</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,008</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 text-left">Sull'eccedenza</td>
+                            <td class="border border-slate-300 p-1">0,004</td>
+                            <td class="border border-slate-300 p-1">0,005</td>
+                            <td class="border border-slate-300 p-1">0,005</td>
+                            <td class="border border-slate-300 p-1">0,004</td>
+                            <td class="border border-slate-300 p-1">0,004</td>
+                            <td class="border border-slate-300 p-1">0,005</td>
+                            <td class="border border-slate-300 p-1">0,005</td>
+                            <td class="border border-slate-300 p-1">0,004</td>
+                            <td class="border border-slate-300 p-1">0,005</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.26</td>
+                            <td class="border border-slate-300 p-1 text-left">Supporto al RUP: supervisione e coordinamento della prog. def.</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbII.27</td>
+                            <td class="border border-slate-300 p-1 text-left">Supporto al RUP: verifica della prog. def.</td>
+                            <td class="border border-slate-300 p-1">0,130</td>
+                            <td class="border border-slate-300 p-1">0,130</td>
+                            <td class="border border-slate-300 p-1">0,130</td>
+                            <td class="border border-slate-300 p-1">0,130</td>
+                            <td class="border border-slate-300 p-1">0,130</td>
+                            <td class="border border-slate-300 p-1">0,130</td>
+                            <td class="border border-slate-300 p-1">0,130</td>
+                            <td class="border border-slate-300 p-1">0,130</td>
+                            <td class="border border-slate-300 p-1">0,130</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- FOGLIO 4: b.III) PROGETTAZIONE ESECUTIVA -->
+        <div class="page-break">
+            <div class="text-center font-bold text-sm border border-slate-300 py-1.5 bg-slate-100 uppercase tracking-wide">
+                b.III) Progettazione Esecutiva
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse border border-slate-300 text-[10px] text-center">
+                    <thead>
+                        <tr class="bg-slate-50 font-bold">
+                            <th rowspan="3" class="border border-slate-300 p-2 w-28">Fasi Prestazionali</th>
+                            <th rowspan="3" colspan="2" class="border border-slate-300 p-2">Descrizione Singole Prestazioni</th>
+                            <th colspan="9" class="border border-slate-300 p-1.5 uppercase">Categorie</th>
+                        </tr>
+                        <tr class="bg-slate-50 font-bold text-[9px] uppercase">
+                            <th rowspan="2" class="border border-slate-300 p-1 w-14">Edilizia</th>
+                            <th rowspan="2" class="border border-slate-300 p-1 w-14">Strutture</th>
+                            <th colspan="2" class="border border-slate-300 p-1">Impianti</th>
+                            <th rowspan="2" class="border border-slate-300 p-1 w-14">Viabilità</th>
+                            <th rowspan="2" class="border border-slate-300 p-1 w-14">Idraulica</th>
+                            <th rowspan="2" class="border border-slate-300 p-1 w-16">Tecnologie Inf.</th>
+                            <th rowspan="2" class="border border-slate-300 p-1 w-20">Paesaggio Amb.</th>
+                            <th rowspan="2" class="border border-slate-300 p-1 w-16">Territorio Urb.</th>
+                        </tr>
+                        <tr class="bg-slate-50 font-bold text-[8px]">
+                            <th class="border border-slate-300 p-0.5 w-10">A</th>
+                            <th class="border border-slate-300 p-0.5 w-10">B</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="11" class="border border-slate-300 p-2 font-bold rotate-180 [writing-mode:vertical-rl] bg-slate-50">
+                                b.III) PROGETTAZIONE ESECUTIVA
+                            </td>
+                            <td class="border border-slate-300 p-1 font-semibold">QbIII.01</td>
+                            <td class="border border-slate-300 p-1 text-left">Relazione generale e specialistiche, Elaborati grafici, Calcoli esecutivi</td>
+                            <td class="border border-slate-300 p-1">0,070</td>
+                            <td class="border border-slate-300 p-1">0,120</td>
+                            <td class="border border-slate-300 p-1">0,15</td>
+                            <td class="border border-slate-300 p-1">0,04</td>
+                            <td class="border border-slate-300 p-1">0,040</td>
+                            <td class="border border-slate-300 p-1">0,110</td>
+                            <td class="border border-slate-300 p-1">0,050</td>
+                            <td class="border border-slate-300 p-1">0,040</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbIII.02</td>
+                            <td class="border border-slate-300 p-1 text-left">Particolari costruttivi e decorativi</td>
+                            <td class="border border-slate-300 p-1">0,130</td>
+                            <td class="border border-slate-300 p-1">0,130</td>
+                            <td class="border border-slate-300 p-1">0,050</td>
+                            <td class="border border-slate-300 p-1">0,050</td>
+                            <td class="border border-slate-300 p-1">0,080</td>
+                            <td class="border border-slate-300 p-1">0,050</td>
+                            <td class="border border-slate-300 p-1">0,100</td>
+                            <td class="border border-slate-300 p-1">0,080</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbIII.03</td>
+                            <td class="border border-slate-300 p-1 text-left">Computo metrico estimativo, QE, Elenco prezzi, incidenza manodopera</td>
+                            <td class="border border-slate-300 p-1">0,040</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,050</td>
+                            <td class="border border-slate-300 p-1">0,050</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,040</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbIII.04</td>
+                            <td class="border border-slate-300 p-1 text-left">Schema di contratto, capitolato speciale d'appalto, cronoprogramma</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbIII.05</td>
+                            <td class="border border-slate-300 p-1 text-left">Piano di manutenzione dell'opera</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,025</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,020</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbIII.06</td>
+                            <td class="border border-slate-300 p-1 text-left">Progettazione integrale e coordinata - Integrazione delle prestazioni specialistiche</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 p-1">0,030</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbIII.07</td>
+                            <td class="border border-slate-300 p-1 text-left">Piano di Sicurezza e Coordinamento</td>
+                            <td class="border border-slate-300 p-1">0,100</td>
+                            <td class="border border-slate-300 p-1">0,100</td>
+                            <td class="border border-slate-300 p-1">0,100</td>
+                            <td class="border border-slate-300 p-1">0,100</td>
+                            <td class="border border-slate-300 p-1">0,100</td>
+                            <td class="border border-slate-300 p-1">0,100</td>
+                            <td class="border border-slate-300 p-1">0,100</td>
+                            <td class="border border-slate-300 p-1">0,100</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbIII.08</td>
+                            <td class="border border-slate-300 p-1 text-left">Supporto al RUP: supervisione e coordinamento della progettazione esecutiva</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbIII.09</td>
+                            <td class="border border-slate-300 p-1 text-left">Supporto al RUP: verifica della progettazione esecutiva</td>
+                            <td class="border border-slate-300 p-1">0,130</td>
+                            <td class="border border-slate-300 p-1">0,130</td>
+                            <td class="border border-slate-300 p-1">0,130</td>
+                            <td class="border border-slate-300 p-1">0,130</td>
+                            <td class="border border-slate-300 p-1">0,130</td>
+                            <td class="border border-slate-300 p-1">0,130</td>
+                            <td class="border border-slate-300 p-1">0,130</td>
+                            <td class="border border-slate-300 p-1">0,130</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbIII.10</td>
+                            <td class="border border-slate-300 p-1 text-left">Supporto al RUP: programmazione e progettazione appalto</td>
+                            <td class="border border-slate-300 p-1">0,040</td>
+                            <td class="border border-slate-300 p-1">0,040</td>
+                            <td class="border border-slate-300 p-1">0,040</td>
+                            <td class="border border-slate-300 p-1">0,040</td>
+                            <td class="border border-slate-300 p-1">0,040</td>
+                            <td class="border border-slate-300 p-1">0,040</td>
+                            <td class="border border-slate-300 p-1">0,040</td>
+                            <td class="border border-slate-300 p-1">0,040</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-300 p-1 font-semibold">QbIII.11</td>
+                            <td class="border border-slate-300 p-1 text-left">Supporto al RUP: validazione del progetto</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 p-1">0,010</td>
+                            <td class="border border-slate-300 diagonal-cross"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
