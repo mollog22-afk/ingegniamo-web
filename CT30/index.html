@@ -1047,6 +1047,61 @@ if (activeInterventi.pdc) {
                     </tr>
                 `;
             }
+            / =========================================================================
+// 3. GESTIONE COLONNINE DI RICARICA EV (II.G - INTERVENTO TRAINATO)
+// =========================================================================
+if (activeInterventi.colonnine || activeInterventi.ev) {
+    const numPuntiMono = parseInt(document.getElementById('numColonnineMono')?.value) || 0; // Monofase (7.4 - 22 kW)
+    const numPuntiTri = parseInt(document.getElementById('numColonnineTri')?.value) || 0;   // Trifase (7.4 - 22 kW)
+    const kwAltePotenze = parseFloat(document.getElementById('kwColonnineAltaPotenza')?.value) || 0; // > 22 kW
+    const costoEV = parseFloat(document.getElementById('costoColonnine')?.value) || 0;
+
+    // 1. Calcolo Spesa Massima Ammissibile (Cmax) ex D.M. 7 Agosto 2025
+    let spesaMaxAmmEV = (numPuntiMono * 2400) + (numPuntiTri * 8400);
+
+    if (kwAltePotenze > 22 && kwAltePotenze <= 50) {
+        spesaMaxAmmEV += kwAltePotenze * 1200;
+    } else if (kwAltePotenze > 50 && kwAltePotenze <= 100) {
+        spesaMaxAmmEV += 60000;
+    } else if (kwAltePotenze > 100) {
+        spesaMaxAmmEV += 110000;
+    }
+
+    // 2. Calcolo Spesa Valida e Incentivo Teorico (30%)
+    const spesaValidaEV = Math.min(costoEV, spesaMaxAmmEV);
+    const incTeoricoEV = spesaValidaEV * 0.30;
+
+    // 3. Cap Vincolato all'Incentivo della Pompa di Calore (Trainante)
+    const maxCapPdC = activeInterventi.pdc ? incPdC : 0;
+    const incEV = Math.min(incTeoricoEV, maxCapPdC);
+
+    totSpesaVal += costoEV;
+    totIncVal += incEV;
+
+    // 4. Ripartizione Finanziaria (Rata Unica vs Rateizzato)
+    const isRataUnicaEV = incEV <= 15000;
+    if (isRataUnicaEV) {
+        incassoAnno1 += incEV;
+    } else {
+        incassoAnno1 += incEV / 5;
+        quotaAnnualeCostante += incEV / 5;
+    }
+
+    let testoModalitaEV = isRataUnicaEV ? 'Rata Unica (1° Anno)' : '5 Rate Annuali';
+    if (!activeInterventi.pdc && (numPuntiMono > 0 || numPuntiTri > 0 || kwAltePotenze > 0)) {
+        testoModalitaEV = 'Richiede PdC Trainante';
+    }
+
+    tableHtml += `
+        <tr class="hover:bg-slate-800/40">
+            <td class="py-2.5 font-medium flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> II.G - Colonnine Ricarica EV
+            </td>
+            <td class="py-2.5 text-right font-bold text-indigo-400">€ ${Math.round(incEV).toLocaleString('it-IT')}</td>
+            <td class="py-2.5 text-right text-slate-300 text-xs">${testoModalitaEV}</td>
+        </tr>
+    `;
+}
 
             const flussoAnno1 = incassoAnno1 + quotaAnnualeCostante;
             const pctCop = totSpesaVal > 0 ? ((totIncVal / totSpesaVal) * 100).toFixed(1) : 0;
