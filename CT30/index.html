@@ -793,38 +793,53 @@
             const isZonaDEF = ['D', 'E', 'F'].includes(zona);
 
             // 1. Pompa di Calore (III.A)
-           let incPdC = 0;
+           // 1. Pompa di Calore (III.A) - Conforme D.M. 7 Agosto 2025
+            let incPdC = 0;
             let kwPost = 0;
+            let alertPotenzaEsistente = '';
+
             if (activeInterventi.pdc) {
                 const numPdC = parseInt(document.getElementById('numPdC').value, 10) || 1;
                 const kwSingola = parseFloat(document.getElementById('kwPost').value) || 0;
-                kwPost = kwSingola * numPdC; // Potenza totale impianto
+                kwPost = kwSingola * numPdC; // Potenza complessiva dell'edificio
                 const scopPdC = parseFloat(document.getElementById('scopPdC').value) || 4.20;
                 const costoPdC = parseFloat(document.getElementById('costoPdC').value) || 0;
-                
+
+                // CORREZIONE 1: Coefficiente Ci calcolato sulla POTENZA TOTALE di edificio
+                // Se la somma delle unità supera 35 kWt -> Ci = 0.055, altrimenti 0.15
+                const Ci = (kwPost <= 35) ? 0.15 : 0.055;
+                const durataAnni = (kwPost <= 35) ? 2 : 5;
+
+                let incUnitario = 0;
                 if (MODELLO_SCELTO && DATI_MODELLI && DATI_MODELLI.quf) {
                     const quf = DATI_MODELLI.quf[zona] || ore;
-                    // Formula per singola macchina moltiplicata per il numero di unità
-                    const incUnitario = MODELLO_SCELTO.pr * quf * (1 - (1 / MODELLO_SCELTO.scop)) * MODELLO_SCELTO.nsh * MODELLO_SCELTO.k;
-                    const incTotaleFormula = incUnitario * numPdC;
-                    incPdC = Math.min(incTotaleFormula, costoPdC * 0.65);
-                    const lbl = document.getElementById('labelIncentivoModello');
-                    if (lbl) lbl.innerText = `Incentivo GSE (${numPdC}x): € ${Math.round(incTotaleFormula).toLocaleString('it-IT')}`;
+                    // Se la potenza cumulativa supera 35 kWt e il modello usava k da fascia residenziale, adegua con Ci
+                    if (kwPost > 35 && MODELLO_SCELTO.c === 'DVM S') {
+                        const Ei_annua_macchina = (MODELLO_SCELTO.pr * quf) * (1 - (1 / MODELLO_SCELTO.scop));
+                        incUnitario = Ei_annua_macchina * 0.055 * 5;
+                    } else {
+                        incUnitario = MODELLO_SCELTO.pr * quf * (1 - (1 / MODELLO_SCELTO.scop)) * MODELLO_SCELTO.nsh * MODELLO_SCELTO.k;
+                    }
                 } else {
-                    const Ci = (kwSingola <= 35) ? 0.15 : 0.055;
-                    const durataAnni = (kwSingola <= 35) ? 2 : 5;
-                    const Ei_annua = (kwSingola * ore) * (1 - (1 / scopPdC));
-                    const incUnitario = Ei_annua * Ci * durataAnni;
-                    const incTotaleFormula = incUnitario * numPdC;
-                    incPdC = Math.min(incTotaleFormula, costoPdC * 0.65);
-                    const lbl = document.getElementById('labelIncentivoModello');
-                    if (lbl) lbl.innerText = '';
+                    const Ei_annua_macchina = (kwSingola * ore) * (1 - (1 / scopPdC));
+                    incUnitario = Ei_annua_macchina * Ci * durataAnni;
                 }
-                
+
+                const incTotaleFormula = incUnitario * numPdC;
+                incPdC = Math.min(incTotaleFormula, costoPdC * 0.65);
+
+                const lbl = document.getElementById('labelIncentivoModello');
+                if (lbl) lbl.innerText = `Incentivo GSE (${numPdC}x): € ${Math.round(incPdC).toLocaleString('it-IT')}`;
+
                 totSpesaVal += costoPdC;
                 totIncVal += incPdC;
 
-                if (incPdC <= 15000) {
+                // CORREZIONE 2: Verifica Rata Unica sul SINGOLO GENERATORE AUTONOMO
+                // Se la singola macchina ha P <= 35 kWt OPPURE incentivo singolo <= 15.000 € -> Rata Unica
+                const incSingolaMacchina = incPdC / numPdC;
+                const isRataUnicaPdC = (kwSingola <= 35) || (incSingolaMacchina <= 15000);
+
+                if (isRataUnicaPdC) {
                     incassoAnno1 += incPdC;
                 } else {
                     quotaAnnualeCostante += incPdC / 5;
@@ -834,11 +849,29 @@
                     <tr class="hover:bg-slate-800/40">
                         <td class="py-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> III.A - Pompa di Calore (${numPdC} unità - ${Math.round(kwPost)} kWt tot)</td>
                         <td class="py-2.5 text-right font-bold text-emerald-400">€ ${Math.round(incPdC).toLocaleString('it-IT')}</td>
-                        <td class="py-2.5 text-right text-slate-400">${incPdC <= 15000 ? 'Rata Unica' : '5 Anni'}</td>
+                        <td class="py-2.5 text-right text-slate-400">${isRataUnicaPdC ? 'Rata Unica (Autonoma)' : '5 Anni'}</td>
                     </tr>
                 `;
-            }
 
+                // CORREZIONE 3: Controllo Potenza Esistente vs Nuova (+10%)
+                const statoEsistente = document.getElementById('chkImpiantoEsistente') ? document.getElementById('chkImpiantoEsistente').value : 'si';
+                const kwEsistente = parseFloat(document.getElementById('kwEsistente')?.value) || 0;
+
+                if (statoEsistente === 'si' && kwEsistente > 0) {
+                    const limite10Pct = kwEsistente * 1.10;
+                    if (kwPost > limite10Pct) {
+                        alertPotenzaEsistente = `
+                            <div class="bg-amber-950/40 border border-amber-500/50 p-4 rounded-2xl flex items-start gap-3 text-xs leading-relaxed">
+                                <i class="fa-solid fa-triangle-exclamation text-amber-400 text-base mt-0.5"></i>
+                                <div>
+                                    <span class="font-bold text-amber-300 block uppercase">Necessaria Valutazione Tecnica (Potenza Superiore al 10%)</span>
+                                    <span class="text-slate-300">La nuova potenza installata (${Math.round(kwPost)} kWt) supera di oltre il 10% la potenza dell'impianto esistente (${kwEsistente} kWt, soglia max: ${Math.round(limite10Pct)} kWt). È richiesta idonea relazione di calcolo termico e diagnosi a giustificazione del dimensionamento per evitare contestazioni in fase di istruttoria GSE.</span>
+                                </div>
+                            </div>
+                        `;
+                    }
+                }
+            }
             // 2. Fotovoltaico (II.H)
             if (activeInterventi.ftv) {
                 const kwpFTV = parseFloat(document.getElementById('kwpFTV').value) || 0;
