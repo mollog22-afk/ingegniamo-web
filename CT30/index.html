@@ -497,7 +497,36 @@
 
                 </div>
             </div>
+<!-- RIQUADRO SELEZIONE COLONNINE EV (INTERVENTO II.G) -->
+<div class="bg-slate-900/60 border border-slate-800 rounded-xl p-5 mb-4 shadow-lg">
+    <div class="flex items-center justify-between mb-2">
+        <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" id="chkEV" onchange="toggleIntervento('colonnine')" class="w-5 h-5 rounded border-slate-700 text-indigo-500 focus:ring-indigo-500">
+            <span class="font-bold text-white text-base">II.G - Colonnine di Ricarica Veicoli Elettrici</span>
+        </label>
+        <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Trainato (30% Spesa)</span>
+    </div>
 
+    <!-- CAMPI DI INPUT (Nascosti di default, visibili solo se spuntato) -->
+    <div id="boxEVInputs" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4 hidden">
+        <div>
+            <label class="block text-xs font-medium text-slate-400 mb-1">Punti Monofase (7.4-22 kW)</label>
+            <input type="number" id="numColonnineMono" value="0" min="0" oninput="calcolaTotali()" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-indigo-500">
+        </div>
+        <div>
+            <label class="block text-xs font-medium text-slate-400 mb-1">Punti Trifase (7.4-22 kW)</label>
+            <input type="number" id="numColonnineTri" value="0" min="0" oninput="calcolaTotali()" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-indigo-500">
+        </div>
+        <div>
+            <label class="block text-xs font-medium text-slate-400 mb-1">Potenza > 22 kW (kW tot)</label>
+            <input type="number" id="kwColonnineAltaPotenza" value="0" min="0" placeholder="es. 30" oninput="calcolaTotali()" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-indigo-500">
+        </div>
+        <div>
+            <label class="block text-xs font-medium text-slate-400 mb-1">Costo Totale Posa ed EV (€)</label>
+            <input type="number" id="costoColonnine" value="0" min="0" placeholder="es. 12000" oninput="calcolaTotali()" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-indigo-500">
+        </div>
+    </div>
+</div>
             <!-- PROSPETTO ECONOMICO & FLUSSI (5 COLONNE) -->
             <div class="lg:col-span-5 space-y-6">
                 <div class="grid grid-cols-2 gap-4">
