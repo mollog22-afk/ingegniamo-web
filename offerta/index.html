@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modulo di Offerta Economica e Disciplinare d'Incarico - INGEGNIAMO S.r.l.</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background-color: #ffffff;
+            }
+            .print-shadow {
+                box-shadow: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="py-8 px-4 sm:px-6 lg:px-8">
+
+    <!-- BARRA AZIONI SUPERIORE (Non stampabile) -->
+    <div class="max-w-4xl mx-auto mb-6 flex flex-wrap items-center justify-between gap-4 bg-white p-4 rounded-xl shadow-sm border border-slate-200 no-print">
+        <div>
+            <h1 class="text-lg font-bold text-slate-800">Generatore Offerta Economica</h1>
+            <p class="text-sm text-slate-500">Modifica i campi direttamente nel modulo e premi Stampa o Salva PDF.</p>
+        </div>
+        <div class="flex items-center gap-3">
+            <button onclick="aggiungiRiga('progettazione-tbody')" class="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg text-sm font-semibold hover:bg-blue-100 transition-colors">
+                + Voce Progettazione
+            </button>
+            <button onclick="aggiungiRiga('dl-tbody')" class="px-4 py-2 bg-emerald-50 text-emerald-600 rounded-lg text-sm font-semibold hover:bg-emerald-100 transition-colors">
+                + Voce DL & Sicurezza
+            </button>
+            <button onclick="window.print()" class="px-5 py-2 bg-slate-900 text-white rounded-lg text-sm font-semibold hover:bg-slate-800 transition-colors shadow-md">
+                Stampa / PDF
+            </button>
+        </div>
+    </div>
+
+    <!-- DOCUMENTO PRINCIPALE -->
+    <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden print-shadow">
+        
+        <!-- INTESTAZIONE AZIENDALE -->
+        <div class="p-8 border-b border-slate-200 bg-slate-50/50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+                <h2 class="text-2xl font-black text-slate-900 tracking-tight">INGEGNIAMO S.r.l.</h2>
+                <p class="text-xs font-medium text-slate-600">Società di Ingegneria e Servizi Tecnici Integrati</p>
+                <p class="text-xs text-slate-500 mt-1">PEC: ingegniamosrl@pec.it • info@ingegniamosrl.it</p>
+            </div>
+            <div class="text-right sm:text-right">
+                <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-full uppercase tracking-wider mb-1">Modello Ufficiale</span>
+                <p class="text-xs text-slate-500">D.M. 17 giugno 2016 e art. 9 L. 27/2012</p>
+            </div>
+        </div>
+
+        <!-- TITOLO MODULO -->
+        <div class="px-8 pt-8 pb-4">
+            <h1 class="text-xl font-bold text-slate-900">MODULO DI OFFERTA ECONOMICA E DISCIPLINARE DI INCARICO</h1>
+            <p class="text-sm text-slate-500 mt-1">Determinazione dei corrispettivi ai sensi delle normative vigenti</p>
+        </div>
+
+        <!-- DATI COMMITTENTE E OFFERTA -->
+        <div class="px-8 grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <!-- Box Committente -->
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Spett.le Committente</h3>
+                <div class="space-y-1">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-semibold text-slate-600 w-24">Cliente:</span>
+                        <input type="text" value="Impresa / Committente S.r.l." class="w-full bg-transparent border-b border-dashed border-slate-300 text-sm font-medium text-slate-800 focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-semibold text-slate-600 w-24">P.IVA / C.F.:</span>
+                        <input type="text" value="01234567890" class="w-full bg-transparent border-b border-dashed border-slate-300 text-sm font-medium text-slate-800 focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-semibold text-slate-600 w-24">Ubicazione:</span>
+                        <input type="text" value="Immobile a destinazione ricettiva / terziaria" class="w-full bg-transparent border-b border-dashed border-slate-300 text-sm font-medium text-slate-800 focus:outline-none focus:border-blue-500">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Box Dati Offerta -->
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Riferimenti Offerta</h3>
+                <div class="space-y-1">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-semibold text-slate-600 w-28">N. Offerta:</span>
+                        <input type="text" value="OFF-26-001_Committente" class="w-full bg-transparent border-b border-dashed border-slate-300 text-sm font-medium text-slate-800 focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-semibold text-slate-600 w-28">Data Emissione:</span>
+                        <input type="date" value="2026-10-18" class="w-full bg-transparent border-b border-dashed border-slate-300 text-sm font-medium text-slate-800 focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-semibold text-slate-600 w-28">Validità:</span>
+                        <input type="text" value="30 giorni data emissione" class="w-full bg-transparent border-b border-dashed border-slate-300 text-sm font-medium text-slate-800 focus:outline-none focus:border-blue-500">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OGGETTO DELL'INCARICO -->
+        <div class="px-8 my-4">
+            <div class="p-4 border-l-4 border-blue-600 bg-blue-50/40 rounded-r-xl">
+                <span class="text-xs font-bold uppercase tracking-wider text-blue-700 block mb-1">Oggetto dell'Incarico</span>
+                <input type="text" value="Progettazione Impianti Meccanici ed Elettrici, Contabilità Lavori, Sicurezza PSC e Assistenza Specialistica" class="w-full bg-transparent text-sm font-semibold text-slate-900 focus:outline-none">
+            </div>
+        </div>
+
+        <!-- SEZIONE 1: PROGETTAZIONE -->
+        <div class="px-8 mt-8">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider">1. Attività di Progettazione e Servizi Tecnici</h3>
+                <span class="text-xs text-slate-500">Importi in €</span>
+            </div>
+            <div class="overflow-x-auto border border-slate-200 rounded-xl">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-100 text-slate-700 text-xs uppercase font-semibold">
+                            <th class="p-3">Descrizione delle prestazioni</th>
+                            <th class="p-3 w-40 text-right">Importo (€)</th>
+                            <th class="p-3 w-12 text-center no-print">Azioni</th>
+                        </tr>
+                    </thead>
+                    <tbody id="progettazione-tbody" class="divide-y divide-slate-200 text-sm">
+                        <tr>
+                            <td class="p-3">
+                                <input type="text" value="Progettazione Definitiva Impianti Meccanici (HVAC)" class="w-full bg-transparent focus:outline-none text-slate-800">
+                            </td>
+                            <td class="p-3 text-right">
+                                <input type="number" value="3500.00" oninput="ricalcolaTotali()" class="importo-progg w-full bg-slate-50 p-1 rounded border border-slate-200 text-right font-medium focus:outline-none focus:border-blue-500">
+                            </td>
+                            <td class="p-3 text-center no-print">
+                                <button onclick="rimuoviRiga(this)" class="text-red-500 hover:text-red-700 font-bold text-xs">✕</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="p-3">
+                                <input type="text" value="Progettazione Esecutiva Impianti Elettrici e Speciali" class="w-full bg-transparent focus:outline-none text-slate-800">
+                            </td>
+                            <td class="p-3 text-right">
+                                <input type="number" value="4200.00" oninput="ricalcolaTotali()" class="importo-progg w-full bg-slate-50 p-1 rounded border border-slate-200 text-right font-medium focus:outline-none focus:border-blue-500">
+                            </td>
+                            <td class="p-3 text-center no-print">
+                                <button onclick="rimuoviRiga(this)" class="text-red-500 hover:text-red-700 font-bold text-xs">✕</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SEZIONE 2: DIREZIONE LAVORI E SICUREZZA -->
+        <div class="px-8 mt-6">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider">2. Direzione Lavori, Contabilità e Sicurezza (PSC)</h3>
+                <span class="text-xs text-slate-500">Importi in €</span>
+            </div>
+            <div class="overflow-x-auto border border-slate-200 rounded-xl">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-100 text-slate-700 text-xs uppercase font-semibold">
+                            <th class="p-3">Descrizione delle prestazioni</th>
+                            <th class="p-3 w-40 text-right">Importo (€)</th>
+                            <th class="p-3 w-12 text-center no-print">Azioni</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dl-tbody" class="divide-y divide-slate-200 text-sm">
+                        <tr>
+                            <td class="p-3">
+                                <input type="text" value="Direzione Lavori e Contabilità Impianti" class="w-full bg-transparent focus:outline-none text-slate-800">
+                            </td>
+                            <td class="p-3 text-right">
+                                <input type="number" value="3000.00" oninput="ricalcolaTotali()" class="importo-dl w-full bg-slate-50 p-1 rounded border border-slate-200 text-right font-medium focus:outline-none focus:border-blue-500">
+                            </td>
+                            <td class="p-3 text-center no-print">
+                                <button onclick="rimuoviRiga(this)" class="text-red-500 hover:text-red-700 font-bold text-xs">✕</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="p-3">
+                                <input type="text" value="Coordinamento della Sicurezza in fase di Esecuzione (CSE)" class="w-full bg-transparent focus:outline-none text-slate-800">
+                            </td>
+                            <td class="p-3 text-right">
+                                <input type="number" value="1800.00" oninput="ricalcolaTotali()" class="importo-dl w-full bg-slate-50 p-1 rounded border border-slate-200 text-right font-medium focus:outline-none focus:border-blue-500">
+                            </td>
+                            <td class="p-3 text-center no-print">
+                                <button onclick="rimuoviRiga(this)" class="text-red-500 hover:text-red-700 font-bold text-xs">✕</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- RIEPILOGO ECONOMICO DINAMICO -->
+        <div class="px-8 mt-8">
+            <div class="bg-slate-900 text-white p-6 rounded-2xl shadow-md space-y-3">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Riepilogo Economico dell'Offerta</h3>
+                
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-slate-300">Totale Compensi Progettazione & Servizi:</span>
+                    <span id="tot-compensi" class="font-semibold">€ 0,00</span>
+                </div>
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-slate-300">Contributo Cassa Previdenziale (CNPAIA 4%):</span>
+                    <span id="tot-cassa" class="font-semibold">€ 0,00</span>
+                </div>
+                <div class="pt-2 border-t border-slate-800 flex justify-between items-center text-base">
+                    <span class="font-bold text-white">Importo Imponibile:</span>
+                    <span id="tot-imponibile" class="font-bold text-white">€ 0,00</span>
+                </div>
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-slate-300">IVA (22%):</span>
+                    <span id="tot-iva" class="font-semibold">€ 0,00</span>
+                </div>
+                <div class="pt-3 border-t border-slate-700 flex justify-between items-center text-lg">
+                    <span class="font-black text-blue-400">Totale Complessivo Offerta:</span>
+                    <span id="tot-complessivo" class="font-black text-blue-400 text-xl">€ 0,00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEZIONE ESCLUSIONI -->
+        <div class="px-8 my-8">
+            <div class="p-5 bg-amber-50/50 rounded-xl border border-amber-200">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-amber-800 mb-2">3. Esclusioni e Note Generali</h3>
+                <div contenteditable="true" class="text-xs text-slate-700 space-y-2 outline-none leading-relaxed">
+                    <p>Restano espressamente esclusi dal presente corrispettivo e quantificati a parte:</p>
+                    <ul class="list-disc list-inside space-y-1 pl-2">
+                        <li>Diritti di segreteria, bolli, oneri concessori, diritti di copia e pareri di enti terzi (VVF, Genio Civile, ASL, ecc.).</li>
+                        <li>Indagini geologiche, geotecniche, saggi diagnostici e relazioni specialistiche non espressamente menzionate.</li>
+                        <li>Tutto ciò che non è strettamente specificato nell'oggetto dell'incarico.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- FIRMA E CHIUSURA -->
+        <div class="px-8 pb-12 pt-4 flex flex-col sm:flex-row justify-between items-end gap-6 text-xs text-slate-500 border-t border-slate-100">
+            <div>
+                <p class="font-semibold text-slate-800">INGEGNIAMO S.r.l.</p>
+                <p>Il Legale Rappresentante / Tecnico Incaricato</p>
+            </div>
+            <div class="text-center sm:text-right">
+                <div class="w-48 border-b border-slate-400 mb-2 h-12"></div>
+                <p>Firma per accettazione del Committente</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SCRIPT DI CALCOLO E DINAMICA -->
+    <script>
+        function ricalcolaTotali() {
+            let totalProgg = 0;
+            document.querySelectorAll('.importo-progg').forEach(input => {
+                totalProgg += parseFloat(input.value) || 0;
+            });
+
+            let totalDl = 0;
+            document.querySelectorAll('.importo-dl').forEach(input => {
+                totalDl += parseFloat(input.value) || 0;
+            });
+
+            const compensiTotali = totalProgg + totalDl;
+            const cassa = compensiTotali * 0.04;
+            const imponibile = compensiTotali + cassa;
+            const iva = imponibile * 0.22;
+            const complessivo = imponibile + iva;
+
+            document.getElementById('tot-compensi').innerText = '€ ' + compensiTotali.toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('tot-cassa').innerText = '€ ' + cassa.toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('tot-imponibile').innerText = '€ ' + imponibile.toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('tot-iva').innerText = '€ ' + iva.toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('tot-complessivo').innerText = '€ ' + complessivo.toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        }
+
+        function aggiungiRiga(tbodyId) {
+            const tbody = document.getElementById(tbodyId);
+            const tr = document.createElement('tr');
+            const classeInput = tbodyId === 'progettazione-tbody' ? 'importo-progg' : 'importo-dl';
+            
+            tr.innerHTML = `
+                <td class="p-3">
+                    <input type="text" value="Nuova prestazione..." class="w-full bg-transparent focus:outline-none text-slate-800">
+                </td>
+                <td class="p-3 text-right">
+                    <input type="number" value="0.00" oninput="ricalcolaTotali()" class="${classeInput} w-full bg-slate-50 p-1 rounded border border-slate-200 text-right font-medium focus:outline-none focus:border-blue-500">
+                </td>
+                <td class="p-3 text-center no-print">
+                    <button onclick="rimuoviRiga(this)" class="text-red-500 hover:text-red-700 font-bold text-xs">✕</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+            ricalcolaTotali();
+        }
+
+        function rimuoviRiga(button) {
+            const tr = button.closest('tr');
+            tr.remove();
+            ricalcolaTotali();
+        }
+
+        // Calcola i totali all'avvio della pagina
+        window.onload = ricalcolaTotali;
+    </script>
+
+</body>
+</html>
