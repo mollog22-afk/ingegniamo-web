@@ -370,6 +370,7 @@
             </div>
  </section>
         <!-- 3. PARAMETRI DI CALCOLO & PROSPETTO ECONOMICO -->
+      <!-- 3. PARAMETRI DI CALCOLO & PROSPETTO ECONOMICO -->
         <div class="space-y-8 page-break w-full">
             
             <div class="w-full bg-[#eef2f6] border border-slate-300 rounded-3xl p-6 sm:p-7 shadow-xl space-y-6 print-card">
@@ -381,7 +382,7 @@
                         </span>
                         <h3 class="text-base font-bold text-slate-900 mt-0.5">Dati Quantitativi degli Interventi Selezionati</h3>
                     </div>
-                    <span class="text-xs bg-slate-800 border border-slate-700 text-slate-600 font-semibold px-3 py-1 rounded-full">Database Integrato</span>
+                    <span class="text-xs bg-slate-800 border border-slate-700 text-slate-400 font-semibold px-3 py-1 rounded-full">Database Integrato</span>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-[#f8fafc]/60 p-4 rounded-2xl border border-slate-300">
@@ -408,8 +409,8 @@
                     <!-- Pompa di Calore (III.A) con CATALOGO COMPLETO INTEGRATO -->
                     <div id="row_pdc" class="bg-[#f8fafc]/40 border border-emerald-900/40 rounded-2xl p-4 sm:p-5">
                         <div class="flex justify-between items-center mb-3">
-                            <span class="font-bold text-sm text-emerald-300 flex items-center gap-2"><i class="fa-solid fa-fan"></i> III.A - Pompa di Calore (Trainante)</span>
-                            <span class="text-[10px] text-emerald-400 bg-sky-100 border border-sky-300 text-sky-800 px-2.5 py-0.5 rounded-full font-bold">Max 65% Spesa</span>
+                            <span class="font-bold text-sm text-emerald-600 flex items-center gap-2"><i class="fa-solid fa-fan"></i> III.A - Pompa di Calore (Trainante)</span>
+                            <span class="text-[10px] text-emerald-800 bg-sky-100 border border-sky-300 px-2.5 py-0.5 rounded-full font-bold">Max 65% Spesa</span>
                         </div>
 
                         <!-- Categoria & Modello -->
@@ -423,14 +424,15 @@
                             <div>
                                 <label for="calc-modello" class="text-[11px] font-semibold text-slate-600 block mb-1 flex justify-between items-center">
                                     <span>Modello Pompa di Calore (Catalogo):</span>
-                                    <span id="labelIncentivoModello" class="text-[10px] text-amber-400 font-bold"></span>
+                                    <span id="labelIncentivoModello" class="text-[10px] text-amber-500 font-bold"></span>
                                 </label>
                                 <select id="calc-modello" disabled class="w-full bg-[#f8fafc] border border-slate-700 text-slate-900 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-emerald-500 font-medium disabled:opacity-50">
                                     <option value="">Scegli prima il tipo di sistema</option>
                                 </select>
                             </div>
                         </div>
-<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                             <div>
                                 <label class="text-[11px] font-medium text-slate-700 block mb-1">Numero Unità (Q.tà)</label>
                                 <input type="number" id="numPdC" value="1" min="1" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-bold text-amber-500 focus:outline-none focus:border-amber-500">
@@ -475,8 +477,8 @@
                     <!-- Cappotto (II.A) -->
                     <div id="row_cappotto" class="bg-[#f8fafc]/40 border border-amber-900/40 rounded-2xl p-4 sm:p-5">
                         <div class="flex justify-between items-center mb-3">
-                            <span class="font-bold text-sm text-amber-300 flex items-center gap-2"><i class="fa-solid fa-cubes"></i> II.A - Coibentazione Pareti & Copertura</span>
-                            <span class="text-[10px] text-amber-400 bg-amber-100 border border-amber-300 text-amber-800 px-2.5 py-0.5 rounded-full font-bold">Cmax: 200 €/m² Pareti | 300 €/m² Tetto</span>
+                            <span class="font-bold text-sm text-amber-600 flex items-center gap-2"><i class="fa-solid fa-cubes"></i> II.A - Coibentazione Pareti & Copertura</span>
+                            <span class="text-[10px] text-amber-800 bg-amber-100 border border-amber-300 px-2.5 py-0.5 rounded-full font-bold">Cmax: 200 €/m² Pareti | 300 €/m² Tetto</span>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
                             <div>
@@ -515,8 +517,8 @@
                     <!-- LED & BACS -->
                     <div id="row_led_bacs" class="bg-[#f8fafc]/40 border border-indigo-900/40 rounded-2xl p-4 sm:p-5">
                         <div class="flex justify-between items-center mb-3">
-                            <span class="font-bold text-sm text-indigo-300 flex items-center gap-2"><i class="fa-solid fa-lightbulb"></i> II.E / II.F - Relamping LED & BACS</span>
-                            <span class="text-[10px] text-indigo-300 bg-indigo-950 border border-indigo-800 px-2.5 py-0.5 rounded-full font-bold">45% Piccola Impresa</span>
+                            <span class="font-bold text-sm text-indigo-600 flex items-center gap-2"><i class="fa-solid fa-lightbulb"></i> II.E / II.F - Relamping LED & BACS</span>
+                            <span class="text-[10px] text-indigo-800 bg-indigo-50 border border-indigo-200 px-2.5 py-0.5 rounded-full font-bold">45% Piccola Impresa</span>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div id="sub_led">
@@ -533,8 +535,8 @@
                     <!-- Solare Termico (III.D) -->
                     <div id="row_solare" class="bg-[#f8fafc]/40 border border-orange-900/40 rounded-2xl p-4 sm:p-5">
                         <div class="flex justify-between items-center mb-3">
-                            <span class="font-bold text-sm text-orange-300 flex items-center gap-2"><i class="fa-solid fa-sun"></i> III.D - Solare Termico ACS</span>
-                            <span class="text-[10px] text-orange-400 bg-orange-950 border border-orange-800 px-2.5 py-0.5 rounded-full font-bold">Rata Unica Immediata</span>
+                            <span class="font-bold text-sm text-orange-600 flex items-center gap-2"><i class="fa-solid fa-sun"></i> III.D - Solare Termico ACS</span>
+                            <span class="text-[10px] text-orange-800 bg-orange-100 border border-orange-300 px-2.5 py-0.5 rounded-full font-bold">Rata Unica Immediata</span>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div>
@@ -566,7 +568,7 @@
                         </div>
                     </div>
 
-<!-- RIGA COLONNINE RICARICA EV (II.G) -->
+                    <!-- RIGA COLONNINE RICARICA EV (II.G) -->
                     <div id="row_colonnine" class="bg-[#f8fafc]/40 border border-slate-300 rounded-2xl p-4 sm:p-5" style="display: none;">
                         <div class="flex justify-between items-center mb-3">
                             <span class="font-bold text-sm text-slate-800 flex items-center gap-2">
@@ -576,93 +578,88 @@
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
-                    <!-- 1. Tipologia -->
-    <div class="sm:col-span-1">
-        <label class="text-[11px] font-medium text-slate-700 block mb-1">Tipologia Installazione</label>
-        <select id="tipoColonnina" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-2.5 py-2 text-xs font-semibold text-slate-900 focus:outline-none">
-            <option value="mono">Monofase 7,4-22 kW (Cmax: 2.400 €/pto)</option>
-            <option value="tri" selected>Trifase 7,4-22 kW (Cmax: 8.400 €/pto)</option>
-            <option value="fast">Fast 22-50 kW (Cmax: 1.200 €/kW)</option>
-            <option value="superfast">Superfast 50-100 kW (Cmax: 60.000 €)</option>
-            <option value="ultrafast">Ultrafast >100 kW (Cmax: 110.000 €)</option>
-        </select>
-    </div>
+                            <div class="sm:col-span-1">
+                                <label class="text-[11px] font-medium text-slate-700 block mb-1">Tipologia Installazione</label>
+                                <select id="tipoColonnina" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-2.5 py-2 text-xs font-semibold text-slate-900 focus:outline-none">
+                                    <option value="mono">Monofase 7,4-22 kW (Cmax: 2.400 €/pto)</option>
+                                    <option value="tri" selected>Trifase 7,4-22 kW (Cmax: 8.400 €/pto)</option>
+                                    <option value="fast">Fast 22-50 kW (Cmax: 1.200 €/kW)</option>
+                                    <option value="superfast">Superfast 50-100 kW (Cmax: 60.000 €)</option>
+                                    <option value="ultrafast">Ultrafast >100 kW (Cmax: 110.000 €)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label id="lblQtaCol" class="text-[11px] font-medium text-slate-700 block mb-1">Q.tà / Punti Ricarica</label>
+                                <input type="number" id="qtaColonnine" value="1" min="1" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
+                            </div>
+                            <div id="col_potenza_ev">
+                                <label class="text-[11px] font-medium text-slate-700 block mb-1">Potenza Singola (kW)</label>
+                                <input type="number" id="kwColonnina" value="30" min="1" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="text-[11px] font-medium text-slate-700 block mb-1">Spesa Preventivata (€)</label>
+                                <input type="number" id="costoColonnine" value="25000" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
+                            </div>
+                        </div>
+                    </div>
 
-    <!-- 2. Numero Punti / Infrastrutture -->
-    <div>
-        <label id="lblQtaCol" class="text-[11px] font-medium text-slate-700 block mb-1">Q.tà / Punti Ricarica</label>
-        <input type="number" id="qtaColonnine" value="1" min="1" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
-    </div>
+                    <!-- RIGA TRASFORMAZIONE nZEB (II.D) -->
+                    <div id="row_nzeb" class="bg-[#f8fafc]/40 border border-amber-900/40 rounded-2xl p-4 sm:p-5" style="display: none;">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="font-bold text-sm text-amber-800 flex items-center gap-2">
+                                <i class="fa-solid fa-building-circle-check text-amber-600"></i> II.D - Trasformazione Edificio in nZEB
+                            </span>
+                            <span class="text-[10px] text-amber-800 bg-amber-100 border border-amber-300 px-2.5 py-0.5 rounded-full font-bold">65% Spesa • Cmax: 1.000 €/m² (A-C) | 1.300 €/m² (D-F)</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-[11px] font-medium text-slate-700 block mb-1">Superficie Utile Riscaldata Ristrutturata (m²)</label>
+                                <input type="number" id="mqNzeb" value="1200" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none focus:border-amber-500">
+                            </div>
+                            <div>
+                                <label class="text-[11px] font-medium text-slate-700 block mb-1">Spesa Preventivata Globale nZEB (€)</label>
+                                <input type="number" id="costoNzeb" value="1400000" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none focus:border-amber-500">
+                            </div>
+                        </div>
+                    </div>
 
-    <!-- 3. Potenza Nominale kW -->
-    <div id="col_potenza_ev">
-        <label class="text-[11px] font-medium text-slate-700 block mb-1">Potenza Singola (kW)</label>
-        <input type="number" id="kwColonnina" value="30" min="1" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
-    </div>
+                    <!-- RIGA SCALDACQUA A POMPA DI CALORE (III.E) -->
+                    <div id="row_scaldacqua" class="bg-[#f8fafc]/40 border border-sky-900/40 rounded-2xl p-4 sm:p-5" style="display: none;">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="font-bold text-sm text-sky-800 flex items-center gap-2">
+                                <i class="fa-solid fa-faucet-drip text-sky-600"></i> III.E - Scaldacqua a Pompa di Calore ACS
+                            </span>
+                            <span class="text-[10px] text-sky-800 bg-sky-100 border border-sky-300 px-2.5 py-0.5 rounded-full font-bold">Aliquota 40% • Rata Unica ≤ 15.000 €</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+                            <div class="sm:col-span-1">
+                                <label class="text-[11px] font-medium text-slate-700 block mb-1">Capacità e Classe</label>
+                                <select id="tipoScaldacqua" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-2 py-2 text-xs font-semibold text-slate-900 focus:outline-none">
+                                    <option value="a_sub150">Classe A (≤ 150 L) - Max 500 €</option>
+                                    <option value="a_over150">Classe A (> 150 L) - Max 1.100 €</option>
+                                    <option value="aplus_sub150">Classe A+ o sup. (≤ 150 L) - Max 700 €</option>
+                                    <option value="aplus_over150" selected>Classe A+ o sup. (> 150 L) - Max 1.500 €</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-[11px] font-medium text-slate-700 block mb-1">Numero Unità (Q.tà)</label>
+                                <input type="number" id="numScaldacqua" value="1" min="1" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="text-[11px] font-medium text-slate-700 block mb-1">Capacità Serbatoio (L)</label>
+                                <input type="number" id="litriScaldacqua" value="250" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="text-[11px] font-medium text-slate-700 block mb-1">Spesa Totale (€)</label>
+                                <input type="number" id="costoScaldacqua" value="3200" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
+                            </div>
+                        </div>
+                    </div>
 
-    <!-- 4. Spesa Preventivata -->
-    <div>
-        <label class="text-[11px] font-medium text-slate-700 block mb-1">Spesa Preventivata (€)</label>
-        <input type="number" id="costoColonnine" value="25000" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
-    </div>
-</div>
-                    
-        <!-- RIGA TRASFORMAZIONE nZEB (II.D) -->
-<div id="row_nzeb" class="bg-[#f8fafc]/40 border border-amber-900/40 rounded-2xl p-4 sm:p-5" style="display: none;">
-    <div class="flex justify-between items-center mb-3">
-        <span class="font-bold text-sm text-amber-800 flex items-center gap-2">
-            <i class="fa-solid fa-building-circle-check text-amber-600"></i> II.D - Trasformazione Edificio in nZEB
-        </span>
-        <span class="text-[10px] text-amber-800 bg-amber-100 border border-amber-300 px-2.5 py-0.5 rounded-full font-bold">65% Spesa • Cmax: 1.000 €/m² (A-C) | 1.300 €/m² (D-F)</span>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div>
-            <label class="text-[11px] font-medium text-slate-700 block mb-1">Superficie Utile Riscaldata Ristrutturata (m²)</label>
-            <input type="number" id="mqNzeb" value="1200" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none focus:border-amber-500">
-        </div>
-        <div>
-            <label class="text-[11px] font-medium text-slate-700 block mb-1">Spesa Preventivata Globale nZEB (€)</label>
-            <input type="number" id="costoNzeb" value="1400000" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none focus:border-amber-500">
-        </div>
-    </div>
-</div>
-
-<!-- RIGA SCALDACQUA A POMPA DI CALORE (III.E) -->
-<div id="row_scaldacqua" class="bg-[#f8fafc]/40 border border-sky-900/40 rounded-2xl p-4 sm:p-5" style="display: none;">
-    <div class="flex justify-between items-center mb-3">
-        <span class="font-bold text-sm text-sky-800 flex items-center gap-2">
-            <i class="fa-solid fa-faucet-drip text-sky-600"></i> III.E - Scaldacqua a Pompa di Calore ACS
-        </span>
-        <span class="text-[10px] text-sky-800 bg-sky-100 border border-sky-300 px-2.5 py-0.5 rounded-full font-bold">Aliquota 40% • Rata Unica ≤ 15.000 €</span>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
-        <div class="sm:col-span-1">
-            <label class="text-[11px] font-medium text-slate-700 block mb-1">Capacità e Classe</label>
-            <select id="tipoScaldacqua" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-2 py-2 text-xs font-semibold text-slate-900 focus:outline-none">
-                <option value="a_sub150">Classe A (≤ 150 L) - Max 500 €</option>
-                <option value="a_over150">Classe A (> 150 L) - Max 1.100 €</option>
-                <option value="aplus_sub150">Classe A+ o sup. (≤ 150 L) - Max 700 €</option>
-                <option value="aplus_over150" selected>Classe A+ o sup. (> 150 L) - Max 1.500 €</option>
-            </select>
-        </div>
-        <div>
-            <label class="text-[11px] font-medium text-slate-700 block mb-1">Numero Unità (Q.tà)</label>
-            <input type="number" id="numScaldacqua" value="1" min="1" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
-        </div>
-        <div>
-            <label class="text-[11px] font-medium text-slate-700 block mb-1">Capacità Serbatoio (L)</label>
-            <input type="number" id="litriScaldacqua" value="250" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
-        </div>
-        <div>
-            <label class="text-[11px] font-medium text-slate-700 block mb-1">Spesa Totale (€)</label>
-            <input type="number" id="costoScaldacqua" value="3200" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
-        </div>
-    </div>
-</div>
-              </div>
+                </div>
             </div>
 
-            <!-- PROSPETTO ECONOMICO & FLUSSI (5 COLONNE) -->
+            <!-- PROSPETTO ECONOMICO & FLUSSI (A LARGHEZZA PIENA) -->
 
             <!-- PROSPETTO ECONOMICO & FLUSSI (5 COLONNE) -->
             <div class="lg:col-span-5 space-y-6 page-break">
