@@ -10,8 +10,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-    </style>
+    body { font-family: 'Inter', sans-serif; }
+
+    @media print {
+        body, html {
+            height: auto !important;
+            overflow: visible !important;
+        }
+        header, button, input[type="number"] {
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        /* Rimuove i limiti di altezza e scroll della tabella durante la stampa */
+        #elencoPrestazioni {
+            max-height: none !important;
+            overflow: visible !important;
+            display: block !important;
+        }
+        /* Nasconde i pulsanti di interazione e seleziona tutto se non necessari */
+        header button {
+            display: none !important;
+        }
+    }
+</style>
 </head>
 <body class="min-h-full flex flex-col text-slate-800 antialiased">
 
