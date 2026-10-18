@@ -1499,40 +1499,47 @@
             const selCat = document.getElementById("calc-categoria");
             const selMod = document.getElementById("calc-modello");
 
-            // Ordinamento alfabetico e popolazione Comuni
-            if (Array.isArray(COMUNI_DB) && COMUNI_DB.length > 0) {
+        // Popolamento Comuni con Datalist per ricerca testuale fluida
+            const datalistComuni = document.getElementById("lista-comuni");
+            if (Array.isArray(COMUNI_DB) && COMUNI_DB.length > 0 && datalistComuni) {
                 COMUNI_DB.sort((a, b) => (a.n || a.label || "").localeCompare(b.n || b.label || "", 'it', { sensitivity: 'base' }));
 
-                selComune.innerHTML = '<option value="">-- Seleziona il Comune --</option>';
-                let preselectIndex = -1;
-                COMUNI_DB.forEach((c, idx) => {
+                datalistComuni.innerHTML = '';
+                const mapComuni = new Map();
+
+                COMUNI_DB.forEach(c => {
                     const nome = c.n || c.label;
                     const zona = c.z || c.zone;
+                    const labelCompleta = `${nome} (Zona ${zona})`;
+                    mapComuni.set(labelCompleta.toLowerCase(), c);
+                    mapComuni.set(nome.toLowerCase(), c);
+
                     const opt = document.createElement("option");
-                    opt.value = idx;
-                    opt.textContent = `${nome} (Zona ${zona})`;
-                    if (nome.toLowerCase() === "cosenza") preselectIndex = idx;
-                    selComune.appendChild(opt);
+                    opt.value = labelCompleta;
+                    datalistComuni.appendChild(opt);
                 });
 
-                selComune.addEventListener("change", () => {
-                    const idx = selComune.value;
-                    if (idx !== "" && COMUNI_DB[idx]) {
-                        COMUNE_SCELTO = COMUNI_DB[idx];
+                const selezionaComune = (valore) => {
+                    if (!valore) return;
+                    const trovato = mapComuni.get(valore.trim().toLowerCase());
+                    if (trovato) {
+                        COMUNE_SCELTO = trovato;
                         const zona = COMUNE_SCELTO.z || COMUNE_SCELTO.zone;
                         document.getElementById('zonaClimatica').value = zona;
                         const ore = (DATI_MODELLI && DATI_MODELLI.quf && DATI_MODELLI.quf[zona]) 
                                     ? DATI_MODELLI.quf[zona] 
                                     : (ORE_ZONA[zona] || 1100);
                         badgeZona.innerText = `Zona ${zona} (${ore.toLocaleString('it-IT')} h)`;
+                        recalculate();
                     }
-                    recalculate();
-                });
+                };
 
-                if (preselectIndex !== -1) {
-                    selComune.value = preselectIndex;
-                    selComune.dispatchEvent(new Event('change'));
-                }
+                selComune.addEventListener("input", () => selezionaComune(selComune.value));
+                selComune.addEventListener("change", () => selezionaComune(selComune.value));
+
+                // Pre-impostazione iniziale su Cosenza
+                selComune.value = "Cosenza (Zona C)";
+                selezionaComune(selComune.value);
             }
 
             // Popolamento Categorie Modelli
