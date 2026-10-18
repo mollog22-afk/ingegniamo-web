@@ -857,7 +857,36 @@
 
         const ORE_ZONA = { 'A': 600, 'B': 850, 'C': 1100, 'D': 1400, 'E': 1700, 'F': 1800 };
 
-        window.toggleIntervento = function(key) {
+   window.toggleIntervento = function(key) {
+            // Lista di tutti gli interventi del Titolo II incompatibili con II.D nZEB
+            const interventiTitoloII = ['cappotto', 'infissi', 'schermature', 'led', 'bacs', 'colonnine', 'ftv'];
+
+            // Se l'utente clicca su nZEB e lo sta per attivare
+            if (key === 'nzeb' && !activeInterventi.nzeb) {
+                // Disattiva e nasconde visivamente tutti gli altri interventi del Titolo II
+                interventiTitoloII.forEach(k => {
+                    activeInterventi[k] = false;
+                    const c = document.getElementById('card_' + k);
+                    if (c) {
+                        c.classList.remove('tile-active');
+                        c.classList.add('tile-inactive');
+                        c.style.display = 'none'; // Fa sparire la card
+                    }
+                });
+            }
+
+            // Se l'utente disattiva nZEB (cliccandoci di nuovo sopra)
+            if (key === 'nzeb' && activeInterventi.nzeb) {
+                // Fa ricomparire tutte le card del Titolo II
+                interventiTitoloII.forEach(k => {
+                    const c = document.getElementById('card_' + k);
+                    if (c) {
+                        c.style.display = ''; // Ripristina la visibilità
+                    }
+                });
+            }
+
+            // Cambia lo stato dell'intervento selezionato
             activeInterventi[key] = !activeInterventi[key];
             const card = document.getElementById('card_' + key);
             if (card) {
@@ -869,6 +898,7 @@
                     card.classList.add('tile-inactive');
                 }
             }
+
             updateRowsVisibility();
             recalculate();
         };
