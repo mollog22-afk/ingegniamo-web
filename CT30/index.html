@@ -783,7 +783,7 @@ if (activeInterventi.pdc) {
     kwPost = parseFloat(document.getElementById('kwPost').value) || 0; // Potenza singola unità (kWt)
     const scopPdC = parseFloat(document.getElementById('scopPdC').value) || 4.20;
     const costoPdC = parseFloat(document.getElementById('costoPdC').value) || 0; // Costo totale fornitura/posa
-    const nUnita = parseInt(document.getElementById('numUnitaPdC')?.value || document.getElementById('nUnitaPdC')?.value) || 1; // Numero macchine
+    const nUnita = parseInt(document.getElementById('numPdC')?.value || document.getElementById('numPdC')?.value) || 1; // Numero macchine
 
     // 2. Calcolo potenza complessiva edificio per determinare il coefficiente Ci
     const kwTotaleEdificio = kwPost * nUnita;
