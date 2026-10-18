@@ -297,6 +297,21 @@
                 </div>
             </div>
         </section>
+        <!-- TESSERA COLONNINE DI RICARICA (II.G) -->
+<div id="card_colonnine" onclick="toggleIntervento('colonnine')" class="tile-card bg-[#eef2f6] border border-slate-300 rounded-2xl p-4 sm:p-5 flex flex-col justify-between tile-inactive">
+    <div>
+        <div class="flex justify-between items-start mb-3">
+            <i class="fa-solid fa-charging-station text-2xl text-slate-700 tile-icon transition-transform"></i>
+            <span class="tile-badge text-[10px] font-bold px-2 py-0.5 rounded border border-slate-700 bg-slate-800 text-slate-600">Art. II.G</span>
+        </div>
+        <h4 class="font-bold text-sm text-slate-900 mb-1">Infrastrutture Ricarica EV</h4>
+        <p class="text-[11px] text-slate-700 leading-snug">Colonnine e wallbox per veicoli elettrici aziendali.</p>
+    </div>
+    <div class="mt-4 pt-3 border-t border-slate-300/80 flex items-center justify-between text-[11px]">
+        <span class="text-emerald-600 font-bold uppercase text-[9px] bg-emerald-100 border border-emerald-300 px-1.5 py-0.5 rounded">Trainato</span>
+        <span class="text-slate-900 font-bold">30% (Cap PdC)</span>
+    </div>
+</div>
 
         <!-- 3. PARAMETRI DI CALCOLO & PROSPETTO ECONOMICO -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -497,6 +512,41 @@
 
                 </div>
             </div>
+        <!-- RIGA COLONNINE RICARICA EV (II.G) -->
+<div id="row_colonnine" class="bg-[#f8fafc]/40 border border-slate-300 rounded-2xl p-4 sm:p-5" style="display: none;">
+    <div class="flex justify-between items-center mb-3">
+        <span class="font-bold text-sm text-slate-800 flex items-center gap-2">
+            <i class="fa-solid fa-charging-station text-emerald-600"></i> II.G - Colonnine di Ricarica EV (Trainato)
+        </span>
+        <span class="text-[10px] text-emerald-800 bg-emerald-100 border border-emerald-300 px-2.5 py-0.5 rounded-full font-bold">Aliquota 30% • Vincolato a PdC</span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <!-- Tipologia / Potenza Colonnina -->
+        <div class="sm:col-span-1">
+            <label class="text-[11px] font-medium text-slate-700 block mb-1">Tipologia Installazione</label>
+            <select id="tipoColonnina" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-2.5 py-2 text-xs font-semibold text-slate-900 focus:outline-none">
+                <option value="mono">Monofase 7,4-22 kW (Cmax: 2.400 €/pto)</option>
+                <option value="tri" selected>Trifase 7,4-22 kW (Cmax: 8.400 €/pto)</option>
+                <option value="fast">Fast 22-50 kW (Cmax: 1.200 €/kW)</option>
+                <option value="superfast">Superfast 50-100 kW (Cmax: 60.000 €)</option>
+                <option value="ultrafast">Ultrafast >100 kW (Cmax: 110.000 €)</option>
+            </select>
+        </div>
+
+        <!-- Parametro quantitativo (Punti o kW) -->
+        <div>
+            <label id="lblQuantitaColonnina" class="text-[11px] font-medium text-slate-700 block mb-1">Numero Punti di Ricarica</label>
+            <input type="number" id="qtaColonnine" value="2" min="1" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
+        </div>
+
+        <!-- Spesa Preventivata -->
+        <div>
+            <label class="text-[11px] font-medium text-slate-700 block mb-1">Spesa Preventivata (€)</label>
+            <input type="number" id="costoColonnine" value="16000" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
+        </div>
+    </div>
+</div>
 
             <!-- PROSPETTO ECONOMICO & FLUSSI (5 COLONNE) -->
             <div class="lg:col-span-5 space-y-6">
@@ -682,6 +732,7 @@
             bacs: true,
             solare: true,
             schermature: false
+            colonnine: false
         };
 
         const ORE_ZONA = { 'A': 600, 'B': 850, 'C': 1100, 'D': 1400, 'E': 1700, 'F': 1800 };
@@ -714,6 +765,7 @@
             setDisplay('row_ftv', activeInterventi.ftv);
             setDisplay('row_solare', activeInterventi.solare);
             setDisplay('row_schermature', activeInterventi.schermature);
+            setDisplay('row_colonnine', activeInterventi.colonnine);
 
             const showLed = activeInterventi.led;
             const showBacs = activeInterventi.bacs;
@@ -1036,6 +1088,66 @@
                     </tr>
                 `;
             }
+            // 9. Colonnine di Ricarica EV (II.G)
+            if (activeInterventi.colonnine) {
+                const tipoCol = document.getElementById('tipoColonnina').value;
+                const qtaCol = parseFloat(document.getElementById('qtaColonnine').value) || 0;
+                const costoCol = parseFloat(document.getElementById('costoColonnine').value) || 0;
+
+                // Calcolo Massimale Ammissibile (Cmax)
+                let cmaxTotaleCol = 0;
+                if (tipoCol === 'mono') {
+                    cmaxTotaleCol = qtaCol * 2400; // 2.400 € a punto
+                } else if (tipoCol === 'tri') {
+                    cmaxTotaleCol = qtaCol * 8400; // 8.400 € a punto
+                } else if (tipoCol === 'fast') {
+                    cmaxTotaleCol = qtaCol * 1200; // 1.200 € al kW (qui qtaCol rappresenta i kW)
+                } else if (tipoCol === 'superfast') {
+                    cmaxTotaleCol = qtaCol * 60000; // 60.000 € a infrastruttura
+                } else if (tipoCol === 'ultrafast') {
+                    cmaxTotaleCol = qtaCol * 110000; // 110.000 € a infrastruttura
+                }
+
+                const spesaValidaCol = Math.min(costoCol, cmaxTotaleCol);
+                const incTeoricoCol = spesaValidaCol * 0.30; // Aliquota 30%
+
+                // Cap Finanziario: non può superare l'incentivo della Pompa di Calore (Trainante)
+                const capPdC = activeInterventi.pdc ? incPdC : 0;
+                const incCol = Math.min(incTeoricoCol, capPdC);
+
+                totSpesaVal += costoCol;
+                totIncVal += incCol;
+
+                // Regola Rata Unica: se <= 15.000 € liquidato al 1° anno, altrimenti in 5 rate
+                if (incCol <= 15000) {
+                    incassoAnno1 += incCol;
+                } else {
+                    quotaAnnualeCostante += incCol / 5;
+                }
+
+                tableHtml += `
+                    <tr class="hover:bg-slate-100">
+                        <td class="py-2.5 font-medium flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> II.G - Colonnine EV
+                        </td>
+                        <td class="py-2.5 text-right font-bold text-emerald-600">€ ${Math.round(incCol).toLocaleString('it-IT')}</td>
+                        <td class="py-2.5 text-right text-slate-500">${incCol <= 15000 ? 'Rata Unica' : '5 Anni'}</td>
+                    </tr>
+                `;
+
+                // Alert normativo se la Pompa di Calore non è selezionata
+                if (!activeInterventi.pdc || incPdC <= 0) {
+                    alertHtml += `
+                        <div class="bg-amber-50 border border-amber-300 p-4 rounded-2xl flex items-start gap-3 text-xs leading-relaxed text-amber-900">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-600 text-base mt-0.5"></i>
+                            <div>
+                                <span class="font-bold block uppercase">Attenzione: Intervento Trainato EV (II.G)</span>
+                                <span>L'incentivo per le colonnine di ricarica richiede obbligatoriamente l'abbinamento a una Pompa di Calore (III.A) ed è limitato all'importo del suo incentivo.</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
 
             const flussoAnno1 = incassoAnno1 + quotaAnnualeCostante;
             const pctCop = totSpesaVal > 0 ? ((totIncVal / totSpesaVal) * 100).toFixed(1) : 0;
@@ -1107,7 +1219,8 @@
                 'costoLED', 'costoBACS',
                 'mqSolare', 'costoSolare',
                 'mqSchermatures', 'costoSchermature',
-                'chkImpiantoEsistente', 'chkLavoriAvviati', 'chkCatasto', 'chkDimensioneImpresa'
+                'chkImpiantoEsistente', 'chkLavoriAvviati', 'chkCatasto', 'chkDimensioneImpresa',
+                'tipoColonnina', 'qtaColonnine', 'costoColonnine'
             ];
 
             inputIds.forEach(id => {
