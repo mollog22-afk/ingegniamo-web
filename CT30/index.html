@@ -776,55 +776,65 @@
 
             const isZonaDEF = ['D', 'E', 'F'].includes(zona);
 
-            // 1. Pompa di Calore (III.A)
-            // 1. Pompa di Calore (III.A)
             let incPdC = 0;
-            let kwPost = 0;
-            if (activeInterventi.pdc) {
-                const qtaPdC = parseInt(document.getElementById('numPdC').value, 10) || 1;
-                const kwSingola = parseFloat(document.getElementById('kwPost').value) || 0;
-                kwPost = kwSingola * qtaPdC;
-                const scopPdC = parseFloat(document.getElementById('scopPdC').value) || 4.20;
-                const costoPdC = parseFloat(document.getElementById('costoPdC').value) || 0;
-                
-                if (MODELLO_SCELTO && DATI_MODELLI && DATI_MODELLI.quf) {
-                    const quf = DATI_MODELLI.quf[zona] || ore;
-                    const incFormulaSingola = MODELLO_SCELTO.pr * quf * (1 - (1 / MODELLO_SCELTO.scop)) * MODELLO_SCELTO.nsh * MODELLO_SCELTO.k;
-                    const incFormulaTotale = incFormulaSingola * qtaPdC;
-                    incPdC = Math.min(incFormulaTotale, costoPdC * 0.65);
-                    const lbl = document.getElementById('labelIncentivoModello');
-                    if (lbl) {
-                        lbl.innerText = qtaPdC > 1 
-                            ? `Incentivo GSE Totale (${qtaPdC} unità): € ${Math.round(incFormulaTotale).toLocaleString('it-IT')}` 
-                            : `Incentivo GSE: € ${Math.round(incFormulaSingola).toLocaleString('it-IT')}`;
-                    }
-                } else {
-                    const Ci = (kwSingola <= 35) ? 0.15 : 0.055;
-                    const durataAnni = (kwSingola <= 35) ? 2 : 5;
-                    const Ei_annua = (kwSingola * ore) * (1 - (1 / scopPdC));
-                    const incPdCRaw = Ei_annua * Ci * durataAnni * qtaPdC;
-                    incPdC = Math.min(incPdCRaw, costoPdC * 0.65);
-                    const lbl = document.getElementById('labelIncentivoModello');
-                    if (lbl) lbl.innerText = '';
-                }
-                
-                totSpesaVal += costoPdC;
-                totIncVal += incPdC;
+let kwPost = 0;
+if (activeInterventi.pdc) {
+    // 1. Lettura parametri e numero di unità installate
+    kwPost = parseFloat(document.getElementById('kwPost').value) || 0; // Potenza singola unità (kWt)
+    const scopPdC = parseFloat(document.getElementById('scopPdC').value) || 4.20;
+    const costoPdC = parseFloat(document.getElementById('costoPdC').value) || 0; // Costo totale fornitura/posa
+    const nUnita = parseInt(document.getElementById('numUnitaPdC')?.value || document.getElementById('nUnitaPdC')?.value) || 1; // Numero macchine
 
-                if (incPdC <= 15000) {
-                    incassoAnno1 += incPdC;
-                } else {
-                    quotaAnnualeCostante += incPdC / 5;
-                }
+    // 2. Calcolo potenza complessiva edificio per determinare il coefficiente Ci
+    const kwTotaleEdificio = kwPost * nUnita;
+    const Ci = (kwTotaleEdificio <= 35) ? 0.15 : 0.055; // Passa a 0.055 €/kWht se la somma supera 35 kWt
 
-                tableHtml += `
-                    <tr class="hover:bg-slate-100">
-                        <td class="py-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> III.A - Pompa di Calore (${qtaPdC} un.)</td>
-                        <td class="py-2.5 text-right font-bold text-emerald-600">€ ${Math.round(incPdC).toLocaleString('it-IT')}</td>
-                        <td class="py-2.5 text-right text-slate-500">${incPdC <= 15000 ? 'Rata Unica' : '5 Anni'}</td>
-                    </tr>
-                `;
-            }
+    let incPdCSingolaRaw = 0;
+    if (MODELLO_SCELTO && DATI_MODELLI && DATI_MODELLI.quf) {
+        const quf = DATI_MODELLI.quf[zona] || ore;
+        incPdCSingolaRaw = MODELLO_SCELTO.pr * quf * (1 - (1 / MODELLO_SCELTO.scop)) * MODELLO_SCELTO.nsh * MODELLO_SCELTO.k;
+        const lbl = document.getElementById('labelIncentivoModello');
+        if (lbl) lbl.innerText = `Incentivo GSE per singola unità: € ${Math.round(incPdCSingolaRaw).toLocaleString('it-IT')}`;
+    } else {
+        const Ei_annua_singola = (kwPost * ore) * (1 - (1 / scopPdC));
+        incPdCSingolaRaw = Ei_annua_singola * Ci * 5; // Incentivo teorico 5 anni per 1 unità
+        const lbl = document.getElementById('labelIncentivoModello');
+        if (lbl) lbl.innerText = '';
+    }
+
+    // 3. Cap 65% della spesa applicato alla singola macchina
+    const costoSingola = costoPdC / nUnita;
+    const incPdCSingola = Math.min(incPdCSingolaRaw, costoSingola * 0.65);
+    
+    // 4. Incentivo totale per l'intero gruppo di macchine
+    incPdC = incPdCSingola * nUnita;
+
+    totSpesaVal += costoPdC;
+    totIncVal += incPdC;
+
+    // 5. Verifica RATA UNICA per SINGOLA MACCHINA:
+    // Scatta se la singola unità è <= 35 kWt OPPURE se il suo incentivo singolo è <= 15.000 €
+    const isRataUnica = (kwPost <= 35) || (incPdCSingola <= 15000);
+
+    if (isRataUnica) {
+        // Se ciascuna macchina rispetta il requisito, l'intero incentivo (anche di 10 macchine) si incassa al 1° Anno!
+        incassoAnno1 += incPdC;
+    } else {
+        incassoAnno1 += incPdC / 5;
+        quotaAnnualeCostante += incPdC / 5;
+    }
+
+    const modalitaTesto = isRataUnica ? 'Rata Unica (1° Anno)' : '5 Rate Annuali';
+    const labelMacchine = nUnita > 1 ? `III.A - Pompa di Calore VRF (${nUnita}x ${kwPost} kWt)` : 'III.A - Pompa di Calore VRF';
+
+    tableHtml += `
+        <tr class="hover:bg-slate-800/40">
+            <td class="py-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> ${labelMacchine}</td>
+            <td class="py-2.5 text-right font-bold text-emerald-400">€ ${Math.round(incPdC).toLocaleString('it-IT')}</td>
+            <td class="py-2.5 text-right text-slate-300">${modalitaTesto}</td>
+        </tr>
+    `;
+}
             // 2. Fotovoltaico (II.H)
             if (activeInterventi.ftv) {
                 const kwpFTV = parseFloat(document.getElementById('kwpFTV').value) || 0;
