@@ -369,9 +369,9 @@
 </div>
  </section>
         <!-- 3. PARAMETRI DI CALCOLO & PROSPETTO ECONOMICO -->
-        <div class="w-full space-y-6 page-break">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start page-break">
             
-            <div class="lg:grid-cols-12 bg-[#eef2f6] border border-slate-300 rounded-3xl p-6 sm:p-7 shadow-xl space-y-6 print-card">
+            <div class="lg:col-span-7 bg-[#eef2f6] border border-slate-300 rounded-3xl p-6 sm:p-7 shadow-xl space-y-6 print-card">
                 
                 <div class="flex items-center justify-between border-b border-slate-300 pb-4">
                     <div>
@@ -573,6 +573,7 @@
                             </span>
                             <span class="text-[10px] text-emerald-800 bg-emerald-100 border border-emerald-300 px-2.5 py-0.5 rounded-full font-bold">Aliquota 30% • Vincolato a PdC</span>
                         </div>
+
                         <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
                     <!-- 1. Tipologia -->
     <div class="sm:col-span-1">
@@ -603,8 +604,7 @@
         <label class="text-[11px] font-medium text-slate-700 block mb-1">Spesa Preventivata (€)</label>
         <input type="number" id="costoColonnine" value="25000" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
     </div>
- </div>
-                    </div>
+</div>
                     
         <!-- RIGA TRASFORMAZIONE nZEB (II.D) -->
 <div id="row_nzeb" class="bg-[#f8fafc]/40 border border-amber-900/40 rounded-2xl p-4 sm:p-5" style="display: none;">
@@ -623,8 +623,8 @@
             <label class="text-[11px] font-medium text-slate-700 block mb-1">Spesa Preventivata Globale nZEB (€)</label>
             <input type="number" id="costoNzeb" value="1400000" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none focus:border-amber-500">
         </div>
-  </div>
-                    </div>
+    </div>
+</div>
 
 <!-- RIGA SCALDACQUA A POMPA DI CALORE (III.E) -->
 <div id="row_scaldacqua" class="bg-[#f8fafc]/40 border border-sky-900/40 rounded-2xl p-4 sm:p-5" style="display: none;">
@@ -656,7 +656,8 @@
             <label class="text-[11px] font-medium text-slate-700 block mb-1">Spesa Totale (€)</label>
             <input type="number" id="costoScaldacqua" value="3200" class="w-full bg-[#eef2f6] border border-slate-300 rounded-xl px-3 py-1.5 text-sm font-semibold text-slate-900 focus:outline-none">
         </div>
- 
+    </div>
+</div>
               </div>
             </div>
 
@@ -853,7 +854,7 @@
 
         const ORE_ZONA = { 'A': 600, 'B': 850, 'C': 1100, 'D': 1400, 'E': 1700, 'F': 1800 };
 
- window.toggleIntervento = function(key) {
+   window.toggleIntervento = function(key) {
             // Lista di tutti gli interventi del Titolo II incompatibili con II.D nZEB
             const interventiTitoloII = ['cappotto', 'infissi', 'schermature', 'led', 'bacs', 'colonnine', 'ftv'];
 
