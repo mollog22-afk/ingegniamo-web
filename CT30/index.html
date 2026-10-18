@@ -1167,38 +1167,54 @@
 
             document.getElementById('tblResult').innerHTML = tableHtml || '<tr><td colspan="3" class="py-4 text-center text-slate-500">Nessun intervento selezionato.</td></tr>';
 
-            // ALERTS NORMATIVI
+           // ALERTS NORMATIVI
             let alertHtml = '';
+
+            // 1. Diagnosi Energetica
             const obbligoDiagnosi = activeInterventi.cappotto || (kwPost >= 200);
             if (obbligoDiagnosi) {
                 alertHtml += `
-                    <div class="bg-rose-950/40 border border-rose-900/60 p-4 rounded-2xl flex items-start gap-3 text-xs leading-relaxed">
-                        <i class="fa-solid fa-triangle-exclamation text-rose-400 text-base mt-0.5"></i>
+                    <div class="bg-rose-50 border border-rose-200 p-4 rounded-2xl flex items-start gap-3 text-xs leading-relaxed text-rose-900 shadow-sm">
+                        <i class="fa-solid fa-triangle-exclamation text-rose-600 text-base mt-0.5"></i>
                         <div>
-                            <span class="font-bold text-rose-300 block uppercase">Diagnosi Energetica Obbligatoria (D.Lgs. 102/2014)</span>
-                            <span class="text-slate-600">Scatta l'obbligo di Diagnosi Energetica redatta da EGE certificato UNI CEI 11339 poiché è presente l'intervento di coibentazione (II.A) o la potenza termica è &ge; 200 kWt (${kwPost} kWt).</span>
+                            <span class="font-bold block uppercase text-rose-800">Diagnosi Energetica Obbligatoria (D.Lgs. 102/2014)</span>
+                            <span class="text-rose-700">Scatta l'obbligo di Diagnosi Energetica redatta da EGE certificato UNI CEI 11339 poiché è presente l'intervento di coibentazione (II.A) o la potenza termica complessiva è &ge; 200 kWt (${kwPost} kWt).</span>
                         </div>
                     </div>
                 `;
             } else {
                 alertHtml += `
-                    <div class="bg-blue-950/40 border border-blue-900/60 p-4 rounded-2xl flex items-start gap-3 text-xs leading-relaxed">
-                        <i class="fa-solid fa-circle-info text-blue-400 text-base mt-0.5"></i>
+                    <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl flex items-start gap-3 text-xs leading-relaxed text-blue-900 shadow-sm">
+                        <i class="fa-solid fa-circle-info text-blue-600 text-base mt-0.5"></i>
                         <div>
-                            <span class="font-bold text-blue-300 block uppercase">Esenzione Diagnosi Energetica</span>
-                            <span class="text-slate-600">Potenza &lt; 200 kWt e assenza di coibentazione involucro: sufficiente APE Ante/Post e Relazione Tecnica asseverata.</span>
+                            <span class="font-bold block uppercase text-blue-800">Esenzione Diagnosi Energetica</span>
+                            <span class="text-blue-700">Potenza &lt; 200 kWt e assenza di coibentazione involucro: sufficiente APE Ante/Post e Relazione Tecnica asseverata.</span>
                         </div>
                     </div>
                 `;
             }
 
+            // 2. Contabilizzazione Calore MID
             if (kwPost > 200 || mqSolare > 100) {
                 alertHtml += `
-                    <div class="bg-amber-950/40 border border-amber-900/60 p-4 rounded-2xl flex items-start gap-3 text-xs leading-relaxed">
-                        <i class="fa-solid fa-gauge-high text-amber-400 text-base mt-0.5"></i>
+                    <div class="bg-amber-50 border border-amber-200 p-4 rounded-2xl flex items-start gap-3 text-xs leading-relaxed text-amber-900 shadow-sm">
+                        <i class="fa-solid fa-gauge-high text-amber-600 text-base mt-0.5"></i>
                         <div>
-                            <span class="font-bold text-amber-300 block uppercase">Obbligo Contabilizzazione del Calore MID</span>
-                            <span class="text-slate-600">È richiesta l'installazione di contatori omologati MID e la trasmissione telematica annuale delle misure al GSE (PdC &gt; 200 kWt o Solare Termico &gt; 100 m²).</span>
+                            <span class="font-bold block uppercase text-amber-800">Obbligo Contabilizzazione del Calore MID</span>
+                            <span class="text-amber-700">È richiesta l'installazione di contatori omologati MID e la trasmissione telematica annuale delle misure al GSE (PdC &gt; 200 kWt o Solare Termico &gt; 100 m²).</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 3. Vincolo Colonnine EV (Intervento Trainato II.G)
+            if (activeInterventi.colonnine && (!activeInterventi.pdc || incPdC <= 0)) {
+                alertHtml += `
+                    <div class="bg-amber-50 border border-amber-300 p-4 rounded-2xl flex items-start gap-3 text-xs leading-relaxed text-amber-900 shadow-sm">
+                        <i class="fa-solid fa-charging-station text-amber-600 text-base mt-0.5"></i>
+                        <div>
+                            <span class="font-bold block uppercase text-amber-800">Attenzione: Intervento Trainato EV (Art. II.G)</span>
+                            <span class="text-amber-700">L'incentivo per le colonnine di ricarica richiede obbligatoriamente l'abbinamento alla sostituzione con Pompa di Calore (III.A) ed è limitato al valore del suo contributo.</span>
                         </div>
                     </div>
                 `;
