@@ -45,45 +45,45 @@
         }
     </style>
 </head>
-<body class="bg-[#f7f9fa] text-slate-900 min-h-screen flex flex-col justify-between selection:bg-blue-100 selection:text-blue-900">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-amber-400 selection:text-slate-950">
 
     <!-- TOPBAR -->
-   <div class="bg-white border-b border-slate-200 text-[11px] text-slate-500 py-2 px-6 no-print">
+    <div class="bg-slate-900/90 backdrop-blur border-b border-slate-800 text-[11px] text-slate-400 py-2 px-6 no-print">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
             <div class="flex items-center gap-2">
-                <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
                 <span>Audit GSE • <strong>D.M. 7 Agosto 2025 (Conto Termico 3.0 - Titolo V Piccola Impresa)</strong></span>
             </div>
-            <div class="flex items-center gap-4 text-slate-600">
-                <span>Certificazione EGE: <strong class="text-slate-900">INGEGNIAMO S.r.l.</strong></span>
-                <span class="text-slate-300">|</span>
-                <a href="ingegneria.html" class="text-blue-600 hover:underline">← Torna alla Divisione Ingegneria</a>
+            <div class="flex items-center gap-4 text-slate-300">
+                <span>Certificazione EGE: <strong class="text-white">INGEGNIAMO S.r.l.</strong></span>
+                <span class="text-slate-600">|</span>
+                <a href="/" class="hover:text-amber-400 transition">← Torna alla Home</a>
             </div>
         </div>
     </div>
 
     <!-- HEADER -->
-    <header class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40 px-6 py-4 shadow-sm">
+    <header class="bg-slate-900/60 backdrop-blur-md border-b border-slate-800/80 sticky top-0 z-40 px-6 py-4">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-4">
-                <a href="index.html" class="flex items-center gap-3 group">
-                    <img src="logo-ingegniamo.png" onerror="this.onerror=null; this.src='logo-ingegniamo.jpg';" alt="Ingegniamo Logo" class="h-12 w-auto object-contain transition-transform group-hover:scale-105">
+                <a href="/" class="flex items-center gap-3 group">
+                    <img src="/logo-ingegniamo.png" onerror="this.onerror=null; this.src='../logo-ingegniamo.png';" alt="Ingegniamo Logo" class="h-10 w-auto object-contain transition-transform group-hover:scale-105">
                 </a>
-                <div class="border-l border-slate-200 pl-4">
+                <div class="border-l border-slate-800 pl-4">
                     <div class="flex items-center gap-2">
-                        <span class="text-sm font-black tracking-tight text-slate-950 uppercase">Ingegniamo<span class="text-blue-600">.</span></span>
-                        <span class="bg-blue-50 text-blue-700 border border-blue-200 text-[10px] font-bold px-2 py-0.5 rounded tracking-wide">PORTALETERMICO 3.0</span>
+                        <span class="text-sm font-black tracking-tight text-white uppercase">Ingegniamo<span class="text-blue-500">.</span></span>
+                        <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[10px] font-black px-2 py-0.5 rounded tracking-wide">PORTALETERMICO 3.0</span>
                     </div>
-                    <p class="text-[11px] text-slate-500">Verifica Massimali Cmax / Imax & Catalogo PdC Certificato</p>
+                    <p class="text-[11px] text-slate-400">Verifica Massimali Cmax / Imax & Catalogo PdC Certificato</p>
                 </div>
             </div>
 
             <div class="flex items-center gap-3 no-print">
-                <button onclick="window.print()" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 font-semibold px-4 py-2 rounded-xl shadow-sm transition text-xs flex items-center gap-2">
-                    <i class="fa-solid fa-file-pdf text-rose-500 text-sm"></i>
+                <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold px-4 py-2 rounded-xl shadow-sm transition text-xs flex items-center gap-2">
+                    <i class="fa-solid fa-file-pdf text-rose-400 text-sm"></i>
                     <span>Stampa Fascicolo Tecnico</span>
                 </button>
-                <a href="mailto:info@ingegniamo.com?subject=Richiesta%20Asseverazione%20Conto%20Termico%20Capannone" class="bg-black hover:bg-slate-800 text-white font-bold px-4 py-2 rounded-xl shadow-sm transition text-xs flex items-center gap-1.5">
+                <a href="mailto:info@ingegniamo.com?subject=Richiesta%20Asseverazione%20Conto%20Termico%20Capannone" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold px-4 py-2 rounded-xl shadow-md transition text-xs flex items-center gap-1.5">
                     <i class="fa-solid fa-file-signature"></i>
                     <span>Richiedi Perizia Asseverata</span>
                 </a>
@@ -107,21 +107,18 @@
                 </div>
             </div>
 
-           <div class="bg-slate-950/70 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-3">
-    <div>
-        <span class="text-slate-400 font-semibold block mb-1">1. Impianto Climatizzazione Ante</span>
-        <p class="text-slate-300 text-[11px] leading-relaxed">Il capannone è già dotato di un impianto di riscaldamento fisso e funzionante?</p>
-    </div>
-    <select id="chkImpiantoEsistente" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500 font-semibold">
-        <option value="si" selected>Sì, esistente e operativo</option>
-        <option value="no">No (Edificio non riscaldato)</option>
-    </select>
-    <!-- CAMPO POTENZA ESISTENTE -->
-    <div id="boxPotenzaEsistente" class="pt-2 border-t border-slate-800 mt-2">
-        <label class="text-[10px] text-amber-400 font-semibold block mb-1">Potenza Impianto Esistente (kWt):</label>
-        <input type="number" id="kwEsistente" value="160" placeholder="kWt generatore da sostituire" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-white focus:outline-none focus:border-amber-500 font-bold">
-    </div>
-</div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                <div class="bg-slate-950/70 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-3">
+                    <div>
+                        <span class="text-slate-400 font-semibold block mb-1">1. Impianto Climatizzazione Ante</span>
+                        <p class="text-slate-300 text-[11px] leading-relaxed">Il capannone è già dotato di un impianto di riscaldamento fisso e funzionante?</p>
+                    </div>
+                    <select id="chkImpiantoEsistente" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500 font-semibold">
+                        <option value="si" selected>Sì, esistente e operativo</option>
+                        <option value="no">No (Edificio non riscaldato)</option>
+                    </select>
+                </div>
+
                 <div class="bg-slate-950/70 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-3">
                     <div>
                         <span class="text-slate-400 font-semibold block mb-1">2. Avvio Lavori & Contratti</span>
@@ -627,7 +624,7 @@
                         <li><strong class="text-slate-200">Richiesta Preliminare (Modello 4):</strong> Invio prima dell'avvio del cantiere o di impegni vincolanti.</li>
                         <li><strong class="text-slate-200">Rilievo Fotografico Geolocalizzato:</strong> Foto a colori con coordinate GPS e timestamp visibile.</li>
                         <li><strong class="text-slate-200">Diagnosi Energetica ex D.Lgs. 102/14:</strong> Obbligatoria per intervento II.A o se potenza &ge; 200 kWt, redatta da EGE certificato UNI CEI 11339.</li>
-                        <li><strong class="text-slate-200">APE Ante-Operam:</strong> Necessario per asseverare il salto prestazionale minimo per interventi del Titolo II.</li>
+                        <li><strong class="text-slate-200">APE Ante-Operam:</strong> Necessario per asseverare il salto prestazionale minimo.</li>
                     </ul>
                 </div>
 
@@ -639,9 +636,9 @@
                     <ul class="space-y-2 text-slate-400 list-disc list-inside">
                         <li><strong class="text-slate-200">Dicitura Obbligatoria in Fattura:</strong> <em>"Spesa sostenuta ai sensi del D.M. 7 Agosto 2025 (Conto Termico 3.0)"</em>.</li>
                         <li><strong class="text-slate-200">Bonifico Specifico:</strong> Causale con riferimento normativo, estremi fattura, C.F./P.IVA beneficiario e fornitore.</li>
-                        <li><strong class="text-slate-200">Scorporo Voci:</strong> Righe distinte per ogni differente tipologia di intervento, per ciascuna unità autonomo/macchina (con marca, modello, potenza e matricola) e per le spese tecniche professionali.</li>
-                        <li><strong class="text-slate-200">Certificato di Smaltimento:</strong> Formulario FIR o conferimento a centro di Raccolta</li>
-                 </div>
+                        <li><strong class="text-slate-200">Scorporo Voci:</strong> Righe distinte per fornitura componenti (con marca e matricola), posa in opera e spese tecniche.</li>
+                    </ul>
+                </div>
 
                 <div class="bg-slate-950/70 p-5 rounded-2xl border border-slate-800 space-y-3">
                     <div class="flex items-center gap-2 text-white font-bold text-sm">
@@ -652,7 +649,7 @@
                         <li><strong class="text-slate-200">Targhe Matricolari:</strong> Foto nitide delle targhette metalliche con matricola visibile a fine collaudo.</li>
                         <li><strong class="text-slate-200">Contabilizzazione MID:</strong> Obbligo contatori omologati MID e trasmissione dati per PdC &gt; 200 kWt o Solare Termico &gt; 100 m².</li>
                         <li><strong class="text-slate-200">Di.Co. DM 37/08 & Libretto:</strong> Dichiarazione conformità e registrazione catastale impianto termico.</li>
-                        <li><strong class="text-slate-200">Rata Unica Automatica:</strong> Erogazione al 1° Anno per interventi con contributo spettante &le; 15.000 € o per piccole unità autonome &le; 35 kWt  </li>
+                        <li><strong class="text-slate-200">Rata Unica Automatica:</strong> Liquidazione al 1° anno per Solare Termico o importi spettanti &le; 15.000 €.</li>
                     </ul>
                 </div>
             </div>
@@ -793,53 +790,33 @@
             const isZonaDEF = ['D', 'E', 'F'].includes(zona);
 
             // 1. Pompa di Calore (III.A)
-           // 1. Pompa di Calore (III.A) - Conforme D.M. 7 Agosto 2025
             let incPdC = 0;
             let kwPost = 0;
-            let alertPotenzaEsistente = '';
-
             if (activeInterventi.pdc) {
-                const numPdC = parseInt(document.getElementById('numPdC').value, 10) || 1;
-                const kwSingola = parseFloat(document.getElementById('kwPost').value) || 0;
-                kwPost = kwSingola * numPdC; // Potenza complessiva dell'edificio
+                kwPost = parseFloat(document.getElementById('kwPost').value) || 0;
                 const scopPdC = parseFloat(document.getElementById('scopPdC').value) || 4.20;
                 const costoPdC = parseFloat(document.getElementById('costoPdC').value) || 0;
-
-                // CORREZIONE 1: Coefficiente Ci calcolato sulla POTENZA TOTALE di edificio
-                // Se la somma delle unità supera 35 kWt -> Ci = 0.055, altrimenti 0.15
-                const Ci = (kwPost <= 35) ? 0.15 : 0.055;
-                const durataAnni = (kwPost <= 35) ? 2 : 5;
-
-                let incUnitario = 0;
+                
                 if (MODELLO_SCELTO && DATI_MODELLI && DATI_MODELLI.quf) {
                     const quf = DATI_MODELLI.quf[zona] || ore;
-                    // Se la potenza cumulativa supera 35 kWt e il modello usava k da fascia residenziale, adegua con Ci
-                    if (kwPost > 35 && MODELLO_SCELTO.c === 'DVM S') {
-                        const Ei_annua_macchina = (MODELLO_SCELTO.pr * quf) * (1 - (1 / MODELLO_SCELTO.scop));
-                        incUnitario = Ei_annua_macchina * 0.055 * 5;
-                    } else {
-                        incUnitario = MODELLO_SCELTO.pr * quf * (1 - (1 / MODELLO_SCELTO.scop)) * MODELLO_SCELTO.nsh * MODELLO_SCELTO.k;
-                    }
+                    const incFormula = MODELLO_SCELTO.pr * quf * (1 - (1 / MODELLO_SCELTO.scop)) * MODELLO_SCELTO.nsh * MODELLO_SCELTO.k;
+                    incPdC = Math.min(incFormula, costoPdC * 0.65);
+                    const lbl = document.getElementById('labelIncentivoModello');
+                    if (lbl) lbl.innerText = `Incentivo GSE: € ${Math.round(incFormula).toLocaleString('it-IT')}`;
                 } else {
-                    const Ei_annua_macchina = (kwSingola * ore) * (1 - (1 / scopPdC));
-                    incUnitario = Ei_annua_macchina * Ci * durataAnni;
+                    const Ci = (kwPost <= 35) ? 0.15 : 0.055;
+                    const durataAnni = (kwPost <= 35) ? 2 : 5;
+                    const Ei_annua = (kwPost * ore) * (1 - (1 / scopPdC));
+                    const incPdCRaw = Ei_annua * Ci * durataAnni;
+                    incPdC = Math.min(incPdCRaw, costoPdC * 0.65);
+                    const lbl = document.getElementById('labelIncentivoModello');
+                    if (lbl) lbl.innerText = '';
                 }
-
-                const incTotaleFormula = incUnitario * numPdC;
-                incPdC = Math.min(incTotaleFormula, costoPdC * 0.65);
-
-                const lbl = document.getElementById('labelIncentivoModello');
-                if (lbl) lbl.innerText = `Incentivo GSE (${numPdC}x): € ${Math.round(incPdC).toLocaleString('it-IT')}`;
-
+                
                 totSpesaVal += costoPdC;
                 totIncVal += incPdC;
 
-                // CORREZIONE 2: Verifica Rata Unica sul SINGOLO GENERATORE AUTONOMO
-                // Se la singola macchina ha P <= 35 kWt OPPURE incentivo singolo <= 15.000 € -> Rata Unica
-                const incSingolaMacchina = incPdC / numPdC;
-                const isRataUnicaPdC = (kwSingola <= 35) || (incSingolaMacchina <= 15000);
-
-                if (isRataUnicaPdC) {
+                if (incPdC <= 15000) {
                     incassoAnno1 += incPdC;
                 } else {
                     quotaAnnualeCostante += incPdC / 5;
@@ -847,31 +824,13 @@
 
                 tableHtml += `
                     <tr class="hover:bg-slate-800/40">
-                        <td class="py-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> III.A - Pompa di Calore (${numPdC} unità - ${Math.round(kwPost)} kWt tot)</td>
+                        <td class="py-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> III.A - Pompa di Calore VRF</td>
                         <td class="py-2.5 text-right font-bold text-emerald-400">€ ${Math.round(incPdC).toLocaleString('it-IT')}</td>
-                        <td class="py-2.5 text-right text-slate-400">${isRataUnicaPdC ? 'Rata Unica (Autonoma)' : '5 Anni'}</td>
+                        <td class="py-2.5 text-right text-slate-400">${incPdC <= 15000 ? 'Rata Unica' : '5 Anni'}</td>
                     </tr>
                 `;
-
-                // CORREZIONE 3: Controllo Potenza Esistente vs Nuova (+10%)
-                const statoEsistente = document.getElementById('chkImpiantoEsistente') ? document.getElementById('chkImpiantoEsistente').value : 'si';
-                const kwEsistente = parseFloat(document.getElementById('kwEsistente')?.value) || 0;
-
-                if (statoEsistente === 'si' && kwEsistente > 0) {
-                    const limite10Pct = kwEsistente * 1.10;
-                    if (kwPost > limite10Pct) {
-                        alertPotenzaEsistente = `
-                            <div class="bg-amber-950/40 border border-amber-500/50 p-4 rounded-2xl flex items-start gap-3 text-xs leading-relaxed">
-                                <i class="fa-solid fa-triangle-exclamation text-amber-400 text-base mt-0.5"></i>
-                                <div>
-                                    <span class="font-bold text-amber-300 block uppercase">Necessaria Valutazione Tecnica (Potenza Superiore al 10%)</span>
-                                    <span class="text-slate-300">La nuova potenza installata (${Math.round(kwPost)} kWt) supera di oltre il 10% la potenza dell'impianto esistente (${kwEsistente} kWt, soglia max: ${Math.round(limite10Pct)} kWt). È richiesta idonea relazione di calcolo termico e diagnosi a giustificazione del dimensionamento per evitare contestazioni in fase di istruttoria GSE.</span>
-                                </div>
-                            </div>
-                        `;
-                    }
-                }
             }
+
             // 2. Fotovoltaico (II.H)
             if (activeInterventi.ftv) {
                 const kwpFTV = parseFloat(document.getElementById('kwpFTV').value) || 0;
@@ -1133,20 +1092,15 @@
 
             // Ascolto input di calcolo
             const inputIds = [
-                'numPdC','mqCapannone', 'kwPost', 'scopPdC', 'costoPdC',
+                'mqCapannone', 'kwPost', 'scopPdC', 'costoPdC',
                 'kwpFTV', 'kwhAcc', 'costoFTV',
                 'mqPareti', 'mqTetto', 'costoCappotto',
                 'mqInfissi', 'costoInfissi',
                 'costoLED', 'costoBACS',
                 'mqSolare', 'costoSolare',
                 'mqSchermatures', 'costoSchermature',
-                'chkImpiantoEsistente', 'chkLavoriAvviati', 'chkCatasto', 'chkDimensioneImpresa','boxPotenzaEsistente''kwEsistente'
+                'chkImpiantoEsistente', 'chkLavoriAvviati', 'chkCatasto', 'chkDimensioneImpresa'
             ];
-            
-            const boxKw = document.getElementById('boxPotenzaEsistente');
-if (boxKw) {
-    boxKw.style.display = (document.getElementById('chkImpiantoEsistente').value === 'si') ? 'block' : 'none';
-}
 
             inputIds.forEach(id => {
                 const el = document.getElementById(id);
