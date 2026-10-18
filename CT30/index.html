@@ -886,6 +886,8 @@
             setDisplay('row_solare', activeInterventi.solare);
             setDisplay('row_schermature', activeInterventi.schermature);
             setDisplay('row_colonnine', activeInterventi.colonnine);
+            setDisplay('row_nzeb', activeInterventi.nzeb);
+            setDisplay('row_scaldacqua', activeInterventi.scaldacqua);
 
             const showLed = activeInterventi.led;
             const showBacs = activeInterventi.bacs;
@@ -1269,7 +1271,92 @@
                     `;
                 }
             }
+// 10. Trasformazione in nZEB (II.D)
+            if (activeInterventi.nzeb) {
+                const mqNzeb = parseFloat(document.getElementById('mqNzeb').value) || supCapannone;
+                const costoNzeb = parseFloat(document.getElementById('costoNzeb').value) || 0;
 
+                // Massimale di spesa ammissibile: 1.000 €/m² per A-B-C, 1.300 €/m² per D-E-F
+                const cmaxNzebUnit = isZonaDEF ? 1300 : 1000;
+                const spesaMaxAmmNzeb = mqNzeb * cmaxNzebUnit;
+                const spesaValidaNzeb = Math.min(costoNzeb, spesaMaxAmmNzeb);
+
+                // Aliquota 65% fino a tetto massimo normativo (2.500.000 €)
+                const incTeoricoNzeb = spesaValidaNzeb * 0.65;
+                const incNzeb = Math.min(incTeoricoNzeb, 2500000);
+
+                totSpesaVal += costoNzeb;
+                totIncVal += incNzeb;
+
+                if (incNzeb <= 15000) {
+                    incassoAnno1 += incNzeb;
+                } else {
+                    quotaAnnualeCostante += incNzeb / 5;
+                }
+
+                tableHtml += `
+                    <tr class="hover:bg-slate-100">
+                        <td class="py-2.5 font-medium flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-amber-600"></span> II.D - Trasformazione nZEB
+                        </td>
+                        <td class="py-2.5 text-right font-bold text-amber-600">€ ${Math.round(incNzeb).toLocaleString('it-IT')}</td>
+                        <td class="py-2.5 text-right text-slate-500">${incNzeb <= 15000 ? 'Rata Unica' : '5 Anni'}</td>
+                    </tr>
+                `;
+
+                // Alert esclusività Titolo II
+                const altriTitoloII = activeInterventi.cappotto || activeInterventi.infissi || activeInterventi.schermature || activeInterventi.led || activeInterventi.bacs;
+                if (altriTitoloII) {
+                    alertHtml += `
+                        <div class="bg-amber-50 border border-amber-300 p-4 rounded-2xl flex items-start gap-3 text-xs leading-relaxed text-amber-900 shadow-sm">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-600 text-base mt-0.5"></i>
+                            <div>
+                                <span class="font-bold block uppercase">Non-Cumulabilità Trasformazione nZEB (II.D)</span>
+                                <span>L'intervento nZEB è omnicomprensivo per l'involucro edilizio. Non può essere cumulato con coibentazione (II.A), infissi (II.B), schermature (II.C), LED (II.E) o BACS (II.F) sullo stesso edificio.</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+
+            // 11. Scaldacqua a Pompa di Calore (III.E)
+            if (activeInterventi.scaldacqua) {
+                const tipoScald = document.getElementById('tipoScaldacqua').value;
+                const qtaScald = parseInt(document.getElementById('numScaldacqua').value, 10) || 1;
+                const costoScald = parseFloat(document.getElementById('costoScaldacqua').value) || 0;
+
+                // Tetti massimi unitari di incentivo ex D.M. 7 Agosto 2025
+                let tettoUnitario = 1500;
+                if (tipoScald === 'a_sub150') tettoUnitario = 500;
+                else if (tipoScald === 'a_over150') tettoUnitario = 1100;
+                else if (tipoScald === 'aplus_sub150') tettoUnitario = 700;
+                else if (tipoScald === 'aplus_over150') tettoUnitario = 1500;
+
+                // Aliquota 40% della spesa sostenuta
+                const incTeoricoTotale = costoScald * 0.40;
+                const tettoTotaleIncentivo = tettoUnitario * qtaScald;
+                const incScald = Math.min(incTeoricoTotale, tettoTotaleIncentivo);
+
+                totSpesaVal += costoScald;
+                totIncVal += incScald;
+
+                // Regola Rata Unica automatica se <= 15.000 €
+                if (incScald <= 15000) {
+                    incassoAnno1 += incScald;
+                } else {
+                    quotaAnnualeCostante += incScald / 2; // Dilazionato in 2 rate se supera i 15k
+                }
+
+                tableHtml += `
+                    <tr class="hover:bg-slate-100">
+                        <td class="py-2.5 font-medium flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span> III.E - Scaldacqua PdC (${qtaScald} un.)
+                        </td>
+                        <td class="py-2.5 text-right font-bold text-sky-600">€ ${Math.round(incScald).toLocaleString('it-IT')}</td>
+                        <td class="py-2.5 text-right text-amber-500 font-bold">${incScald <= 15000 ? 'Rata Unica' : '2 Anni'}</td>
+                    </tr>
+                `;
+            }
             const flussoAnno1 = incassoAnno1 + quotaAnnualeCostante;
             const pctCop = totSpesaVal > 0 ? ((totIncVal / totSpesaVal) * 100).toFixed(1) : 0;
 
@@ -1357,7 +1444,9 @@
                 'mqSolare', 'costoSolare',
                 'mqSchermatures', 'costoSchermature',
                 'chkImpiantoEsistente', 'chkLavoriAvviati', 'chkCatasto', 'chkDimensioneImpresa',
-                'tipoColonnina', 'qtaColonnine', 'costoColonnine','kwColonnina'
+                'tipoColonnina', 'qtaColonnine', 'costoColonnine','kwColonnina',
+                'mqNzeb', 'costoNzeb',
+                'tipoScaldacqua', 'numScaldacqua', 'litriScaldacqua', 'costoScaldacqua'
             ];
 
             inputIds.forEach(id => {
