@@ -14,26 +14,37 @@
 </head>
 <body class="bg-[#f7f9fa] text-slate-900 min-h-screen flex flex-col justify-between antialiased">
 
-    <!-- HEADER CENTRALE MINIMAL -->
-    <header class="py-6 px-4 text-center bg-white border-b border-slate-200">
-        <a href="#" class="inline-block">
-            <img src="logo-ingegniamo.png" alt="Ingegniamo" class="h-14 sm:h-16 w-auto mx-auto object-contain">
-        </a>
-        <p class="text-xs sm:text-sm text-slate-500 mt-2 font-medium">Seleziona l'area di tuo interesse per accedere ai servizi dedicati</p>
+    <!-- HEADER: LOGO GRANDE E BEN VISIBILE -->
+    <header class="py-8 sm:py-10 px-4 text-center bg-white border-b border-slate-200 shadow-sm">
+        <div class="max-w-4xl mx-auto flex flex-col items-center justify-center">
+            <a href="index.html" class="inline-block py-2">
+                <!-- Dimensioni logo aumentate: h-24 su mobile e h-32 su desktop -->
+                <img src="logo-ingegniamo.png" 
+                     onerror="this.onerror=null; this.src='logo-ingegniamo.jpg';"
+                     alt="Ingegniamo - Ingegneria e Academy" 
+                     class="h-24 sm:h-28 md:h-32 w-auto max-w-full object-contain mx-auto filter drop-shadow-sm">
+            </a>
+            <p class="text-sm sm:text-base text-slate-600 mt-4 font-semibold tracking-wide">
+                Seleziona la divisione per accedere ai servizi dedicati
+            </p>
+        </div>
     </header>
 
-    <!-- SELETTORE A 2 COLONNE / SCHERMO DIVISO -->
+    <!-- SELETTORE A 2 COLONNE / SCHERMO INTERATTIVO -->
     <main class="flex-1 max-w-7xl w-full mx-auto p-6 sm:p-10 flex flex-col justify-center">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-stretch">
             
             <!-- SCHEDA FORMAZIONE -->
             <a href="formazione.html" class="group relative bg-white rounded-3xl border border-slate-200 shadow-md hover:shadow-2xl overflow-hidden flex flex-col transition-all duration-300 transform hover:-translate-y-1.5">
-                <div class="relative h-64 sm:h-80 w-full overflow-hidden bg-slate-100">
-                    <!-- IMMAGINE FORMAZIONE.PNG -->
-                    <img src="formazione.png" alt="Divisione Formazione Academy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                    <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-slate-900 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
-                        Academy Tecnica
+                <div class="relative h-72 sm:h-84 md:h-96 w-full overflow-hidden bg-slate-100">
+                    <!-- IMMAGINE FORMAZIONE con fallback automatico jpg/png -->
+                    <img src="formazione.png" 
+                         onerror="this.onerror=null; this.src='formazione.jpg';" 
+                         alt="Divisione Formazione Academy" 
+                         class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                    <span class="absolute top-5 left-5 bg-white/95 backdrop-blur-md text-slate-900 text-xs font-bold px-4 py-2 rounded-full shadow-sm">
+                        Academy Tecnica Impiantisti
                     </span>
                     <h2 class="absolute bottom-6 left-6 right-6 text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
                         Formazione & Laboratori Pratici
@@ -44,7 +55,7 @@
                         Corsi specialistici su banchi prova funzionanti, centrali termiche reali, pompe di calore, schemi idronici complessi e compilazione Di.Co. per installatori e manutentori.
                     </p>
                     <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
-                        <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Entra nell'Academy</span>
+                        <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Accedi all'Academy</span>
                         <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-lg group-hover:bg-blue-600 group-hover:text-white transition">
                             →
                         </div>
@@ -54,12 +65,15 @@
 
             <!-- SCHEDA INGEGNERIA -->
             <a href="ingegneria.html" class="group relative bg-white rounded-3xl border border-slate-200 shadow-md hover:shadow-2xl overflow-hidden flex flex-col transition-all duration-300 transform hover:-translate-y-1.5">
-                <div class="relative h-64 sm:h-80 w-full overflow-hidden bg-slate-100">
-                    <!-- IMMAGINE INGEGNERIA.PNG -->
-                    <img src="ingegneria.png" alt="Divisione Ingegneria Impiantistica" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                    <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-slate-900 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
-                        Studio di Ingegneria
+                <div class="relative h-72 sm:h-84 md:h-96 w-full overflow-hidden bg-slate-100">
+                    <!-- IMMAGINE INGEGNERIA con fallback automatico jpg/png -->
+                    <img src="ingegneria.png" 
+                         onerror="this.onerror=null; this.src='ingegneria.jpg';" 
+                         alt="Divisione Ingegneria Impiantistica" 
+                         class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                    <span class="absolute top-5 left-5 bg-white/95 backdrop-blur-md text-slate-900 text-xs font-bold px-4 py-2 rounded-full shadow-sm">
+                        Studio Tecnico di Ingegneria
                     </span>
                     <h2 class="absolute bottom-6 left-6 right-6 text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
                         Progettazione MEP & Consulenza
@@ -70,7 +84,7 @@
                         Servizi professionali di ingegneria termotecnica, elettrica BT/MT, cabine di trasformazione, diagnosi energetiche, perizie e direzione lavori per aziende, contractor e privati.
                     </p>
                     <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
-                        <span class="text-xs font-bold text-slate-900 uppercase tracking-wider">Entra nella Divisione Tecnica</span>
+                        <span class="text-xs font-bold text-slate-900 uppercase tracking-wider">Accedi alla Divisione Ingegneria</span>
                         <div class="w-10 h-10 rounded-full bg-slate-100 text-slate-900 flex items-center justify-center font-bold text-lg group-hover:bg-black group-hover:text-white transition">
                             →
                         </div>
@@ -81,10 +95,10 @@
         </div>
     </main>
 
-    <!-- FOOTER MINIMALISTA CON DATI SOCIETARI -->
+    <!-- FOOTER CON DATI FISCALI -->
     <footer class="bg-white border-t border-slate-200 py-6 px-4 text-center text-xs text-slate-500">
-        <p class="mb-1">© 2026 Ingegniamo S.r.l. - Tutti i diritti riservati.</p>
-        <p>P.IVA: 04033650781 | C.F.: 04033650781 | PEC: <a href="mailto:info@pec.ingegniamo.com" class="text-slate-700 underline">info@pec.ingegniamo.com</a> | Email: info@ingegniamo.com</p>
+        <p class="mb-1 font-semibold text-slate-700">© 2026 Ingegniamo S.r.l. - Tutti i diritti riservati.</p>
+        <p>P.IVA: 04033650781 | C.F.: 04033650781 | PEC: <a href="mailto:info@pec.ingegniamo.com" class="text-blue-600 underline">info@pec.ingegniamo.com</a> | Email: info@ingegniamo.com</p>
     </footer>
 
 </body>
