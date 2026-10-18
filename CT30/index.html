@@ -780,44 +780,65 @@
             let incPdC = 0;
             let kwPost = 0;
             if (activeInterventi.pdc) {
-                kwPost = parseFloat(document.getElementById('kwPost').value) || 0;
+                // Lettura parametri di input
+                kwPost = parseFloat(document.getElementById('kwPost').value) || 0; // Potenza singola unità (kWt)
                 const scopPdC = parseFloat(document.getElementById('scopPdC').value) || 4.20;
-                const costoPdC = parseFloat(document.getElementById('costoPdC').value) || 0;
-                
+                const costoPdC = parseFloat(document.getElementById('costoPdC').value) || 0; // Costo totale fornitura e posa
+                const nUnita = parseInt(document.getElementById('numPdC')?.value || document.getElementById('numPdC')?.value) || 1; // Numero di macchine
+
+                // Calcolo Potenza Complessiva Edificio per selezione tariffa Ci
+                const kwTotaleEdificio = kwPost * nUnita;
+                const Ci = (kwTotaleEdificio <= 35) ? 0.15 : 0.055; // Se la somma delle macchine > 35 kWt passa a 0.055 €/kWht
+
+                let incPdCSingolaRaw = 0;
                 if (MODELLO_SCELTO && DATI_MODELLI && DATI_MODELLI.quf) {
                     const quf = DATI_MODELLI.quf[zona] || ore;
-                    const incFormula = MODELLO_SCELTO.pr * quf * (1 - (1 / MODELLO_SCELTO.scop)) * MODELLO_SCELTO.nsh * MODELLO_SCELTO.k;
-                    incPdC = Math.min(incFormula, costoPdC * 0.65);
+                    incPdCSingolaRaw = MODELLO_SCELTO.pr * quf * (1 - (1 / MODELLO_SCELTO.scop)) * MODELLO_SCELTO.nsh * MODELLO_SCELTO.k;
                     const lbl = document.getElementById('labelIncentivoModello');
-                    if (lbl) lbl.innerText = `Incentivo GSE: € ${Math.round(incFormula).toLocaleString('it-IT')}`;
+                    if (lbl) lbl.innerText = `Incentivo GSE per singola unità: € ${Math.round(incPdCSingolaRaw).toLocaleString('it-IT')}`;
                 } else {
-                    const Ci = (kwPost <= 35) ? 0.15 : 0.055;
-                    const durataAnni = (kwPost <= 35) ? 2 : 5;
-                    const Ei_annua = (kwPost * ore) * (1 - (1 / scopPdC));
-                    const incPdCRaw = Ei_annua * Ci * durataAnni;
-                    incPdC = Math.min(incPdCRaw, costoPdC * 0.65);
+                    const Ei_annua_singola = (kwPost * ore) * (1 - (1 / scopPdC));
+                    incPdCSingolaRaw = Ei_annua_singola * Ci * 5; // Incentivo teorico 5 anni per 1 unità
                     const lbl = document.getElementById('labelIncentivoModello');
                     if (lbl) lbl.innerText = '';
                 }
+
+                // Cap 65% della spesa applicato alla singola macchina
+                const costoSingola = costoPdC / nUnita;
+                const incPdCSingola = Math.min(incPdCSingolaRaw, costoSingola * 0.65);
                 
+                // Incentivo Totale per l'intero gruppo di macchine
+                incPdC = incPdCSingola * nUnita;
+
                 totSpesaVal += costoPdC;
                 totIncVal += incPdC;
 
-                if (incPdC <= 15000) {
-                    incassoAnno1 += incPdC;
+                // Verifica RATA UNICA per SINGOLA MACCHINA:
+                // Scatta se la singola unità è <= 35 kWt OPPURE se il suo incentivo singolo è <= 15.000 €
+                const isRataUnicaPdC = (kwPost <= 35) || (incPdCSingola <= 15000);
+
+                if (isRataUnicaPdC) {
+                    incassoAnno1 += incPdC; // Incasso completo al 1° Anno per tutte le macchine
                 } else {
+                    incassoAnno1 += incPdC / 5;
                     quotaAnnualeCostante += incPdC / 5;
                 }
 
+                const modalitaTestoPdC = isRataUnicaPdC ? 'Rata Unica (1° Anno)' : '5 Rate Annuali';
+                const labelMacchine = nUnita > 1 ? `III.A - Pompa di Calore VRF (${nUnita}x ${kwPost} kWt)` : 'III.A - Pompa di Calore VRF';
+
                 tableHtml += `
                     <tr class="hover:bg-slate-800/40">
-                        <td class="py-2.5 font-medium flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> III.A - Pompa di Calore VRF</td>
+                        <td class="py-2.5 font-medium flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> ${labelMacchine}
+                        </td>
                         <td class="py-2.5 text-right font-bold text-emerald-400">€ ${Math.round(incPdC).toLocaleString('it-IT')}</td>
-                        <td class="py-2.5 text-right text-slate-700">${incPdC <= 15000 ? 'Rata Unica' : '5 Anni'}</td>
+                        <td class="py-2.5 text-right text-slate-300 text-xs">${modalitaTestoPdC}</td>
                     </tr>
                 `;
             }
 
+        
             // 2. Fotovoltaico (II.H)
             if (activeInterventi.ftv) {
                 const kwpFTV = parseFloat(document.getElementById('kwpFTV').value) || 0;
