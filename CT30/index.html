@@ -5,13 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ingegniamo | Configuratore Conto Termico 3.0 - Capannone & PMI</title>
     <meta name="description" content="Simulatore con catalogo PDC e anagrafica Comuni conforme D.M. 7 Agosto 2025.">
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
     <style>
         body { font-family: 'Inter', sans-serif; }
         .tile-card {
@@ -61,7 +59,6 @@
             </div>
         </div>
     </div>
-
     <!-- HEADER -->
     <header class="bg-[#eef2f6]/60 backdrop-blur-md border-b border-slate-300/80 sticky top-0 z-40 px-6 py-4">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
@@ -90,7 +87,6 @@
             </div>
         </div>
     </header>
-
     <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8 flex-grow w-full">
 
         <!-- 1. CHECKLIST ANTE-OPERAM -->
@@ -190,7 +186,6 @@
                         <span class="text-amber-400 font-bold">1.000.000 €</span>
                     </div>
                 </div>
-
                 <div id="card_infissi" onclick="toggleIntervento('infissi')" class="tile-card bg-[#eef2f6] border border-slate-300 rounded-2xl p-4 sm:p-5 flex flex-col justify-between tile-active">
                     <div>
                         <div class="flex justify-between items-start mb-3">
@@ -296,8 +291,8 @@
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- TESSERA COLONNINE DI RICARICA (II.G) -->
+       
+       
 <div id="card_colonnine" onclick="toggleIntervento('colonnine')" class="tile-card bg-[#eef2f6] border border-slate-300 rounded-2xl p-4 sm:p-5 flex flex-col justify-between tile-inactive">
     <div>
         <div class="flex justify-between items-start mb-3">
@@ -312,7 +307,7 @@
         <span class="text-slate-900 font-bold">30% (Cap PdC)</span>
     </div>
 </div>
-
+ </section>
         <!-- 3. PARAMETRI DI CALCOLO & PROSPETTO ECONOMICO -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
