@@ -72,8 +72,8 @@
                     </div>
                 </div>
                 <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 flex flex-wrap justify-between items-center text-xs text-amber-900">
-                    <div>Parametro Base $P = 0{,}03 + \frac{10}{V^{0{,}4}}$: <strong id="parametroPDisplay" class="text-sm text-amber-700">0%</strong></div>
-                    <div>Compenso base unitario ($V \times G \times P$): <strong id="compensoBaseDisplay" class="text-sm text-amber-700">€ 0</strong></div>
+                    <div>Parametro Base P = 0,03 + 10 / (V^0,4): <strong id="parametroPDisplay" class="text-sm text-amber-700">0%</strong></div>
+                    <div>Compenso base unitario (V × G × P): <strong id="compensoBaseDisplay" class="text-sm text-amber-700">€ 0</strong></div>
                 </div>
             </div>
 
@@ -100,7 +100,7 @@
 
                 <div class="space-y-3 text-xs">
                     <div class="flex justify-between items-center text-slate-600">
-                        <span>Sommatoria $\sum Q$:</span>
+                        <span>Sommatoria ΣQ:</span>
                         <strong id="sommaQ" class="text-sm text-slate-900 font-bold">0,000</strong>
                     </div>
                     <div class="flex justify-between items-center text-slate-600">
@@ -193,216 +193,89 @@
             { fase: "b.I) Progettazione Preliminare", cod: "QbI.15", desc: "Prime indicazioni di progettazione antincendio (d.m. 6/02/1982)[cite: 30]", q: { edilizia: 0.005, strutture_s1_s3: 0.005, strutture_s2_s6: 0.005, impianti_a: 0.005, impianti_b: 0.005 } },
             { fase: "b.I) Progettazione Preliminare", cod: "QbI.16", desc: "Prime indicazioni e prescrizioni stesura Piani di Sicurezza[cite: 30]", q: { edilizia: 0.010, strutture_s1_s3: 0.010, strutture_s2_s6: 0.010, impianti_a: 0.010, impianti_b: 0.010, viabilita: 0.010, idraulica: 0.010, ict: 0.010, paesaggio: 0.010 } },
             { fase: "b.I) Progettazione Preliminare", cod: "QbI.19", desc: "Supporto al RUP: supervisione e coordinamento prog. preliminare[cite: 30]", q: { edilizia: 0.010, strutture_s1_s3: 0.010, strutture_s2_s6: 0.010, impianti_a: 0.010, impianti_b: 0.010, viabilita: 0.010, idraulica: 0.010, ict: 0.010, paesaggio: 0.010 } },
-         { fase: "b.II) Progettazione Definitiva", cod: "QbII.20", desc: "Elaborati e relazioni per requisiti acustici passivi (Legge 447/95 - d.p.c.m. 5/12/97)", q: { edilizia: 0.020, strutture_s1_s3: 0.020, strutture_s2_s6: 0.020, impianti_a: 0.020, impianti_b: 0.020, viabilita: 0.020 } },
-            { fase: "b.II) Progettazione Definitiva", cod: "QbII.21", desc: "Relazione energetica (ex Legge 10/91 e s.m.i.)", q: { edilizia: 0.030, strutture_s1_s3: 0.030, strutture_s2_s6: 0.030, impianti_a: 0.030, impianti_b: 0.030 } },
-            { fase: "b.II) Progettazione Definitiva", cod: "QbII.22", desc: "Diagnosi energetica (ex Legge 10/91 e s.m.i.) degli edifici esistenti", q: { edilizia: 0.020, strutture_s1_s3: 0.020, strutture_s2_s6: 0.020, impianti_a: 0.020, impianti_b: 0.020 } },
-            { fase: "b.II) Progettazione Definitiva", cod: "QbII.23", desc: "Aggiornamento delle prime indicazioni e prescrizioni per la redazione del PSC", q: { edilizia: 0.010, strutture_s1_s3: 0.010, strutture_s2_s6: 0.010, impianti_a: 0.010, impianti_b: 0.010, viabilita: 0.010, idraulica: 0.010, ict: 0.010, paesaggio: 0.010 } },
-            { fase: "b.II) Progettazione Definitiva", cod: "QbII.24", desc: "Studio di impatto ambientale / fattibilità ambientale (Fino a € 5.000.000,00)", q: { edilizia: 0.090, strutture_s1_s3: 0.100, strutture_s2_s6: 0.100, impianti_a: 0.090, impianti_b: 0.090, viabilita: 0.100, idraulica: 0.100, ict: 0.090, paesaggio: 0.100 } },
-            { fase: "b.II) Progettazione Definitiva", cod: "QbII.24", desc: "Studio di impatto ambientale / fattibilità ambientale (Sull'eccedenza fino a € 20.000.000,00)", q: { edilizia: 0.045, strutture_s1_s3: 0.060, strutture_s2_s6: 0.060, impianti_a: 0.045, impianti_b: 0.045, viabilita: 0.060, idraulica: 0.060, ict: 0.045, paesaggio: 0.060 } },
-            { fase: "b.II) Progettazione Definitiva", cod: "QbII.24", desc: "Studio di impatto ambientale / fattibilità ambientale (Sull'eccedenza)", q: { edilizia: 0.015, strutture_s1_s3: 0.025, strutture_s2_s6: 0.025, impianti_a: 0.015, impianti_b: 0.015, viabilita: 0.025, idraulica: 0.025, ict: 0.015, paesaggio: 0.025 } },
-            { fase: "b.II) Progettazione Definitiva", cod: "QbII.25", desc: "Piano di monitoraggio ambientale (Fino a € 5.000.000,00)", q: { edilizia: 0.018, strutture_s1_s3: 0.020, strutture_s2_s6: 0.020, impianti_a: 0.018, impianti_b: 0.018, viabilita: 0.020, idraulica: 0.020, ict: 0.018, paesaggio: 0.020 } },
-            { fase: "b.II) Progettazione Definitiva", cod: "QbII.25", desc: "Piano di monitoraggio ambientale (Sull'eccedenza fino a € 20.000.000,00)", q: { edilizia: 0.008, strutture_s1_s3: 0.010, strutture_s2_s6: 0.010, impianti_a: 0.008, impianti_b: 0.008, viabilita: 0.010, idraulica: 0.010, ict: 0.008, paesaggio: 0.010 } },
-            { fase: "b.II) Progettazione Definitiva", cod: "QbII.25", desc: "Piano di monitoraggio ambientale (Sull'eccedenza)", q: { edilizia: 0.004, strutture_s1_s3: 0.005, strutture_s2_s6: 0.005, impianti_a: 0.004, impianti_b: 0.004, viabilita: 0.005, idraulica: 0.005, ict: 0.004, paesaggio: 0.005 } },
-            { fase: "b.II) Progettazione Definitiva", cod: "QbII.26", desc: "Supporto al RUP: supervisione e coordinamento della progettazione definitiva", q: { edilizia: 0.010, strutture_s1_s3: 0.010, strutture_s2_s6: 0.010, impianti_a: 0.010, impianti_b: 0.010, viabilita: 0.010, idraulica: 0.010, ict: 0.010, paesaggio: 0.010 } },
-            { fase: "b.II) Progettazione Definitiva", cod: "QbII.27", desc: "Supporto al RUP: verifica della progettazione definitiva", q: { edilizia: 0.130, strutture_s1_s3: 0.130, strutture_s2_s6: 0.130, impianti_a: 0.130, impianti_b: 0.130, viabilita: 0.130, idraulica: 0.130, ict: 0.130, paesaggio: 0.130 } },
+            { fase: "b.I) Progettazione Preliminare", cod: "QbI.20", desc: "Supporto al RUP: verifica della progettazione preliminare[cite: 30]", q: { edilizia: 0.060, strutture_s1_s3: 0.060, strutture_s2_s6: 0.060, impianti_a: 0.060, impianti_b: 0.060, viabilita: 0.060, idraulica: 0.060, ict: 0.060, paesaggio: 0.060 } },
 
-            // FASE b.III) PROGETTAZIONE ESECUTIVA
-            { fase: "b.III) Progettazione Esecutiva", cod: "QbIII.01", desc: "Relazione generale e specialistiche, Elaborati grafici, Calcoli esecutivi", q: { edilizia: 0.070, strutture_s1_s3: 0.120, strutture_s2_s6: 0.120, impianti_a: 0.150, impianti_b: 0.040, viabilita: 0.040, idraulica: 0.110, ict: 0.050, paesaggio: 0.040 } },
-            { fase: "b.III) Progettazione Esecutiva", cod: "QbIII.02", desc: "Particolari costruttivi e decorativi", q: { edilizia: 0.130, strutture_s1_s3: 0.130, strutture_s2_s6: 0.130, impianti_a: 0.050, impianti_b: 0.050, viabilita: 0.080, idraulica: 0.050, ict: 0.100, paesaggio: 0.080 } },
-            { fase: "b.III) Progettazione Esecutiva", cod: "QbIII.03", desc: "Computo metrico estimativo, QE, Elenco prezzi, incidenza percentuale manodopera", q: { edilizia: 0.040, strutture_s1_s3: 0.030, strutture_s2_s6: 0.030, impianti_a: 0.050, impianti_b: 0.050, viabilita: 0.030, idraulica: 0.040, ict: 0.030, paesaggio: 0.030 } },
-            { fase: "b.III) Progettazione Esecutiva", cod: "QbIII.04", desc: "Schema di contratto, capitolato speciale d'appalto, cronoprogramma", q: { edilizia: 0.020, strutture_s1_s3: 0.010, strutture_s2_s6: 0.010, impianti_a: 0.020, impianti_b: 0.020, viabilita: 0.020, idraulica: 0.020, ict: 0.020, paesaggio: 0.020 } },
-            { fase: "b.III) Progettazione Esecutiva", cod: "QbIII.05", desc: "Piano di manutenzione dell'opera", q: { edilizia: 0.020, strutture_s1_s3: 0.025, strutture_s2_s6: 0.025, impianti_a: 0.030, impianti_b: 0.030, viabilita: 0.030, idraulica: 0.020, ict: 0.020, paesaggio: 0.030 } },
-            { fase: "b.III) Progettazione Esecutiva", cod: "QbIII.06", desc: "Progettazione integrale e coordinata - Integrazione delle prestazioni specialistiche", q: { edilizia: 0.030, strutture_s1_s3: 0.030, strutture_s2_s6: 0.030, impianti_a: 0.030, impianti_b: 0.030, viabilita: 0.030, idraulica: 0.030, ict: 0.030, paesaggio: 0.030 } },
-            { fase: "b.III) Progettazione Esecutiva", cod: "QbIII.07", desc: "Piano di Sicurezza e Coordinamento (PSC)", q: { edilizia: 0.100, strutture_s1_s3: 0.100, strutture_s2_s6: 0.100, impianti_a: 0.100, impianti_b: 0.100, viabilita: 0.100, idraulica: 0.100, ict: 0.100, paesaggio: 0.100 } },
-            { fase: "b.III) Progettazione Esecutiva", cod: "QbIII.08", desc: "Supporto al RUP: supervisione e coordinamento della progettazione esecutiva", q: { edilizia: 0.010, strutture_s1_s3: 0.010, strutture_s2_s6: 0.010, impianti_a: 0.010, impianti_b: 0.010, viabilita: 0.010, idraulica: 0.010, ict: 0.010, paesaggio: 0.010 } },
-            { fase: "b.III) Progettazione Esecutiva", cod: "QbIII.09", desc: "Supporto al RUP: verifica della progettazione esecutiva", q: { edilizia: 0.130, strutture_s1_s3: 0.130, strutture_s2_s6: 0.130, impianti_a: 0.130, impianti_b: 0.130, viabilita: 0.130, idraulica: 0.130, ict: 0.130, paesaggio: 0.130 } },
-            { fase: "b.III) Progettazione Esecutiva", cod: "QbIII.10", desc: "Supporto al RUP: programmazione e progettazione appalto", q: { edilizia: 0.040, strutture_s1_s3: 0.040, strutture_s2_s6: 0.040, impianti_a: 0.040, impianti_b: 0.040, viabilita: 0.040, idraulica: 0.040, ict: 0.040, paesaggio: 0.040 } },
-            { fase: "b.III) Progettazione Esecutiva", cod: "QbIII.11", desc: "Supporto al RUP: validazione del progetto", q: { edilizia: 0.010, strutture_s1_s3: 0.010, strutture_s2_s6: 0.010, impianti_a: 0.010, impianti_b: 0.010, viabilita: 0.010, idraulica: 0.010, ict: 0.010, paesaggio: 0.010 } }
-        // FASE c.I) ESECUZIONE DEI LAVORI (DIREZIONE DELL'ESECUZIONE)
-            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.01", desc: "Direzione lavori, assistenza al collaudo, prove di accettazione", q: { edilizia: 0.320, strutture_s1_s3: 0.380, strutture_s2_s6: 0.380, impianti_a: 0.320, impianti_b: 0.450, viabilita: 0.420, idraulica: 0.420, ict: 0.350, paesaggio: 0.110 } },
-            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.02", desc: "Liquidazione (art. 194, comma 1, d.P.R. 207/10) - Rendicontazioni e liquidazione tecnico contabile", q: { edilizia: 0.030, strutture_s1_s3: 0.020, strutture_s2_s6: 0.020, impianti_a: 0.030, impianti_b: 0.030, viabilita: 0.030, idraulica: 0.040, ict: 0.030, paesaggio: 0.030 } },
-            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.03", desc: "Controllo aggiornamento elaborati di progetto, aggiornamento dei manuali d'uso e manutenzione", q: { edilizia: 0.020, strutture_s1_s3: 0.020, strutture_s2_s6: 0.020, impianti_a: 0.020, impianti_b: 0.020, viabilita: 0.020, idraulica: 0.020, ict: 0.020, paesaggio: 0.020 } },
-            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.04", desc: "Coordinamento e supervisione dell'ufficio di direzione lavori", q: { edilizia: 0.020, strutture_s1_s3: 0.020, strutture_s2_s6: 0.020, impianti_a: 0.020, impianti_b: 0.020, viabilita: 0.020, idraulica: 0.020, ict: 0.020, paesaggio: 0.020 } },
-            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.05", desc: "Ufficio della direzione lavori, per ogni addetto con qualifica di direttore operativo", q: { edilizia: 0.100, strutture_s1_s3: 0.100, strutture_s2_s6: 0.100, impianti_a: 0.100, impianti_b: 0.100, viabilita: 0.100, idraulica: 0.100, ict: 0.100, paesaggio: 0.100 } },
-            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.05.01", desc: "Ufficio della direzione lavori, per addetto direttore operativo 'GEOLOGO' (Fino a € 250.000,00)", q: { edilizia: 0.039, strutture_s1_s3: 0.039, strutture_s2_s6: 0.095, impianti_a: 0.039, impianti_b: 0.039, viabilita: 0.127, idraulica: 0.095, paesaggio: 0.095 } },
-            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.05.01", desc: "Ufficio della direzione lavori, addetto 'GEOLOGO' (Sull'eccedenza fino a € 500.000,00)", q: { edilizia: 0.010, strutture_s1_s3: 0.010, strutture_s2_s6: 0.081, impianti_a: 0.010, impianti_b: 0.010, viabilita: 0.110, idraulica: 0.081, paesaggio: 0.081 } },
-            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.05.01", desc: "Ufficio della direzione lavori, addetto 'GEOLOGO' (Sull'eccedenza fino a € 1.000.000,00)", q: { edilizia: 0.013, strutture_s1_s3: 0.013, strutture_s2_s6: 0.071, impianti_a: 0.013, impianti_b: 0.013, viabilita: 0.077, idraulica: 0.071, paesaggio: 0.071 } },
-            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.05.01", desc: "Ufficio della direzione lavori, addetto 'GEOLOGO' (Sull'eccedenza fino a € 2.500.000,00)", q: { edilizia: 0.018, strutture_s1_s3: 0.018, strutture_s2_s6: 0.052, impianti_a: 0.018, impianti_b: 0.018, viabilita: 0.029, idraulica: 0.052, paesaggio: 0.052 } },
-            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.05.01", desc: "Ufficio della direzione lavori, addetto 'GEOLOGO' (Sull'eccedenza fino a € 10.000.000,00)", q: { edilizia: 0.022, strutture_s1_s3: 0.022, strutture_s2_s6: 0.042, impianti_a: 0.022, impianti_b: 0.022, viabilita: 0.019, idraulica: 0.042, paesaggio: 0.042 } },
-            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.05.01", desc: "Ufficio della direzione lavori, addetto 'GEOLOGO' (Sull'eccedenza oltre € 10.000.000,00)", q: { edilizia: 0.021, strutture_s1_s3: 0.021, strutture_s2_s6: 0.030, impianti_a: 0.021, impianti_b: 0.021, viabilita: 0.018, idraulica: 0.030, paesaggio: 0.030 } },
-            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.06", desc: "Ufficio della direzione lavori, per ogni addetto con qualifica di ispettore di cantiere", q: { edilizia: 0.060, strutture_s1_s3: 0.060, strutture_s2_s6: 0.060, impianti_a: 0.060, impianti_b: 0.060, viabilita: 0.060, idraulica: 0.060, ict: 0.060, paesaggio: 0.060 } },
-            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.07", desc: "Variante delle quantità del progetto in corso d'opera", q: { edilizia: 0.140, strutture_s1_s3: 0.090, strutture_s2_s6: 0.090, impianti_a: 0.150, impianti_b: 0.150, viabilita: 0.120, idraulica: 0.120, ict: 0.110, paesaggio: 0.120 } },
-            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.08", desc: "Variante del progetto in corso d'opera", q: { edilizia: 0.410, strutture_s1_s3: 0.430, strutture_s2_s6: 0.430, impianti_a: 0.320, impianti_b: 0.320, viabilita: 0.420, idraulica: 0.340, ict: 0.400, paesaggio: 0.420 } },
-            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.09", desc: "Contabilità dei lavori a misura (Fino a € 500.000,00)", q: { edilizia: 0.060, strutture_s1_s3: 0.060, strutture_s2_s6: 0.060, impianti_a: 0.045, impianti_b: 0.045, viabilita: 0.045, idraulica: 0.045, ict: 0.045, paesaggio: 0.045 } },
-            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.09", desc: "Contabilità dei lavori a misura (Sull'eccedenza oltre € 500.000,00)", q: { edilizia: 0.012, strutture_s1_s3: 0.012, strutture_s2_s6: 0.012, impianti_a: 0.090, impianti_b: 0.090, viabilita: 0.090, idraulica: 0.090, ict: 0.090, paesaggio: 0.090 } },
-            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.10", desc: "Contabilità dei lavori a corpo (Fino a € 500.000,00)", q: { edilizia: 0.045, strutture_s1_s3: 0.045, strutture_s2_s6: 0.045, impianti_a: 0.035, impianti_b: 0.035, viabilita: 0.035, idraulica: 0.035, ict: 0.035, paesaggio: 0.035 } },
-            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.10", desc: "Contabilità dei lavori a corpo (Sull'eccedenza oltre € 500.000,00)", q: { edilizia: 0.090, strutture_s1_s3: 0.090, strutture_s2_s6: 0.090, impianti_a: 0.070, impianti_b: 0.070, viabilita: 0.070, idraulica: 0.070, ict: 0.070, paesaggio: 0.070 } },
-            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.11", desc: "Certificato di regolare esecuzione", q: { edilizia: 0.040, strutture_s1_s3: 0.040, strutture_s2_s6: 0.040, impianti_a: 0.040, impianti_b: 0.040, viabilita: 0.040, idraulica: 0.040, ict: 0.040, paesaggio: 0.040 } },
-            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.12", desc: "Coordinamento della sicurezza in esecuzione (CSE)", q: { edilizia: 0.250, strutture_s1_s3: 0.250, strutture_s2_s6: 0.250, impianti_a: 0.250, impianti_b: 0.250, viabilita: 0.250, idraulica: 0.250, ict: 0.250, paesaggio: 0.250 } },
-            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.13", desc: "Supporto al RUP: per la supervisione e coordinamento della D.L. e della C.S.E.", q: { edilizia: 0.040, strutture_s1_s3: 0.040, strutture_s2_s6: 0.040, impianti_a: 0.040, impianti_b: 0.040, viabilita: 0.040, idraulica: 0.040, ict: 0.040, paesaggio: 0.040 } },
+            // FASE b.II) PROGETTAZIONE DEFINITIVA[cite: 31]
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.01", desc: "Relazioni generale e tecniche, Elaborati grafici, Calcolo strutture e impianti, interferenze e gestione materie[cite: 31]", q: { edilizia: 0.230, strutture_s1_s3: 0.180, strutture_s2_s6: 0.180, impianti_a: 0.160, impianti_b: 0.200, viabilita: 0.220, idraulica: 0.180, ict: 0.250, paesaggio: 0.180 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.02", desc: "Rilievi dei manufatti[cite: 31]", q: { edilizia: 0.040, strutture_s1_s3: 0.040, strutture_s2_s6: 0.040, impianti_a: 0.040, impianti_b: 0.040 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.03", desc: "Disciplinare descrittivo e prestazionale[cite: 31]", q: { edilizia: 0.010, strutture_s1_s3: 0.010, strutture_s2_s6: 0.010, impianti_a: 0.010, impianti_b: 0.010, viabilita: 0.010, idraulica: 0.010, ict: 0.010, paesaggio: 0.010 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.04", desc: "Piano particellare d'esproprio[cite: 31]", q: { edilizia: 0.040, strutture_s1_s3: 0.040, strutture_s2_s6: 0.040, impianti_a: 0.040, impianti_b: 0.040, viabilita: 0.040, idraulica: 0.040, paesaggio: 0.040 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.05", desc: "Elenco prezzi unitari ed eventuali analisi, Computo metrico estimativo, Quadro economico[cite: 31]", q: { edilizia: 0.070, strutture_s1_s3: 0.040, strutture_s2_s6: 0.040, impianti_a: 0.070, impianti_b: 0.070, viabilita: 0.060, idraulica: 0.050, ict: 0.050, paesaggio: 0.050 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.06", desc: "Studio di inserimento urbanistico[cite: 31]", q: { edilizia: 0.030, strutture_s1_s3: 0.030, strutture_s2_s6: 0.030, impianti_a: 0.010, impianti_b: 0.010, viabilita: 0.030, idraulica: 0.010, paesaggio: 0.030 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.07", desc: "Rilievi planoaltimetrici[cite: 31]", q: { edilizia: 0.020, strutture_s1_s3: 0.020, strutture_s2_s6: 0.020, impianti_a: 0.020, impianti_b: 0.020, viabilita: 0.020, idraulica: 0.020, ict: 0.020, paesaggio: 0.020 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.08", desc: "Schema di contratto, Capitolato speciale d'appalto[cite: 31]", q: { edilizia: 0.070, strutture_s1_s3: 0.070, strutture_s2_s6: 0.070, impianti_a: 0.080, impianti_b: 0.080, viabilita: 0.070, idraulica: 0.070, ict: 0.070, paesaggio: 0.070 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.09", desc: "Relazione geotecnica[cite: 31]", q: { edilizia: 0.060, strutture_s1_s3: 0.060, strutture_s2_s6: 0.060, impianti_a: 0.060, impianti_b: 0.060, viabilita: 0.060, idraulica: 0.060, paesaggio: 0.060 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.10", desc: "Relazione idrologica[cite: 31]", q: { edilizia: 0.030, strutture_s1_s3: 0.030, strutture_s2_s6: 0.030, impianti_a: 0.030, impianti_b: 0.030, viabilita: 0.030, idraulica: 0.030, paesaggio: 0.030 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.11", desc: "Relazione idraulica[cite: 31]", q: { edilizia: 0.030, strutture_s1_s3: 0.030, strutture_s2_s6: 0.030, impianti_a: 0.030, impianti_b: 0.030, viabilita: 0.030, idraulica: 0.030, paesaggio: 0.030 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.12", desc: "Relazione sismica e sulle strutture[cite: 31]", q: { edilizia: 0.030, strutture_s1_s3: 0.030, strutture_s2_s6: 0.030, impianti_a: 0.030, impianti_b: 0.030, viabilita: 0.030, idraulica: 0.030, paesaggio: 0.030 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.13", desc: "Relazione geologica (Fino a € 250.000,00)[cite: 31]", q: { edilizia: 0.064, strutture_s1_s3: 0.064, strutture_s2_s6: 0.133, impianti_a: 0.064, impianti_b: 0.064, viabilita: 0.145, idraulica: 0.133, paesaggio: 0.133 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.13", desc: "Relazione geologica (Sull'eccedenza fino a € 500.000,00)[cite: 31]", q: { edilizia: 0.019, strutture_s1_s3: 0.019, strutture_s2_s6: 0.107, impianti_a: 0.019, impianti_b: 0.019, viabilita: 0.114, idraulica: 0.107, paesaggio: 0.107 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.13", desc: "Relazione geologica (Sull'eccedenza fino a € 1.000.000,00)[cite: 31]", q: { edilizia: 0.021, strutture_s1_s3: 0.021, strutture_s2_s6: 0.096, impianti_a: 0.021, impianti_b: 0.021, viabilita: 0.070, idraulica: 0.096, paesaggio: 0.096 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.13", desc: "Relazione geologica (Sull'eccedenza fino a € 2.500.000,00)[cite: 31]", q: { edilizia: 0.029, strutture_s1_s3: 0.029, strutture_s2_s6: 0.079, impianti_a: 0.029, impianti_b: 0.029, viabilita: 0.035, idraulica: 0.079, paesaggio: 0.079 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.13", desc: "Relazione geologica (Sull'eccedenza fino a € 10.000.000,00)[cite: 31]", q: { edilizia: 0.038, strutture_s1_s3: 0.038, strutture_s2_s6: 0.054, impianti_a: 0.038, impianti_b: 0.038, viabilita: 0.020, idraulica: 0.054, paesaggio: 0.054 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.13", desc: "Relazione geologica (Sull'eccedenza)[cite: 31]", q: { edilizia: 0.028, strutture_s1_s3: 0.028, strutture_s2_s6: 0.035, impianti_a: 0.028, impianti_b: 0.028, viabilita: 0.018, idraulica: 0.035, paesaggio: 0.035 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.14", desc: "Analisi storico critica e relazione sulle strutture esistenti[cite: 31]", q: { strutture_s1_s3: 0.090, strutture_s2_s6: 0.090 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.15", desc: "Relazione sulle indagini dei materiali e delle strutture per edifici esistenti[cite: 31]", q: { strutture_s1_s3: 0.120, strutture_s2_s6: 0.120 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.16", desc: "Verifica sismica delle strutture esistenti e individuazione delle carenze strutturali[cite: 31]", q: { strutture_s1_s3: 0.180, strutture_s2_s6: 0.180 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.17", desc: "Progettazione integrale e coordinata - Integrazione delle prestazioni specialistiche[cite: 31]", q: { edilizia: 0.050, strutture_s1_s3: 0.050, strutture_s2_s6: 0.050, impianti_a: 0.050, impianti_b: 0.050, viabilita: 0.050, idraulica: 0.050, ict: 0.050, paesaggio: 0.050 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.18", desc: "Elaborati di progettazione antincendio (d.m. 16/02/1982)[cite: 31]", q: { edilizia: 0.060, strutture_s1_s3: 0.060, strutture_s2_s6: 0.060, impianti_a: 0.060, impianti_b: 0.060 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.19", desc: "Relazione paesaggistica (d.lgs. 42/2004)[cite: 31]", q: { edilizia: 0.020, strutture_s1_s3: 0.020, strutture_s2_s6: 0.020, impianti_a: 0.020, impianti_b: 0.020, viabilita: 0.020, idraulica: 0.020, ict: 0.020, paesaggio: 0.020 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.20", desc: "Elaborati e relazioni per requisiti acustici passivi (Legge 447/95 - d.p.c.m. 5/12/97)[cite: 31]", q: { edilizia: 0.020, strutture_s1_s3: 0.020, strutture_s2_s6: 0.020, impianti_a: 0.020, impianti_b: 0.020, viabilita: 0.020 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.21", desc: "Relazione energetica (ex Legge 10/91 e s.m.i.)[cite: 31]", q: { edilizia: 0.030, strutture_s1_s3: 0.030, strutture_s2_s6: 0.030, impianti_a: 0.030, impianti_b: 0.030 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.22", desc: "Diagnosi energetica (ex Legge 10/91 e s.m.i.) degli edifici esistenti[cite: 31]", q: { edilizia: 0.020, strutture_s1_s3: 0.020, strutture_s2_s6: 0.020, impianti_a: 0.020, impianti_b: 0.020 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.23", desc: "Aggiornamento delle prime indicazioni e prescrizioni per la redazione del PSC[cite: 31]", q: { edilizia: 0.010, strutture_s1_s3: 0.010, strutture_s2_s6: 0.010, impianti_a: 0.010, impianti_b: 0.010, viabilita: 0.010, idraulica: 0.010, ict: 0.010, paesaggio: 0.010 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.24", desc: "Studio di impatto ambientale / fattibilità ambientale (Fino a € 5.000.000,00)[cite: 31]", q: { edilizia: 0.090, strutture_s1_s3: 0.100, strutture_s2_s6: 0.100, impianti_a: 0.090, impianti_b: 0.090, viabilita: 0.100, idraulica: 0.100, ict: 0.090, paesaggio: 0.100 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.24", desc: "Studio di impatto ambientale / fattibilità ambientale (Sull'eccedenza fino a € 20.000.000,00)[cite: 31]", q: { edilizia: 0.045, strutture_s1_s3: 0.060, strutture_s2_s6: 0.060, impianti_a: 0.045, impianti_b: 0.045, viabilita: 0.060, idraulica: 0.060, ict: 0.045, paesaggio: 0.060 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.24", desc: "Studio di impatto ambientale / fattibilità ambientale (Sull'eccedenza)[cite: 31]", q: { edilizia: 0.015, strutture_s1_s3: 0.025, strutture_s2_s6: 0.025, impianti_a: 0.015, impianti_b: 0.015, viabilita: 0.025, idraulica: 0.025, ict: 0.015, paesaggio: 0.025 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.25", desc: "Piano di monitoraggio ambientale (Fino a € 5.000.000,00)[cite: 31]", q: { edilizia: 0.018, strutture_s1_s3: 0.020, strutture_s2_s6: 0.020, impianti_a: 0.018, impianti_b: 0.018, viabilita: 0.020, idraulica: 0.020, ict: 0.018, paesaggio: 0.020 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.25", desc: "Piano di monitoraggio ambientale (Sull'eccedenza fino a € 20.000.000,00)[cite: 31]", q: { edilizia: 0.008, strutture_s1_s3: 0.010, strutture_s2_s6: 0.010, impianti_a: 0.008, impianti_b: 0.008, viabilita: 0.010, idraulica: 0.010, ict: 0.008, paesaggio: 0.010 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.25", desc: "Piano di monitoraggio ambientale (Sull'eccedenza)[cite: 31]", q: { edilizia: 0.004, strutture_s1_s3: 0.005, strutture_s2_s6: 0.005, impianti_a: 0.004, impianti_b: 0.004, viabilita: 0.005, idraulica: 0.005, ict: 0.004, paesaggio: 0.005 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.26", desc: "Supporto al RUP: supervisione e coordinamento della progettazione definitiva[cite: 31]", q: { edilizia: 0.010, strutture_s1_s3: 0.010, strutture_s2_s6: 0.010, impianti_a: 0.010, impianti_b: 0.010, viabilita: 0.010, idraulica: 0.010, ict: 0.010, paesaggio: 0.010 } },
+            { fase: "b.II) Progettazione Definitiva", cod: "QbII.27", desc: "Supporto al RUP: verifica della progettazione definitiva[cite: 31]", q: { edilizia: 0.130, strutture_s1_s3: 0.130, strutture_s2_s6: 0.130, impianti_a: 0.130, impianti_b: 0.130, viabilita: 0.130, idraulica: 0.130, ict: 0.130, paesaggio: 0.130 } },
 
-            // FASE d.I) VERIFICHE E COLLAUDI
-            { fase: "d.I) Verifiche e Collaudi", cod: "QdI.01", desc: "Collaudo tecnico amministrativo", q: { edilizia: 0.080, strutture_s1_s3: 0.080, strutture_s2_s6: 0.080, impianti_a: 0.080, impianti_b: 0.080, viabilita: 0.080, idraulica: 0.080, ict: 0.080, paesaggio: 0.080 } },
-            { fase: "d.I) Verifiche e Collaudi", cod: "QdI.02", desc: "Revisione tecnico contabile (Parte II, Titolo X, d.P.R. 207/10)", q: { edilizia: 0.020, strutture_s1_s3: 0.020, strutture_s2_s6: 0.020, impianti_a: 0.020, impianti_b: 0.020, viabilita: 0.020, idraulica: 0.020, ict: 0.020, paesaggio: 0.020 } },
-            { fase: "d.I) Verifiche e Collaudi", cod: "QdI.03", desc: "Collaudo statico (Capitolo 9, d.m. 14/01/2008)", q: { strutture_s1_s3: 0.220, strutture_s2_s6: 0.220 } },
-            { fase: "d.I) Verifiche e Collaudi", cod: "QdI.04", desc: "Collaudo tecnico funzionale degli impianti (d.m. 22/01/2008 n°37)", q: { impianti_a: 0.180, impianti_b: 0.180, idraulica: 0.180 } },
-            { fase: "d.I) Verifiche e Collaudi", cod: "QdI.05", desc: "Attestato di certificazione energetica (art. 6 d.lgs. 311/2006) esclusa diagnosi energetica", q: { edilizia: 0.030, strutture_s1_s3: 0.030, strutture_s2_s6: 0.030, impianti_a: 0.030, impianti_b: 0.030 } },
+            // FASE b.III) PROGETTAZIONE ESECUTIVA[cite: 32]
+            { fase: "b.III) Progettazione Esecutiva", cod: "QbIII.01", desc: "Relazione generale e specialistiche, Elaborati grafici, Calcoli esecutivi[cite: 32]", q: { edilizia: 0.070, strutture_s1_s3: 0.120, strutture_s2_s6: 0.120, impianti_a: 0.150, impianti_b: 0.040, viabilita: 0.040, idraulica: 0.110, ict: 0.050, paesaggio: 0.040 } },
+            { fase: "b.III) Progettazione Esecutiva", cod: "QbIII.02", desc: "Particolari costruttivi e decorativi[cite: 32]", q: { edilizia: 0.130, strutture_s1_s3: 0.130, strutture_s2_s6: 0.130, impianti_a: 0.050, impianti_b: 0.050, viabilita: 0.080, idraulica: 0.050, ict: 0.100, paesaggio: 0.080 } },
+            { fase: "b.III) Progettazione Esecutiva", cod: "QbIII.03", desc: "Computo metrico estimativo, QE, Elenco prezzi, incidenza percentuale manodopera[cite: 32]", q: { edilizia: 0.040, strutture_s1_s3: 0.030, strutture_s2_s6: 0.030, impianti_a: 0.050, impianti_b: 0.050, viabilita: 0.030, idraulica: 0.040, ict: 0.030, paesaggio: 0.030 } },
+            { fase: "b.III) Progettazione Esecutiva", cod: "QbIII.04", desc: "Schema di contratto, capitolato speciale d'appalto, cronoprogramma[cite: 32]", q: { edilizia: 0.020, strutture_s1_s3: 0.010, strutture_s2_s6: 0.010, impianti_a: 0.020, impianti_b: 0.020, viabilita: 0.020, idraulica: 0.020, ict: 0.020, paesaggio: 0.020 } },
+            { fase: "b.III) Progettazione Esecutiva", cod: "QbIII.05", desc: "Piano di manutenzione dell'opera[cite: 32]", q: { edilizia: 0.020, strutture_s1_s3: 0.025, strutture_s2_s6: 0.025, impianti_a: 0.030, impianti_b: 0.030, viabilita: 0.030, idraulica: 0.020, ict: 0.020, paesaggio: 0.030 } },
+            { fase: "b.III) Progettazione Esecutiva", cod: "QbIII.06", desc: "Progettazione integrale e coordinata - Integrazione delle prestazioni specialistiche[cite: 32]", q: { edilizia: 0.030, strutture_s1_s3: 0.030, strutture_s2_s6: 0.030, impianti_a: 0.030, impianti_b: 0.030, viabilita: 0.030, idraulica: 0.030, ict: 0.030, paesaggio: 0.030 } },
+            { fase: "b.III) Progettazione Esecutiva", cod: "QbIII.07", desc: "Piano di Sicurezza e Coordinamento (PSC)[cite: 32]", q: { edilizia: 0.100, strutture_s1_s3: 0.100, strutture_s2_s6: 0.100, impianti_a: 0.100, impianti_b: 0.100, viabilita: 0.100, idraulica: 0.100, ict: 0.100, paesaggio: 0.100 } },
+            { fase: "b.III) Progettazione Esecutiva", cod: "QbIII.08", desc: "Supporto al RUP: supervisione e coordinamento della progettazione esecutiva[cite: 32]", q: { edilizia: 0.010, strutture_s1_s3: 0.010, strutture_s2_s6: 0.010, impianti_a: 0.010, impianti_b: 0.010, viabilita: 0.010, idraulica: 0.010, ict: 0.010, paesaggio: 0.010 } },
+            { fase: "b.III) Progettazione Esecutiva", cod: "QbIII.09", desc: "Supporto al RUP: verifica della progettazione esecutiva[cite: 32]", q: { edilizia: 0.130, strutture_s1_s3: 0.130, strutture_s2_s6: 0.130, impianti_a: 0.130, impianti_b: 0.130, viabilita: 0.130, idraulica: 0.130, ict: 0.130, paesaggio: 0.130 } },
+            { fase: "b.III) Progettazione Esecutiva", cod: "QbIII.10", desc: "Supporto al RUP: programmazione e progettazione appalto[cite: 32]", q: { edilizia: 0.040, strutture_s1_s3: 0.040, strutture_s2_s6: 0.040, impianti_a: 0.040, impianti_b: 0.040, viabilita: 0.040, idraulica: 0.040, ict: 0.040, paesaggio: 0.040 } },
+            { fase: "b.III) Progettazione Esecutiva", cod: "QbIII.11", desc: "Supporto al RUP: validazione del progetto[cite: 32]", q: { edilizia: 0.010, strutture_s1_s3: 0.010, strutture_s2_s6: 0.010, impianti_a: 0.010, impianti_b: 0.010, viabilita: 0.010, idraulica: 0.010, ict: 0.010, paesaggio: 0.010 } },
 
-            // FASE e.I) MONITORAGGI
-            { fase: "e.I) Monitoraggi", cod: "QeI.01", desc: "Monitoraggi ambientali, naturalistici, fitoiatrici, faunistici, agronomici, zootecnici (artt. 18, 28 Parte III All. 1 - All. 7 d.Lgs. 152/2006)", q: { paesaggio: 0.002, urbanistica: 0.0015 } },
-            { fase: "e.I) Monitoraggi", cod: "QeI.02", desc: "Ricerche agricole e/o agro-industriali, nelle bioenergie, all'innovazione e sviluppo dei settori di competenza", q: { paesaggio: 0.022 } }
-        ];
+            // FASE c.I) ESECUZIONE DEI LAVORI (DIREZIONE DELL'ESECUZIONE)[cite: 33]
+            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.01", desc: "Direzione lavori, assistenza al collaudo, prove di accettazione[cite: 33]", q: { edilizia: 0.320, strutture_s1_s3: 0.380, strutture_s2_s6: 0.380, impianti_a: 0.320, impianti_b: 0.450, viabilita: 0.420, idraulica: 0.420, ict: 0.350, paesaggio: 0.110 } },
+            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.02", desc: "Liquidazione (art. 194, comma 1, d.P.R. 207/10) - Rendicontazioni e liquidazione tecnico contabile[cite: 33]", q: { edilizia: 0.030, strutture_s1_s3: 0.020, strutture_s2_s6: 0.020, impianti_a: 0.030, impianti_b: 0.030, viabilita: 0.030, idraulica: 0.040, ict: 0.030, paesaggio: 0.030 } },
+            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.03", desc: "Controllo aggiornamento elaborati di progetto, aggiornamento dei manuali d'uso e manutenzione[cite: 33]", q: { edilizia: 0.020, strutture_s1_s3: 0.020, strutture_s2_s6: 0.020, impianti_a: 0.020, impianti_b: 0.020, viabilita: 0.020, idraulica: 0.020, ict: 0.020, paesaggio: 0.020 } },
+            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.04", desc: "Coordinamento e supervisione dell'ufficio di direzione lavori[cite: 33]", q: { edilizia: 0.020, strutture_s1_s3: 0.020, strutture_s2_s6: 0.020, impianti_a: 0.020, impianti_b: 0.020, viabilita: 0.020, idraulica: 0.020, ict: 0.020, paesaggio: 0.020 } },
+            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.05", desc: "Ufficio della direzione lavori, per ogni addetto con qualifica di direttore operativo[cite: 33]", q: { edilizia: 0.100, strutture_s1_s3: 0.100, strutture_s2_s6: 0.100, impianti_a: 0.100, impianti_b: 0.100, viabilita: 0.100, idraulica: 0.100, ict: 0.100, paesaggio: 0.100 } },
+            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.05.01", desc: "Ufficio della direzione lavori, per addetto direttore operativo 'GEOLOGO' (Fino a € 250.000,00)[cite: 33]", q: { edilizia: 0.039, strutture_s1_s3: 0.039, strutture_s2_s6: 0.095, impianti_a: 0.039, impianti_b: 0.039, viabilita: 0.127, idraulica: 0.095, paesaggio: 0.095 } },
+            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.05.01", desc: "Ufficio della direzione lavori, addetto 'GEOLOGO' (Sull'eccedenza fino a € 500.000,00)[cite: 33]", q: { edilizia: 0.010, strutture_s1_s3: 0.010, strutture_s2_s6: 0.081, impianti_a: 0.010, impianti_b: 0.010, viabilita: 0.110, idraulica: 0.081, paesaggio: 0.081 } },
+            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.05.01", desc: "Ufficio della direzione lavori, addetto 'GEOLOGO' (Sull'eccedenza fino a € 1.000.000,00)[cite: 33]", q: { edilizia: 0.013, strutture_s1_s3: 0.013, strutture_s2_s6: 0.071, impianti_a: 0.013, impianti_b: 0.013, viabilita: 0.077, idraulica: 0.071, paesaggio: 0.071 } },
+            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.05.01", desc: "Ufficio della direzione lavori, addetto 'GEOLOGO' (Sull'eccedenza fino a € 2.500.000,00)[cite: 33]", q: { edilizia: 0.018, strutture_s1_s3: 0.018, strutture_s2_s6: 0.052, impianti_a: 0.018, impianti_b: 0.018, viabilita: 0.029, idraulica: 0.052, paesaggio: 0.052 } },
+            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.05.01", desc: "Ufficio della direzione lavori, addetto 'GEOLOGO' (Sull'eccedenza fino a € 10.000.000,00)[cite: 33]", q: { edilizia: 0.022, strutture_s1_s3: 0.022, strutture_s2_s6: 0.042, impianti_a: 0.022, impianti_b: 0.022, viabilita: 0.019, idraulica: 0.042, paesaggio: 0.042 } },
+            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.05.01", desc: "Ufficio della direzione lavori, addetto 'GEOLOGO' (Sull'eccedenza oltre € 10.000.000,00)[cite: 33]", q: { edilizia: 0.021, strutture_s1_s3: 0.021, strutture_s2_s6: 0.030, impianti_a: 0.021, impianti_b: 0.021, viabilita: 0.018, idraulica: 0.030, paesaggio: 0.030 } },
+            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.06", desc: "Ufficio della direzione lavori, per ogni addetto con qualifica di ispettore di cantiere[cite: 33]", q: { edilizia: 0.060, strutture_s1_s3: 0.060, strutture_s2_s6: 0.060, impianti_a: 0.060, impianti_b: 0.060, viabilita: 0.060, idraulica: 0.060, ict: 0.060, paesaggio: 0.060 } },
+            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.07", desc: "Variante delle quantità del progetto in corso d'opera[cite: 33]", q: { edilizia: 0.140, strutture_s1_s3: 0.090, strutture_s2_s6: 0.090, impianti_a: 0.150, impianti_b: 0.150, viabilita: 0.120, idraulica: 0.120, ict: 0.110, paesaggio: 0.120 } },
+            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.08", desc: "Variante del progetto in corso d'opera[cite: 33]", q: { edilizia: 0.410, strutture_s1_s3: 0.430, strutture_s2_s6: 0.430, impianti_a: 0.320, impianti_b: 0.320, viabilita: 0.420, idraulica: 0.340, ict: 0.400, paesaggio: 0.420 } },
+            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.09", desc: "Contabilità dei lavori a misura (Fino a € 500.000,00)[cite: 33]", q: { edilizia: 0.060, strutture_s1_s3: 0.060, strutture_s2_s6: 0.060, impianti_a: 0.045, impianti_b: 0.045, viabilita: 0.045, idraulica: 0.045, ict: 0.045, paesaggio: 0.045 } },
+            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.09", desc: "Contabilità dei lavori a misura (Sull'eccedenza oltre € 500.000,00)[cite: 33]", q: { edilizia: 0.012, strutture_s1_s3: 0.012, strutture_s2_s6: 0.012, impianti_a: 0.090, impianti_b: 0.090, viabilita: 0.090, idraulica: 0.090, ict: 0.090, paesaggio: 0.090 } },
+            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.10", desc: "Contabilità dei lavori a corpo (Fino a € 500.000,00)[cite: 33]", q: { edilizia: 0.045, strutture_s1_s3: 0.045, strutture_s2_s6: 0.045, impianti_a: 0.035, impianti_b: 0.035, viabilita: 0.035, idraulica: 0.035, ict: 0.035, paesaggio: 0.035 } },
+            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.10", desc: "Contabilità dei lavori a corpo (Sull'eccedenza oltre € 500.000,00)[cite: 33]", q: { edilizia: 0.090, strutture_s1_s3: 0.090, strutture_s2_s6: 0.090, impianti_a: 0.070, impianti_b: 0.070, viabilita: 0.070, idraulica: 0.070, ict: 0.070, paesaggio: 0.070 } },
+            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.11", desc: "Certificato di regolare esecuzione[cite: 33]", q: { edilizia: 0.040, strutture_s1_s3: 0.040, strutture_s2_s6: 0.040, impianti_a: 0.040, impianti_b: 0.040, viabilita: 0.040, idraulica: 0.040, ict: 0.040, paesaggio: 0.040 } },
+            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.12", desc: "Coordinamento della sicurezza in esecuzione (CSE)[cite: 33]", q: { edilizia: 0.250, strutture_s1_s3: 0.250, strutture_s2_s6: 0.250, impianti_a: 0.250, impianti_b: 0.250, viabilita: 0.250, idraulica: 0.250, ict: 0.250, paesaggio: 0.250 } },
+            { fase: "c.I) Esecuzione dei Lavori", cod: "QcI.13", desc: "Supporto al RUP: per la supervisione e coordinamento della D.L. e della C.S.E.[cite: 33]", q: { edilizia: 0.040, strutture_s1_s3: 0.040, strutture_s2_s6: 0.040, impianti_a: 0.040, impianti_b: 0.040, viabilita: 0.040, idraulica: 0.040, ict: 0.040, paesaggio: 0.040 } },
 
-        // STATO INTERNO DELLE SELEZIONI
-        const state = {
-            selezioni: new Set()
-        };
+            // FASE d.I) VERIFICHE E COLLAUDI[cite: 34]
+            { fase: "d.I) Verifiche e Collaudi", cod: "QdI.01", desc: "Collaudo tecnico amministrativo[cite: 34]", q: { edilizia: 0.080, strutture_s1_s3: 0.080, strutture_s2_s6: 0.080, impianti_a: 0.080, impianti_b: 0.080, viabilita: 0.080, idraulica: 0.080, ict: 0.080, paesaggio: 0.080 } },
+            { fase: "d.I) Verifiche e Collaudi", cod: "QdI.02", desc: "Revisione tecnico contabile (Parte II, Titolo X, d.P.R. 207/10)[cite: 34]", q: { edilizia: 0.020, strutture_s1_s3: 0.020, strutture_s2_s6: 0.020, impianti_a: 0.020, impianti_b: 0.020, viabilita: 0.020, idraulica: 0.020, ict: 0.020, paesaggio: 0.020 } },
+            { fase: "d.I) Verifiche e Collaudi", cod: "QdI.03", desc: "Collaudo statico (Capitolo 9, d.m. 14/01/2008)[cite: 34]", q: { strutture_s1_s3: 0.220, strutture_s2_s6: 0.220 } },
+            { fase: "d.I) Verifiche e Collaudi", cod: "QdI.04", desc: "Collaudo tecnico funzionale degli impianti (d.m. 22/01/2008 n°37)[cite: 34]", q: { impianti_a: 0.180, impianti_b: 0.180, idraulica: 0.180 } },
+            { fase: "d.I) Verifiche e Collaudi", cod: "QdI.05", desc: "Attestato di certificazione energetica (art. 6 d.lgs. 311/2006) esclusa diagnosi energetica[cite: 34]", q: { edilizia: 0.030, strutture_s1_s3: 0.030, strutture_s2_s6: 0.030, impianti_a: 0.030, impianti_b: 0.030 } },
 
-        // CALCOLO PARAMETRO P = 0.03 + 10 / (V^0.4)
-        function calcolaParametroP(v) {
-            if (v <= 0) return 0;
-            return 0.03 + (10 / Math.pow(v, 0.4));
-        }
-
-        // RENDER DELLA LISTA DELLE PRESTAZIONI
-        function renderizzaTabella() {
-            const container = document.getElementById('elencoPrestazioni');
-            const cat = document.getElementById('categoriaOpera').value;
-            container.innerHTML = '';
-
-            let currentFase = '';
-
-            PRESTAZIONI_DB.forEach((item, index) => {
-                const qValue = item.q[cat];
-                const isApplicabile = (qValue !== undefined && qValue > 0);
-
-                // Intestazione gruppo fase
-                if (item.fase !== currentFase) {
-                    currentFase = item.fase;
-                    const headerFase = document.createElement('div');
-                    headerFase.className = 'bg-slate-100/90 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-700 border-t border-b border-slate-200 sticky top-0 z-10';
-                    headerFase.textContent = currentFase;
-                    container.appendChild(headerFase);
-                }
-
-                const row = document.createElement('label');
-                row.className = `flex items-center justify-between p-3.5 transition text-xs select-none ${isApplicabile ? 'cursor-pointer hover:bg-amber-50/50' : 'opacity-40 cursor-not-allowed bg-slate-50'}`;
-
-                const isChecked = isApplicabile && state.selezioni.has(index);
-
-                row.innerHTML = `
-                    <div class="flex items-start gap-3 flex-1 pr-4">
-                        <input type="checkbox" data-index="${index}" ${isChecked ? 'checked' : ''} ${!isApplicabile ? 'disabled' : ''} class="mt-0.5 rounded border-slate-300 text-amber-500 focus:ring-amber-400">
-                        <div>
-                            <span class="font-bold text-slate-900">${item.cod}</span>
-                            <span class="text-slate-600 ml-1.5">${item.desc}</span>
-                        </div>
-                    </div>
-                    <div class="text-right flex-shrink-0">
-                        ${isApplicabile 
-                            ? `<span class="font-bold text-sm text-slate-800">Q = ${qValue.toFixed(4).replace('.', ',')}</span>` 
-                            : `<span class="text-[11px] font-semibold text-slate-400 italic">Non applicabile</span>`}
-                    </div>
-                `;
-
-                if (isApplicabile) {
-                    const chk = row.querySelector('input');
-                    chk.addEventListener('change', (e) => {
-                        if (e.target.checked) {
-                            state.selezioni.add(index);
-                        } else {
-                            state.selezioni.delete(index);
-                        }
-                        calcolaParcella();
-                    });
-                }
-
-                container.appendChild(row);
-            });
-        }
-
-        // CALCOLO GLOBALE PARCELLA
-        function calcolaParcella() {
-            const V = parseFloat(document.getElementById('valoreOpera').value) || 0;
-            const G = parseFloat(document.getElementById('gradoG').value) || 1.0;
-            const cat = document.getElementById('categoriaOpera').value;
-            const percSpese = parseFloat(document.getElementById('percSpese').value) || 0;
-
-            const P = calcolaParametroP(V);
-            const compensoUnitarioBase = V * G * P;
-
-            // Aggiorna indicatori base
-            document.getElementById('parametroPDisplay').innerText = (P * 100).toFixed(4).replace('.', ',') + ' %';
-            document.getElementById('compensoBaseDisplay').innerText = '€ ' + Math.round(compensoUnitarioBase).toLocaleString('it-IT');
-
-            let sumQ = 0;
-            let countSelezionati = 0;
-
-            state.selezioni.forEach(idx => {
-                const item = PRESTAZIONI_DB[idx];
-                const q = item.q[cat];
-                if (q !== undefined && q > 0) {
-                    sumQ += q;
-                    countSelezionati++;
-                }
-            });
-
-            document.getElementById('totaleVociSelezionate').innerText = `${countSelezionati} selezionate`;
-
-            // Calcoli economici di legge
-            const CP = compensoUnitarioBase * sumQ;
-            const spese = CP * (percSpese / 100);
-            const imponibile = CP + spese;
-            const cassa = imponibile * 0.04; // 4% Cassa Previdenziale
-            const iva = (imponibile + cassa) * 0.22; // 22% IVA
-            const totale = imponibile + cassa + iva;
-
-            // Render dei risultati
-            document.getElementById('sommaQ').innerText = sumQ.toFixed(4).replace('.', ',');
-            document.getElementById('compensoNetto').innerText = '€ ' + CP.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            document.getElementById('importoSpese').innerText = '€ ' + spese.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            document.getElementById('totaleImponibile').innerText = '€ ' + imponibile.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            document.getElementById('cassaPrevidenziale').innerText = '€ ' + cassa.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            document.getElementById('ivaTotale').innerText = '€ ' + iva.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            document.getElementById('totaleParcella').innerText = '€ ' + totale.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        }
-
-        // SELEZIONA / DESELEZIONA TUTTO
-        function selezionaTutto(select) {
-            const cat = document.getElementById('categoriaOpera').value;
-            state.selezioni.clear();
-            if (select) {
-                PRESTAZIONI_DB.forEach((item, idx) => {
-                    if (item.q[cat] !== undefined && item.q[cat] > 0) {
-                        state.selezioni.add(idx);
-                    }
-                });
-            }
-            renderizzaTabella();
-            calcolaParcella();
-        }
-
-        // EVENT LISTENERS SUI PARAMETRI GENERALI
-        ['valoreOpera', 'gradoG', 'percSpese'].forEach(id => {
-            document.getElementById(id).addEventListener('input', calcolaParcella);
-        });
-
-        document.getElementById('categoriaOpera').addEventListener('change', () => {
-            renderizzaTabella();
-            calcolaParcella();
-        });
-
-        // INIZIALIZZAZIONE AL CARICAMENTO
-        document.addEventListener('DOMContentLoaded', () => {
-            // Pre-seleziona le prestazioni basilari del progetto esecutivo
-            PRESTAZIONI_DB.forEach((item, idx) => {
-                if (['QbIII.01', 'QbIII.02', 'QbIII.03', 'QbIII.04', 'QbIII.05', 'QbIII.07'].includes(item.cod)) {
-                    state.selezioni.add(idx);
-                }
-            });
-            renderizzaTabella();
-            calcolaParcella();
-        });
-    </script>
-</body>
-</html>
+            // FASE e.I) MONITORAGGI[cite: 34]
+            { fase: "e.I) Monitoraggi", cod: "QeI.01", desc: "Monitoraggi ambientali, naturalistici, fitoiatrici, faunistici, agronomici, zootecnici (artt. 18, 28 Parte III All. 1 - All. 7 d.Lgs. 152/2006)[cite: 34]", q: { paesaggio: 0.002, urbanistica: 0.0015 } },
+            { fase: "e.I) Monitoraggi", cod: "QeI.02", desc: "Ricerche agricole e/o agro-industriali, nelle bioenergie, all'innovazione e sviluppo dei settori di competenza[cite: 34]", q: { paesaggio: 0.022 } }
