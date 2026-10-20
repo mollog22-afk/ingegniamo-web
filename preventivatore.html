@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Area Riservata Preventivatore | Ingegniamo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased min-h-screen">
+
+  <!-- ================= SEZIONE 1: LOGIN (VISIBILE SOLO SE NON SEI LOGGATO) ================= -->
+  <div id="loginSection" class="min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-xl max-w-md w-full">
+      <div class="text-center mb-8">
+        <a href="index.html" class="inline-block text-xs font-semibold text-blue-600 mb-4 hover:underline">← Torna al sito Ingegniamo</a>
+        <div class="w-12 h-12 bg-slate-900 text-white rounded-2xl flex items-center justify-center text-xl font-bold mx-auto mb-3">🔒</div>
+        <h1 class="text-2xl font-black text-slate-950">Accesso Preventivatore</h1>
+        <p class="text-xs text-slate-500 mt-1">Area tecnica riservata ai professionisti di studio</p>
+      </div>
+
+      <form id="loginForm" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Email</label>
+          <input type="email" id="loginEmail" required value="info@ingegniamo.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Password</label>
+          <input type="password" id="loginPassword" required placeholder="Inserisci la password impostata" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 outline-none">
+        </div>
+
+        <div id="loginError" class="p-3 bg-red-50 text-red-600 text-xs rounded-xl hidden border border-red-100"></div>
+
+        <button type="submit" id="btnLogin" class="w-full py-3.5 bg-black hover:bg-slate-800 text-white font-bold rounded-xl transition text-sm shadow-md">
+          Sblocca Preventivatore
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= SEZIONE 2: PREVENTIVATORE (VISIBILE SOLO DOPO IL LOGIN) ================= -->
+  <div id="dashboardSection" class="hidden">
+    
+    <!-- Topbar con Logout -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
+      <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <span class="font-extrabold text-slate-900 tracking-tight">Ingegniamo | Calcolo Corrispettivi</span>
+          <span class="hidden sm:inline-block text-[11px] bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md font-medium">Sessione protetta</span>
+        </div>
+        <div class="flex items-center gap-4 text-xs">
+          <span class="text-slate-500 hidden md:inline">Operatore: <strong id="loggedUserLabel" class="text-slate-900"></strong></span>
+          <button onclick="logout()" class="px-3.5 py-1.5 bg-slate-100 hover:bg-red-50 hover:text-red-600 font-semibold rounded-lg transition">
+            Disconnetti ✕
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-10 space-y-10">
+      
+      <!-- FORM CALCOLO & ARCHIVIAZIONE -->
+      <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+        <div class="mb-6">
+          <h2 class="text-xl font-black text-slate-900">Nuovo Preventivo</h2>
+          <p class="text-xs text-slate-500">Inserisci i dati della commessa per stimare l'onorario e archiviarlo nel database.</p>
+        </div>
+
+        <form id="calcForm" class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Titolo / Committente</label>
+            <input type="text" id="cliente" required placeholder="Es. Enel X / Privato Rossi" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Disciplina</label>
+            <select id="disciplina" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 outline-none">
+              <option value="Termotecnica & HVAC">Termotecnica & HVAC</option>
+              <option value="Ingegneria Elettrica BT/MT">Ingegneria Elettrica BT/MT</option>
+              <option value="Progettazione Antincendio">Progettazione Antincendio</option>
+              <option value="Modellazione BIM MEP">Modellazione BIM MEP</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Tipologia di Opera</label>
+            <select id="tipo_opera" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 outline-none">
+              <option value="Opere Private">Opere Private</option>
+              <option value="Opere Pubbliche">Opere Pubbliche</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Importo Lavori Impianti (€)</label>
+            <input type="number" id="importo_lavori" required placeholder="Es. 80000" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Aliquota Onorario (%)</label>
+            <input type="number" id="percentuale" value="6.5" step="0.1" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 outline-none">
+          </div>
+
+          <div class="flex items-end">
+            <button type="submit" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition text-sm shadow-md">
+              Salva nel Database
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- TABELLA PREVENTIVI SALVATI -->
+      <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-lg font-black text-slate-900">Storico Lavori Archiviati</h3>
+          <button onclick="caricaDati()" class="text-xs font-bold text-blue-600 hover:underline">⟳ Ricarica Dati</button>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead>
+              <tr class="border-b border-slate-200 text-xs text-slate-500 uppercase tracking-wider">
+                <th class="py-3 px-3">Cliente / Commessa</th>
+                <th class="py-3 px-3">Disciplina</th>
+                <th class="py-3 px-3">Tipologia</th>
+                <th class="py-3 px-3">Importo Opere</th>
+                <th class="py-3 px-3 font-bold text-slate-900">Corrispettivo</th>
+              </tr>
+            </thead>
+            <tbody id="tabellaCorpo" class="divide-y divide-slate-100">
+              <tr><td colspan="5" class="py-6 text-center text-slate-400">Caricamento in corso...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ================= LOGICA CLIENT CON SUPABASE ================= -->
+  <script>
+    const SUPABASE_URL = 'https://pyurnuggdqorzzcakkxdu.supabase.co';
+    // Incolla qui sotto la Publishable key copiata da Supabase (quella con sb_publishable_...):
+    const SUPABASE_KEY = 'INCOLLA_QUI_LA_TUA_PUBLISHABLE_KEY';
+    const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const loginSection = document.getElementById('loginSection');
+    const dashboardSection = document.getElementById('dashboardSection');
+    const loginError = document.getElementById('loginError');
+    const loggedUserLabel = document.getElementById('loggedUserLabel');
+
+    // Controllo autenticazione iniziale
+    async function initAuth() {
+      const { data: { session } } = await client.auth.getSession();
+      if (session) {
+        loggedUserLabel.innerText = session.user.email;
+        loginSection.classList.add('hidden');
+        dashboardSection.classList.remove('hidden');
+        caricaDati();
+      } else {
+        dashboardSection.classList.add('hidden');
+        loginSection.classList.remove('hidden');
+      }
+    }
+
+    // Login Form
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      loginError.classList.add('hidden');
+
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      const { data, error } = await client.auth.signInWithPassword({ email, password });
+      if (error) {
+        loginError.innerText = 'Accesso non riuscito: controlla la password.';
+        loginError.classList.remove('hidden');
+      } else {
+        initAuth();
+      }
+    });
+
+    // Logout
+    async function logout() {
+      await client.auth.signOut();
+      window.location.reload();
+    }
+
+    // Caricamento Preventivi da Supabase
+    async function caricaDati() {
+      const tbody = document.getElementById('tabellaCorpo');
+      const { data, error } = await client
+        .from('preventivi')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        tbody.innerHTML = `<tr><td colspan="5" class="py-4 text-center text-red-500 text-xs">Errore: ${error.message}</td></tr>`;
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-400 text-xs">Nessun preventivo archiviato finora.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = data.map(r => `
+        <tr class="hover:bg-slate-50 transition">
+          <td class="py-3 px-3 font-semibold text-slate-900">${r.cliente}</td>
+          <td class="py-3 px-3 text-slate-600">${r.disciplina || '-'}</td>
+          <td class="py-3 px-3">
+            <span class="text-xs px-2.5 py-1 rounded-md font-medium ${r.tipo_opera === 'Opere Pubbliche' ? 'bg-purple-100 text-purple-700' : 'bg-slate-100 text-slate-700'}">
+              ${r.tipo_opera}
+            </span>
+          </td>
+          <td class="py-3 px-3 text-slate-600">€ ${Number(r.importo_lavori).toLocaleString('it-IT')}</td>
+          <td class="py-3 px-3 font-bold text-blue-600">€ ${Number(r.onorario_totale).toLocaleString('it-IT', { minimumFractionDigits: 2 })}</td>
+        </tr>
+      `).join('');
+    }
+
+    // Salvataggio Preventivo
+    document.getElementById('calcForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const importo = parseFloat(document.getElementById('importo_lavori').value);
+      const perc = parseFloat(document.getElementById('percentuale').value);
+      const totale = (importo * perc) / 100;
+
+      const record = {
+        cliente: document.getElementById('cliente').value,
+        disciplina: document.getElementById('disciplina').value,
+        tipo_opera: document.getElementById('tipo_opera').value,
+        importo_lavori: importo,
+        onorario_totale: totale
+      };
+
+      const { error } = await client.from('preventivi').insert([record]);
+      if (error) {
+        alert('Errore di salvataggio: ' + error.message);
+      } else {
+        document.getElementById('calcForm').reset();
+        caricaDati();
+      }
+    });
+
+    initAuth();
+  </script>
+</body>
+</html>
