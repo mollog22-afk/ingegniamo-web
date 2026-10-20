@@ -797,16 +797,17 @@
 
 <script>
   // Configurazione Supabase
+ // Configurazione Supabase
   const SUPABASE_URL = 'https://pyurnuggdqrzzcakkxdu.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_HmwHdFgd7VWQa7t9t-Mcxw_TeSIFqtG';
   const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
   let globalOfferData = {};
-  let currentLoadedOfferId = null;
   let offersCache = [];
+  let currentLoadedOfferId = null;
 
   function formatEuro(val) {
-    return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(val);
+    return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(val || 0);
   }
 
   function calcP(V) {
@@ -818,23 +819,20 @@
     return `<span class="check-box-symbol">&#10003;</span>`;
   }
 
-  // GESTIONE DELLE VISTE (DASHBOARD ARCHIVIO vs MODULO PREVENTIVATORE)
+  // GESTIONE VISTE
   function showDashboard() {
     document.getElementById('view-dashboard').style.display = 'block';
     document.getElementById('view-editor').style.display = 'none';
+    currentLoadedOfferId = null;
     loadOffersList();
   }
 
   function startNewOffer() {
+    currentLoadedOfferId = null;
+    document.getElementById('panelTitle').innerText = "Nuova Offerta";
     document.getElementById('view-dashboard').style.display = 'none';
     document.getElementById('view-editor').style.display = 'block';
     resetFormDefaults();
-    recalcAll();
-  }
-
-  function openLoadedOffer() {
-    document.getElementById('view-dashboard').style.display = 'none';
-    document.getElementById('view-editor').style.display = 'block';
     recalcAll();
   }
 
@@ -844,9 +842,35 @@
     document.getElementById('inClientFiscal').value = '';
     document.getElementById('inSubject').value = 'Progettazione Impianti MEP, Prevenzione Incendi, BIM e Sicurezza Cantieri';
     document.getElementById('inLocation').value = '';
+    document.getElementById('inV_mecc').value = 130000;
+    document.getElementById('inG_mecc').value = 1.00;
+    document.getElementById('chk_pfte_mecc').checked = false;
+    document.getElementById('chk_esec_mecc').checked = true;
+    document.getElementById('inV_ele').value = 120000;
+    document.getElementById('inG_ele').value = 1.00;
+    document.getElementById('chk_pfte_ele').checked = false;
+    document.getElementById('chk_esec_ele').checked = true;
+    document.getElementById('chk_fire_project').checked = true;
+    document.getElementById('inV_fire').value = 40000;
+    document.getElementById('chk_vvf_scia').checked = true;
+    document.getElementById('fee_vvf_scia').value = 2800;
+    document.getElementById('chk_bim').checked = true;
+    document.getElementById('fee_bim').value = 3400;
+    document.getElementById('chk_csp').checked = true;
+    document.getElementById('chk_legge10').checked = true;
+    document.getElementById('fee_legge10').value = 1500;
+    document.getElementById('chk_dl_mecc').checked = true;
+    document.getElementById('chk_dl_ele').checked = true;
+    document.getElementById('chk_cse').checked = true;
+    document.getElementById('chk_assistenza_opz').checked = true;
+    document.getElementById('fee_assistenza_opz').value = 2600;
+    document.getElementById('chk_ct').checked = true;
+    document.getElementById('inIncentivoGSE').value = 45000;
+    document.getElementById('inExpPercent').value = 15;
+    document.getElementById('inDiscountPercent').value = 10;
   }
 
-  // CARICAMENTO OFFERTE DAL DATABASE SUPABASE
+  // CARICAMENTO LISTA OFFERTE
   async function loadOffersList() {
     const tbody = document.getElementById('dbOffersTableBody');
     tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 20px;">Caricamento in corso...</td></tr>`;
@@ -869,7 +893,7 @@
       offersCache.forEach((item, index) => {
         const tr = document.createElement('tr');
         const dt = new Date(item.created_at).toLocaleDateString('it-IT');
-        const prot = (item.dettagli && item.dettagli.protocollo) ? item.dettagli.protocollo : (item.numero || 'OFF-N/D');
+        const prot = item.numero || (item.dettagli && item.dettagli.protocollo) || 'OFF-N/D';
         const cli = item.cliente || 'Committente non specificato';
         const sogg = item.oggetto || 'Prestazioni di Ingegneria';
         const importoTot = item.totale ? formatEuro(item.totale) : (item.onorario_totale ? formatEuro(item.onorario_totale) : '€ 0,00');
@@ -892,21 +916,16 @@
     }
   }
 
-  // FUNZIONE PER ELIMINARE L'OFFERTA DA SUPABASE
+  // ELIMINA OFFERTA
   async function deleteOffer(id, prot) {
     const conferma = confirm(`Sei sicuro di voler eliminare definitivamente l'offerta "${prot}" dall'archivio?\nQuesta operazione non può essere annullata.`);
     if (!conferma) return;
 
     try {
-      const { error } = await client
-        .from('preventivi')
-        .delete()
-        .eq('id', id);
-
+      const { error } = await client.from('preventivi').delete().eq('id', id);
       if (error) {
-        alert("Errore durante l'eliminazione: " + error.message);
+        alert("Errore eliminazione: " + error.message);
       } else {
-        alert(`Offerta "${prot}" eliminata con successo.`);
         loadOffersList();
       }
     } catch (e) {
@@ -914,48 +933,71 @@
     }
   }
 
-  // CARICA I DATI NEL FORM QUANDO L'UTENTE SELEZIONA UN'OFFERTA
-async function saveToSupabase() {
-    const btn = document.getElementById('btnSaveSupabase');
-    btn.disabled = true;
-    btn.innerText = 'Salvataggio in corso...';
+  // CARICA OFFERTA NELL'EDITOR (CON TUTTI I PARAMETRI)
+  function loadOfferIntoEditor(index) {
+    const item = offersCache[index];
+    if (!item) return;
 
-    try {
-      let res;
-      if (currentLoadedOfferId) {
-        // AGGIORNA L'OFFERTA ESISTENTE
-        res = await client
-          .from('preventivi')
-          .update(globalOfferData)
-          .eq('id', currentLoadedOfferId);
-      } else {
-        // INSERISCE NUOVA OFFERTA
-        res = await client
-          .from('preventivi')
-          .insert([globalOfferData])
-          .select();
-        
-        if (res.data && res.data[0]) {
-          currentLoadedOfferId = res.data[0].id;
-        }
-      }
+    currentLoadedOfferId = item.id;
+    document.getElementById('panelTitle').innerText = "Modifica Offerta";
 
-      if (res.error) {
-        alert('Errore salvataggio Supabase: ' + res.error.message);
-      } else {
-        alert(`Offerta ${globalOfferData.numero} salvata con successo!`);
-        // Ricarica la lista per averla aggiornata
-        loadOffersList();
-      }
-    } catch (e) {
-      alert('Errore di connessione: ' + e.message);
-    } finally {
-      btn.disabled = false;
-      btn.innerText = '💾 Archivia / Aggiorna in Supabase';
-    }
+    // Campi base
+    if (item.cliente) document.getElementById('inClient').value = item.cliente;
+    if (item.numero) document.getElementById('inOfferNumber').value = item.numero;
+    if (item.oggetto) document.getElementById('inSubject').value = item.oggetto;
+
+    const d = item.dettagli || {};
+    if (d.committente_cf) document.getElementById('inClientFiscal').value = d.committente_cf;
+    if (d.ubicazione) document.getElementById('inLocation').value = d.ubicazione;
+    if (d.legal_text) document.getElementById('inCustomLegalText').value = d.legal_text;
+
+    // Ripristino valori tecnici e spunte (se presenti nell'offerta salvata)
+    if (d.inV_mecc !== undefined) document.getElementById('inV_mecc').value = d.inV_mecc;
+    if (d.inG_mecc !== undefined) document.getElementById('inG_mecc').value = d.inG_mecc;
+    if (d.chk_pfte_mecc !== undefined) document.getElementById('chk_pfte_mecc').checked = d.chk_pfte_mecc;
+    if (d.chk_esec_mecc !== undefined) document.getElementById('chk_esec_mecc').checked = d.chk_esec_mecc;
+    if (d.desc_mecc !== undefined) document.getElementById('desc_mecc').value = d.desc_mecc;
+
+    if (d.inV_ele !== undefined) document.getElementById('inV_ele').value = d.inV_ele;
+    if (d.inG_ele !== undefined) document.getElementById('inG_ele').value = d.inG_ele;
+    if (d.chk_pfte_ele !== undefined) document.getElementById('chk_pfte_ele').checked = d.chk_pfte_ele;
+    if (d.chk_esec_ele !== undefined) document.getElementById('chk_esec_ele').checked = d.chk_esec_ele;
+    if (d.desc_ele !== undefined) document.getElementById('desc_ele').value = d.desc_ele;
+
+    if (d.chk_fire_project !== undefined) document.getElementById('chk_fire_project').checked = d.chk_fire_project;
+    if (d.inV_fire !== undefined) document.getElementById('inV_fire').value = d.inV_fire;
+    if (d.chk_vvf_scia !== undefined) document.getElementById('chk_vvf_scia').checked = d.chk_vvf_scia;
+    if (d.fee_vvf_scia !== undefined) document.getElementById('fee_vvf_scia').value = d.fee_vvf_scia;
+    if (d.desc_fire !== undefined) document.getElementById('desc_fire').value = d.desc_fire;
+
+    if (d.chk_bim !== undefined) document.getElementById('chk_bim').checked = d.chk_bim;
+    if (d.fee_bim !== undefined) document.getElementById('fee_bim').value = d.fee_bim;
+    if (d.desc_bim !== undefined) document.getElementById('desc_bim').value = d.desc_bim;
+
+    if (d.chk_csp !== undefined) document.getElementById('chk_csp').checked = d.chk_csp;
+    if (d.chk_legge10 !== undefined) document.getElementById('chk_legge10').checked = d.chk_legge10;
+    if (d.fee_legge10 !== undefined) document.getElementById('fee_legge10').value = d.fee_legge10;
+
+    if (d.chk_dl_mecc !== undefined) document.getElementById('chk_dl_mecc').checked = d.chk_dl_mecc;
+    if (d.chk_dl_ele !== undefined) document.getElementById('chk_dl_ele').checked = d.chk_dl_ele;
+    if (d.chk_cse !== undefined) document.getElementById('chk_cse').checked = d.chk_cse;
+    if (d.chk_assistenza_opz !== undefined) document.getElementById('chk_assistenza_opz').checked = d.chk_assistenza_opz;
+    if (d.fee_assistenza_opz !== undefined) document.getElementById('fee_assistenza_opz').value = d.fee_assistenza_opz;
+    if (d.chk_ct !== undefined) document.getElementById('chk_ct').checked = d.chk_ct;
+    if (d.inIncentivoGSE !== undefined) document.getElementById('inIncentivoGSE').value = d.inIncentivoGSE;
+
+    if (d.inExpPercent !== undefined) document.getElementById('inExpPercent').value = d.inExpPercent;
+    if (d.inDiscountPercent !== undefined) document.getElementById('inDiscountPercent').value = d.inDiscountPercent;
+
+    // Cambia schermata
+    document.getElementById('view-dashboard').style.display = 'none';
+    document.getElementById('view-editor').style.display = 'block';
+
+    // Ricalcola tutto a video
+    recalcAll();
   }
 
-  // CALCOLO PARAMETRI E TARIFFE
+  // RICALCOLO COMPLETO
   function recalcAll() {
     const clientName = document.getElementById('inClient').value;
     const clientFiscal = document.getElementById('inClientFiscal').value;
@@ -1007,7 +1049,7 @@ async function saveToSupabase() {
       if (document.getElementById('chk_pfte_ele').checked) {
         const fee = V_ele * G_ele * 0.27 * P_ele;
         projSum += fee;
-        tblProj.innerHTML += `<tr><td><strong>PFTE Impianti Elettrici BT/MT</strong></td><td class="num">${formatEuro(V_ele)}</td><td style="text-align:center;">${G_ele.toFixed(2)}</td><td class="num">${(P_ele * 100).toFixed(4)}%</td><td style="text-align:center;">0.27</td><td class="num">${formatEuro(fee)}</td></tr>`;
+        tblProj.innerHTML += `<tr><td><strong>PFTE Impianti Elettrici BT/MT</strong></td><td class="num">${formatEuro(V_ele)}</td><td style="text-align:center;">${G_ele.toFixed(2)}</td><td class="num">${(P_mecc * 100).toFixed(4)}%</td><td style="text-align:center;">0.27</td><td class="num">${formatEuro(fee)}</td></tr>`;
       }
       if (document.getElementById('chk_esec_ele').checked) {
         const fee = V_ele * G_ele * 0.50 * P_ele;
@@ -1016,14 +1058,12 @@ async function saveToSupabase() {
       }
     }
 
-    // ANTINCENDIO NELLA TABELLA 1
     if (document.getElementById('chk_fire_project').checked && V_fire > 0) {
       const fee = V_fire * G_fire * 0.45 * P_fire;
       projSum += fee;
       tblProj.innerHTML += `<tr><td><strong>Progettazione Antincendio & Impianti Spegnimento</strong><br><small>${document.getElementById('desc_fire').value}</small></td><td class="num">${formatEuro(V_fire)}</td><td style="text-align:center;">${G_fire.toFixed(2)}</td><td class="num">${(P_fire * 100).toFixed(4)}%</td><td style="text-align:center;">0.45</td><td class="num">${formatEuro(fee)}</td></tr>`;
     }
 
-    // BIM MEP NELLA TABELLA 1
     if (document.getElementById('chk_bim').checked) {
       const feeBim = parseFloat(document.getElementById('fee_bim').value) || 0;
       projSum += feeBim;
@@ -1032,7 +1072,7 @@ async function saveToSupabase() {
 
     document.getElementById('wrap_sec_1').style.display = (projSum > 0) ? 'block' : 'none';
 
-    // 2. VOCI SPECIALISTICHE & PRATICHE
+    // 2. SPECIALISTICHE
     const V_tot = V_mecc + V_ele + V_fire;
     const P_tot = calcP(V_tot);
     const G_safety = 0.85;
@@ -1065,7 +1105,6 @@ async function saveToSupabase() {
     }
 
     document.getElementById('wrap_sec_2').style.display = (baseCount > 0) ? 'block' : 'none';
-
     document.getElementById('row_tot_proj').style.display = (projSum > 0) ? 'flex' : 'none';
     document.getElementById('row_tot_csp').style.display = (chkCsp && V_tot > 0) ? 'flex' : 'none';
     document.getElementById('row_tot_l10').style.display = (chkL10) ? 'flex' : 'none';
@@ -1143,13 +1182,16 @@ async function saveToSupabase() {
     document.getElementById('sec_opt_container').style.display = (countOpt > 0) ? 'block' : 'none';
     document.getElementById('sec_summary_container').style.display = (countOpt > 0) ? 'block' : 'none';
 
+    let totalNetOverall = netTaxableMain;
+    let overallFinal = finalTotalMain;
+
     if (countOpt > 0) {
       const discountAmountOpt = optGrossSum * (discPercent / 100);
       const optNetSum = optGrossSum - discountAmountOpt;
-      const totalNetOverall = netTaxableMain + optNetSum;
+      totalNetOverall = netTaxableMain + optNetSum;
       const overallInarcassa = totalNetOverall * 0.04;
       const overallVat = (totalNetOverall + overallInarcassa) * 0.22;
-      const overallFinal = totalNetOverall + overallInarcassa + overallVat;
+      overallFinal = totalNetOverall + overallInarcassa + overallVat;
 
       document.getElementById('sumNetMain').innerText = formatEuro(netTaxableMain);
       document.getElementById('sumNetOpt').innerText = formatEuro(optNetSum);
@@ -1159,11 +1201,10 @@ async function saveToSupabase() {
       document.getElementById('sumFinalTotal').innerText = formatEuro(overallFinal);
     }
 
-// Determina se salvare il Totale Complessivo o il Principale
     const effectiveTotal = (countOpt > 0) ? overallFinal : finalTotalMain;
     const effectiveNet = (countOpt > 0) ? totalNetOverall : netTaxableMain;
 
-    // Payload per Supabase
+    // PAYLOAD COMPLETO: Salva sia i totali che TUTTI gli input del form
     globalOfferData = {
       cliente: clientName,
       numero: offerNum,
@@ -1177,52 +1218,91 @@ async function saveToSupabase() {
         protocollo: offerNum,
         totale_contrattuale: effectiveTotal,
         committente_cf: clientFiscal,
-        ubicazione: loc
+        ubicazione: loc,
+        legal_text: document.getElementById('inCustomLegalText').value,
+        inV_mecc: V_mecc,
+        inG_mecc: G_mecc,
+        chk_pfte_mecc: document.getElementById('chk_pfte_mecc').checked,
+        chk_esec_mecc: document.getElementById('chk_esec_mecc').checked,
+        desc_mecc: document.getElementById('desc_mecc').value,
+        inV_ele: V_ele,
+        inG_ele: G_ele,
+        chk_pfte_ele: document.getElementById('chk_pfte_ele').checked,
+        chk_esec_ele: document.getElementById('chk_esec_ele').checked,
+        desc_ele: document.getElementById('desc_ele').value,
+        chk_fire_project: document.getElementById('chk_fire_project').checked,
+        inV_fire: V_fire,
+        chk_vvf_scia: document.getElementById('chk_vvf_scia').checked,
+        fee_vvf_scia: parseFloat(document.getElementById('fee_vvf_scia').value) || 0,
+        desc_fire: document.getElementById('desc_fire').value,
+        chk_bim: document.getElementById('chk_bim').checked,
+        fee_bim: parseFloat(document.getElementById('fee_bim').value) || 0,
+        desc_bim: document.getElementById('desc_bim').value,
+        chk_csp: chkCsp,
+        chk_legge10: chkL10,
+        fee_legge10: parseFloat(document.getElementById('fee_legge10').value) || 0,
+        chk_dl_mecc: document.getElementById('chk_dl_mecc').checked,
+        chk_dl_ele: document.getElementById('chk_dl_ele').checked,
+        chk_cse: document.getElementById('chk_cse').checked,
+        chk_assistenza_opz: document.getElementById('chk_assistenza_opz').checked,
+        fee_assistenza_opz: parseFloat(document.getElementById('fee_assistenza_opz').value) || 0,
+        chk_ct: document.getElementById('chk_ct').checked,
+        inIncentivoGSE: parseFloat(document.getElementById('inIncentivoGSE').value) || 0,
+        inExpPercent: expPercent,
+        inDiscountPercent: discPercent
       }
     };
   }
 
-  // SALVATAGGIO IN SUPABASE
+  // SALVATAGGIO / AGGIORNAMENTO
   async function saveToSupabase() {
     const btn = document.getElementById('btnSaveSupabase');
     btn.disabled = true;
-    btn.innerText = 'Archiviazione in corso...';
+    btn.innerText = 'Salvataggio in corso...';
 
     try {
-      const { error } = await client.from('preventivi').insert([globalOfferData]);
-      if (error) {
-        alert('Errore salvataggio Supabase: ' + error.message);
+      let res;
+      if (currentLoadedOfferId) {
+        res = await client
+          .from('preventivi')
+          .update(globalOfferData)
+          .eq('id', currentLoadedOfferId);
       } else {
-        alert(`Offerta ${globalOfferData.numero} archiviata con successo nel database!`);
+        res = await client
+          .from('preventivi')
+          .insert([globalOfferData])
+          .select();
+        
+        if (res.data && res.data[0]) {
+          currentLoadedOfferId = res.data[0].id;
+        }
+      }
+
+      if (res.error) {
+        alert('Errore salvataggio Supabase: ' + res.error.message);
+      } else {
+        alert(`Offerta ${globalOfferData.numero} salvata con successo!`);
       }
     } catch (e) {
       alert('Errore di connessione: ' + e.message);
     } finally {
       btn.disabled = false;
-      btn.innerText = '💾 Archivia in Supabase';
+      btn.innerText = '💾 Archivia / Aggiorna in Supabase';
     }
   }
-      function printDocument() {
-  const offerNum = document.getElementById('inOfferNumber').value.trim() || 'OFF-26';
-  const clientName = document.getElementById('inClient').value.trim() || 'Committente';
-  
-  // Sostituisce eventuali caratteri non validi nei nomi dei file
-  const safeClient = clientName.replace(/[/\\?%*:|"<>]/g, '_');
-  const originalTitle = document.title;
 
-  // Imposta il nome del PDF desiderato
-  document.title = `${offerNum}_${safeClient}`;
+  // STAMPA CON NOME FILE PERSONALIZZATO
+  function printDocument() {
+    const offerNum = document.getElementById('inOfferNumber').value.trim() || 'OFF-26';
+    const clientName = document.getElementById('inClient').value.trim() || 'Committente';
+    const safeClient = clientName.replace(/[/\\?%*:|"<>]/g, '_');
+    const originalTitle = document.title;
 
-  // Lancia la finestra di stampa/salvataggio PDF
-  window.print();
+    document.title = `${offerNum}_${safeClient}`;
+    window.print();
+    setTimeout(() => { document.title = originalTitle; }, 1000);
+  }
 
-  // Ripristina il titolo della finestra dopo la stampa
-  setTimeout(() => {
-    document.title = originalTitle;
-  }, 1000);
-}
-
-  // All'avvio carica la vista Archivio
   window.addEventListener('DOMContentLoaded', () => {
     showDashboard();
   });
