@@ -1133,7 +1133,11 @@
       document.getElementById('sumFinalTotal').innerText = formatEuro(overallFinal);
     }
 
-    // Oggetto completo per il salvataggio nel database
+// Determina se salvare il Totale Complessivo o il Principale
+    const effectiveTotal = (countOpt > 0) ? overallFinal : finalTotalMain;
+    const effectiveNet = (countOpt > 0) ? totalNetOverall : netTaxableMain;
+
+    // Payload per Supabase
     globalOfferData = {
       cliente: clientName,
       numero: offerNum,
@@ -1141,11 +1145,11 @@
       disciplina: 'MEP, BIM & Antincendio',
       tipo_opera: 'Opere Edili/Impiantistiche',
       importo_lavori: V_tot,
-      onorario_totale: netTaxableMain,
-      totale: finalTotalMain,
+      onorario_totale: effectiveNet,
+      totale: effectiveTotal,
       dettagli: {
         protocollo: offerNum,
-        totale_contrattuale: finalTotalMain,
+        totale_contrattuale: effectiveTotal,
         committente_cf: clientFiscal,
         ubicazione: loc
       }
