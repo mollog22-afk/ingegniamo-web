@@ -417,24 +417,21 @@
     <div class="box-block">
       <div class="box-block-title"><span>3. Sicurezza CSP & Pratiche Base</span></div>
       <label class="check-label"><input type="checkbox" id="chk_csp" checked onchange="recalcAll()"> CSP - Progettazione PSC & Fascicolo (Q = 0.10)</label>
-      <hr style="border:0; border-top:1px dashed #cbd5e1; margin:6px 0;">
       <label class="check-label"><input type="checkbox" id="chk_legge10" checked onchange="recalcAll()"> Relazione Legge 10 (D.M. 28/10/2025)</label>
       <input type="number" id="fee_legge10" value="1500" style="margin-bottom:6px;" oninput="recalcAll()">
-
       <label class="check-label"><input type="checkbox" id="chk_vvf" checked onchange="recalcAll()"> Pratiche VVF (Valutazione Progetto)</label>
       <input type="number" id="fee_vvf" value="2500" style="margin-bottom:6px;" oninput="recalcAll()">
-
-      <label class="check-label"><input type="checkbox" id="chk_assistenza_totale" checked onchange="recalcAll()"> Assistenza Specialistica Cantiere (Forfait)</label>
-      <input type="number" id="fee_assistenza_totale" value="2600" step="100" min="0" oninput="recalcAll()">
     </div>
 
-    <!-- 4. OPZIONI (DIREZIONE LAVORI, CSE, CONTO TERMICO & BANDI) -->
+    <!-- 4. OPZIONI (DL, CSE, ASSISTENZA, CT, BANDI) -->
     <div class="box-block opt-block">
-      <div class="box-block-title" style="color: #0369a1;"><span>4. Prestazioni Opzionali (DL, CSE, CT, Bandi)</span></div>
+      <div class="box-block-title" style="color: #0369a1;"><span>4. Prestazioni Opzionali</span></div>
       
       <label class="check-label"><input type="checkbox" id="chk_dl_mecc" checked onchange="recalcAll()"> Direzione Lavori Meccanica (Q = 0.32)</label>
       <label class="check-label"><input type="checkbox" id="chk_dl_ele" checked onchange="recalcAll()"> Direzione Lavori Elettrica (Q = 0.32)</label>
       <label class="check-label"><input type="checkbox" id="chk_cse" checked onchange="recalcAll()"> CSE - Coordinamento Esecuzione (Q = 0.25)</label>
+      <label class="check-label"><input type="checkbox" id="chk_assistenza_opz" checked onchange="recalcAll()"> Assistenza Specialistica Cantiere (Forfait)</label>
+      <input type="number" id="fee_assistenza_opz" value="2600" step="100" min="0" style="margin-bottom:6px;" oninput="recalcAll()">
       
       <hr style="border:0; border-top:1px dashed #fde68a; margin:8px 0;">
       
@@ -462,15 +459,15 @@
       </div>
     </div>
 
-    <!-- 6. ONERI E SCONTO -->
+    <!-- 6. ONERI E SCONTO (APPLICABILE A TUTTO) -->
     <div class="box-block">
-      <div class="box-block-title"><span>6. Oneri e Sconto Principale</span></div>
+      <div class="box-block-title"><span>6. Oneri e Sconto (Principale e Opzioni)</span></div>
       <div class="form-group">
         <label>Spese ed oneri accessori (%)</label>
         <input type="number" id="inExpPercent" value="15" min="0" max="25" oninput="recalcAll()">
       </div>
       <div class="form-group">
-        <label>Sconto commerciale (%)</label>
+        <label>Sconto commerciale (%) - Applicato a tutto</label>
         <input type="number" id="inDiscountPercent" value="10" min="0" max="80" oninput="recalcAll()">
       </div>
     </div>
@@ -535,9 +532,9 @@
         </table>
       </div>
 
-      <!-- 2. SICUREZZA E PRATICHE BASE -->
+      <!-- 2. SICUREZZA CSP, LEGGE 10 E VVF SEPARATE -->
       <div id="wrap_sec_2">
-        <div class="sec-heading">2. Sicurezza CSP, Relazione Legge 10, Pratiche VVF ed Assistenza</div>
+        <div class="sec-heading">2. Sicurezza CSP, Relazione Legge 10 e Pratiche VVF</div>
         <table class="calc-grid">
           <thead>
             <tr>
@@ -558,7 +555,9 @@
 
         <div class="ledger-wrap">
           <div class="ledger-row" id="row_tot_proj"><span>Progettazione Impianti & Contabilità:</span><span id="totProj">€ 0,00</span></div>
-          <div class="ledger-row" id="row_tot_base"><span>Sicurezza CSP, Legge 10, VVF & Assistenza:</span><span id="totBase">€ 0,00</span></div>
+          <div class="ledger-row" id="row_tot_csp"><span>Coordinamento Sicurezza in Progettazione (CSP):</span><span id="totCsp">€ 0,00</span></div>
+          <div class="ledger-row" id="row_tot_l10"><span>Relazione Energetica Legge 10:</span><span id="totL10">€ 0,00</span></div>
+          <div class="ledger-row" id="row_tot_vvf"><span>Pratiche Antincendio VVF:</span><span id="totVvf">€ 0,00</span></div>
           <div class="ledger-row"><span>Spese ed Oneri Accessori (<span id="lblExp">15</span>%):</span><span id="totExp">€ 0,00</span></div>
           <div class="ledger-row bold"><span>Totale Corrispettivo di Tariffa:</span><span id="totTariff">€ 0,00</span></div>
           <div class="ledger-row" style="color: #b91c1c;"><span>Sconto commerciale (<span id="lblDiscount">10</span>%):</span><span id="totDiscount">- € 0,00</span></div>
@@ -570,10 +569,10 @@
           <div class="ledger-row final-due"><span>TOTALE GENERALE CONTRATTUALE:</span><span id="totFinal">€ 0,00</span></div>
         </div>
 
-        <!-- 4. PRESTAZIONI OPZIONALI (INCLUSA DL E CSE) -->
+        <!-- 4. PRESTAZIONI OPZIONALI (INCLUSA ASSISTENZA CANTIERE) -->
         <div class="optional-services-container" id="sec_opt_container" style="display:none;">
           <div class="optional-header">
-            <h3>4. Prestazioni Opzionali a Richiesta (Direzione Lavori, CSE, Conto Termico e Bandi)</h3>
+            <h3>4. Prestazioni Opzionali a Richiesta (DL, CSE, Assistenza, CT, Bandi)</h3>
           </div>
           <table class="calc-grid" style="background:#fff; margin-top: 10px;">
             <thead>
@@ -590,14 +589,14 @@
           </table>
         </div>
 
-        <!-- 5. QUADRO DI RIEPILOGO COMPLESSIVO (PRINCIPALE + OPZIONI) -->
+        <!-- 5. QUADRO DI RIEPILOGO COMPLESSIVO (SCONTATO ANCHE SULLE OPZIONI) -->
         <div class="ledger-wrap" id="sec_summary_container" style="margin-top: 24px; display:none;">
           <div style="font-weight: 800; color: var(--navy); margin-bottom: 8px; text-transform: uppercase; font-size: 0.8rem; border-bottom: 1px solid var(--border-dark); padding-bottom: 4px;">
-            5. Quadro Riepilogativo Complessivo (Principale + Opzioni Selezionate)
+            5. Quadro Riepilogativo Complessivo (Principale + Opzioni Scontate)
           </div>
-          <div class="ledger-row"><span>Totale Imponibile Principale:</span><span id="sumNetMain">€ 0,00</span></div>
-          <div class="ledger-row"><span>Totale Imponibile Opzionali Selezionate:</span><span id="sumNetOpt">€ 0,00</span></div>
-          <div class="ledger-row bold"><span>Imponibile Complessivo Netto:</span><span id="sumNetTotal">€ 0,00</span></div>
+          <div class="ledger-row"><span>Totale Imponibile Principale Scontato:</span><span id="sumNetMain">€ 0,00</span></div>
+          <div class="ledger-row"><span>Totale Imponibile Opzionali Scontato:</span><span id="sumNetOpt">€ 0,00</span></div>
+          <div class="ledger-row bold"><span>Imponibile Complessivo Netto Scontato:</span><span id="sumNetTotal">€ 0,00</span></div>
           <div class="ledger-row"><span>Cassa Previdenza (4% Inarcassa):</span><span id="sumInarcassa">€ 0,00</span></div>
           <div class="ledger-row"><span>I.V.A. di Legge (22%):</span><span id="sumVat">€ 0,00</span></div>
           <div class="ledger-row final-due"><span>TOTALE GENERALE COMPLESSIVO:</span><span id="sumFinalTotal">€ 0,00</span></div>
@@ -686,94 +685,114 @@
 
     document.getElementById('wrap_sec_1').style.display = (projSum > 0) ? 'block' : 'none';
 
+    // 2. Voci Base Separate
     const V_tot = V_mecc + V_ele;
     const P_tot = calcP(V_tot);
     const G_safety = 0.85;
-    let baseSum = 0;
+
+    let cspFee = 0;
+    let l10Fee = 0;
+    let vvfFee = 0;
+    let baseCount = 0;
     const tblBase = document.getElementById('outTableBaseRows');
     tblBase.innerHTML = '';
 
-    if (document.getElementById('chk_csp').checked && V_tot > 0) {
-      const fee = V_tot * G_safety * 0.10 * P_tot;
-      baseSum += fee;
-      tblBase.innerHTML += `<tr><td><strong>Coordinamento Sicurezza in Progettazione (CSP)</strong></td><td style="text-align:center;">Importo Lavori</td><td class="num">${formatEuro(V_tot)}</td><td style="text-align:center;">Q = 0.10</td><td class="num">${formatEuro(fee)}</td></tr>`;
+    const chkCsp = document.getElementById('chk_csp').checked;
+    const chkL10 = document.getElementById('chk_legge10').checked;
+    const chkVvf = document.getElementById('chk_vvf').checked;
+
+    if (chkCsp && V_tot > 0) {
+      cspFee = V_tot * G_safety * 0.10 * P_tot;
+      baseCount++;
+      tblBase.innerHTML += `<tr><td><strong>Coordinamento Sicurezza in Progettazione (CSP)</strong></td><td style="text-align:center;">Importo Lavori</td><td class="num">${formatEuro(V_tot)}</td><td style="text-align:center;">Q = 0.10</td><td class="num">${formatEuro(cspFee)}</td></tr>`;
     }
-    if (document.getElementById('chk_legge10').checked) {
-      const fee = parseFloat(document.getElementById('fee_legge10').value) || 0;
-      baseSum += fee;
-      tblBase.innerHTML += `<tr><td><strong>Relazione Energetica Legge 10</strong></td><td style="text-align:center;">A corpo</td><td class="num">Unica</td><td style="text-align:center;">Forfait</td><td class="num">${formatEuro(fee)}</td></tr>`;
+    if (chkL10) {
+      l10Fee = parseFloat(document.getElementById('fee_legge10').value) || 0;
+      baseCount++;
+      tblBase.innerHTML += `<tr><td><strong>Relazione Energetica Legge 10</strong></td><td style="text-align:center;">A corpo</td><td class="num">Unica</td><td style="text-align:center;">Forfait</td><td class="num">${formatEuro(l10Fee)}</td></tr>`;
     }
-    if (document.getElementById('chk_vvf').checked) {
-      const fee = parseFloat(document.getElementById('fee_vvf').value) || 0;
-      baseSum += fee;
-      tblBase.innerHTML += `<tr><td><strong>Pratiche VVF</strong></td><td style="text-align:center;">A corpo</td><td class="num">Unica</td><td style="text-align:center;">Forfait</td><td class="num">${formatEuro(fee)}</td></tr>`;
-    }
-    if (document.getElementById('chk_assistenza_totale').checked) {
-      const fee = parseFloat(document.getElementById('fee_assistenza_totale').value) || 0;
-      baseSum += fee;
-      tblBase.innerHTML += `<tr><td><strong>Assistenza Specialistica Cantiere</strong></td><td style="text-align:center;">A corpo</td><td class="num">Forfait</td><td style="text-align:center;">Forfait</td><td class="num">${formatEuro(fee)}</td></tr>`;
+    if (chkVvf) {
+      vvfFee = parseFloat(document.getElementById('fee_vvf').value) || 0;
+      baseCount++;
+      tblBase.innerHTML += `<tr><td><strong>Pratiche VVF</strong></td><td style="text-align:center;">A corpo</td><td class="num">Unica</td><td style="text-align:center;">Forfait</td><td class="num">${formatEuro(vvfFee)}</td></tr>`;
     }
 
-    document.getElementById('wrap_sec_2').style.display = (baseSum > 0) ? 'block' : 'none';
+    document.getElementById('wrap_sec_2').style.display = (baseCount > 0) ? 'block' : 'none';
 
+    // Gestione visibilità righe quadro economico principale
+    document.getElementById('row_tot_proj').style.display = (projSum > 0) ? 'flex' : 'none';
+    document.getElementById('row_tot_csp').style.display = (chkCsp && V_tot > 0) ? 'flex' : 'none';
+    document.getElementById('row_tot_l10').style.display = (chkL10) ? 'flex' : 'none';
+    document.getElementById('row_tot_vvf').style.display = (chkVvf) ? 'flex' : 'none';
+
+    const baseSum = cspFee + l10Fee + vvfFee;
     const expPercent = parseFloat(document.getElementById('inExpPercent').value) || 0;
     const discPercent = parseFloat(document.getElementById('inDiscountPercent').value) || 0;
 
     const tariffableSum = projSum + baseSum;
     const expAmount = tariffableSum * (expPercent / 100);
     const tariffBase = tariffableSum + expAmount;
-    const discountAmount = tariffBase * (discPercent / 100);
-    const netTaxableMain = tariffBase - discountAmount;
+    const discountAmountMain = tariffBase * (discPercent / 100);
+    const netTaxableMain = tariffBase - discountAmountMain;
     const inarcassaMain = netTaxableMain * 0.04;
     const vatMain = (netTaxableMain + inarcassaMain) * 0.22;
     const finalTotalMain = netTaxableMain + inarcassaMain + vatMain;
 
     document.getElementById('totProj').innerText = formatEuro(projSum);
-    document.getElementById('totBase').innerText = formatEuro(baseSum);
+    document.getElementById('totCsp').innerText = formatEuro(cspFee);
+    document.getElementById('totL10').innerText = formatEuro(l10Fee);
+    document.getElementById('totVvf').innerText = formatEuro(vvfFee);
     document.getElementById('lblExp').innerText = expPercent;
     document.getElementById('totExp').innerText = formatEuro(expAmount);
     document.getElementById('totTariff').innerText = formatEuro(tariffBase);
     document.getElementById('lblDiscount').innerText = discPercent;
-    document.getElementById('totDiscount').innerText = '- ' + formatEuro(discountAmount);
+    document.getElementById('totDiscount').innerText = '- ' + formatEuro(discountAmountMain);
     document.getElementById('totNet').innerText = formatEuro(netTaxableMain);
     document.getElementById('totInarcassa').innerText = formatEuro(inarcassaMain);
     document.getElementById('totVat').innerText = formatEuro(vatMain);
     document.getElementById('totFinal').innerText = formatEuro(finalTotalMain);
 
     // ==========================================
-    // PRESTAZIONI OPZIONALI (DL, CSE, CT, BANDI)
+    // PRESTAZIONI OPZIONALI (SCONTATE ANCHE ESSE)
     // ==========================================
     const tblSpecialOpt = document.getElementById('outTableSpecialOptRows');
     tblSpecialOpt.innerHTML = '';
     let countOpt = 0;
-    let optNetSum = 0;
+    let optGrossSum = 0;
 
     if (V_mecc > 0 && document.getElementById('chk_dl_mecc').checked) {
       countOpt++;
       const fee = V_mecc * G_mecc * 0.32 * P_mecc;
-      optNetSum += fee;
+      optGrossSum += fee;
       tblSpecialOpt.innerHTML += `<tr><td class="print-box-cell">${renderCheckSymbol()}</td><td><strong>Direzione Lavori Meccanica</strong></td><td style="text-align:center;">Importo Mecc.</td><td class="num">${formatEuro(V_mecc)}</td><td style="text-align:center;">Q = 0.32</td><td class="num">${formatEuro(fee)}</td></tr>`;
     }
 
     if (V_ele > 0 && document.getElementById('chk_dl_ele').checked) {
       countOpt++;
       const fee = V_ele * G_ele * 0.32 * P_ele;
-      optNetSum += fee;
+      optGrossSum += fee;
       tblSpecialOpt.innerHTML += `<tr><td class="print-box-cell">${renderCheckSymbol()}</td><td><strong>Direzione Lavori Elettrica</strong></td><td style="text-align:center;">Importo Elettr.</td><td class="num">${formatEuro(V_ele)}</td><td style="text-align:center;">Q = 0.32</td><td class="num">${formatEuro(fee)}</td></tr>`;
     }
 
     if (V_tot > 0 && document.getElementById('chk_cse').checked) {
       countOpt++;
       const fee = V_tot * G_safety * 0.25 * P_tot;
-      optNetSum += fee;
+      optGrossSum += fee;
       tblSpecialOpt.innerHTML += `<tr><td class="print-box-cell">${renderCheckSymbol()}</td><td><strong>Coordinamento Sicurezza in Esecuzione (CSE)</strong></td><td style="text-align:center;">Importo Lavori</td><td class="num">${formatEuro(V_tot)}</td><td style="text-align:center;">Q = 0.25</td><td class="num">${formatEuro(fee)}</td></tr>`;
+    }
+
+    if (document.getElementById('chk_assistenza_opz').checked) {
+      countOpt++;
+      const fee = parseFloat(document.getElementById('fee_assistenza_opz').value) || 0;
+      optGrossSum += fee;
+      tblSpecialOpt.innerHTML += `<tr><td class="print-box-cell">${renderCheckSymbol()}</td><td><strong>Assistenza Specialistica Cantiere</strong></td><td style="text-align:center;">A corpo</td><td class="num">Forfait</td><td style="text-align:center;">Forfait</td><td class="num">${formatEuro(fee)}</td></tr>`;
     }
 
     if (document.getElementById('chk_ct').checked) {
       countOpt++;
       const incentivo = parseFloat(document.getElementById('inIncentivoGSE').value) || 0;
       const feeCT = incentivo * 0.07;
-      optNetSum += feeCT;
+      optGrossSum += feeCT;
       tblSpecialOpt.innerHTML += `<tr><td class="print-box-cell">${renderCheckSymbol()}</td><td><strong>Conto Termico 3.0 (Success Fee 7%)</strong></td><td style="text-align:center;">Incentivo GSE</td><td class="num">${formatEuro(incentivo)}</td><td style="text-align:center;">7% su esito</td><td class="num">${formatEuro(feeCT)}</td></tr>`;
     }
 
@@ -781,7 +800,7 @@
       countOpt++;
       const bando = parseFloat(document.getElementById('inImportoBando').value) || 0;
       const feeBando = bando * 0.05;
-      optNetSum += feeBando;
+      optGrossSum += feeBando;
       tblSpecialOpt.innerHTML += `<tr><td class="print-box-cell">${renderCheckSymbol()}</td><td><strong>Bandi & Finanziamenti (Success Fee 5%)</strong></td><td style="text-align:center;">Investimento</td><td class="num">${formatEuro(bando)}</td><td style="text-align:center;">5% su esito</td><td class="num">${formatEuro(feeBando)}</td></tr>`;
     }
 
@@ -789,6 +808,8 @@
     document.getElementById('sec_summary_container').style.display = (countOpt > 0) ? 'block' : 'none';
 
     if (countOpt > 0) {
+      const discountAmountOpt = optGrossSum * (discPercent / 100);
+      const optNetSum = optGrossSum - discountAmountOpt;
       const totalNetOverall = netTaxableMain + optNetSum;
       const overallInarcassa = totalNetOverall * 0.04;
       const overallVat = (totalNetOverall + overallInarcassa) * 0.22;
