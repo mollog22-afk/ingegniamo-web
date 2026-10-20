@@ -91,7 +91,7 @@
       background: #fdfdfd;
       color: var(--navy);
     }
-    .form-group textarea { resize: vertical; height: 50px; }
+    .form-group textarea { resize: vertical; height: 60px; }
 
     .box-block {
       background: var(--bg);
@@ -298,14 +298,6 @@
       border-radius: 8px;
       padding: 18px 20px;
     }
-    .optional-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      border-bottom: 1px solid #bae6fd;
-      padding-bottom: 8px;
-    }
     .optional-header h3 { margin: 0; font-size: 0.88rem; font-weight: 800; color: #0369a1; text-transform: uppercase; }
 
     .legal-text {
@@ -318,6 +310,7 @@
       color: #475569;
       line-height: 1.45;
       text-align: justify;
+      white-space: pre-wrap;
     }
 
     .signatures {
@@ -384,16 +377,13 @@
 
     <!-- 1. IMPIANTI MECCANICI -->
     <div class="box-block">
-      <div class="box-block-title">
-        <span>1. Impianti Meccanici</span>
-        <span>D.M. 17/06/2016</span>
-      </div>
+      <div class="box-block-title"><span>1. Impianti Meccanici (D.M. 17/06/2016)</span></div>
       <div class="form-group">
         <label>Importo Lavori Meccanici V_mecc (€)</label>
         <input type="number" id="inV_mecc" value="130000" step="5000" min="0" oninput="recalcAll()">
       </div>
       <div class="form-group">
-        <label>Complessità Meccanica (G) - Fissata a 1,0</label>
+        <label>Complessità Meccanica (G)</label>
         <input type="number" id="inG_mecc" value="1.00" step="0.05" min="0.5" max="2.0" oninput="recalcAll()">
       </div>
       <label class="check-label"><input type="checkbox" id="chk_pfte_mecc" onchange="recalcAll()"> Progetto PFTE Meccanico (Q = 0.27)</label>
@@ -402,26 +392,17 @@
         <label>Descrizione personalizzata Meccanico</label>
         <textarea id="desc_mecc" oninput="recalcAll()">Calcolo carichi termici dinamici, schemi funzionali, reti idroniche, canali, computo metrico estimativo e contabilità lavori.</textarea>
       </div>
-      <hr style="border:0; border-top:1px dashed #cbd5e1; margin:6px 0;">
-      <label class="check-label"><input type="checkbox" id="chk_dl_mecc" checked onchange="recalcAll()"> Direzione Lavori Meccanica (Q = 0.32)</label>
-      <div class="form-group" style="margin-top:4px;">
-        <label>Descrizione DL Meccanica</label>
-        <input type="text" id="desc_dl_mecc" value="Verifica posa tubazioni, tarature aerauliche, collaudo funzionale in cantiere" oninput="recalcAll()">
-      </div>
     </div>
 
     <!-- 2. IMPIANTI ELETTRICI -->
     <div class="box-block">
-      <div class="box-block-title">
-        <span>2. Impianti Elettrici</span>
-        <span>IA.04 (G=1.0)</span>
-      </div>
+      <div class="box-block-title"><span>2. Impianti Elettrici (D.M. 17/06/2016)</span></div>
       <div class="form-group">
         <label>Importo Lavori Elettrici V_ele (€)</label>
         <input type="number" id="inV_ele" value="120000" step="5000" min="0" oninput="recalcAll()">
       </div>
       <div class="form-group">
-        <label>Complessità Elettrica (G) - Fissata a 1,0</label>
+        <label>Complessità Elettrica (G)</label>
         <input type="number" id="inG_ele" value="1.00" step="0.05" min="0.5" max="2.0" oninput="recalcAll()">
       </div>
       <label class="check-label"><input type="checkbox" id="chk_pfte_ele" onchange="recalcAll()"> Progetto PFTE Elettrico (Q = 0.27)</label>
@@ -430,21 +411,12 @@
         <label>Descrizione personalizzata Elettrico</label>
         <textarea id="desc_ele" oninput="recalcAll()">Quadri generali, selettività, calcoli linee, automazione, impianti speciali, computo metrico estimativo e contabilità.</textarea>
       </div>
-      <hr style="border:0; border-top:1px dashed #cbd5e1; margin:6px 0;">
-      <label class="check-label"><input type="checkbox" id="chk_dl_ele" checked onchange="recalcAll()"> Direzione Lavori Elettrica (Q = 0.32)</label>
-      <div class="form-group" style="margin-top:4px;">
-        <label>Descrizione DL Elettrica</label>
-        <input type="text" id="desc_dl_ele" value="Supervisione posa canali, verifiche isolamento e coordinamento protezioni quadri" oninput="recalcAll()">
-      </div>
     </div>
 
     <!-- 3. SICUREZZA E PRATICHE BASE -->
     <div class="box-block">
-      <div class="box-block-title">
-        <span>3. Sicurezza & Pratiche Base</span>
-      </div>
+      <div class="box-block-title"><span>3. Sicurezza CSP & Pratiche Base</span></div>
       <label class="check-label"><input type="checkbox" id="chk_csp" checked onchange="recalcAll()"> CSP - Progettazione PSC & Fascicolo (Q = 0.10)</label>
-      <label class="check-label"><input type="checkbox" id="chk_cse" checked onchange="recalcAll()"> CSE - Coordinamento Esecuzione (Q = 0.25)</label>
       <hr style="border:0; border-top:1px dashed #cbd5e1; margin:6px 0;">
       <label class="check-label"><input type="checkbox" id="chk_legge10" checked onchange="recalcAll()"> Relazione Legge 10 (D.M. 28/10/2025)</label>
       <input type="number" id="fee_legge10" value="1500" style="margin-bottom:6px;" oninput="recalcAll()">
@@ -456,11 +428,16 @@
       <input type="number" id="fee_assistenza_totale" value="2600" step="100" min="0" oninput="recalcAll()">
     </div>
 
-    <!-- 4. OPZIONI (CONTO TERMICO & BANDI) -->
+    <!-- 4. OPZIONI (DIREZIONE LAVORI, CSE, CONTO TERMICO & BANDI) -->
     <div class="box-block opt-block">
-      <div class="box-block-title" style="color: #0369a1;">
-        <span>4. Opzioni (Conto Termico & Bandi)</span>
-      </div>
+      <div class="box-block-title" style="color: #0369a1;"><span>4. Prestazioni Opzionali (DL, CSE, CT, Bandi)</span></div>
+      
+      <label class="check-label"><input type="checkbox" id="chk_dl_mecc" checked onchange="recalcAll()"> Direzione Lavori Meccanica (Q = 0.32)</label>
+      <label class="check-label"><input type="checkbox" id="chk_dl_ele" checked onchange="recalcAll()"> Direzione Lavori Elettrica (Q = 0.32)</label>
+      <label class="check-label"><input type="checkbox" id="chk_cse" checked onchange="recalcAll()"> CSE - Coordinamento Esecuzione (Q = 0.25)</label>
+      
+      <hr style="border:0; border-top:1px dashed #fde68a; margin:8px 0;">
+      
       <label class="check-label"><input type="checkbox" id="chk_ct" checked onchange="recalcAll()"> <strong>Conto Termico 3.0 (Success Fee 7%)</strong></label>
       <div class="form-group" style="margin-bottom:6px;">
         <label>Incentivo GSE stimato (€)</label>
@@ -474,9 +451,20 @@
       </div>
     </div>
 
-    <!-- 5. ONERI E SCONTO -->
+    <!-- 5. DISCIPLINARE ECONOMICO MODIFICABILE -->
     <div class="box-block">
-      <div class="box-block-title"><span>5. Oneri e Sconto</span></div>
+      <div class="box-block-title"><span>5. Testo Disciplinare Economico & Impegni</span></div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label>Modifica clausole e impegni:</label>
+        <textarea id="inCustomLegalText" style="height: 110px;" oninput="recalcAll()">• Modalità di pagamento: 30% all'accettazione, 50% alla consegna elaborati, 20% a saldo.
+• Conto Termico 3.0: Il cliente si impegna a riconoscere a esito buon fine istruttoria GSE un importo pari al 7% dell'incentivo riconosciuto.
+• Privacy GDPR: Titolare del trattamento è Ingegniamo S.r.l. - Divisione Ingegneria.</textarea>
+      </div>
+    </div>
+
+    <!-- 6. ONERI E SCONTO -->
+    <div class="box-block">
+      <div class="box-block-title"><span>6. Oneri e Sconto Principale</span></div>
       <div class="form-group">
         <label>Spese ed oneri accessori (%)</label>
         <input type="number" id="inExpPercent" value="15" min="0" max="25" oninput="recalcAll()">
@@ -553,227 +541,4 @@
         <table class="calc-grid">
           <thead>
             <tr>
-              <th>Prestazione Specialistica & Ambito Contrattuale</th>
-              <th style="width: 18%; text-align: center;">Parametro Base</th>
-              <th class="num" style="width: 16%;">Valore Base</th>
-              <th style="width: 14%; text-align: center;">Parametro / Q</th>
-              <th class="num" style="width: 16%;">Compenso (€)</th>
-            </tr>
-          </thead>
-          <tbody id="outTableBaseRows"></tbody>
-        </table>
-      </div>
-
-      <!-- 3. QUADRO ECONOMICO PRINCIPALE -->
-      <div class="page-break-forced">
-        <div class="sec-heading" style="margin-top:0;">3. Quadro Economico di Liquidazione Contrattuale Principale</div>
-
-        <div class="ledger-wrap">
-          <div class="ledger-row" id="row_tot_proj"><span>Progettazione Impianti & Contabilità:</span><span id="totProj">€ 0,00</span></div>
-          <div class="ledger-row" id="row_tot_base"><span>Sicurezza CSP, Legge 10, VVF & Assistenza:</span><span id="totBase">€ 0,00</span></div>
-          <div class="ledger-row"><span>Spese ed Oneri Accessori (<span id="lblExp">15</span>%):</span><span id="totExp">€ 0,00</span></div>
-          <div class="ledger-row bold"><span>Totale Corrispettivo di Tariffa:</span><span id="totTariff">€ 0,00</span></div>
-          <div class="ledger-row" style="color: #b91c1c;"><span>Sconto commerciale (<span id="lblDiscount">10</span>%):</span><span id="totDiscount">- € 0,00</span></div>
-          <div class="ledger-row bold" style="border-top:1.5px solid var(--navy); padding-top:6px; margin-top:6px;">
-            <span>Imponibile Netto Professionale:</span><span id="totNet">€ 0,00</span>
-          </div>
-          <div class="ledger-row"><span>Cassa Previdenza (4% Inarcassa):</span><span id="totInarcassa">€ 0,00</span></div>
-          <div class="ledger-row"><span>I.V.A. di Legge (22%):</span><span id="totVat">€ 0,00</span></div>
-          <div class="ledger-row final-due"><span>TOTALE GENERALE CONTRATTUALE:</span><span id="totFinal">€ 0,00</span></div>
-        </div>
-
-        <!-- 4. PRESTAZIONI OPZIONALI -->
-        <div class="optional-services-container" id="sec_opt_container">
-          <div class="optional-header">
-            <h3>4. Prestazioni Opzionali a Richiesta (Conto Termico e Bandi)</h3>
-          </div>
-          <table class="calc-grid" style="background:#fff;">
-            <thead>
-              <tr>
-                <th style="width: 8%; text-align: center;">Attiva</th>
-                <th>Descrizione Prestazione Opzionale</th>
-                <th style="width: 18%; text-align: center;">Parametro</th>
-                <th class="num" style="width: 16%;">Quantità / Base</th>
-                <th style="width: 16%; text-align: center;">Modalità</th>
-                <th class="num" style="width: 18%;">Valore Netto (€)</th>
-              </tr>
-            </thead>
-            <tbody id="outTableSpecialOptRows"></tbody>
-          </table>
-        </div>
-
-        <!-- DISCIPLINARE ECONOMICO -->
-        <div class="legal-text">
-          <strong>DISCIPLINARE ECONOMICO ED IMPEGNI:</strong><br>
-          • Modalità di pagamento: 30% all'accettazione, 50% alla consegna elaborati, 20% a saldo.<br>
-          <span id="clause_ct">• <strong>Conto Termico 3.0:</strong> Il cliente si impegna a riconoscere a esito buon fine istruttoria GSE un importo pari al 7% dell'incentivo riconosciuto.<br></span>
-          • Privacy GDPR: Titolare del trattamento è Ingegniamo S.r.l. - Divisione Ingegneria.
-        </div>
-
-        <div class="signatures">
-          <div class="sig-field">Per Accettazione Committente<br><strong>Il Cliente</strong><br><br><br>____________________</div>
-          <div class="sig-field">Per Ingegniamo S.r.l.<br><strong>Divisione Ingegneria</strong><br><br><br>____________________</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<script>
-  function formatEuro(val) {
-    return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(val);
-  }
-  function calcP(V) {
-    if (V <= 0) return 0;
-    return 0.03 + (10 / Math.pow(V, 0.4));
-  }
-  function renderCheckSymbol() {
-    return `<span class="check-box-symbol">&#10003;</span>`;
-  }
-
-  function recalcAll() {
-    const client = document.getElementById('inClient').value;
-    const clientFiscal = document.getElementById('inClientFiscal').value;
-    const subject = document.getElementById('inSubject').value;
-    const loc = document.getElementById('inLocation').value;
-    const offerNum = document.getElementById('inOfferNumber').value.trim() || 'OFF-26-001';
-
-    document.getElementById('outDate').innerText = new Date().toLocaleDateString('it-IT');
-    document.getElementById('outOfferNumber').innerText = offerNum;
-    document.getElementById('outClient').innerText = client;
-    document.getElementById('outClientFiscal').innerText = clientFiscal;
-    document.getElementById('outSubject').innerText = subject;
-    document.getElementById('outLocation').innerText = loc;
-
-    const V_mecc = parseFloat(document.getElementById('inV_mecc').value) || 0;
-    const G_mecc = parseFloat(document.getElementById('inG_mecc').value) || 1.0;
-    const P_mecc = calcP(V_mecc);
-
-    const V_ele = parseFloat(document.getElementById('inV_ele').value) || 0;
-    const G_ele = parseFloat(document.getElementById('inG_ele').value) || 1.0;
-    const P_ele = calcP(V_ele);
-
-    let projSum = 0;
-    const tblProj = document.getElementById('outTableProjRows');
-    tblProj.innerHTML = '';
-
-    if (V_mecc > 0) {
-      if (document.getElementById('chk_pfte_mecc').checked) {
-        const fee = V_mecc * G_mecc * 0.27 * P_mecc;
-        projSum += fee;
-        tblProj.innerHTML += `<tr><td><strong>PFTE Impianti Meccanici</strong></td><td class="num">${formatEuro(V_mecc)}</td><td style="text-align:center;">${G_mecc.toFixed(2)}</td><td class="num">${(P_mecc * 100).toFixed(4)}%</td><td style="text-align:center;">0.27</td><td class="num">${formatEuro(fee)}</td></tr>`;
-      }
-      if (document.getElementById('chk_esec_mecc').checked) {
-        const fee = V_mecc * G_mecc * 0.50 * P_mecc;
-        projSum += fee;
-        tblProj.innerHTML += `<tr><td><strong>Progettazione Esecutiva & Contabilità Meccanica</strong><br><small>${document.getElementById('desc_mecc').value}</small></td><td class="num">${formatEuro(V_mecc)}</td><td style="text-align:center;">${G_mecc.toFixed(2)}</td><td class="num">${(P_mecc * 100).toFixed(4)}%</td><td style="text-align:center;">0.50</td><td class="num">${formatEuro(fee)}</td></tr>`;
-      }
-    }
-
-    if (V_ele > 0) {
-      if (document.getElementById('chk_pfte_ele').checked) {
-        const fee = V_ele * G_ele * 0.27 * P_ele;
-        projSum += fee;
-        tblProj.innerHTML += `<tr><td><strong>PFTE Impianti Elettrici</strong></td><td class="num">${formatEuro(V_ele)}</td><td style="text-align:center;">${G_ele.toFixed(2)}</td><td class="num">${(P_ele * 100).toFixed(4)}%</td><td style="text-align:center;">0.27</td><td class="num">${formatEuro(fee)}</td></tr>`;
-      }
-      if (document.getElementById('chk_esec_ele').checked) {
-        const fee = V_ele * G_ele * 0.50 * P_ele;
-        projSum += fee;
-        tblProj.innerHTML += `<tr><td><strong>Progettazione Esecutiva & Contabilità Elettrica</strong><br><small>${document.getElementById('desc_ele').value}</small></td><td class="num">${formatEuro(V_ele)}</td><td style="text-align:center;">${G_ele.toFixed(2)}</td><td class="num">${(P_ele * 100).toFixed(4)}%</td><td style="text-align:center;">0.50</td><td class="num">${formatEuro(fee)}</td></tr>`;
-      }
-    }
-
-    document.getElementById('wrap_sec_1').style.display = (projSum > 0) ? 'block' : 'none';
-
-    const V_tot = V_mecc + V_ele;
-    const P_tot = calcP(V_tot);
-    const G_safety = 0.85;
-    let baseSum = 0;
-    const tblBase = document.getElementById('outTableBaseRows');
-    tblBase.innerHTML = '';
-
-    if (document.getElementById('chk_csp').checked && V_tot > 0) {
-      const fee = V_tot * G_safety * 0.10 * P_tot;
-      baseSum += fee;
-      tblBase.innerHTML += `<tr><td><strong>Coordinamento Sicurezza in Progettazione (CSP)</strong></td><td style="text-align:center;">Importo Lavori</td><td class="num">${formatEuro(V_tot)}</td><td style="text-align:center;">Q = 0.10</td><td class="num">${formatEuro(fee)}</td></tr>`;
-    }
-    if (document.getElementById('chk_legge10').checked) {
-      const fee = parseFloat(document.getElementById('fee_legge10').value) || 0;
-      baseSum += fee;
-      tblBase.innerHTML += `<tr><td><strong>Relazione Energetica Legge 10</strong></td><td style="text-align:center;">A corpo</td><td class="num">Unica</td><td style="text-align:center;">Forfait</td><td class="num">${formatEuro(fee)}</td></tr>`;
-    }
-    if (document.getElementById('chk_vvf').checked) {
-      const fee = parseFloat(document.getElementById('fee_vvf').value) || 0;
-      baseSum += fee;
-      tblBase.innerHTML += `<tr><td><strong>Pratiche VVF</strong></td><td style="text-align:center;">A corpo</td><td class="num">Unica</td><td style="text-align:center;">Forfait</td><td class="num">${formatEuro(fee)}</td></tr>`;
-    }
-    if (document.getElementById('chk_assistenza_totale').checked) {
-      const fee = parseFloat(document.getElementById('fee_assistenza_totale').value) || 0;
-      baseSum += fee;
-      tblBase.innerHTML += `<tr><td><strong>Assistenza Specialistica Cantiere</strong></td><td style="text-align:center;">A corpo</td><td class="num">Forfait</td><td style="text-align:center;">Forfait</td><td class="num">${formatEuro(fee)}</td></tr>`;
-    }
-
-    document.getElementById('wrap_sec_2').style.display = (baseSum > 0) ? 'block' : 'none';
-
-    const expPercent = parseFloat(document.getElementById('inExpPercent').value) || 0;
-    const discPercent = parseFloat(document.getElementById('inDiscountPercent').value) || 0;
-
-    const tariffableSum = projSum + baseSum;
-    const expAmount = tariffableSum * (expPercent / 100);
-    const tariffBase = tariffableSum + expAmount;
-    const discountAmount = tariffBase * (discPercent / 100);
-    const netTaxable = tariffBase - discountAmount;
-    const inarcassa = netTaxable * 0.04;
-    const vat = (netTaxable + inarcassa) * 0.22;
-    const finalTotal = netTaxable + inarcassa + vat;
-
-    document.getElementById('totProj').innerText = formatEuro(projSum);
-    document.getElementById('totBase').innerText = formatEuro(baseSum);
-    document.getElementById('lblExp').innerText = expPercent;
-    document.getElementById('totExp').innerText = formatEuro(expAmount);
-    document.getElementById('totTariff').innerText = formatEuro(tariffBase);
-    document.getElementById('lblDiscount').innerText = discPercent;
-    document.getElementById('totDiscount').innerText = '- ' + formatEuro(discountAmount);
-    document.getElementById('totNet').innerText = formatEuro(netTaxable);
-    document.getElementById('totInarcassa').innerText = formatEuro(inarcassa);
-    document.getElementById('totVat').innerText = formatEuro(vat);
-    document.getElementById('totFinal').innerText = formatEuro(finalTotal);
-
-    // Opzioni
-    const tblSpecialOpt = document.getElementById('outTableSpecialOptRows');
-    tblSpecialOpt.innerHTML = '';
-    let countOpt = 0;
-    const hasCT = document.getElementById('chk_ct').checked;
-    document.getElementById('clause_ct').style.display = hasCT ? 'inline' : 'none';
-
-    if (hasCT) {
-      countOpt++;
-      const incentivo = parseFloat(document.getElementById('inIncentivoGSE').value) || 0;
-      const feeCT = incentivo * 0.07;
-      tblSpecialOpt.innerHTML += `<tr><td class="print-box-cell">${renderCheckSymbol()}</td><td><strong>Conto Termico 3.0</strong></td><td style="text-align:center;">Incentivo GSE</td><td class="num">${formatEuro(incentivo)}</td><td style="text-align:center;">7% su esito</td><td class="num">${formatEuro(feeCT)}</td></tr>`;
-    }
-    if (document.getElementById('chk_bando').checked) {
-      countOpt++;
-      const bando = parseFloat(document.getElementById('inImportoBando').value) || 0;
-      const feeBando = bando * 0.05;
-      tblSpecialOpt.innerHTML += `<tr><td class="print-box-cell">${renderCheckSymbol()}</td><td><strong>Bandi & Finanziamenti</strong></td><td style="text-align:center;">Investimento</td><td class="num">${formatEuro(bando)}</td><td style="text-align:center;">5% su esito</td><td class="num">${formatEuro(feeBando)}</td></tr>`;
-    }
-    document.getElementById('sec_opt_container').style.display = (countOpt > 0) ? 'block' : 'none';
-  }
-
-  function generatePdfDirect() {
-    html2pdf().set({
-      margin: [8, 10, 8, 10],
-      filename: `Offerta_${document.getElementById('inOfferNumber').value || 'OFF'}.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    }).from(document.getElementById('documentSheet')).save();
-  }
-
-  window.addEventListener('DOMContentLoaded', recalcAll);
-</script>
-
-</body>
-</html>
+              <th>Prestazio
