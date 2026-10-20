@@ -470,6 +470,25 @@
         break-inside: avoid !important;
       }
     }
+    function printDocument() {
+  const offerNum = document.getElementById('inOfferNumber').value.trim() || 'OFF-26';
+  const clientName = document.getElementById('inClient').value.trim() || 'Committente';
+  
+  // Sostituisce eventuali caratteri non validi nei nomi dei file
+  const safeClient = clientName.replace(/[/\\?%*:|"<>]/g, '_');
+  const originalTitle = document.title;
+
+  // Imposta il nome del PDF desiderato
+  document.title = `${offerNum}_${safeClient}`;
+
+  // Lancia la finestra di stampa/salvataggio PDF
+  window.print();
+
+  // Ripristina il titolo della finestra dopo la stampa
+  setTimeout(() => {
+    document.title = originalTitle;
+  }, 1000);
+}
   </style>
 </head>
 <body>
@@ -650,7 +669,7 @@
 
       <div class="action-buttons">
         <button class="btn-action btn-save-db" id="btnSaveSupabase" onclick="saveToSupabase()">💾 Archivia in Supabase</button>
-        <button class="btn-action btn-print-browser" onclick="window.print()">🖨️ Stampa / Salva in PDF</button>
+        <button class="btn-action btn-print-browser" onclick="printDocument()">🖨️ Stampa / Salva in PDF</button>
       </div>
     </div>
 
