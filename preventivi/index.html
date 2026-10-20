@@ -45,7 +45,7 @@ grid-template-columns: 460px 1fr;
 gap: 30px;
 align-items: start;
 }
-​/* PANNELLO DI CONTROLLO */
+​/* PANNELLO DI CONTROLLO (Nascosto in Stampa) */
 .control-panel {
 background: var(--paper);
 padding: 24px;
@@ -489,7 +489,7 @@ padding-top: 15px !important;
 </head>
 <body>
 ​<div class="main-grid">
-​<!-- ==================== PANNELLO DI CONTROLLO ==================== -->
+​<!-- ==================== PANNELLO DI CONTROLLO (Nascosto in Stampa) ==================== -->
 <div class="control-panel">
 <div class="panel-header">Modulo di Offerta Economica</div>
 ​<div class="form-group">
@@ -662,7 +662,7 @@ padding-top: 15px !important;
 </div>
 <div class="form-group">
 <label>Clausola Disciplinare Economico Personalizzabile</label>
-<textarea id="txt_custom_clause" rows="3" oninput="recalcAll()">Le parti concordano che il committente si impegna a riconoscere a esito buon fine istruttoria GSE un importo pari al 7% dell'incentivo riconosciuto.</textarea>
+<textarea id="txt_custom_clause" rows="3" oninput="recalcAll()">Il cliente si impegna a riconoscere a esito buon fine istruttoria GSE un importo pari al 7%.</textarea>
 </div>
 </div>
 ​<!-- 7. CAPITOLATO TECNICO EDITABILE -->
@@ -789,7 +789,7 @@ PEC: info@pec.ingegniamo.com | Email: info@ingegniamo.com
 <span id="totProj">€ 0,00</span>
 </div>
 <div class="ledger-row" id="row_tot_base">
-<span>Sicurezza CSP & Pratiche Base:</span>
+<span>Sicurezza CSP:</span>
 <span id="totBase">€ 0,00</span>
 </div>
 <div class="ledger-row" id="row_tot_vvf">
