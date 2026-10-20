@@ -510,7 +510,7 @@
     <!-- PANNELLO DI CONTROLLO -->
     <div class="control-panel">
       <div class="panel-header-wrap">
-        <div class="panel-header">Modulo Preventivo</div>
+        <div class="panel-header" id="panelTitle">Modulo Preventivo</div>
         <button class="btn-back" onclick="showDashboard()">📁 Torna all'Archivio</button>
       </div>
 
@@ -939,57 +939,58 @@
     if (!item) return;
 
     currentLoadedOfferId = item.id;
-    document.getElementById('panelTitle').innerText = "Modifica Offerta";
+    const titleEl = document.getElementById('panelTitle');
+    if (titleEl) titleEl.innerText = "Modifica Offerta";
 
     // Campi base
-    if (item.cliente) document.getElementById('inClient').value = item.cliente;
-    if (item.numero) document.getElementById('inOfferNumber').value = item.numero;
-    if (item.oggetto) document.getElementById('inSubject').value = item.oggetto;
+    if (item.cliente && document.getElementById('inClient')) document.getElementById('inClient').value = item.cliente;
+    if (item.numero && document.getElementById('inOfferNumber')) document.getElementById('inOfferNumber').value = item.numero;
+    if (item.oggetto && document.getElementById('inSubject')) document.getElementById('inSubject').value = item.oggetto;
 
     const d = item.dettagli || {};
-    if (d.committente_cf) document.getElementById('inClientFiscal').value = d.committente_cf;
-    if (d.ubicazione) document.getElementById('inLocation').value = d.ubicazione;
-    if (d.legal_text) document.getElementById('inCustomLegalText').value = d.legal_text;
+    if (d.committente_cf && document.getElementById('inClientFiscal')) document.getElementById('inClientFiscal').value = d.committente_cf;
+    if (d.ubicazione && document.getElementById('inLocation')) document.getElementById('inLocation').value = d.ubicazione;
+    if (d.legal_text && document.getElementById('inCustomLegalText')) document.getElementById('inCustomLegalText').value = d.legal_text;
 
-    // Ripristino valori tecnici e spunte (se presenti nell'offerta salvata)
-    if (d.inV_mecc !== undefined) document.getElementById('inV_mecc').value = d.inV_mecc;
-    if (d.inG_mecc !== undefined) document.getElementById('inG_mecc').value = d.inG_mecc;
-    if (d.chk_pfte_mecc !== undefined) document.getElementById('chk_pfte_mecc').checked = d.chk_pfte_mecc;
-    if (d.chk_esec_mecc !== undefined) document.getElementById('chk_esec_mecc').checked = d.chk_esec_mecc;
-    if (d.desc_mecc !== undefined) document.getElementById('desc_mecc').value = d.desc_mecc;
+    // Ripristino valori tecnici e spunte
+    if (d.inV_mecc !== undefined && document.getElementById('inV_mecc')) document.getElementById('inV_mecc').value = d.inV_mecc;
+    if (d.inG_mecc !== undefined && document.getElementById('inG_mecc')) document.getElementById('inG_mecc').value = d.inG_mecc;
+    if (d.chk_pfte_mecc !== undefined && document.getElementById('chk_pfte_mecc')) document.getElementById('chk_pfte_mecc').checked = d.chk_pfte_mecc;
+    if (d.chk_esec_mecc !== undefined && document.getElementById('chk_esec_mecc')) document.getElementById('chk_esec_mecc').checked = d.chk_esec_mecc;
+    if (d.desc_mecc !== undefined && document.getElementById('desc_mecc')) document.getElementById('desc_mecc').value = d.desc_mecc;
 
-    if (d.inV_ele !== undefined) document.getElementById('inV_ele').value = d.inV_ele;
-    if (d.inG_ele !== undefined) document.getElementById('inG_ele').value = d.inG_ele;
-    if (d.chk_pfte_ele !== undefined) document.getElementById('chk_pfte_ele').checked = d.chk_pfte_ele;
-    if (d.chk_esec_ele !== undefined) document.getElementById('chk_esec_ele').checked = d.chk_esec_ele;
-    if (d.desc_ele !== undefined) document.getElementById('desc_ele').value = d.desc_ele;
+    if (d.inV_ele !== undefined && document.getElementById('inV_ele')) document.getElementById('inV_ele').value = d.inV_ele;
+    if (d.inG_ele !== undefined && document.getElementById('inG_ele')) document.getElementById('inG_ele').value = d.inG_ele;
+    if (d.chk_pfte_ele !== undefined && document.getElementById('chk_pfte_ele')) document.getElementById('chk_pfte_ele').checked = d.chk_pfte_ele;
+    if (d.chk_esec_ele !== undefined && document.getElementById('chk_esec_ele')) document.getElementById('chk_esec_ele').checked = d.chk_esec_ele;
+    if (d.desc_ele !== undefined && document.getElementById('desc_ele')) document.getElementById('desc_ele').value = d.desc_ele;
 
-    if (d.chk_fire_project !== undefined) document.getElementById('chk_fire_project').checked = d.chk_fire_project;
-    if (d.inV_fire !== undefined) document.getElementById('inV_fire').value = d.inV_fire;
-    if (d.chk_vvf_scia !== undefined) document.getElementById('chk_vvf_scia').checked = d.chk_vvf_scia;
-    if (d.fee_vvf_scia !== undefined) document.getElementById('fee_vvf_scia').value = d.fee_vvf_scia;
-    if (d.desc_fire !== undefined) document.getElementById('desc_fire').value = d.desc_fire;
+    if (d.chk_fire_project !== undefined && document.getElementById('chk_fire_project')) document.getElementById('chk_fire_project').checked = d.chk_fire_project;
+    if (d.inV_fire !== undefined && document.getElementById('inV_fire')) document.getElementById('inV_fire').value = d.inV_fire;
+    if (d.chk_vvf_scia !== undefined && document.getElementById('chk_vvf_scia')) document.getElementById('chk_vvf_scia').checked = d.chk_vvf_scia;
+    if (d.fee_vvf_scia !== undefined && document.getElementById('fee_vvf_scia')) document.getElementById('fee_vvf_scia').value = d.fee_vvf_scia;
+    if (d.desc_fire !== undefined && document.getElementById('desc_fire')) document.getElementById('desc_fire').value = d.desc_fire;
 
-    if (d.chk_bim !== undefined) document.getElementById('chk_bim').checked = d.chk_bim;
-    if (d.fee_bim !== undefined) document.getElementById('fee_bim').value = d.fee_bim;
-    if (d.desc_bim !== undefined) document.getElementById('desc_bim').value = d.desc_bim;
+    if (d.chk_bim !== undefined && document.getElementById('chk_bim')) document.getElementById('chk_bim').checked = d.chk_bim;
+    if (d.fee_bim !== undefined && document.getElementById('fee_bim')) document.getElementById('fee_bim').value = d.fee_bim;
+    if (d.desc_bim !== undefined && document.getElementById('desc_bim')) document.getElementById('desc_bim').value = d.desc_bim;
 
-    if (d.chk_csp !== undefined) document.getElementById('chk_csp').checked = d.chk_csp;
-    if (d.chk_legge10 !== undefined) document.getElementById('chk_legge10').checked = d.chk_legge10;
-    if (d.fee_legge10 !== undefined) document.getElementById('fee_legge10').value = d.fee_legge10;
+    if (d.chk_csp !== undefined && document.getElementById('chk_csp')) document.getElementById('chk_csp').checked = d.chk_csp;
+    if (d.chk_legge10 !== undefined && document.getElementById('chk_legge10')) document.getElementById('chk_legge10').checked = d.chk_legge10;
+    if (d.fee_legge10 !== undefined && document.getElementById('fee_legge10')) document.getElementById('fee_legge10').value = d.fee_legge10;
 
-    if (d.chk_dl_mecc !== undefined) document.getElementById('chk_dl_mecc').checked = d.chk_dl_mecc;
-    if (d.chk_dl_ele !== undefined) document.getElementById('chk_dl_ele').checked = d.chk_dl_ele;
-    if (d.chk_cse !== undefined) document.getElementById('chk_cse').checked = d.chk_cse;
-    if (d.chk_assistenza_opz !== undefined) document.getElementById('chk_assistenza_opz').checked = d.chk_assistenza_opz;
-    if (d.fee_assistenza_opz !== undefined) document.getElementById('fee_assistenza_opz').value = d.fee_assistenza_opz;
-    if (d.chk_ct !== undefined) document.getElementById('chk_ct').checked = d.chk_ct;
-    if (d.inIncentivoGSE !== undefined) document.getElementById('inIncentivoGSE').value = d.inIncentivoGSE;
+    if (d.chk_dl_mecc !== undefined && document.getElementById('chk_dl_mecc')) document.getElementById('chk_dl_mecc').checked = d.chk_dl_mecc;
+    if (d.chk_dl_ele !== undefined && document.getElementById('chk_dl_ele')) document.getElementById('chk_dl_ele').checked = d.chk_dl_ele;
+    if (d.chk_cse !== undefined && document.getElementById('chk_cse')) document.getElementById('chk_cse').checked = d.chk_cse;
+    if (d.chk_assistenza_opz !== undefined && document.getElementById('chk_assistenza_opz')) document.getElementById('chk_assistenza_opz').checked = d.chk_assistenza_opz;
+    if (d.fee_assistenza_opz !== undefined && document.getElementById('fee_assistenza_opz')) document.getElementById('fee_assistenza_opz').value = d.fee_assistenza_opz;
+    if (d.chk_ct !== undefined && document.getElementById('chk_ct')) document.getElementById('chk_ct').checked = d.chk_ct;
+    if (d.inIncentivoGSE !== undefined && document.getElementById('inIncentivoGSE')) document.getElementById('inIncentivoGSE').value = d.inIncentivoGSE;
 
-    if (d.inExpPercent !== undefined) document.getElementById('inExpPercent').value = d.inExpPercent;
-    if (d.inDiscountPercent !== undefined) document.getElementById('inDiscountPercent').value = d.inDiscountPercent;
+    if (d.inExpPercent !== undefined && document.getElementById('inExpPercent')) document.getElementById('inExpPercent').value = d.inExpPercent;
+    if (d.inDiscountPercent !== undefined && document.getElementById('inDiscountPercent')) document.getElementById('inDiscountPercent').value = d.inDiscountPercent;
 
-    // Cambia schermata
+    // Switch della schermata
     document.getElementById('view-dashboard').style.display = 'none';
     document.getElementById('view-editor').style.display = 'block';
 
