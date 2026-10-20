@@ -1,283 +1,922 @@
 <!DOCTYPE html>
-<html lang="it" class="scroll-smooth">
+<html lang="it">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Area Riservata Preventivatore | Ingegniamo</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="robots" content="noindex, nofollow">
+  
+  <title>Modulo di Offerta Economica - INGEGNIAMO S.r.l. - Divisione Ingegneria</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <!-- SDK Supabase -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <style>
-    body { font-family: 'Inter', sans-serif; }
+    :root {
+      --navy: #0f172a;
+      --navy-light: #1e293b;
+      --accent: #2563eb;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --border-dark: #cbd5e1;
+      --bg: #f8fafc;
+      --paper: #ffffff;
+      --opt-bg: #fffbeb;
+      --opt-border: #fde68a;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      background-color: #cbd5e1;
+      color: var(--text);
+      margin: 0;
+      padding: 24px;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .main-grid {
+      max-width: 1540px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 460px 1fr;
+      gap: 30px;
+      align-items: start;
+    }
+
+    /* PANNELLO DI CONTROLLO */
+    .control-panel {
+      background: var(--paper);
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid var(--border-dark);
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 20px;
+      max-height: 94vh;
+      overflow-y: auto;
+    }
+    .panel-header {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--navy);
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 10px;
+      margin-top: 0;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .form-group { margin-bottom: 11px; }
+    .form-group label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 7px 10px;
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-family: inherit;
+      background: #fdfdfd;
+      color: var(--navy);
+    }
+    .form-group textarea { resize: vertical; height: 50px; }
+
+    .box-block {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .box-block.opt-block {
+      background: #fefce8;
+      border-color: var(--opt-border);
+    }
+    .box-block-title {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed var(--border-dark);
+      padding-bottom: 4px;
+      text-transform: uppercase;
+    }
+    .check-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      font-size: 0.77rem;
+      margin-bottom: 5px;
+      cursor: pointer;
+      color: #334155;
+    }
+    .check-label input { margin-top: 2px; }
+
+    .action-buttons { display: flex; flex-direction: column; gap: 9px; margin-top: 14px; }
+    .btn-action {
+      width: 100%;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity 0.15s;
+    }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-save-db { background: #2563eb; }
+    .btn-print-browser { background: #059669; }
+    .btn-pdf-direct { background: var(--navy); }
+
+    /* FOGLIO A4 DOCUMENTO */
+    .sheet {
+      background: var(--paper);
+      padding: 44px 50px;
+      border-radius: 6px;
+      box-shadow: 0 15px 35px -5px rgba(15,23,42,0.12);
+      color: var(--text);
+      width: 100%;
+      max-width: 950px;
+      margin: 0 auto;
+    }
+
+    .brand-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1.5px solid var(--navy);
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+    }
+    .brand-contacts {
+      text-align: right;
+      font-size: 0.74rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .brand-contacts strong { color: var(--navy); font-weight: 700; }
+
+    .doc-banner h2 {
+      margin: 0 0 4px 0;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--navy);
+      text-transform: uppercase;
+    }
+    .doc-banner p { margin: 0; font-size: 0.75rem; color: var(--muted); }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 16px;
+      margin: 16px 0;
+      font-size: 0.78rem;
+    }
+    .card-meta {
+      background: #fafafa;
+      padding: 10px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+    .obj-banner {
+      font-size: 0.8rem;
+      margin-bottom: 16px;
+      padding: 9px 14px;
+      background: var(--bg);
+      border-left: 3px solid var(--navy);
+    }
+
+    .sec-heading {
+      font-size: 0.79rem;
+      font-weight: 800;
+      color: var(--navy);
+      text-transform: uppercase;
+      margin: 18px 0 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sec-heading::after { content: ""; flex: 1; height: 1px; background: var(--border-dark); }
+
+    table.calc-grid {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-bottom: 14px;
+      font-size: 0.76rem;
+    }
+    table.calc-grid th {
+      background: #f8fafc;
+      color: #334155;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      padding: 8px 10px;
+      border-top: 1px solid var(--navy);
+      border-bottom: 1.5px solid var(--navy);
+      text-align: left;
+    }
+    table.calc-grid td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      color: #1e293b;
+    }
+    table.calc-grid td.num, table.calc-grid th.num { text-align: right; font-family: 'JetBrains Mono', monospace; }
+
+    .print-box-cell {
+      text-align: center;
+      vertical-align: middle;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .check-box-symbol {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--navy);
+      border-radius: 3px;
+      background: #0f172a;
+      color: #fff;
+      font-size: 12px;
+    }
+
+    .ledger-wrap {
+      width: 500px;
+      margin-left: auto;
+      margin-top: 14px;
+      margin-bottom: 18px;
+      background: #ffffff;
+      border: 1.5px solid var(--navy);
+      border-radius: 8px;
+      padding: 16px 20px;
+    }
+    .ledger-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      margin-bottom: 4px;
+      color: #334155;
+    }
+    .ledger-row span:last-child { font-family: 'JetBrains Mono', monospace; }
+    .ledger-row.bold { font-weight: 700; color: var(--navy); border-top: 1px dashed var(--border-dark); padding-top: 5px; margin-top: 5px; }
+    .ledger-row.final-due {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--navy);
+      background: #f8fafc;
+      border-top: 2px solid var(--navy);
+      margin: 10px -20px -16px -20px;
+      padding: 14px 20px;
+      border-radius: 0 0 8px 8px;
+    }
+    .ledger-row.final-due span:last-child { color: #047857; font-size: 1.15rem; }
+
+    .optional-services-container {
+      margin-top: 20px;
+      background: #fafaf9;
+      border: 1.5px dashed #0284c7;
+      border-radius: 8px;
+      padding: 18px 20px;
+    }
+    .optional-header h3 { margin: 0; font-size: 0.88rem; font-weight: 800; color: #0369a1; text-transform: uppercase; }
+
+    .legal-text {
+      margin-top: 16px;
+      padding: 14px 16px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.67rem;
+      color: #475569;
+      line-height: 1.45;
+      text-align: justify;
+      white-space: pre-wrap;
+    }
+
+    .signatures {
+      margin-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.76rem;
+    }
+    .sig-field {
+      width: 260px;
+      text-align: center;
+      border-top: 1px solid var(--border-dark);
+      padding-top: 8px;
+      color: var(--muted);
+    }
+    .sig-field strong { color: var(--navy); }
+
+    .page-break-forced {
+      page-break-before: always !important;
+      break-before: page !important;
+      margin-top: 36px;
+      padding-top: 10px;
+    }
+
+    @media print {
+      @page { size: A4; margin: 10mm; }
+      body { background: white !important; padding: 0 !important; }
+      .control-panel { display: none !important; }
+      .main-grid { display: block !important; }
+      .sheet { border: none !important; box-shadow: none !important; padding: 0 !important; width: 100% !important; max-width: 100% !important; }
+      tr, .avoid-break, .ledger-wrap, .legal-text, .signatures, .optional-services-container {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+    }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-900 antialiased min-h-screen">
+<body>
 
-  <!-- ================= 1. SCHERMATA LOGIN ================= -->
-  <div id="loginSection" class="min-h-screen flex items-center justify-center p-4">
-    <div class="bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-xl max-w-md w-full">
-      <div class="text-center mb-8">
-        <a href="index.html" class="inline-block text-xs font-semibold text-blue-600 mb-4 hover:underline">← Torna al sito Ingegniamo</a>
-        <div class="w-12 h-12 bg-slate-900 text-white rounded-2xl flex items-center justify-center text-xl font-bold mx-auto mb-3">🔒</div>
-        <h1 class="text-2xl font-black text-slate-950">Accesso Preventivatore</h1>
-        <p class="text-xs text-slate-500 mt-1">Area tecnica riservata ai professionisti di studio</p>
+<div class="main-grid">
+
+  <!-- ==================== PANNELLO DI CONTROLLO ==================== -->
+  <div class="control-panel">
+    <div class="panel-header">Modulo Preventivo & Offerta</div>
+
+    <div class="form-group">
+      <label>Protocollo / Numero Offerta</label>
+      <input type="text" id="inOfferNumber" value="OFF-26-001_Committente" oninput="recalcAll()">
+    </div>
+
+    <div class="form-group">
+      <label>Committente</label>
+      <input type="text" id="inClient" value="Impresa / Committente S.r.l." oninput="recalcAll()">
+      <input type="text" id="inClientFiscal" value="P.IVA / C.F. 01234567890" style="margin-top:3px;" oninput="recalcAll()">
+    </div>
+    <div class="form-group">
+      <label>Oggetto Prestazione</label>
+      <input type="text" id="inSubject" value="Progettazione Impianti MEP, Prevenzione Incendi, BIM e Sicurezza Cantieri" oninput="recalcAll()">
+    </div>
+    <div class="form-group">
+      <label>Ubicazione Immobile</label>
+      <input type="text" id="inLocation" value="Immobile a destinazione ricettiva / terziaria" oninput="recalcAll()">
+    </div>
+
+    <!-- 1. IMPIANTI MECCANICI -->
+    <div class="box-block">
+      <div class="box-block-title"><span>1. Termotecnica & HVAC (D.M. 17/06/2016)</span></div>
+      <div class="form-group">
+        <label>Importo Lavori Meccanici V_mecc (€)</label>
+        <input type="number" id="inV_mecc" value="130000" step="5000" min="0" oninput="recalcAll()">
       </div>
+      <div class="form-group">
+        <label>Complessità Meccanica (G)</label>
+        <input type="number" id="inG_mecc" value="1.00" step="0.05" min="0.5" max="2.0" oninput="recalcAll()">
+      </div>
+      <label class="check-label"><input type="checkbox" id="chk_pfte_mecc" onchange="recalcAll()"> Progetto PFTE Meccanico (Q = 0.27)</label>
+      <label class="check-label"><input type="checkbox" id="chk_esec_mecc" checked onchange="recalcAll()"> <strong>Progetto Esecutivo & Contabilità (Q = 0.50)</strong></label>
+      <div class="form-group" style="margin-top:6px;">
+        <label>Descrizione Meccanico</label>
+        <textarea id="desc_mecc" oninput="recalcAll()">Centrali termiche, schemi idraulici, reti idroniche, canali VMC, computi metrici e contabilità.</textarea>
+      </div>
+    </div>
 
-      <form id="loginForm" class="space-y-4">
-        <div>
-          <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Email</label>
-          <input type="email" id="loginEmail" required value="info@ingegniamo.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 outline-none">
-        </div>
+    <!-- 2. IMPIANTI ELETTRICI -->
+    <div class="box-block">
+      <div class="box-block-title"><span>2. Ingegneria Elettrica BT/MT</span></div>
+      <div class="form-group">
+        <label>Importo Lavori Elettrici V_ele (€)</label>
+        <input type="number" id="inV_ele" value="120000" step="5000" min="0" oninput="recalcAll()">
+      </div>
+      <div class="form-group">
+        <label>Complessità Elettrica (G)</label>
+        <input type="number" id="inG_ele" value="1.00" step="0.05" min="0.5" max="2.0" oninput="recalcAll()">
+      </div>
+      <label class="check-label"><input type="checkbox" id="chk_pfte_ele" onchange="recalcAll()"> Progetto PFTE Elettrico (Q = 0.27)</label>
+      <label class="check-label"><input type="checkbox" id="chk_esec_ele" checked onchange="recalcAll()"> <strong>Progetto Esecutivo & Contabilità (Q = 0.50)</strong></label>
+      <div class="form-group" style="margin-top:6px;">
+        <label>Descrizione Elettrico</label>
+        <textarea id="desc_ele" oninput="recalcAll()">Cabine MT/BT, quadri di distribuzione generale, linee, fotovoltaico, automazione e computi.</textarea>
+      </div>
+    </div>
 
-        <div>
-          <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Password</label>
-          <input type="password" id="loginPassword" required placeholder="Inserisci la password impostata" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 outline-none">
-        </div>
+    <!-- 3. PROGETTAZIONE ANTINCENDIO (INTEGRATA) -->
+    <div class="box-block">
+      <div class="box-block-title" style="color: #b91c1c;"><span>3. Progettazione Antincendio & VVF</span></div>
+      <label class="check-label"><input type="checkbox" id="chk_fire_project" checked onchange="recalcAll()"> <strong>Progettazione Antincendio (D.M. 03/08/2015)</strong></label>
+      <div class="form-group">
+        <label>Importo Opere Antincendio V_fire (€)</label>
+        <input type="number" id="inV_fire" value="40000" step="5000" min="0" oninput="recalcAll()">
+      </div>
+      <label class="check-label"><input type="checkbox" id="chk_vvf_scia" checked onchange="recalcAll()"> Pratiche VVF: Valutazione Progetto & SCIA</label>
+      <input type="number" id="fee_vvf_scia" value="2800" step="100" min="0" style="margin-bottom:6px;" oninput="recalcAll()">
+      <div class="form-group" style="margin-top:4px;">
+        <label>Dettaglio Prestazioni Antincendio</label>
+        <textarea id="desc_fire" oninput="recalcAll()">Relazione tecnica Codice di Prevenzione Incendi, reti idranti/sprinkler, evacuazione fumi e asseverazione SCIA.</textarea>
+      </div>
+    </div>
 
-        <div id="loginError" class="p-3 bg-red-50 text-red-600 text-xs rounded-xl hidden border border-red-200 leading-relaxed font-medium"></div>
+    <!-- 4. MODELLAZIONE BIM & COORDINAMENTO (INTEGRATA) -->
+    <div class="box-block">
+      <div class="box-block-title" style="color: #4f46e5;"><span>4. Modellazione BIM MEP & Clash Detection</span></div>
+      <label class="check-label"><input type="checkbox" id="chk_bim" checked onchange="recalcAll()"> <strong>Modellazione BIM MEP (Revit / IFC)</strong></label>
+      <div class="form-group">
+        <label>Compenso Modellazione BIM Specialistica (€)</label>
+        <input type="number" id="fee_bim" value="3400" step="200" min="0" oninput="recalcAll()">
+      </div>
+      <div class="form-group">
+        <label>Dettaglio Servizio BIM</label>
+        <textarea id="desc_bim" oninput="recalcAll()">Modello 3D LOD 350 di condotti, tubazioni e passerelle cavi. Clash detection multidisciplinare con Navisworks ed export IFC.</textarea>
+      </div>
+    </div>
 
-        <button type="submit" id="btnLogin" class="w-full py-3.5 bg-black hover:bg-slate-800 text-white font-bold rounded-xl transition text-sm shadow-md">
-          Sblocca Preventivatore
-        </button>
-      </form>
+    <!-- 5. SICUREZZA CSP & RELAZIONE ENERGETICA -->
+    <div class="box-block">
+      <div class="box-block-title"><span>5. Sicurezza CSP & Legge 10</span></div>
+      <label class="check-label"><input type="checkbox" id="chk_csp" checked onchange="recalcAll()"> CSP - Sicurezza in Progettazione (Q = 0.10)</label>
+      <label class="check-label"><input type="checkbox" id="chk_legge10" checked onchange="recalcAll()"> Relazione Energetica Legge 10</label>
+      <input type="number" id="fee_legge10" value="1500" step="100" min="0" style="margin-bottom:6px;" oninput="recalcAll()">
+    </div>
+
+    <!-- 6. PRESTAZIONI OPZIONALI -->
+    <div class="box-block opt-block">
+      <div class="box-block-title" style="color: #0369a1;"><span>6. Prestazioni Opzionali a Richiesta</span></div>
+      <label class="check-label"><input type="checkbox" id="chk_dl_mecc" checked onchange="recalcAll()"> Direzione Lavori Meccanica (Q = 0.32)</label>
+      <label class="check-label"><input type="checkbox" id="chk_dl_ele" checked onchange="recalcAll()"> Direzione Lavori Elettrica (Q = 0.32)</label>
+      <label class="check-label"><input type="checkbox" id="chk_cse" checked onchange="recalcAll()"> CSE - Coordinamento Sicurezza Esecuzione (Q = 0.25)</label>
+      <label class="check-label"><input type="checkbox" id="chk_assistenza_opz" checked onchange="recalcAll()"> Assistenza Specialistica Cantiere</label>
+      <input type="number" id="fee_assistenza_opz" value="2600" step="100" min="0" style="margin-bottom:6px;" oninput="recalcAll()">
+      <hr style="border:0; border-top:1px dashed #fde68a; margin:8px 0;">
+      <label class="check-label"><input type="checkbox" id="chk_ct" checked onchange="recalcAll()"> <strong>Conto Termico 3.0 (Success Fee 7%)</strong></label>
+      <div class="form-group" style="margin-bottom:6px;">
+        <label>Incentivo GSE stimato (€)</label>
+        <input type="number" id="inIncentivoGSE" value="45000" step="1000" min="0" oninput="recalcAll()">
+      </div>
+    </div>
+
+    <!-- 7. ONERI E SCONTO -->
+    <div class="box-block">
+      <div class="box-block-title"><span>7. Oneri e Sconto Commerciale</span></div>
+      <div class="form-group">
+        <label>Spese ed oneri accessori (%)</label>
+        <input type="number" id="inExpPercent" value="15" min="0" max="25" oninput="recalcAll()">
+      </div>
+      <div class="form-group">
+        <label>Sconto commerciale (%)</label>
+        <input type="number" id="inDiscountPercent" value="10" min="0" max="80" oninput="recalcAll()">
+      </div>
+    </div>
+
+    <!-- 8. DISCIPLINARE ECONOMICO -->
+    <div class="box-block">
+      <div class="box-block-title"><span>8. Condizioni & Impegni Contrattuali</span></div>
+      <div class="form-group" style="margin-bottom:0;">
+        <textarea id="inCustomLegalText" style="height: 100px;" oninput="recalcAll()">• Pagamenti: 30% all'accettazione, 50% ad emissione elaborati esecutivi/SCIA, 20% a saldo.
+• Conto Termico: Riconoscimento del 7% sull'incentivo ammesso ad esito positivo GSE.
+• Privacy & Copyright: Titolare del trattamento dei dati è Ingegniamo S.r.l.</textarea>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn-action btn-save-db" id="btnSaveSupabase" onclick="saveToSupabase()">💾 Archivia in Supabase</button>
+      <button class="btn-action btn-print-browser" onclick="window.print()">🖨️ Stampa / Salva PDF</button>
+      <button class="btn-action btn-pdf-direct" onclick="generatePdfDirect()">📥 Download Diretto PDF</button>
     </div>
   </div>
 
-  <!-- ================= 2. DASHBOARD PREVENTIVATORE ================= -->
-  <div id="dashboardSection" class="hidden">
-    
-    <!-- Header Topbar -->
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
-      <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <div class="flex items-center gap-4">
-          <span class="font-extrabold text-slate-900 tracking-tight">Ingegniamo | Calcolo Corrispettivi</span>
-          <span class="hidden sm:inline-block text-[11px] bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md font-medium">Sessione protetta</span>
-        </div>
-        <div class="flex items-center gap-4 text-xs">
-          <span class="text-slate-500 hidden md:inline">Operatore: <strong id="loggedUserLabel" class="text-slate-900"></strong></span>
-          <button onclick="logout()" class="px-3.5 py-1.5 bg-slate-100 hover:bg-red-50 hover:text-red-600 font-semibold rounded-lg transition">
-            Disconnetti ✕
-          </button>
-        </div>
-      </div>
-    </header>
-
-    <main class="max-w-7xl mx-auto px-6 py-10 space-y-10">
+  <!-- ==================== DOCUMENTO RENDERIZZATO ==================== -->
+  <div class="sheet-wrapper">
+    <div class="sheet" id="documentSheet">
       
-      <!-- FORM CALCOLO & ARCHIVIAZIONE -->
-      <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-        <div class="mb-6">
-          <h2 class="text-xl font-black text-slate-900">Nuovo Preventivo</h2>
-          <p class="text-xs text-slate-500">Inserisci i dati della commessa per stimare l'onorario e archiviarlo nel database.</p>
+      <!-- HEADER CON LOGO INGEGNIAMO -->
+      <div class="brand-header">
+        <div class="brand-logo-wrap">
+          <img src="logo-ingegniamo.png" alt="INGEGNIAMO S.r.l." style="max-width: 210px; height: auto; display: block;" onerror="this.onerror=null; this.src='https://via.placeholder.com/210x60?text=INGEGNIAMO+INGEGNERIA';">
         </div>
-
-        <form id="calcForm" class="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <div>
-            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Titolo / Committente</label>
-            <input type="text" id="cliente" required placeholder="Es. Enel X / Committente Privato" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 outline-none">
-          </div>
-
-          <div>
-            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Disciplina</label>
-            <select id="disciplina" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 outline-none">
-              <option value="Termotecnica & HVAC">Termotecnica & HVAC</option>
-              <option value="Ingegneria Elettrica BT/MT">Ingegneria Elettrica BT/MT</option>
-              <option value="Progettazione Antincendio">Progettazione Antincendio</option>
-              <option value="Modellazione BIM MEP">Modellazione BIM MEP</option>
-            </select>
-          </div>
-
-          <div>
-            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Tipologia di Opera</label>
-            <select id="tipo_opera" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 outline-none">
-              <option value="Opere Private">Opere Private</option>
-              <option value="Opere Pubbliche">Opere Pubbliche</option>
-            </select>
-          </div>
-
-          <div>
-            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Importo Lavori Impianti (€)</label>
-            <input type="number" id="importo_lavori" required placeholder="Es. 80000" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 outline-none">
-          </div>
-
-          <div>
-            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Aliquota Onorario (%)</label>
-            <input type="number" id="percentuale" value="6.5" step="0.1" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 outline-none">
-          </div>
-
-          <div class="flex items-end">
-            <button type="submit" id="btnSalva" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition text-sm shadow-md">
-              Salva nel Database
-            </button>
-          </div>
-        </form>
+        <div class="brand-contacts">
+          <strong>Ingegniamo S.r.l. - Divisione Ingegneria</strong><br>
+          P.IVA: 04033650781 | C.F.: 04033650781<br>
+          PEC: info@pec.ingegniamo.com • Email: info@ingegniamo.com
+        </div>
       </div>
 
-      <!-- TABELLA DATI SALVATI -->
-      <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-        <div class="flex justify-between items-center mb-6">
-          <h3 class="text-lg font-black text-slate-900">Storico Lavori Archiviati</h3>
-          <button onclick="caricaDati()" class="text-xs font-bold text-blue-600 hover:underline">⟳ Ricarica Dati</button>
+      <div class="doc-banner">
+        <h2>Modulo di Offerta Economica e Disciplinare di Incarico</h2>
+        <p>Determinazione dei corrispettivi professionali secondo standard integrati D.M. 17/06/2016 e normative di settore</p>
+      </div>
+
+      <div class="details-grid">
+        <div class="card-meta">
+          <strong>Spett.le Committente:</strong> <span id="outClient">---</span><br>
+          <strong>Cod. Fiscale / P.IVA:</strong> <span id="outClientFiscal">---</span><br>
+          <strong>Ubicazione Opera:</strong> <span id="outLocation">---</span>
+        </div>
+        <div class="card-meta">
+          <strong>Numero Offerta:</strong> <span id="outOfferNumber" style="font-family:'JetBrains Mono',monospace;">OFF-26-001</span><br>
+          <strong>Data Emissione:</strong> <span id="outDate">--/--/----</span>
+        </div>
+      </div>
+
+      <div class="obj-banner">
+        <strong>Oggetto dell'incarico:</strong> <span id="outSubject">---</span>
+      </div>
+
+      <!-- 1. PROGETTAZIONE IMPIANTI E BIM -->
+      <div id="wrap_sec_1">
+        <div class="sec-heading">1. Progettazione Impianti MEP, Antincendio & BIM</div>
+        <table class="calc-grid">
+          <thead>
+            <tr>
+              <th>Disciplina & Prestazione Professionale</th>
+              <th class="num" style="width: 14%;">Importo (V)</th>
+              <th style="width: 8%; text-align: center;">Grado</th>
+              <th class="num" style="width: 12%;">Param. P</th>
+              <th style="width: 8%; text-align: center;">Aliquota Q</th>
+              <th class="num" style="width: 16%;">Compenso (€)</th>
+            </tr>
+          </thead>
+          <tbody id="outTableProjRows"></tbody>
+        </table>
+      </div>
+
+      <!-- 2. PRATICHE SPECIALISTICHE E AUTORIZZATIVE -->
+      <div id="wrap_sec_2">
+        <div class="sec-heading">2. Sicurezza CSP, Pratiche VVF e Relazione Energetica</div>
+        <table class="calc-grid">
+          <thead>
+            <tr>
+              <th>Prestazione Specialistica & Ambito Contrattuale</th>
+              <th style="width: 18%; text-align: center;">Parametro Base</th>
+              <th class="num" style="width: 16%;">Valore Base</th>
+              <th style="width: 14%; text-align: center;">Parametro / Q</th>
+              <th class="num" style="width: 16%;">Compenso (€)</th>
+            </tr>
+          </thead>
+          <tbody id="outTableBaseRows"></tbody>
+        </table>
+      </div>
+
+      <!-- 3. QUADRO ECONOMICO PRINCIPALE -->
+      <div class="page-break-forced">
+        <div class="sec-heading" style="margin-top:0;">3. Quadro Economico Contrattuale Principale</div>
+
+        <div class="ledger-wrap">
+          <div class="ledger-row" id="row_tot_proj"><span>Progettazione Impianti MEP, BIM & Antincendio:</span><span id="totProj">€ 0,00</span></div>
+          <div class="ledger-row" id="row_tot_csp"><span>Coordinamento Sicurezza in Progettazione (CSP):</span><span id="totCsp">€ 0,00</span></div>
+          <div class="ledger-row" id="row_tot_l10"><span>Relazione Energetica Legge 10:</span><span id="totL10">€ 0,00</span></div>
+          <div class="ledger-row" id="row_tot_vvf"><span>Pratiche Autorizzative VVF & SCIA:</span><span id="totVvf">€ 0,00</span></div>
+          <div class="ledger-row"><span>Spese ed Oneri Accessori (<span id="lblExp">15</span>%):</span><span id="totExp">€ 0,00</span></div>
+          <div class="ledger-row bold"><span>Totale Corrispettivo di Tariffa:</span><span id="totTariff">€ 0,00</span></div>
+          <div class="ledger-row" style="color: #b91c1c;"><span>Sconto commerciale applicato (<span id="lblDiscount">10</span>%):</span><span id="totDiscount">- € 0,00</span></div>
+          <div class="ledger-row bold" style="border-top:1.5px solid var(--navy); padding-top:6px; margin-top:6px;">
+            <span>Imponibile Netto Professionale:</span><span id="totNet">€ 0,00</span>
+          </div>
+          <div class="ledger-row"><span>Cassa Previdenza (4% Inarcassa):</span><span id="totInarcassa">€ 0,00</span></div>
+          <div class="ledger-row"><span>I.V.A. di Legge (22%):</span><span id="totVat">€ 0,00</span></div>
+          <div class="ledger-row final-due"><span>TOTALE GENERALE CONTRATTUALE:</span><span id="totFinal">€ 0,00</span></div>
         </div>
 
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-sm">
+        <!-- 4. PRESTAZIONI OPZIONALI -->
+        <div class="optional-services-container" id="sec_opt_container" style="display:none;">
+          <div class="optional-header">
+            <h3>4. Prestazioni Opzionali a Richiesta (DL, CSE, Assistenza Cantiere, CT)</h3>
+          </div>
+          <table class="calc-grid" style="background:#fff; margin-top: 10px;">
             <thead>
-              <tr class="border-b border-slate-200 text-xs text-slate-500 uppercase tracking-wider">
-                <th class="py-3 px-3">Cliente / Commessa</th>
-                <th class="py-3 px-3">Disciplina</th>
-                <th class="py-3 px-3">Tipologia</th>
-                <th class="py-3 px-3">Importo Opere</th>
-                <th class="py-3 px-3 font-bold text-slate-900">Corrispettivo</th>
+              <tr>
+                <th style="width: 8%; text-align: center;">Attiva</th>
+                <th>Descrizione Prestazione Opzionale</th>
+                <th style="width: 18%; text-align: center;">Parametro</th>
+                <th class="num" style="width: 16%;">Quantità / Base</th>
+                <th style="width: 16%; text-align: center;">Modalità</th>
+                <th class="num" style="width: 18%;">Valore Netto (€)</th>
               </tr>
             </thead>
-            <tbody id="tabellaCorpo" class="divide-y divide-slate-100">
-              <tr><td colspan="5" class="py-6 text-center text-slate-400">Caricamento in corso...</td></tr>
-            </tbody>
+            <tbody id="outTableSpecialOptRows"></tbody>
           </table>
+        </div>
+
+        <!-- 5. QUADRO DI RIEPILOGO COMPLESSIVO -->
+        <div class="ledger-wrap" id="sec_summary_container" style="margin-top: 24px; display:none;">
+          <div style="font-weight: 800; color: var(--navy); margin-bottom: 8px; text-transform: uppercase; font-size: 0.8rem; border-bottom: 1px solid var(--border-dark); padding-bottom: 4px;">
+            5. Quadro Riepilogativo Complessivo (Principale + Opzioni Scontate)
+          </div>
+          <div class="ledger-row"><span>Imponibile Principale Netto:</span><span id="sumNetMain">€ 0,00</span></div>
+          <div class="ledger-row"><span>Imponibile Opzionali Netto:</span><span id="sumNetOpt">€ 0,00</span></div>
+          <div class="ledger-row bold"><span>Imponibile Complessivo Scontato:</span><span id="sumNetTotal">€ 0,00</span></div>
+          <div class="ledger-row"><span>Cassa Previdenza (4% Inarcassa):</span><span id="sumInarcassa">€ 0,00</span></div>
+          <div class="ledger-row"><span>I.V.A. di Legge (22%):</span><span id="sumVat">€ 0,00</span></div>
+          <div class="ledger-row final-due"><span>TOTALE GENERALE COMPLESSIVO:</span><span id="sumFinalTotal">€ 0,00</span></div>
+        </div>
+
+        <!-- DISCIPLINARE ECONOMICO -->
+        <div class="legal-text" id="outCustomLegalContainer">
+          <strong>DISCIPLINARE ECONOMICO ED IMPEGNI:</strong><br>
+          <span id="outCustomLegalText">---</span>
+        </div>
+
+        <div class="signatures">
+          <div class="sig-field">Per Accettazione Committente<br><strong>Il Cliente</strong><br><br><br>____________________</div>
+          <div class="sig-field">Per Ingegniamo S.r.l.<br><strong>Divisione Ingegneria</strong><br><br><br>____________________</div>
         </div>
       </div>
 
-    </main>
+    </div>
   </div>
+</div>
 
-  <!-- ================= CONFIGURAZIONE SUPABASE ================= -->
-  <script>
-    const SUPABASE_URL = 'https://pyurnuggdqrzzcakkxdu.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_HmwHdFgd7VWQa7t9t-Mcxw_TeSIFqtG';
+<script>
+  // Configurazione Supabase
+  const SUPABASE_URL = 'https://pyurnuggdqrzzcakkxdu.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_HmwHdFgd7VWQa7t9t-Mcxw_TeSIFqtG';
+  const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  let globalOfferData = {};
 
-    const loginSection = document.getElementById('loginSection');
-    const dashboardSection = document.getElementById('dashboardSection');
-    const loginError = document.getElementById('loginError');
-    const loggedUserLabel = document.getElementById('loggedUserLabel');
+  function formatEuro(val) {
+    return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(val);
+  }
 
-    async function initAuth() {
-      try {
-        const { data: { session } } = await client.auth.getSession();
-        if (session) {
-          loggedUserLabel.innerText = session.user.email;
-          loginSection.classList.add('hidden');
-          dashboardSection.classList.remove('hidden');
-          caricaDati();
-        } else {
-          dashboardSection.classList.add('hidden');
-          loginSection.classList.remove('hidden');
-        }
-      } catch (err) {
-        console.error('Errore getSession:', err);
+  function calcP(V) {
+    if (V <= 0) return 0;
+    return 0.03 + (10 / Math.pow(V, 0.4));
+  }
+
+  function renderCheckSymbol() {
+    return `<span class="check-box-symbol">&#10003;</span>`;
+  }
+
+  function recalcAll() {
+    const clientName = document.getElementById('inClient').value;
+    const clientFiscal = document.getElementById('inClientFiscal').value;
+    const subject = document.getElementById('inSubject').value;
+    const loc = document.getElementById('inLocation').value;
+    const offerNum = document.getElementById('inOfferNumber').value.trim() || 'OFF-26-001';
+
+    document.getElementById('outDate').innerText = new Date().toLocaleDateString('it-IT');
+    document.getElementById('outOfferNumber').innerText = offerNum;
+    document.getElementById('outClient').innerText = clientName;
+    document.getElementById('outClientFiscal').innerText = clientFiscal;
+    document.getElementById('outSubject').innerText = subject;
+    document.getElementById('outLocation').innerText = loc;
+    document.getElementById('outCustomLegalText').innerText = document.getElementById('inCustomLegalText').value;
+
+    // 1. MECCANICO
+    const V_mecc = parseFloat(document.getElementById('inV_mecc').value) || 0;
+    const G_mecc = parseFloat(document.getElementById('inG_mecc').value) || 1.0;
+    const P_mecc = calcP(V_mecc);
+
+    // 2. ELETTRICO
+    const V_ele = parseFloat(document.getElementById('inV_ele').value) || 0;
+    const G_ele = parseFloat(document.getElementById('inG_ele').value) || 1.0;
+    const P_ele = calcP(V_ele);
+
+    // 3. ANTINCENDIO
+    const V_fire = parseFloat(document.getElementById('inV_fire').value) || 0;
+    const G_fire = 1.15;
+    const P_fire = calcP(V_fire);
+
+    let projSum = 0;
+    const tblProj = document.getElementById('outTableProjRows');
+    tblProj.innerHTML = '';
+
+    if (V_mecc > 0) {
+      if (document.getElementById('chk_pfte_mecc').checked) {
+        const fee = V_mecc * G_mecc * 0.27 * P_mecc;
+        projSum += fee;
+        tblProj.innerHTML += `<tr><td><strong>PFTE Termotecnica & HVAC</strong></td><td class="num">${formatEuro(V_mecc)}</td><td style="text-align:center;">${G_mecc.toFixed(2)}</td><td class="num">${(P_mecc * 100).toFixed(4)}%</td><td style="text-align:center;">0.27</td><td class="num">${formatEuro(fee)}</td></tr>`;
+      }
+      if (document.getElementById('chk_esec_mecc').checked) {
+        const fee = V_mecc * G_mecc * 0.50 * P_mecc;
+        projSum += fee;
+        tblProj.innerHTML += `<tr><td><strong>Progetto Esecutivo & Contabilità HVAC</strong><br><small>${document.getElementById('desc_mecc').value}</small></td><td class="num">${formatEuro(V_mecc)}</td><td style="text-align:center;">${G_mecc.toFixed(2)}</td><td class="num">${(P_mecc * 100).toFixed(4)}%</td><td style="text-align:center;">0.50</td><td class="num">${formatEuro(fee)}</td></tr>`;
       }
     }
 
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      loginError.classList.add('hidden');
-      loginError.innerText = '';
-
-      const email = document.getElementById('loginEmail').value.trim();
-      const password = document.getElementById('loginPassword').value;
-
-      const btn = document.getElementById('btnLogin');
-      btn.disabled = true;
-      btn.innerText = 'Verifica in corso...';
-
-      try {
-        const { data, error } = await client.auth.signInWithPassword({
-          email: email,
-          password: password
-        });
-
-        if (error) {
-          console.error('Errore Supabase:', error);
-          loginError.innerText = error.message;
-          loginError.classList.remove('hidden');
-        } else {
-          initAuth();
-        }
-      } catch (err) {
-        loginError.innerText = 'Errore di connessione: ' + err.message;
-        loginError.classList.remove('hidden');
-      } finally {
-        btn.disabled = false;
-        btn.innerText = 'Sblocca Preventivatore';
+    if (V_ele > 0) {
+      if (document.getElementById('chk_pfte_ele').checked) {
+        const fee = V_ele * G_ele * 0.27 * P_ele;
+        projSum += fee;
+        tblProj.innerHTML += `<tr><td><strong>PFTE Impianti Elettrici BT/MT</strong></td><td class="num">${formatEuro(V_ele)}</td><td style="text-align:center;">${G_ele.toFixed(2)}</td><td class="num">${(P_ele * 100).toFixed(4)}%</td><td style="text-align:center;">0.27</td><td class="num">${formatEuro(fee)}</td></tr>`;
       }
-    });
-
-    async function logout() {
-      await client.auth.signOut();
-      window.location.reload();
+      if (document.getElementById('chk_esec_ele').checked) {
+        const fee = V_ele * G_ele * 0.50 * P_ele;
+        projSum += fee;
+        tblProj.innerHTML += `<tr><td><strong>Progetto Esecutivo Elettrico & Quadri</strong><br><small>${document.getElementById('desc_ele').value}</small></td><td class="num">${formatEuro(V_ele)}</td><td style="text-align:center;">${G_ele.toFixed(2)}</td><td class="num">${(P_ele * 100).toFixed(4)}%</td><td style="text-align:center;">0.50</td><td class="num">${formatEuro(fee)}</td></tr>`;
+      }
     }
 
-    async function caricaDati() {
-      const tbody = document.getElementById('tabellaCorpo');
-      tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-400">Caricamento in corso...</td></tr>`;
+    // ANTINCENDIO NELLA TABELLA 1
+    if (document.getElementById('chk_fire_project').checked && V_fire > 0) {
+      const fee = V_fire * G_fire * 0.45 * P_fire;
+      projSum += fee;
+      tblProj.innerHTML += `<tr><td><strong>Progettazione Antincendio & Impianti Spegnimento</strong><br><small>${document.getElementById('desc_fire').value}</small></td><td class="num">${formatEuro(V_fire)}</td><td style="text-align:center;">${G_fire.toFixed(2)}</td><td class="num">${(P_fire * 100).toFixed(4)}%</td><td style="text-align:center;">0.45</td><td class="num">${formatEuro(fee)}</td></tr>`;
+    }
 
-      const { data, error } = await client
-        .from('preventivi')
-        .select('*')
-        .order('created_at', { ascending: false });
+    // BIM MEP NELLA TABELLA 1
+    if (document.getElementById('chk_bim').checked) {
+      const feeBim = parseFloat(document.getElementById('fee_bim').value) || 0;
+      projSum += feeBim;
+      tblProj.innerHTML += `<tr><td><strong>Modellazione BIM MEP & Clash Detection (Revit/IFC)</strong><br><small>${document.getElementById('desc_bim').value}</small></td><td class="num">Integrato</td><td style="text-align:center;">LOD 350</td><td class="num">-</td><td style="text-align:center;">Forfait</td><td class="num">${formatEuro(feeBim)}</td></tr>`;
+    }
 
+    document.getElementById('wrap_sec_1').style.display = (projSum > 0) ? 'block' : 'none';
+
+    // 2. VOCI SPECIALISTICHE & PRATICHE
+    const V_tot = V_mecc + V_ele + V_fire;
+    const P_tot = calcP(V_tot);
+    const G_safety = 0.85;
+
+    let cspFee = 0;
+    let l10Fee = 0;
+    let vvfFee = 0;
+    let baseCount = 0;
+    const tblBase = document.getElementById('outTableBaseRows');
+    tblBase.innerHTML = '';
+
+    const chkCsp = document.getElementById('chk_csp').checked;
+    const chkL10 = document.getElementById('chk_legge10').checked;
+    const chkVvf = document.getElementById('chk_vvf_scia').checked;
+
+    if (chkCsp && V_tot > 0) {
+      cspFee = V_tot * G_safety * 0.10 * P_tot;
+      baseCount++;
+      tblBase.innerHTML += `<tr><td><strong>Coordinamento Sicurezza in Progettazione (CSP)</strong></td><td style="text-align:center;">Importo Lavori</td><td class="num">${formatEuro(V_tot)}</td><td style="text-align:center;">Q = 0.10</td><td class="num">${formatEuro(cspFee)}</td></tr>`;
+    }
+    if (chkL10) {
+      l10Fee = parseFloat(document.getElementById('fee_legge10').value) || 0;
+      baseCount++;
+      tblBase.innerHTML += `<tr><td><strong>Relazione Energetica Legge 10</strong></td><td style="text-align:center;">A corpo</td><td class="num">Prestazione</td><td style="text-align:center;">Forfait</td><td class="num">${formatEuro(l10Fee)}</td></tr>`;
+    }
+    if (chkVvf) {
+      vvfFee = parseFloat(document.getElementById('fee_vvf_scia').value) || 0;
+      baseCount++;
+      tblBase.innerHTML += `<tr><td><strong>Pratiche VVF (Valutazione Progetto & SCIA)</strong></td><td style="text-align:center;">A corpo</td><td class="num">Autorizzativo</td><td style="text-align:center;">Forfait</td><td class="num">${formatEuro(vvfFee)}</td></tr>`;
+    }
+
+    document.getElementById('wrap_sec_2').style.display = (baseCount > 0) ? 'block' : 'none';
+
+    document.getElementById('row_tot_proj').style.display = (projSum > 0) ? 'flex' : 'none';
+    document.getElementById('row_tot_csp').style.display = (chkCsp && V_tot > 0) ? 'flex' : 'none';
+    document.getElementById('row_tot_l10').style.display = (chkL10) ? 'flex' : 'none';
+    document.getElementById('row_tot_vvf').style.display = (chkVvf) ? 'flex' : 'none';
+
+    const baseSum = cspFee + l10Fee + vvfFee;
+    const expPercent = parseFloat(document.getElementById('inExpPercent').value) || 0;
+    const discPercent = parseFloat(document.getElementById('inDiscountPercent').value) || 0;
+
+    const tariffableSum = projSum + baseSum;
+    const expAmount = tariffableSum * (expPercent / 100);
+    const tariffBase = tariffableSum + expAmount;
+    const discountAmountMain = tariffBase * (discPercent / 100);
+    const netTaxableMain = tariffBase - discountAmountMain;
+    const inarcassaMain = netTaxableMain * 0.04;
+    const vatMain = (netTaxableMain + inarcassaMain) * 0.22;
+    const finalTotalMain = netTaxableMain + inarcassaMain + vatMain;
+
+    document.getElementById('totProj').innerText = formatEuro(projSum);
+    document.getElementById('totCsp').innerText = formatEuro(cspFee);
+    document.getElementById('totL10').innerText = formatEuro(l10Fee);
+    document.getElementById('totVvf').innerText = formatEuro(vvfFee);
+    document.getElementById('lblExp').innerText = expPercent;
+    document.getElementById('totExp').innerText = formatEuro(expAmount);
+    document.getElementById('totTariff').innerText = formatEuro(tariffBase);
+    document.getElementById('lblDiscount').innerText = discPercent;
+    document.getElementById('totDiscount').innerText = '- ' + formatEuro(discountAmountMain);
+    document.getElementById('totNet').innerText = formatEuro(netTaxableMain);
+    document.getElementById('totInarcassa').innerText = formatEuro(inarcassaMain);
+    document.getElementById('totVat').innerText = formatEuro(vatMain);
+    document.getElementById('totFinal').innerText = formatEuro(finalTotalMain);
+
+    // OPZIONALI
+    const tblSpecialOpt = document.getElementById('outTableSpecialOptRows');
+    tblSpecialOpt.innerHTML = '';
+    let countOpt = 0;
+    let optGrossSum = 0;
+
+    if (V_mecc > 0 && document.getElementById('chk_dl_mecc').checked) {
+      countOpt++;
+      const fee = V_mecc * G_mecc * 0.32 * P_mecc;
+      optGrossSum += fee;
+      tblSpecialOpt.innerHTML += `<tr><td class="print-box-cell">${renderCheckSymbol()}</td><td><strong>Direzione Lavori Meccanica</strong></td><td style="text-align:center;">Importo Mecc.</td><td class="num">${formatEuro(V_mecc)}</td><td style="text-align:center;">Q = 0.32</td><td class="num">${formatEuro(fee)}</td></tr>`;
+    }
+
+    if (V_ele > 0 && document.getElementById('chk_dl_ele').checked) {
+      countOpt++;
+      const fee = V_ele * G_ele * 0.32 * P_ele;
+      optGrossSum += fee;
+      tblSpecialOpt.innerHTML += `<tr><td class="print-box-cell">${renderCheckSymbol()}</td><td><strong>Direzione Lavori Elettrica</strong></td><td style="text-align:center;">Importo Elettr.</td><td class="num">${formatEuro(V_ele)}</td><td style="text-align:center;">Q = 0.32</td><td class="num">${formatEuro(fee)}</td></tr>`;
+    }
+
+    if (V_tot > 0 && document.getElementById('chk_cse').checked) {
+      countOpt++;
+      const fee = V_tot * G_safety * 0.25 * P_tot;
+      optGrossSum += fee;
+      tblSpecialOpt.innerHTML += `<tr><td class="print-box-cell">${renderCheckSymbol()}</td><td><strong>Coordinamento Sicurezza in Esecuzione (CSE)</strong></td><td style="text-align:center;">Importo Lavori</td><td class="num">${formatEuro(V_tot)}</td><td style="text-align:center;">Q = 0.25</td><td class="num">${formatEuro(fee)}</td></tr>`;
+    }
+
+    if (document.getElementById('chk_assistenza_opz').checked) {
+      countOpt++;
+      const fee = parseFloat(document.getElementById('fee_assistenza_opz').value) || 0;
+      optGrossSum += fee;
+      tblSpecialOpt.innerHTML += `<tr><td class="print-box-cell">${renderCheckSymbol()}</td><td><strong>Assistenza Specialistica di Cantiere</strong></td><td style="text-align:center;">A corpo</td><td class="num">Forfait</td><td style="text-align:center;">Forfait</td><td class="num">${formatEuro(fee)}</td></tr>`;
+    }
+
+    if (document.getElementById('chk_ct').checked) {
+      countOpt++;
+      const incentivo = parseFloat(document.getElementById('inIncentivoGSE').value) || 0;
+      const feeCT = incentivo * 0.07;
+      optGrossSum += feeCT;
+      tblSpecialOpt.innerHTML += `<tr><td class="print-box-cell">${renderCheckSymbol()}</td><td><strong>Conto Termico 3.0 (Success Fee 7%)</strong></td><td style="text-align:center;">Incentivo GSE</td><td class="num">${formatEuro(incentivo)}</td><td style="text-align:center;">7% su esito</td><td class="num">${formatEuro(feeCT)}</td></tr>`;
+    }
+
+    document.getElementById('sec_opt_container').style.display = (countOpt > 0) ? 'block' : 'none';
+    document.getElementById('sec_summary_container').style.display = (countOpt > 0) ? 'block' : 'none';
+
+    if (countOpt > 0) {
+      const discountAmountOpt = optGrossSum * (discPercent / 100);
+      const optNetSum = optGrossSum - discountAmountOpt;
+      const totalNetOverall = netTaxableMain + optNetSum;
+      const overallInarcassa = totalNetOverall * 0.04;
+      const overallVat = (totalNetOverall + overallInarcassa) * 0.22;
+      const overallFinal = totalNetOverall + overallInarcassa + overallVat;
+
+      document.getElementById('sumNetMain').innerText = formatEuro(netTaxableMain);
+      document.getElementById('sumNetOpt').innerText = formatEuro(optNetSum);
+      document.getElementById('sumNetTotal').innerText = formatEuro(totalNetOverall);
+      document.getElementById('sumInarcassa').innerText = formatEuro(overallInarcassa);
+      document.getElementById('sumVat').innerText = formatEuro(overallVat);
+      document.getElementById('sumFinalTotal').innerText = formatEuro(overallFinal);
+    }
+
+    // Dati globali per il salvataggio nel database Supabase
+    globalOfferData = {
+      cliente: clientName,
+      disciplina: 'MEP, BIM & Antincendio',
+      tipo_opera: 'Opere Edili/Impiantistiche',
+      importo_lavori: V_tot,
+      onorario_totale: netTaxableMain,
+      dettagli: {
+        protocollo: offerNum,
+        totale_contrattuale: finalTotalMain,
+        committente_cf: clientFiscal,
+        ubicazione: loc
+      }
+    };
+  }
+
+  // Salvataggio nel Database Supabase
+  async function saveToSupabase() {
+    const btn = document.getElementById('btnSaveSupabase');
+    btn.disabled = true;
+    btn.innerText = 'Archiviazione in corso...';
+
+    try {
+      const { error } = await client.from('preventivi').insert([globalOfferData]);
       if (error) {
-        tbody.innerHTML = `<tr><td colspan="5" class="py-4 text-center text-red-500 text-xs">Errore nel caricamento: ${error.message}</td></tr>`;
-        return;
-      }
-
-      if (!data || data.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-400 text-xs">Nessun preventivo archiviato finora.</td></tr>`;
-        return;
-      }
-
-      tbody.innerHTML = data.map(r => `
-        <tr class="hover:bg-slate-50 transition">
-          <td class="py-3 px-3 font-semibold text-slate-900">${r.cliente}</td>
-          <td class="py-3 px-3 text-slate-600">${r.disciplina || '-'}</td>
-          <td class="py-3 px-3">
-            <span class="text-xs px-2.5 py-1 rounded-md font-medium ${r.tipo_opera === 'Opere Pubbliche' ? 'bg-purple-100 text-purple-700' : 'bg-slate-100 text-slate-700'}">
-              ${r.tipo_opera}
-            </span>
-          </td>
-          <td class="py-3 px-3 text-slate-600">€ ${Number(r.importo_lavori).toLocaleString('it-IT')}</td>
-          <td class="py-3 px-3 font-bold text-blue-600">€ ${Number(r.onorario_totale).toLocaleString('it-IT', { minimumFractionDigits: 2 })}</td>
-        </tr>
-      `).join('');
-    }
-
-    document.getElementById('calcForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const importo = parseFloat(document.getElementById('importo_lavori').value);
-      const perc = parseFloat(document.getElementById('percentuale').value);
-      const totale = (importo * perc) / 100;
-
-      const record = {
-        cliente: document.getElementById('cliente').value,
-        disciplina: document.getElementById('disciplina').value,
-        tipo_opera: document.getElementById('tipo_opera').value,
-        importo_lavori: importo,
-        onorario_totale: totale
-      };
-
-      const btn = document.getElementById('btnSalva');
-      btn.disabled = true;
-      btn.innerText = 'Salvataggio...';
-
-      const { error } = await client.from('preventivi').insert([record]);
-
-      btn.disabled = false;
-      btn.innerText = 'Salva nel Database';
-
-      if (error) {
-        alert('Errore di salvataggio: ' + error.message);
+        alert('Errore salvataggio Supabase: ' + error.message);
       } else {
-        document.getElementById('calcForm').reset();
-        caricaDati();
+        alert(`Offerta ${globalOfferData.dettagli.protocollo} archiviata con successo in Supabase!`);
       }
-    });
+    } catch (e) {
+      alert('Errore di connessione: ' + e.message);
+    } finally {
+      btn.disabled = false;
+      btn.innerText = '💾 Archivia in Supabase';
+    }
+  }
 
-    initAuth();
-  </script>
+  // Generazione del PDF vettoriale diretto
+  function generatePdfDirect() {
+    const opt = {
+      margin: [6, 8, 6, 8],
+      filename: `Offerta_${document.getElementById('inOfferNumber').value || 'Ingegniamo'}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(document.getElementById('documentSheet')).save();
+  }
+
+  window.addEventListener('DOMContentLoaded', recalcAll);
+</script>
+
 </body>
 </html>
