@@ -86,6 +86,21 @@
       gap: 8px;
       transition: opacity 0.15s;
     }
+    .btn-delete {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  cursor: pointer;
+  margin-left: 6px;
+  transition: opacity 0.15s;
+}
+.btn-delete:hover {
+  opacity: 0.85;
+}
     .btn-new-offer:hover { opacity: 0.9; }
 
     .db-table-wrap {
@@ -864,14 +879,37 @@
           <td>${cli}</td>
           <td>${sogg}</td>
           <td style="text-align: right; font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #047857;">${importoTot}</td>
-          <td style="text-align: center;">
-            <button class="btn-load" onclick="loadOfferIntoEditor(${index})">Carica Offerta</button>
+          <td style="text-align: center; white-space: nowrap;">
+            <button class="btn-load" onclick="loadOfferIntoEditor(${index})">Carica</button>
+            <button class="btn-delete" style="background:#dc2626; color:white; border:none; padding:6px 10px; border-radius:4px; font-weight:600; font-size:0.75rem; cursor:pointer; margin-left:6px;" onclick="deleteOffer(${item.id}, '${prot}')">Elimina</button>
           </td>
         `;
         tbody.appendChild(tr);
       });
     } catch (err) {
       tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 20px; color: #b91c1c;">Errore caricamento database: ${err.message}</td></tr>`;
+    }
+  }
+
+  // FUNZIONE PER ELIMINARE L'OFFERTA DA SUPABASE
+  async function deleteOffer(id, prot) {
+    const conferma = confirm(`Sei sicuro di voler eliminare definitivamente l'offerta "${prot}" dall'archivio?\nQuesta operazione non può essere annullata.`);
+    if (!conferma) return;
+
+    try {
+      const { error } = await client
+        .from('preventivi')
+        .delete()
+        .eq('id', id);
+
+      if (error) {
+        alert("Errore durante l'eliminazione: " + error.message);
+      } else {
+        alert(`Offerta "${prot}" eliminata con successo.`);
+        loadOffersList();
+      }
+    } catch (e) {
+      alert("Errore di connessione: " + e.message);
     }
   }
 
