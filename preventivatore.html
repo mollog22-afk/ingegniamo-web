@@ -914,19 +914,42 @@
   }
 
   // CARICA I DATI NEL FORM QUANDO L'UTENTE SELEZIONA UN'OFFERTA
-  function loadOfferIntoEditor(index) {
-    const item = offersCache[index];
-    if (!item) return;
+async function saveToSupabase() {
+    const btn = document.getElementById('btnSaveSupabase');
+    btn.disabled = true;
+    btn.innerText = 'Salvataggio in corso...';
 
-    if (item.cliente) document.getElementById('inClient').value = item.cliente;
-    if (item.dettagli) {
-      if (item.dettagli.protocollo) document.getElementById('inOfferNumber').value = item.dettagli.protocollo;
-      if (item.dettagli.committente_cf) document.getElementById('inClientFiscal').value = item.dettagli.committente_cf;
-      if (item.dettagli.ubicazione) document.getElementById('inLocation').value = item.dettagli.ubicazione;
+    try {
+      let res;
+      if (currentLoadedOfferId) {
+        // MODIFICA L'OFFERTA ESISTENTE
+        res = await client
+          .from('preventivi')
+          .update(globalOfferData)
+          .eq('id', currentLoadedOfferId);
+      } else {
+        // CREA UNA NUOVA OFFERTA E MEMORIZZA IL NUOVO ID
+        res = await client
+          .from('preventivi')
+          .insert([globalOfferData])
+          .select();
+        
+        if (res.data && res.data[0]) {
+          currentLoadedOfferId = res.data[0].id;
+        }
+      }
+
+      if (res.error) {
+        alert('Errore salvataggio Supabase: ' + res.error.message);
+      } else {
+        alert(`Offerta ${globalOfferData.numero} salvata con successo!`);
+      }
+    } catch (e) {
+      alert('Errore di connessione: ' + e.message);
+    } finally {
+      btn.disabled = false;
+      btn.innerText = '💾 Archivia / Aggiorna in Supabase';
     }
-    if (item.oggetto) document.getElementById('inSubject').value = item.oggetto;
-    
-    openLoadedOffer();
   }
 
   // CALCOLO PARAMETRI E TARIFFE
