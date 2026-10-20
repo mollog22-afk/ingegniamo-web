@@ -827,9 +827,10 @@
     loadOffersList();
   }
 
-  function startNewOffer() {
+function startNewOffer() {
     currentLoadedOfferId = null;
-    document.getElementById('panelTitle').innerText = "Nuova Offerta";
+    const titleEl = document.getElementById('panelTitle');
+    if (titleEl) titleEl.innerText = "Nuova Offerta";
     document.getElementById('view-dashboard').style.display = 'none';
     document.getElementById('view-editor').style.display = 'block';
     resetFormDefaults();
