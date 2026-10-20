@@ -802,6 +802,7 @@
   const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
   let globalOfferData = {};
+  let currentLoadedOfferId = null;
   let offersCache = [];
 
   function formatEuro(val) {
@@ -922,13 +923,13 @@ async function saveToSupabase() {
     try {
       let res;
       if (currentLoadedOfferId) {
-        // MODIFICA L'OFFERTA ESISTENTE
+        // AGGIORNA L'OFFERTA ESISTENTE
         res = await client
           .from('preventivi')
           .update(globalOfferData)
           .eq('id', currentLoadedOfferId);
       } else {
-        // CREA UNA NUOVA OFFERTA E MEMORIZZA IL NUOVO ID
+        // INSERISCE NUOVA OFFERTA
         res = await client
           .from('preventivi')
           .insert([globalOfferData])
@@ -943,6 +944,8 @@ async function saveToSupabase() {
         alert('Errore salvataggio Supabase: ' + res.error.message);
       } else {
         alert(`Offerta ${globalOfferData.numero} salvata con successo!`);
+        // Ricarica la lista per averla aggiornata
+        loadOffersList();
       }
     } catch (e) {
       alert('Errore di connessione: ' + e.message);
