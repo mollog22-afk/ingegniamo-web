@@ -1308,22 +1308,55 @@ function startNewOffer() {
     setTimeout(() => { document.title = originalTitle; }, 1000);
   }
 // FUNZIONE DI LOGOUT
-async function logout() {
+// LOGOUT COMPLETO E FORZATO
+  async function logout() {
+    const btnEsci = event?.target;
+    if (btnEsci) {
+      btnEsci.disabled = true;
+      btnEsci.innerText = "Uscita in corso...";
+    }
+
     try {
+      // 1. Termina la sessione su Supabase Auth (scope 'global' invalida tutti i token)
       if (client && client.auth) {
-        await client.auth.signOut();
+        await client.auth.signOut({ scope: 'global' });
       }
     } catch (err) {
-      console.warn("Errore durante il signOut:", err);
+      console.warn("Avviso durante signOut:", err);
     } finally {
+      // 2. Svuota completamente LocalStorage e SessionStorage
       localStorage.clear();
       sessionStorage.clear();
 
-      // Reindirizza alla radice del sito web invece che a login.html
-      window.location.href = "/";
+      // 3. Cancella manualmente tutti i cookie del dominio (spesso usati per la persistenza di Supabase)
+      document.cookie.split(";").forEach((c) => {
+        document.cookie = c
+          .replace(/^ +/, "")
+          .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+      });
+
+      // 4. Se la tua schermata di login ha un URL dedicato, inseriscila qui:
+      // es. window.location.href = "/login";
+      // Altrimenti ricarica la pagina forzando il refresh senza cache:
+      window.location.replace(window.location.origin);
     }
   }
-  window.addEventListener('DOMContentLoaded', () => {
+  }
+window.addEventListener('DOMContentLoaded', async () => {
+    // Verifica se esiste una sessione valida attiva su Supabase
+    if (client && client.auth) {
+      const { data: { session } } = await client.auth.getSession();
+      
+      // Se non c'è una sessione attiva, reindirizza al login o blocca l'accesso
+      if (!session) {
+        console.warn("Nessuna sessione attiva trovata.");
+        // Se hai una pagina di login dedicata, decommenta e inserisci il link:
+        // window.location.href = "/login";
+        // return;
+      }
+    }
+
+    // Se la sessione è valida (o se l'accesso è pubblico), mostra l'archivio
     showDashboard();
   });
 </script>
