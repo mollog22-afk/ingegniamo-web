@@ -481,7 +481,10 @@
       <h1>Archivio Offerte Economiche</h1>
       <p>Ingegniamo S.r.l. - Divisione Ingegneria</p>
     </div>
-    <button class="btn-new-offer" onclick="startNewOffer()">➕ Nuova Offerta</button>
+    <div style="display: flex; gap: 10px; align-items: center;">
+      <button class="btn-new-offer" onclick="startNewOffer()">➕ Nuova Offerta</button>
+      <button class="btn-delete" style="padding: 11px 18px; font-size: 0.85rem; margin-left: 0;" onclick="logout()">🚪 Esci</button>
+    </div>
   </div>
 
   <div class="db-table-wrap">
@@ -1304,7 +1307,24 @@ function startNewOffer() {
     window.print();
     setTimeout(() => { document.title = originalTitle; }, 1000);
   }
+// FUNZIONE DI LOGOUT
+  async function logout() {
+    try {
+      // 1. Chiude la sessione attiva su Supabase Auth
+      if (client && client.auth) {
+        await client.auth.signOut();
+      }
+    } catch (err) {
+      console.warn("Errore durante il signOut:", err);
+    } finally {
+      // 2. Svuota token e dati di sessione locali
+      localStorage.clear();
+      sessionStorage.clear();
 
+      // 3. Reindirizza alla pagina di login (se presente) oppure ricarica
+      window.location.href = "login.html";
+    }
+  }
   window.addEventListener('DOMContentLoaded', () => {
     showDashboard();
   });
