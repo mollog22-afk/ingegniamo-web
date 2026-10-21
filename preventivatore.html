@@ -1308,21 +1308,19 @@ function startNewOffer() {
     setTimeout(() => { document.title = originalTitle; }, 1000);
   }
 // FUNZIONE DI LOGOUT
-  async function logout() {
+async function logout() {
     try {
-      // 1. Chiude la sessione attiva su Supabase Auth
       if (client && client.auth) {
         await client.auth.signOut();
       }
     } catch (err) {
       console.warn("Errore durante il signOut:", err);
     } finally {
-      // 2. Svuota token e dati di sessione locali
       localStorage.clear();
       sessionStorage.clear();
 
-      // 3. Reindirizza alla pagina di login (se presente) oppure ricarica
-      window.location.href = "login.html";
+      // Reindirizza alla radice del sito web invece che a login.html
+      window.location.href = "/";
     }
   }
   window.addEventListener('DOMContentLoaded', () => {
