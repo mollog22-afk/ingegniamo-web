@@ -12,7 +12,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
   <style>
     :root {
       --navy: #0f172a;
@@ -475,6 +476,7 @@
     <div class="action-buttons">
       <button class="btn-action btn-print-browser" onclick="window.print()">Stampa / Salva in PDF</button>
       <button class="btn-action btn-pdf-direct" onclick="generatePdfDirect()">Download Automatico PDF</button>
+      <button class="btn-action" style="background: #dc2626; margin-top: 6px;" onclick="logout()">Esci / Logout</button>
     </div>
   </div>
 
