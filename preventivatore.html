@@ -830,21 +830,26 @@
         <div class="page-break-forced">
           <div class="sec-heading" style="margin-top:0;">3. Quadro Economico Contrattuale Principale</div>
 
-          <div class="ledger-wrap">
-            <div class="ledger-row" id="row_tot_proj"><span>Progettazione Impianti MEP, BIM & Antincendio:</span><span id="totProj">€ 0,00</span></div>
-            <div class="ledger-row" id="row_tot_csp"><span>Coordinamento Sicurezza in Progettazione (CSP):</span><span id="totCsp">€ 0,00</span></div>
-            <div class="ledger-row" id="row_tot_l10"><span>Relazione Energetica Legge 10:</span><span id="totL10">€ 0,00</span></div>
-            <div class="ledger-row" id="row_tot_vvf"><span>Pratiche Autorizzative VVF & SCIA:</span><span id="totVvf">€ 0,00</span></div>
-            <div class="ledger-row"><span>Spese ed Oneri Accessori (<span id="lblExp">15</span>%):</span><span id="totExp">€ 0,00</span></div>
-            <div class="ledger-row bold"><span>Totale Corrispettivo di Tariffa:</span><span id="totTariff">€ 0,00</span></div>
-            <div class="ledger-row" style="color: #b91c1c;"><span>Sconto commerciale applicato (<span id="lblDiscount">10</span>%):</span><span id="totDiscount">- € 0,00</span></div>
-            <div class="ledger-row bold" style="border-top:1.5px solid var(--navy); padding-top:6px; margin-top:6px;">
-              <span>Imponibile Netto Professionale:</span><span id="totNet">€ 0,00</span>
-            </div>
-            <div class="ledger-row"><span>Cassa Previdenza (4% Inarcassa):</span><span id="totInarcassa">€ 0,00</span></div>
-            <div class="ledger-row"><span>I.V.A. di Legge (22%):</span><span id="totVat">€ 0,00</span></div>
-            <div class="ledger-row final-due"><span>TOTALE GENERALE SENZA OPZIONALI:</span><span id="totFinal">€ 0,00</span></div>
-          </div>
+       <div class="ledger-wrap">
+  <div class="ledger-row" id="row_tot_proj"><span>Progettazione Impianti MEP, BIM & Antincendio:</span><span id="totProj">€ 0,00</span></div>
+  <div class="ledger-row" id="row_tot_csp"><span>Coordinamento Sicurezza in Progettazione (CSP):</span><span id="totCsp">€ 0,00</span></div>
+  <div class="ledger-row" id="row_tot_l10"><span>Relazione Energetica Legge 10:</span><span id="totL10">€ 0,00</span></div>
+  <div class="ledger-row" id="row_tot_vvf"><span>Pratiche Autorizzative VVF & SCIA:</span><span id="totVvf">€ 0,00</span></div>
+  <div class="ledger-row"><span>Spese ed Oneri Accessori (<span id="lblExp">15</span>%):</span><span id="totExp">€ 0,00</span></div>
+  <div class="ledger-row bold"><span>Totale Corrispettivo di Tariffa:</span><span id="totTariff">€ 0,00</span></div>
+  <div class="ledger-row" style="color: #b91c1c;"><span>Sconto commerciale applicato (<span id="lblDiscount">10</span>%):</span><span id="totDiscount">- € 0,00</span></div>
+
+  <!-- TOTALE FINALE NETTO ARROTONDATO (CASSA E IVA ESCLUSE) -->
+  <div class="ledger-row final-due" style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px;">
+    <div style="display: flex; justify-content: space-between; width: 100%;">
+      <span>TOTALE ONORARIO CONCORDATO:</span>
+      <span id="totNet">€ 0,00</span>
+    </div>
+    <span style="font-size: 0.70rem; font-weight: 600; color: #b91c1c; text-transform: uppercase; letter-spacing: 0.5px;">
+      * Importo al netto di Cassa Previdenza (4% Inarcassa) e I.V.A. (22%) di legge escluse
+    </span>
+  </div>
+</div>
 
           <!-- 4. PRESTAZIONI OPZIONALI -->
           <div class="optional-services-container" id="sec_opt_container" style="display:none;">
@@ -1083,7 +1088,10 @@
       alert("Errore di connessione: " + e.message);
     }
   }
-
+function roundToStep(amount, step = 50) {
+  if (step <= 0) return Math.round(amount);
+  return Math.round(amount / step) * step;
+}
   function loadOfferIntoEditor(index) {
     const item = offersCache[index];
     if (!item) return;
@@ -1257,15 +1265,19 @@
     const expPercent = parseFloat(document.getElementById('inExpPercent').value) || 0;
     const discPercent = parseFloat(document.getElementById('inDiscountPercent').value) || 0;
 
+  // Calcolo imponibile netto principale
     const tariffableSum = projSum + baseSum;
     const expAmount = tariffableSum * (expPercent / 100);
     const tariffBase = tariffableSum + expAmount;
     const discountAmountMain = tariffBase * (discPercent / 100);
-    const netTaxableMain = tariffBase - discountAmountMain;
-    const inarcassaMain = netTaxableMain * 0.04;
-    const vatMain = (netTaxableMain + inarcassaMain) * 0.22;
-    const finalTotalMain = netTaxableMain + inarcassaMain + vatMain;
+    
+    // Imponibile grezzo scontato
+    const rawNetMain = tariffBase - discountAmountMain;
+    
+    // ARROTONDAMENTO (es. ai 50 € più vicini; se vuoi ai 100 € metti 100, se a 1 € metti 1)
+    const netTaxableMain = roundToStep(rawNetMain, 50);
 
+    // Stampa a video dei valori
     document.getElementById('totProj').innerText = formatEuro(projSum);
     document.getElementById('totCsp').innerText = formatEuro(cspFee);
     document.getElementById('totL10').innerText = formatEuro(l10Fee);
@@ -1275,10 +1287,9 @@
     document.getElementById('totTariff').innerText = formatEuro(tariffBase);
     document.getElementById('lblDiscount').innerText = discPercent;
     document.getElementById('totDiscount').innerText = '- ' + formatEuro(discountAmountMain);
+    
+    // Totale finale evidenziato al netto di Cassa e IVA
     document.getElementById('totNet').innerText = formatEuro(netTaxableMain);
-    document.getElementById('totInarcassa').innerText = formatEuro(inarcassaMain);
-    document.getElementById('totVat').innerText = formatEuro(vatMain);
-    document.getElementById('totFinal').innerText = formatEuro(finalTotalMain);
 
     // OPZIONALI
     const tblSpecialOpt = document.getElementById('outTableSpecialOptRows');
