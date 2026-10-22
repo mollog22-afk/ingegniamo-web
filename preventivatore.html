@@ -872,17 +872,23 @@
           </div>
 
           <!-- 5. QUADRO DI RIEPILOGO COMPLESSIVO -->
-          <div class="ledger-wrap" id="sec_summary_container" style="margin-top: 24px; display:none;">
-            <div style="font-weight: 800; color: var(--navy); margin-bottom: 8px; text-transform: uppercase; font-size: 0.8rem; border-bottom: 1px solid var(--border-dark); padding-bottom: 4px;">
-              5. Quadro Riepilogativo Complessivo (Principale + Opzioni Scontate)
-            </div>
-            <div class="ledger-row"><span>Imponibile Principale Netto:</span><span id="sumNetMain">€ 0,00</span></div>
-            <div class="ledger-row"><span>Imponibile Opzionali Netto:</span><span id="sumNetOpt">€ 0,00</span></div>
-            <div class="ledger-row bold"><span>Imponibile Complessivo Scontato:</span><span id="sumNetTotal">€ 0,00</span></div>
-            <div class="ledger-row"><span>Cassa Previdenza (4% Inarcassa):</span><span id="sumInarcassa">€ 0,00</span></div>
-            <div class="ledger-row"><span>I.V.A. di Legge (22%):</span><span id="sumVat">€ 0,00</span></div>
-            <div class="ledger-row final-due"><span>TOTALE GENERALE COMPLESSIVO:</span><span id="sumFinalTotal">€ 0,00</span></div>
-          </div>
+        <div class="ledger-wrap" id="sec_summary_container" style="margin-top: 24px; display:none;">
+  <div style="font-weight: 800; color: var(--navy); margin-bottom: 8px; text-transform: uppercase; font-size: 0.8rem; border-bottom: 1px solid var(--border-dark); padding-bottom: 4px;">
+    5. Quadro Riepilogativo Complessivo (Principale + Opzioni Scontate)
+  </div>
+  <div class="ledger-row"><span>Imponibile Principale Netto:</span><span id="sumNetMain">€ 0,00</span></div>
+  <div class="ledger-row"><span>Imponibile Prestazioni Opzionali:</span><span id="sumNetOpt">€ 0,00</span></div>
+  
+  <div class="ledger-row final-due" style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px; margin-top: 8px;">
+    <div style="display: flex; justify-content: space-between; width: 100%;">
+      <span>TOTALE COMPLESSIVO CONCORDATO:</span>
+      <span id="sumFinalTotal">€ 0,00</span>
+    </div>
+    <span style="font-size: 0.70rem; font-weight: 600; color: #b91c1c; text-transform: uppercase; letter-spacing: 0.5px;">
+      * Importi al netto di Cassa Previdenza (4% Inarcassa) e I.V.A. (22%) di legge escluse
+    </span>
+  </div>
+</div>
 
           <!-- DISCIPLINARE ECONOMICO -->
           <div class="legal-text" id="outCustomLegalContainer">
@@ -1339,20 +1345,17 @@ function roundToStep(amount, step = 50) {
     let totalNetOverall = netTaxableMain;
     let overallFinal = finalTotalMain;
 
-    if (countOpt > 0) {
+if (countOpt > 0) {
       const discountAmountOpt = optGrossSum * (discPercent / 100);
-      const optNetSum = optGrossSum - discountAmountOpt;
-      totalNetOverall = netTaxableMain + optNetSum;
-      const overallInarcassa = totalNetOverall * 0.04;
-      const overallVat = (totalNetOverall + overallInarcassa) * 0.22;
-      overallFinal = totalNetOverall + overallInarcassa + overallVat;
+      const rawOptNetSum = optGrossSum - discountAmountOpt;
+      
+      // Arrotondamento anche sull'opzionale e sul totale complessivo (es. ai 50 €)
+      const optNetSum = roundToStep(rawOptNetSum, 50);
+      const totalNetOverall = roundToStep(netTaxableMain + optNetSum, 50);
 
       document.getElementById('sumNetMain').innerText = formatEuro(netTaxableMain);
       document.getElementById('sumNetOpt').innerText = formatEuro(optNetSum);
-      document.getElementById('sumNetTotal').innerText = formatEuro(totalNetOverall);
-      document.getElementById('sumInarcassa').innerText = formatEuro(overallInarcassa);
-      document.getElementById('sumVat').innerText = formatEuro(overallVat);
-      document.getElementById('sumFinalTotal').innerText = formatEuro(overallFinal);
+      document.getElementById('sumFinalTotal').innerText = formatEuro(totalNetOverall);
     }
 
     const effectiveTotal = (countOpt > 0) ? overallFinal : finalTotalMain;
