@@ -39,7 +39,83 @@
       line-height: 1.45;
     }
 
-    /* VISTA ARCHIVIO PRINCIPALE */
+    /* VISTA 0: LOGIN */
+    #view-login {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 85vh;
+    }
+    .login-card {
+      background: var(--paper);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 15px 30px -5px rgba(15,23,42,0.15);
+      border: 1px solid var(--border-dark);
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+    }
+    .login-card h2 {
+      margin: 0 0 6px 0;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--navy);
+      text-transform: uppercase;
+    }
+    .login-card p {
+      margin: 0 0 24px 0;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .login-field {
+      text-align: left;
+      margin-bottom: 14px;
+    }
+    .login-field label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .login-field input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      font-size: 0.88rem;
+      background: #fdfdfd;
+      color: var(--navy);
+      outline: none;
+    }
+    .login-field input:focus {
+      border-color: var(--accent);
+    }
+    .btn-submit-login {
+      width: 100%;
+      background: var(--navy);
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: opacity 0.15s;
+    }
+    .btn-submit-login:hover { opacity: 0.9; }
+    .login-error {
+      color: #dc2626;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-top: 12px;
+      display: none;
+    }
+
+    /* VISTA 1: ARCHIVIO */
     #view-dashboard {
       max-width: 1100px;
       margin: 40px auto;
@@ -48,6 +124,7 @@
       border-radius: 12px;
       box-shadow: 0 15px 30px -5px rgba(15,23,42,0.1);
       border: 1px solid var(--border-dark);
+      display: none;
     }
 
     .dash-header {
@@ -75,33 +152,31 @@
     .btn-new-offer {
       background: #059669;
       color: white;
-      padding: 12px 22px;
+      padding: 10px 18px;
       border: none;
       border-radius: 6px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 700;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       transition: opacity 0.15s;
     }
-    .btn-delete {
-  background: #dc2626;
-  color: white;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 4px;
-  font-weight: 600;
-  font-size: 0.75rem;
-  cursor: pointer;
-  margin-left: 6px;
-  transition: opacity 0.15s;
-}
-.btn-delete:hover {
-  opacity: 0.85;
-}
     .btn-new-offer:hover { opacity: 0.9; }
+
+    .btn-delete {
+      background: #dc2626;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .btn-delete:hover { opacity: 0.85; }
 
     .db-table-wrap {
       overflow-x: auto;
@@ -142,7 +217,10 @@
     }
     .btn-load:hover { opacity: 0.9; }
 
-    /* LAYOUT PREVENTIVATORE ATTIVO */
+    /* VISTA 2: EDITOR */
+    #view-editor {
+      display: none;
+    }
     .main-grid {
       max-width: 1540px;
       margin: 0 auto;
@@ -152,7 +230,6 @@
       align-items: start;
     }
 
-    /* PANNELLO DI CONTROLLO */
     .control-panel {
       background: var(--paper);
       padding: 24px;
@@ -267,7 +344,7 @@
     .btn-save-db { background: #2563eb; }
     .btn-print-browser { background: #059669; }
 
-    /* FOGLIO A4 DOCUMENTO */
+    /* FOGLIO A4 */
     .sheet {
       background: var(--paper);
       padding: 44px 50px;
@@ -278,7 +355,6 @@
       max-width: 950px;
       margin: 0 auto;
     }
-
     .brand-header {
       display: flex;
       justify-content: space-between;
@@ -461,7 +537,7 @@
     @media print {
       @page { size: A4; margin: 10mm; }
       body { background: white !important; padding: 0 !important; }
-      #view-dashboard, .control-panel { display: none !important; }
+      #view-login, #view-dashboard, .control-panel { display: none !important; }
       #view-editor { display: block !important; }
       .main-grid { display: block !important; }
       .sheet { border: none !important; box-shadow: none !important; padding: 0 !important; width: 100% !important; max-width: 100% !important; }
@@ -474,16 +550,38 @@
 </head>
 <body>
 
+<!-- ==================== VISTA 0: LOGIN ==================== -->
+<div id="view-login">
+  <div class="login-card">
+    <div style="font-size: 2rem; margin-bottom: 10px;">🔒</div>
+    <h2>Area Preventivatore</h2>
+    <p>Ingegniamo S.r.l. - Accesso Tecnico</p>
+    
+    <form id="formLogin" onsubmit="handleLogin(event)">
+      <div class="login-field">
+        <label>Email Studio</label>
+        <input type="email" id="txtEmail" value="info@ingegniamo.com" required>
+      </div>
+      <div class="login-field">
+        <label>Password</label>
+        <input type="password" id="txtPassword" placeholder="••••••••" required>
+      </div>
+      <button type="submit" class="btn-submit-login" id="btnLogin">Accedi</button>
+      <div class="login-error" id="loginErrorMsg">Credenziali non valide.</div>
+    </form>
+  </div>
+</div>
+
 <!-- ==================== VISTA 1: CRUSCOTTO ARCHIVIO ==================== -->
 <div id="view-dashboard">
   <div class="dash-header">
     <div>
       <h1>Archivio Offerte Economiche</h1>
-      <p>Ingegniamo S.r.l. - Divisione Ingegneria</p>
+      <p id="userLoggedNotice">Ingegniamo S.r.l. - Divisione Ingegneria</p>
     </div>
     <div style="display: flex; gap: 10px; align-items: center;">
       <button class="btn-new-offer" onclick="startNewOffer()">➕ Nuova Offerta</button>
-      <button class="btn-delete" style="padding: 11px 18px; font-size: 0.85rem; margin-left: 0;" onclick="logout()">🚪 Esci</button>
+      <button class="btn-delete" style="padding: 10px 16px; font-size: 0.85rem;" onclick="logout()">🚪 Esci</button>
     </div>
   </div>
 
@@ -506,8 +604,8 @@
   </div>
 </div>
 
-<!-- ==================== VISTA 2: EDITOR E FOGLIO PREVENTIVO ==================== -->
-<div id="view-editor" style="display: none;">
+<!-- ==================== VISTA 2: EDITOR ==================== -->
+<div id="view-editor">
   <div class="main-grid">
 
     <!-- PANNELLO DI CONTROLLO -->
@@ -536,7 +634,7 @@
         <input type="text" id="inLocation" value="Immobile a destinazione ricettiva / terziaria" oninput="recalcAll()">
       </div>
 
-      <!-- 1. IMPIANTI MECCANICI -->
+      <!-- 1. MECCANICO -->
       <div class="box-block">
         <div class="box-block-title"><span>1. Termotecnica & HVAC (D.M. 17/06/2016)</span></div>
         <div class="form-group">
@@ -555,7 +653,7 @@
         </div>
       </div>
 
-      <!-- 2. IMPIANTI ELETTRICI -->
+      <!-- 2. ELETTRICO -->
       <div class="box-block">
         <div class="box-block-title"><span>2. Ingegneria Elettrica BT/MT</span></div>
         <div class="form-group">
@@ -574,7 +672,7 @@
         </div>
       </div>
 
-      <!-- 3. PROGETTAZIONE ANTINCENDIO -->
+      <!-- 3. ANTINCENDIO -->
       <div class="box-block">
         <div class="box-block-title" style="color: #b91c1c;"><span>3. Progettazione Antincendio & VVF</span></div>
         <label class="check-label"><input type="checkbox" id="chk_fire_project" checked onchange="recalcAll()"> <strong>Progettazione Antincendio (D.M. 03/08/2015)</strong></label>
@@ -590,7 +688,7 @@
         </div>
       </div>
 
-      <!-- 4. MODELLAZIONE BIM -->
+      <!-- 4. BIM -->
       <div class="box-block">
         <div class="box-block-title" style="color: #4f46e5;"><span>4. Modellazione BIM MEP & Clash Detection</span></div>
         <label class="check-label"><input type="checkbox" id="chk_bim" checked onchange="recalcAll()"> <strong>Modellazione BIM MEP (Revit / IFC)</strong></label>
@@ -604,7 +702,7 @@
         </div>
       </div>
 
-      <!-- 5. SICUREZZA CSP & RELAZIONE ENERGETICA -->
+      <!-- 5. SICUREZZA & LEGGE 10 -->
       <div class="box-block">
         <div class="box-block-title"><span>5. Sicurezza CSP & Legge 10</span></div>
         <label class="check-label"><input type="checkbox" id="chk_csp" checked onchange="recalcAll()"> CSP - Sicurezza in Progettazione (Q = 0.10)</label>
@@ -612,7 +710,7 @@
         <input type="number" id="fee_legge10" value="1500" step="100" min="0" style="margin-bottom:6px;" oninput="recalcAll()">
       </div>
 
-      <!-- 6. PRESTAZIONI OPZIONALI -->
+      <!-- 6. OPZIONALI -->
       <div class="box-block opt-block">
         <div class="box-block-title" style="color: #0369a1;"><span>6. Prestazioni Opzionali a Richiesta</span></div>
         <label class="check-label"><input type="checkbox" id="chk_dl_mecc" checked onchange="recalcAll()"> Direzione Lavori Meccanica (Q = 0.32)</label>
@@ -641,7 +739,7 @@
         </div>
       </div>
 
-      <!-- 8. DISCIPLINARE ECONOMICO -->
+      <!-- 8. DISCIPLINARE -->
       <div class="box-block">
         <div class="box-block-title"><span>8. Condizioni & Impegni Contrattuali</span></div>
         <div class="form-group" style="margin-bottom:0;">
@@ -652,7 +750,7 @@
       </div>
 
       <div class="action-buttons">
-        <button class="btn-action btn-save-db" id="btnSaveSupabase" onclick="saveToSupabase()">💾 Archivia in Supabase</button>
+        <button class="btn-action btn-save-db" id="btnSaveSupabase" onclick="saveToSupabase()">💾 Archivia / Salva</button>
         <button class="btn-action btn-print-browser" onclick="printDocument()">🖨️ Stampa / Salva in PDF</button>
       </div>
     </div>
@@ -799,8 +897,6 @@
 </div>
 
 <script>
-  // Configurazione Supabase
- // Configurazione Supabase
   const SUPABASE_URL = 'https://pyurnuggdqrzzcakkxdu.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_HmwHdFgd7VWQa7t9t-Mcxw_TeSIFqtG';
   const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -822,22 +918,74 @@
     return `<span class="check-box-symbol">&#10003;</span>`;
   }
 
-  // GESTIONE VISTE
+  /* GESTIONE NAVIGAZIONE SCHERMATE */
+  function showLogin() {
+    document.getElementById('view-login').style.display = 'flex';
+    document.getElementById('view-dashboard').style.display = 'none';
+    document.getElementById('view-editor').style.display = 'none';
+  }
+
   function showDashboard() {
+    document.getElementById('view-login').style.display = 'none';
     document.getElementById('view-dashboard').style.display = 'block';
     document.getElementById('view-editor').style.display = 'none';
     currentLoadedOfferId = null;
     loadOffersList();
   }
 
-function startNewOffer() {
+  function startNewOffer() {
     currentLoadedOfferId = null;
     const titleEl = document.getElementById('panelTitle');
     if (titleEl) titleEl.innerText = "Nuova Offerta";
+    document.getElementById('view-login').style.display = 'none';
     document.getElementById('view-dashboard').style.display = 'none';
     document.getElementById('view-editor').style.display = 'block';
     resetFormDefaults();
     recalcAll();
+  }
+
+  /* AUTENTICAZIONE & LOGOUT */
+  async function handleLogin(e) {
+    e.preventDefault();
+    const btn = document.getElementById('btnLogin');
+    const errBox = document.getElementById('loginErrorMsg');
+    errBox.style.display = 'none';
+    btn.disabled = true;
+    btn.innerText = 'Verifica in corso...';
+
+    const email = document.getElementById('txtEmail').value.trim();
+    const password = document.getElementById('txtPassword').value;
+
+    try {
+      const { data, error } = await client.auth.signInWithPassword({ email, password });
+      if (error) {
+        errBox.innerText = error.message;
+        errBox.style.display = 'block';
+      } else {
+        document.getElementById('userLoggedNotice').innerText = `Operatore: ${data.user.email}`;
+        showDashboard();
+      }
+    } catch (err) {
+      errBox.innerText = 'Errore di connessione: ' + err.message;
+      errBox.style.display = 'block';
+    } finally {
+      btn.disabled = false;
+      btn.innerText = 'Accedi';
+    }
+  }
+
+  async function logout() {
+    try {
+      if (client && client.auth) {
+        await client.auth.signOut({ scope: 'global' });
+      }
+    } catch (e) {
+      console.warn("Errore durante signOut:", e);
+    } finally {
+      localStorage.clear();
+      sessionStorage.clear();
+      showLogin();
+    }
   }
 
   function resetFormDefaults() {
@@ -874,7 +1022,7 @@ function startNewOffer() {
     document.getElementById('inDiscountPercent').value = 10;
   }
 
-  // CARICAMENTO LISTA OFFERTE
+  /* CARICAMENTO LISTA OFFERTE */
   async function loadOffersList() {
     const tbody = document.getElementById('dbOffersTableBody');
     tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 20px;">Caricamento in corso...</td></tr>`;
@@ -910,7 +1058,7 @@ function startNewOffer() {
           <td style="text-align: right; font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #047857;">${importoTot}</td>
           <td style="text-align: center; white-space: nowrap;">
             <button class="btn-load" onclick="loadOfferIntoEditor(${index})">Carica</button>
-            <button class="btn-delete" style="background:#dc2626; color:white; border:none; padding:6px 10px; border-radius:4px; font-weight:600; font-size:0.75rem; cursor:pointer; margin-left:6px;" onclick="deleteOffer(${item.id}, '${prot}')">Elimina</button>
+            <button class="btn-delete" style="margin-left:6px;" onclick="deleteOffer(${item.id}, '${prot}')">Elimina</button>
           </td>
         `;
         tbody.appendChild(tr);
@@ -920,9 +1068,8 @@ function startNewOffer() {
     }
   }
 
-  // ELIMINA OFFERTA
   async function deleteOffer(id, prot) {
-    const conferma = confirm(`Sei sicuro di voler eliminare definitivamente l'offerta "${prot}" dall'archivio?\nQuesta operazione non può essere annullata.`);
+    const conferma = confirm(`Sei sicuro di voler eliminare definitivamente l'offerta "${prot}" dall'archivio?`);
     if (!conferma) return;
 
     try {
@@ -937,7 +1084,6 @@ function startNewOffer() {
     }
   }
 
-  // CARICA OFFERTA NELL'EDITOR (CON TUTTI I PARAMETRI)
   function loadOfferIntoEditor(index) {
     const item = offersCache[index];
     if (!item) return;
@@ -946,7 +1092,6 @@ function startNewOffer() {
     const titleEl = document.getElementById('panelTitle');
     if (titleEl) titleEl.innerText = "Modifica Offerta";
 
-    // Campi base
     if (item.cliente && document.getElementById('inClient')) document.getElementById('inClient').value = item.cliente;
     if (item.numero && document.getElementById('inOfferNumber')) document.getElementById('inOfferNumber').value = item.numero;
     if (item.oggetto && document.getElementById('inSubject')) document.getElementById('inSubject').value = item.oggetto;
@@ -956,7 +1101,6 @@ function startNewOffer() {
     if (d.ubicazione && document.getElementById('inLocation')) document.getElementById('inLocation').value = d.ubicazione;
     if (d.legal_text && document.getElementById('inCustomLegalText')) document.getElementById('inCustomLegalText').value = d.legal_text;
 
-    // Ripristino valori tecnici e spunte
     if (d.inV_mecc !== undefined && document.getElementById('inV_mecc')) document.getElementById('inV_mecc').value = d.inV_mecc;
     if (d.inG_mecc !== undefined && document.getElementById('inG_mecc')) document.getElementById('inG_mecc').value = d.inG_mecc;
     if (d.chk_pfte_mecc !== undefined && document.getElementById('chk_pfte_mecc')) document.getElementById('chk_pfte_mecc').checked = d.chk_pfte_mecc;
@@ -994,15 +1138,13 @@ function startNewOffer() {
     if (d.inExpPercent !== undefined && document.getElementById('inExpPercent')) document.getElementById('inExpPercent').value = d.inExpPercent;
     if (d.inDiscountPercent !== undefined && document.getElementById('inDiscountPercent')) document.getElementById('inDiscountPercent').value = d.inDiscountPercent;
 
-    // Switch della schermata
+    document.getElementById('view-login').style.display = 'none';
     document.getElementById('view-dashboard').style.display = 'none';
     document.getElementById('view-editor').style.display = 'block';
 
-    // Ricalcola tutto a video
     recalcAll();
   }
 
-  // RICALCOLO COMPLETO
   function recalcAll() {
     const clientName = document.getElementById('inClient').value;
     const clientFiscal = document.getElementById('inClientFiscal').value;
@@ -1018,17 +1160,14 @@ function startNewOffer() {
     document.getElementById('outLocation').innerText = loc || '---';
     document.getElementById('outCustomLegalText').innerText = document.getElementById('inCustomLegalText').value;
 
-    // 1. MECCANICO
     const V_mecc = parseFloat(document.getElementById('inV_mecc').value) || 0;
     const G_mecc = parseFloat(document.getElementById('inG_mecc').value) || 1.0;
     const P_mecc = calcP(V_mecc);
 
-    // 2. ELETTRICO
     const V_ele = parseFloat(document.getElementById('inV_ele').value) || 0;
     const G_ele = parseFloat(document.getElementById('inG_ele').value) || 1.0;
     const P_ele = calcP(V_ele);
 
-    // 3. ANTINCENDIO
     const V_fire = parseFloat(document.getElementById('inV_fire').value) || 0;
     const G_fire = 1.15;
     const P_fire = calcP(V_fire);
@@ -1077,7 +1216,6 @@ function startNewOffer() {
 
     document.getElementById('wrap_sec_1').style.display = (projSum > 0) ? 'block' : 'none';
 
-    // 2. SPECIALISTICHE
     const V_tot = V_mecc + V_ele + V_fire;
     const P_tot = calcP(V_tot);
     const G_safety = 0.85;
@@ -1209,7 +1347,6 @@ function startNewOffer() {
     const effectiveTotal = (countOpt > 0) ? overallFinal : finalTotalMain;
     const effectiveNet = (countOpt > 0) ? totalNetOverall : netTaxableMain;
 
-    // PAYLOAD COMPLETO: Salva sia i totali che TUTTI gli input del form
     globalOfferData = {
       cliente: clientName,
       numero: offerNum,
@@ -1259,7 +1396,6 @@ function startNewOffer() {
     };
   }
 
-  // SALVATAGGIO / AGGIORNAMENTO
   async function saveToSupabase() {
     const btn = document.getElementById('btnSaveSupabase');
     btn.disabled = true;
@@ -1292,11 +1428,10 @@ function startNewOffer() {
       alert('Errore di connessione: ' + e.message);
     } finally {
       btn.disabled = false;
-      btn.innerText = '💾 Archivia / Aggiorna in Supabase';
+      btn.innerText = '💾 Archivia / Salva';
     }
   }
 
-  // STAMPA CON NOME FILE PERSONALIZZATO
   function printDocument() {
     const offerNum = document.getElementById('inOfferNumber').value.trim() || 'OFF-26';
     const clientName = document.getElementById('inClient').value.trim() || 'Committente';
@@ -1307,56 +1442,20 @@ function startNewOffer() {
     window.print();
     setTimeout(() => { document.title = originalTitle; }, 1000);
   }
-// FUNZIONE DI LOGOUT
-// LOGOUT COMPLETO E FORZATO
-  async function logout() {
-    const btnEsci = event?.target;
-    if (btnEsci) {
-      btnEsci.disabled = true;
-      btnEsci.innerText = "Uscita in corso...";
-    }
 
-    try {
-      // 1. Termina la sessione su Supabase Auth (scope 'global' invalida tutti i token)
-      if (client && client.auth) {
-        await client.auth.signOut({ scope: 'global' });
-      }
-    } catch (err) {
-      console.warn("Avviso durante signOut:", err);
-    } finally {
-      // 2. Svuota completamente LocalStorage e SessionStorage
-      localStorage.clear();
-      sessionStorage.clear();
-
-      // 3. Cancella manualmente tutti i cookie del dominio (spesso usati per la persistenza di Supabase)
-      document.cookie.split(";").forEach((c) => {
-        document.cookie = c
-          .replace(/^ +/, "")
-          .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-      });
-
-      // 4. Se la tua schermata di login ha un URL dedicato, inseriscila qui:
-      // es. window.location.href = "/login";
-      // Altrimenti ricarica la pagina forzando il refresh senza cache:
-      window.location.replace(window.location.origin);
-    }
-  }
-window.addEventListener('DOMContentLoaded', async () => {
-    // Verifica se esiste una sessione valida attiva su Supabase
+  /* VERIFICA SESSIONE ALL'AVVIO */
+  window.addEventListener('DOMContentLoaded', async () => {
     if (client && client.auth) {
       const { data: { session } } = await client.auth.getSession();
-      
-      // Se non c'è una sessione attiva, reindirizza al login o blocca l'accesso
-      if (!session) {
-        console.warn("Nessuna sessione attiva trovata.");
-        // Se hai una pagina di login dedicata, decommenta e inserisci il link:
-        // window.location.href = "/login";
-        // return;
+      if (session && session.user) {
+        document.getElementById('userLoggedNotice').innerText = `Operatore: ${session.user.email}`;
+        showDashboard();
+      } else {
+        showLogin();
       }
+    } else {
+      showLogin();
     }
-
-    // Se la sessione è valida (o se l'accesso è pubblico), mostra l'archivio
-    showDashboard();
   });
 </script>
 
