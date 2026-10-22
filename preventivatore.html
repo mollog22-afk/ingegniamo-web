@@ -593,7 +593,7 @@
           <th>Protocollo</th>
           <th>Committente</th>
           <th>Oggetto</th>
-          <th style="text-align: right;">Totale Offerta</th>
+          <th style="text-align: right;">Totale Netto (IVA/Cassa escl.)</th>
           <th style="text-align: center;">Azioni</th>
         </tr>
       </thead>
@@ -871,15 +871,17 @@
             </table>
           </div>
 
-          <!-- 5. QUADRO DI RIEPILOGO COMPLESSIVO -->
-        <div class="ledger-wrap" id="sec_summary_container" style="margin-top: 24px; display:none;">
+<!-- 5. QUADRO RIEPILOGATIVO COMPLESSIVO CON SCONTO E NETTO ESCLUSI ONERI -->
+<div class="ledger-wrap" id="sec_summary_container" style="margin-top: 24px; display:none;">
   <div style="font-weight: 800; color: var(--navy); margin-bottom: 8px; text-transform: uppercase; font-size: 0.8rem; border-bottom: 1px solid var(--border-dark); padding-bottom: 4px;">
     5. Quadro Riepilogativo Complessivo (Principale + Opzioni Scontate)
   </div>
   <div class="ledger-row"><span>Imponibile Principale Netto:</span><span id="sumNetMain">€ 0,00</span></div>
-  <div class="ledger-row"><span>Imponibile Prestazioni Opzionali:</span><span id="sumNetOpt">€ 0,00</span></div>
+  <div class="ledger-row"><span>Prestazioni Opzionali (Lordo Tariffa):</span><span id="sumOptGross">€ 0,00</span></div>
+  <div class="ledger-row" style="color: #b91c1c;"><span>Sconto applicato su opzioni (<span id="lblDiscountOpt">10</span>%):</span><span id="sumOptDiscount">- € 0,00</span></div>
+  <div class="ledger-row bold"><span>Imponibile Opzionali Netto:</span><span id="sumNetOpt">€ 0,00</span></div>
   
-  <div class="ledger-row final-due" style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px; margin-top: 8px;">
+  <div class="ledger-row final-due" style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px; margin-top: 10px;">
     <div style="display: flex; justify-content: space-between; width: 100%;">
       <span>TOTALE COMPLESSIVO CONCORDATO:</span>
       <span id="sumFinalTotal">€ 0,00</span>
@@ -1053,20 +1055,26 @@
       }
 
       tbody.innerHTML = '';
-      offersCache.forEach((item, index) => {
+ offersCache.forEach((item, index) => {
         const tr = document.createElement('tr');
         const dt = new Date(item.created_at).toLocaleDateString('it-IT');
         const prot = item.numero || (item.dettagli && item.dettagli.protocollo) || 'OFF-N/D';
         const cli = item.cliente || 'Committente non specificato';
         const sogg = item.oggetto || 'Prestazioni di Ingegneria';
-        const importoTot = item.totale ? formatEuro(item.totale) : (item.onorario_totale ? formatEuro(item.onorario_totale) : '€ 0,00');
+        
+        // Recupera l'imponibile netto evitando campi null o vuoti
+        const importoNettoVal = item.onorario_totale || item.totale || (item.dettagli && item.dettagli.totale_contrattuale) || 0;
+        const importoTot = formatEuro(importoNettoVal);
 
         tr.innerHTML = `
           <td>${dt}</td>
           <td><strong>${prot}</strong></td>
           <td>${cli}</td>
           <td>${sogg}</td>
-          <td style="text-align: right; font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #047857;">${importoTot}</td>
+          <td style="text-align: right; font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #047857;">
+            ${importoTot}
+            <div style="font-size: 0.65rem; color: #64748b; font-weight: normal;">(netto)</div>
+          </td>
           <td style="text-align: center; white-space: nowrap;">
             <button class="btn-load" onclick="loadOfferIntoEditor(${index})">Carica</button>
             <button class="btn-delete" style="margin-left:6px;" onclick="deleteOffer(${item.id}, '${prot}')">Elimina</button>
@@ -1342,25 +1350,26 @@ function roundToStep(amount, step = 50) {
     document.getElementById('sec_opt_container').style.display = (countOpt > 0) ? 'block' : 'none';
     document.getElementById('sec_summary_container').style.display = (countOpt > 0) ? 'block' : 'none';
 
-    let totalNetOverall = netTaxableMain;
-    let overallFinal = finalTotalMain;
+   let totalNetOverall = netTaxableMain;
 
-if (countOpt > 0) {
+    if (countOpt > 0) {
       const discountAmountOpt = optGrossSum * (discPercent / 100);
       const rawOptNetSum = optGrossSum - discountAmountOpt;
       
-      // Arrotondamento anche sull'opzionale e sul totale complessivo (es. ai 50 €)
       const optNetSum = roundToStep(rawOptNetSum, 50);
-      const totalNetOverall = roundToStep(netTaxableMain + optNetSum, 50);
+      totalNetOverall = roundToStep(netTaxableMain + optNetSum, 50);
 
       document.getElementById('sumNetMain').innerText = formatEuro(netTaxableMain);
+      document.getElementById('sumOptGross').innerText = formatEuro(optGrossSum);
+      document.getElementById('lblDiscountOpt').innerText = discPercent;
+      document.getElementById('sumOptDiscount').innerText = '- ' + formatEuro(discountAmountOpt);
       document.getElementById('sumNetOpt').innerText = formatEuro(optNetSum);
       document.getElementById('sumFinalTotal').innerText = formatEuro(totalNetOverall);
     }
 
-    const effectiveTotal = (countOpt > 0) ? overallFinal : finalTotalMain;
     const effectiveNet = (countOpt > 0) ? totalNetOverall : netTaxableMain;
 
+    // Aggiornamento payload salvataggio: salviamo l'imponibile netto sia su onorario_totale sia su totale
     globalOfferData = {
       cliente: clientName,
       numero: offerNum,
@@ -1369,10 +1378,10 @@ if (countOpt > 0) {
       tipo_opera: 'Opere Edili/Impiantistiche',
       importo_lavori: V_tot,
       onorario_totale: effectiveNet,
-      totale: effectiveTotal,
+      totale: effectiveNet,
       dettagli: {
         protocollo: offerNum,
-        totale_contrattuale: effectiveTotal,
+        totale_contrattuale: effectiveNet,
         committente_cf: clientFiscal,
         ubicazione: loc,
         legal_text: document.getElementById('inCustomLegalText').value,
