@@ -100,6 +100,51 @@
         <p class="mb-1 font-semibold text-slate-700">© 2026 Ingegniamo S.r.l. - Tutti i diritti riservati.</p>
         <p>P.IVA: 04033650781 | C.F.: 04033650781 | PEC: <a href="mailto:info@pec.ingegniamo.com" class="text-blue-600 underline">info@pec.ingegniamo.com</a> | Email: info@ingegniamo.com</p>
     </footer>
+<!-- ==================== BANNER COOKIE GDPR ==================== -->
+<div id="cookieBanner" class="fixed bottom-0 inset-x-0 z-50 p-4 sm:p-6 bg-slate-900/95 backdrop-blur-md text-white border-t border-slate-850 shadow-2xl transition-all duration-300">
+    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-4">
+        
+        <!-- Testo Informativo -->
+        <div class="text-xs sm:text-sm text-slate-300 space-y-1 text-center lg:text-left">
+            <p class="font-bold text-white text-sm">🍪 Gestione delle preferenze sui Cookie</p>
+            <p class="max-w-3xl leading-relaxed text-slate-300">
+                Utilizziamo cookie tecnici necessari al corretto funzionamento del sito e per garantire le funzioni di sicurezza. Con il tuo consenso, possiamo impiegare anche cookie analitici o di terze parti per migliorare l'esperienza di navigazione. Puoi accettare tutti i cookie, rifiutarli o gestire le preferenze. 
+                <a href="#" onclick="document.getElementById('privacyModal')?.classList.remove('hidden'); return false;" class="text-sky-400 underline hover:text-sky-300 ml-1">Leggi la Cookie Policy</a>.
+            </p>
+        </div>
 
+        <!-- Pulsanti di Scelta -->
+        <div class="flex flex-wrap items-center justify-center gap-2.5 flex-shrink-0">
+            <button onclick="salvaSceltaCookie('necessari')" class="px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition">
+                Rifiuta non necessari
+            </button>
+            <button onclick="salvaSceltaCookie('tutti')" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition shadow-md">
+                Accetta tutti
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Mostra il banner solo se l'utente non ha già scelto
+    function verificaConsensoCookie() {
+        const consenso = localStorage.getItem('ingegniamo_cookie_consent');
+        if (!consenso) {
+            document.getElementById('cookieBanner').style.display = 'block';
+        } else {
+            document.getElementById('cookieBanner').style.display = 'none';
+        }
+    }
+
+    // Salva la scelta nel browser e nasconde il banner
+    function salvaSceltaCookie(tipo) {
+        localStorage.setItem('ingegniamo_cookie_consent', tipo);
+        document.getElementById('cookieBanner').style.display = 'none';
+    }
+
+    // Esegui controllo al caricamento
+    document.addEventListener('DOMContentLoaded', verificaConsensoCookie);
+</script>
 </body>
 </html>
