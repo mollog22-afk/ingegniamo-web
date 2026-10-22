@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f172a">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
     <title>Ingegniamo | Società di Ingegneria Termotecnica, Elettrica, BIM & Antincendio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,7 +46,23 @@
                     Contatta lo Studio
                 </a>
             </nav>
+            <button id="mobileMenuBtn" aria-label="Menu" class="md:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100 transition">
+    <svg id="menuIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+    <svg id="closeIcon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+</button>
         </div>
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-b border-slate-200 px-6 py-5 space-y-3 font-semibold shadow-xl">
+    <a href="#servizi" class="block text-slate-800 hover:text-blue-600 py-1" onclick="toggleMenu()">Servizi MEP & BIM</a>
+    <a href="#antincendio" class="block text-slate-800 hover:text-blue-600 py-1" onclick="toggleMenu()">Progettazione Antincendio</a>
+    <a href="CT30/index.html" class="block text-slate-800 hover:text-blue-600 py-1">Configuratore Conto Termico</a>
+    <a href="formazione.html" class="block text-slate-500 hover:text-slate-900 py-1">Academy Formazione →</a>
+    <a href="preventivatore.html" class="block text-blue-600 py-1">Area Preventivi 🔒</a>
+    <a href="#contatto" class="block text-center w-full bg-black text-white py-3 rounded-xl font-bold mt-2" onclick="toggleMenu()">Contatta lo Studio</a>
+</div>
     </header>
 
     <!-- HERO SECTION -->
@@ -54,9 +73,9 @@
                 <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 text-slate-800 font-semibold text-xs mb-4">
                     🏢 Divisione Progettazione Integrata, BIM & Prevenzione Incendi
                 </span>
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-950 leading-tight">
-                    Ingegneria MEP, BIM & Antincendio ad <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-800">Alta Precisione.</span>
-                </h1>
+                <h1 class="hero-title font-black tracking-tight text-slate-950">
+    Ingegneria MEP, BIM & Antincendio ad <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-800">Alta Precisione.</span>
+</h1>
                 <p class="text-base sm:text-lg text-slate-600 mt-4 leading-relaxed">
                     Sviluppiamo progetti impiantistici complessi (HVAC, elettrico MT/BT, fotovoltaico, reti antincendio e pratiche VVF) con modellazione digitale BIM e coordinamento multidisciplinare.
                 </p>
@@ -187,6 +206,20 @@
 
     <!-- WIDGET ASSISTENTE AI / LIVE CHAT -->
     <script src="//code.tidio.co/emisqwjtuzbmugypzdbez2tyikqtihgl.js" async></script>
+    <script>
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuIcon = document.getElementById('menuIcon');
+    const closeIcon = document.getElementById('closeIcon');
+
+    function toggleMenu() {
+        const isHidden = mobileMenu.classList.toggle('hidden');
+        menuIcon.classList.toggle('hidden', !isHidden);
+        closeIcon.classList.toggle('hidden', isHidden);
+    }
+
+    mobileMenuBtn.addEventListener('click', toggleMenu);
+</script>
 
 </body>
 </html>
