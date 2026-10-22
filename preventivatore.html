@@ -1063,8 +1063,10 @@
         const sogg = item.oggetto || 'Prestazioni di Ingegneria';
         
         // Recupera l'imponibile netto evitando campi null o vuoti
-        const importoNettoVal = item.onorario_totale || item.totale || (item.dettagli && item.dettagli.totale_contrattuale) || 0;
-        const importoTot = formatEuro(importoNettoVal);
+        const rawVal = parseFloat(item.onorario_totale || item.totale || (item.dettagli && item.dettagli.totale_contrattuale) || 0);
+// Arrotonda al multiplo di 50 € (es. 24.999,92 -> 25.000 €; 15.001,10 -> 15.000 €; 58.625,02 -> 58.600 € o 58.650 €)
+const importoNettoVal = roundToStep(rawVal, 50);
+const importoTot = formatEuro(importoNettoVal);
 
         tr.innerHTML = `
           <td>${dt}</td>
